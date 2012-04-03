@@ -12,6 +12,7 @@
 #include <list>
 #include "../Constantes.h"
 
+
 using namespace std;
 
 class Diagrama: public Gtk::DrawingArea {
@@ -34,8 +35,11 @@ private:
 	 * Se lanza cada vez que el mouse interactua con la hoja soltando alguno de sus botones
 	 */
 	bool on_button_release_event(GdkEventButton* event);
+
+	friend class TreePanel;
+
 public:
-	Diagrama();
+	Diagrama(string nom);
 	virtual ~Diagrama();
 
 	inline string getNombre() {
@@ -44,6 +48,8 @@ public:
 	inline void setNombre(string nom) {
 		this->nombre = nom;
 	}
+
+	bool crearSubdiagrama(string nombre);
 };
 
 #endif /* DIAGRAMA_H_ */

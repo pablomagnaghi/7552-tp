@@ -7,7 +7,12 @@
 
 #ifndef TREEPANEL_H_
 #define TREEPANEL_H_
+
 #include "Proyecto.h"
+#include <iostream>
+using namespace std;
+
+class Proyecto;
 
 class TreePanel : Gtk::TreeView{
 private:

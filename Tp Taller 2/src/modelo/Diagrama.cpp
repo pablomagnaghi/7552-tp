@@ -7,7 +7,7 @@
 
 #include "Diagrama.h"
 
-Diagrama::Diagrama() {
+Diagrama::Diagrama(string nom) : nombre(nom) {
 	this->set_size_request(A4_ANCHO, A4_ALTO);
 }
 
@@ -57,4 +57,9 @@ bool Diagrama::on_button_release_event(GdkEventButton* event){
 	int accion = this->panelAcciones->getBotonSeleccionado();
 	(this->*acciones[accion])(event);
 	return true;*/
+}
+
+bool Diagrama::crearSubdiagrama(string nombre){
+	Diagrama* diag = new Diagrama(nombre);
+	this->l_sub_diagramas.push_back(diag);
 }
