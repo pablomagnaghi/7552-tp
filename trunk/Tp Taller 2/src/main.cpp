@@ -6,6 +6,7 @@
  */
 
 #include "modelo/Ide.h"
+#include "Constantes.h"
 #include <iostream>
 
 int main(int argc, char *argv[]){
@@ -13,7 +14,7 @@ int main(int argc, char *argv[]){
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 	  try
 	  {
-	    builder->add_from_file(ARCH_GLADE_DISENIADOR);
+	    builder->add_from_file(ARCH_GLADE_IDE);
 	  }
 	  catch(const Glib::FileError& ex)
 	  {
@@ -35,7 +36,7 @@ int main(int argc, char *argv[]){
 		  Gtk::Main::run(*ide);
 	  }
 
-	  delete diseniador;
+	  delete ide;
 
 	  return 0;
 }
