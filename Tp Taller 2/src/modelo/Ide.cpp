@@ -7,11 +7,26 @@
 
 #include "Ide.h"
 
-Ide::Ide() {
-	// TODO Auto-generated constructor stub
+Ide::Ide(BaseObjectType* cobject,
+		const Glib::RefPtr<Gtk::Builder>& builder) :
+	Gtk::Window(cobject), m_builder(builder){
+	this->maximize();
+	this->show();
+	this->testCargarProyecto();
 
 }
 
 Ide::~Ide() {
 	// TODO Auto-generated destructor stub
+}
+
+void Ide::abrir_proyecto(string path){
+
+}
+void Ide::guardar_proyecto(){
+
+}
+
+void Ide::testCargarProyecto(){
+	this->proyecto = new Proyecto(this->m_builder);
 }
