@@ -13,12 +13,23 @@
 #include <string>
 #include "../Constantes.h"
 using namespace std;
+
+class TreePanel;
+
 class Proyecto {
 private:
 	string nombre;
 	Diagrama d_principal;
+
+	TreePanel* treePanel;
+
 	const Glib::RefPtr<Gtk::Builder>& Ide_builder;
 	void cargarDprincipal();
+
+	void testCargarDiagramas();
+
+	friend class TreePanel;
+
 public:
 	Proyecto(const Glib::RefPtr<Gtk::Builder>& builder);
 	virtual ~Proyecto();

@@ -6,9 +6,12 @@
  */
 
 #include "Proyecto.h"
+#include "TreePanel.h"
 
 Proyecto::Proyecto(const Glib::RefPtr<Gtk::Builder>& builder) :
-Ide_builder(builder){
+Ide_builder(builder), d_principal("Principal") {
+	this ->treePanel = new TreePanel(this);
+	this->testCargarDiagramas();
 	this->cargarDprincipal();
 }
 
@@ -22,4 +25,10 @@ void Proyecto::cargarDprincipal(){
 	contenedorDiag->set_size_request(A4_ANCHO, A4_ALTO);
 	contenedorDiag->put(this->d_principal, 0, 0);
 	this->d_principal.show();
+}
+
+
+void Proyecto::testCargarDiagramas(){
+	this->d_principal.crearSubdiagrama("Sub Diag Prueba1");
+	this->d_principal.crearSubdiagrama("Sub Diag Prueba2");
 }

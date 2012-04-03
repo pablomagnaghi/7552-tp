@@ -7,8 +7,9 @@
 
 #include "TreePanel.h"
 
+
 TreePanel::TreePanel(Proyecto* proy) : proyecto(proy){
-	// TODO Auto-generated constructor stub
+
 
 }
 
