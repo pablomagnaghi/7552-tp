@@ -13,6 +13,7 @@
 
 #define A4_ANCHO 794
 #define A4_ALTO 1123
+#define MAX_HPAD 300
 
 
 #endif /* CONSTANTES_H_ */

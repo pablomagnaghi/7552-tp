@@ -10,10 +10,8 @@
 Ide::Ide(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& builder) :
 	Gtk::Window(cobject), m_builder(builder){
-
 	this->maximize();
 	this->show();
-	cout<<"leggo"<<endl;
 	this->testCargarProyecto();
 
 }

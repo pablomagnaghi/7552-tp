@@ -156,15 +156,16 @@
           <object class="GtkHPaned" id="hpaned1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="position">100</property>
+            <property name="position">300</property>
+            <property name="position_set">True</property>
             <child>
-              <object class="GtkViewport" id="viewport2">
+              <object class="GtkScrolledWindow" id="scroll_treePanel">
                 <property name="visible">True</property>
-                <property name="resize_mode">queue</property>
+                <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <object class="GtkLayout" id="contenedor_treePanel">
-                    <property name="visible">True</property>
-                  </object>
+                  <placeholder/>
                 </child>
               </object>
               <packing>

@@ -10,8 +10,10 @@
 
 Proyecto::Proyecto(const Glib::RefPtr<Gtk::Builder>& builder) :
 Ide_builder(builder), d_principal("Principal") {
-	this ->treePanel = new TreePanel(this);
+	//Prueba
 	this->testCargarDiagramas();
+	//
+	this->treePanel = new TreePanel(this);
 	this->cargarDprincipal();
 }
 
