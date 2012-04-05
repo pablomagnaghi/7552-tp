@@ -37,7 +37,7 @@ private:
 	bool on_button_release_event(GdkEventButton* event);
 
 	friend class TreePanel;
-
+	friend class Proyecto;
 public:
 	Diagrama(string nom);
 	virtual ~Diagrama();

@@ -32,5 +32,6 @@ void Proyecto::cargarDprincipal(){
 
 void Proyecto::testCargarDiagramas(){
 	this->d_principal.crearSubdiagrama("Sub Diag Prueba1");
+	(*(this->d_principal.l_sub_diagramas.begin()))->crearSubdiagrama("SUB SUB DIAG 1");
 	this->d_principal.crearSubdiagrama("Sub Diag Prueba2");
 }

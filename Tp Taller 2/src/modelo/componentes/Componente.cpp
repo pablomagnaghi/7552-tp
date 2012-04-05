@@ -46,3 +46,7 @@ void Componente::setDibujable(bool d){
 bool Componente::getDibujable(){
 	return this->dibujable;
 }
+
+string Componente::getNombre()const{
+	return this->nombre;
+}
