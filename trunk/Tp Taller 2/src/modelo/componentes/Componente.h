@@ -22,7 +22,7 @@ protected:
 	double pos_selec_y;
 	bool dibujable;
 	Gtk::Menu* m_pMenuPopup;
-
+	string nombre;
 public:
 	Componente();
 	virtual ~Componente();
@@ -33,6 +33,7 @@ public:
 	virtual void setposfin(double x, double y);
 	void setDibujable(bool d);
 	bool getDibujable();
+	string getNombre()const;
 
 	/*
 	 * Dibuja el objeto en el contexto cairo pasado como parametro.

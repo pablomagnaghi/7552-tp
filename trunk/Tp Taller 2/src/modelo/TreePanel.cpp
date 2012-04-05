@@ -14,7 +14,37 @@ TreePanel::TreePanel(Proyecto* proy){
 }
 
 void TreePanel::regenerar(){
-//TODO
+	Diagrama *principal = &(this->proyecto->d_principal);
+	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
+	row[this->m_Columnas.m_col_Nombre] = principal->nombre;
+	this->regenerarRecur(principal, &row);
+}
+
+void TreePanel::regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row) {
+	//primero cargo los componentes de ese diag y luego los diag hijos
+	if (diag->l_componentes.size() > 0) {
+		list<Componente*>::iterator it1 = diag->l_componentes.begin();
+		list<Componente*>::iterator it2 = diag->l_componentes.end();
+		while (it1 != it2) {
+			Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
+					row->children()));
+			rowSec[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
+			it1++;
+		}
+	}
+	if (diag->l_sub_diagramas.size() > 0) {
+		//cargo el sub diagrama y lurgo regenerar recur sobre ese
+		list<Diagrama*>::iterator it1 = diag->l_sub_diagramas.begin();
+		list<Diagrama*>::iterator it2 = diag->l_sub_diagramas.end();
+		while (it1 != it2) {
+			Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
+					row->children()));
+			rowSec[this->m_Columnas.m_col_Nombre] = (*it1)->nombre;
+			this->regenerarRecur(*it1, &rowSec);
+			it1++;
+		}
+	}
+
 }
 
 TreePanel::~TreePanel() {
@@ -23,18 +53,13 @@ TreePanel::~TreePanel() {
 
 
 void TreePanel::enlazarWidgets(){
-	cout<<"PASSA"<<endl;
-
 	Gtk::ScrolledWindow* sTpanel;
 	this->proyecto->Ide_builder->get_widget("scroll_treePanel",
 				sTpanel);
-
 	this->refTreeModel = Gtk::TreeStore::create(this->m_Columnas);
 	this->treeView.set_model(this->refTreeModel);
-	this->treeView.append_column("", this->m_Columnas.m_col_Nombre);
+	this->treeView.append_column("Componentes", this->m_Columnas.m_col_Nombre);
 	sTpanel->add(this->treeView);
-	this->treeView.set_size_request(500,500);
 	this->treeView.show();
-
 	this->regenerar();
 }

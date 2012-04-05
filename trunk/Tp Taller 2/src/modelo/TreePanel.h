@@ -35,6 +35,7 @@ private:
 	Gtk::TreeView treeView;
 	Proyecto* proyecto;
 	void enlazarWidgets();
+	void regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row);
 public:
 	TreePanel(Proyecto* proy);
 	virtual ~TreePanel();
