@@ -9,6 +9,7 @@
 
 
 TreePanel::TreePanel(Proyecto* proy){
+	add_events(Gdk::ALL_EVENTS_MASK);
 	this->proyecto = proy;
 	this->enlazarWidgets();
 }
@@ -57,9 +58,25 @@ void TreePanel::enlazarWidgets(){
 	this->proyecto->Ide_builder->get_widget("scroll_treePanel",
 				sTpanel);
 	this->refTreeModel = Gtk::TreeStore::create(this->m_Columnas);
-	this->treeView.set_model(this->refTreeModel);
-	this->treeView.append_column("Componentes", this->m_Columnas.m_col_Nombre);
-	sTpanel->add(this->treeView);
-	this->treeView.show();
+	this->set_model(this->refTreeModel);
+	this->append_column("Componentes", this->m_Columnas.m_col_Nombre);
+	sTpanel->add(*this);
+	this->show();
 	this->regenerar();
 }
+
+bool TreePanel::on_button_press_event(GdkEventButton* event){
+	Gtk::TreeView::on_button_press_event(event);
+	if (event->type ==  GDK_2BUTTON_PRESS){
+		Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =this->get_selection();
+		Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
+		if(iter) //If anything is selected
+		{
+		  //Gtk::TreeModel::Row row = *iter;
+		  //this->refTreeModel->erase(iter);
+		}
+	}
+
+	return true;
+}
+

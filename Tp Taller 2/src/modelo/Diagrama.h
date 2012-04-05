@@ -18,6 +18,9 @@ using namespace std;
 class Diagrama: public Gtk::DrawingArea {
 private:
 	string nombre;
+	double zoom;
+	int ancho;
+	int alto;
 	list<Diagrama*> l_sub_diagramas;
 	list<Componente*> l_componentes;
 
@@ -49,7 +52,12 @@ public:
 		this->nombre = nom;
 	}
 
-	bool crearSubdiagrama(string nombre);
+	Diagrama* crearSubdiagrama(string nombre);
+
+	void setZoom(double z);
+
+	int getAlto();
+	int getAncho();
 };
 
 #endif /* DIAGRAMA_H_ */
