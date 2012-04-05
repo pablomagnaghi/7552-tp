@@ -17,7 +17,7 @@ class Proyecto;
 
 typedef GtkRequisition Requisition;
 
-class TreePanel{
+class TreePanel : Gtk::TreeView{
 private:
 	//Tree model columns:
 	class ModeloColumnas: public Gtk::TreeModel::ColumnRecord {
@@ -32,10 +32,10 @@ private:
 
 	ModeloColumnas m_Columnas;
 	Glib::RefPtr<Gtk::TreeStore> refTreeModel;
-	Gtk::TreeView treeView;
 	Proyecto* proyecto;
 	void enlazarWidgets();
 	void regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row);
+	virtual bool on_button_press_event(GdkEventButton* event);
 public:
 	TreePanel(Proyecto* proy);
 	virtual ~TreePanel();

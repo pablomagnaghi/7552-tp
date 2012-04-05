@@ -14,24 +14,25 @@ Ide_builder(builder), d_principal("Principal") {
 	this->testCargarDiagramas();
 	//
 	this->treePanel = new TreePanel(this);
-	this->cargarDprincipal();
+	this->cargarDiagrama(&this->d_principal);
 }
 
 Proyecto::~Proyecto() {
 	// TODO Auto-generated destructor stub
 }
 
-void Proyecto::cargarDprincipal(){
+void Proyecto::cargarDiagrama(Diagrama* diagrama){
 	Gtk::Layout* contenedorDiag;
 	this->Ide_builder->get_widget("contenedor_diag", contenedorDiag);
-	contenedorDiag->set_size_request(A4_ANCHO, A4_ALTO);
-	contenedorDiag->put(this->d_principal, 0, 0);
-	this->d_principal.show();
+	contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
+	contenedorDiag->put(*diagrama, 0, 0);
+	diagrama->show();
 }
 
 
 void Proyecto::testCargarDiagramas(){
 	this->d_principal.crearSubdiagrama("Sub Diag Prueba1");
 	(*(this->d_principal.l_sub_diagramas.begin()))->crearSubdiagrama("SUB SUB DIAG 1");
-	this->d_principal.crearSubdiagrama("Sub Diag Prueba2");
+	Diagrama *diag = this->d_principal.crearSubdiagrama("Sub Diag Prueba2 0.75");
+	diag->setZoom(0.75);
 }

@@ -21,10 +21,12 @@ private:
 	string nombre;
 	Diagrama d_principal;
 
+	Diagrama *diag_actual;
+
 	TreePanel* treePanel;
 
 	const Glib::RefPtr<Gtk::Builder>& Ide_builder;
-	void cargarDprincipal();
+	void cargarDiagrama(Diagrama* diagrama);
 
 	void testCargarDiagramas();
 

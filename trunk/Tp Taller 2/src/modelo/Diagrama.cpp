@@ -8,7 +8,10 @@
 #include "Diagrama.h"
 
 Diagrama::Diagrama(string nom) : nombre(nom) {
-	this->set_size_request(A4_ANCHO, A4_ALTO);
+	this->zoom = ZOOM_DEFECTO;
+	int ancho = A4_ANCHO * zoom;
+	int alto = A4_ALTO * zoom;
+	this->set_size_request(ancho,alto);
 }
 
 Diagrama::~Diagrama() {
@@ -17,6 +20,9 @@ Diagrama::~Diagrama() {
 
 
 bool Diagrama::on_expose_event(GdkEventExpose* e){
+	int ancho = A4_ANCHO * zoom;
+	int alto = A4_ALTO * zoom;
+	this->set_size_request(ancho,alto);
 	Cairo::RefPtr<Cairo::Context> cr = this->get_window()->create_cairo_context();
 	cr->set_source_rgba(1, 1, 1, 1);   // white
 	cr->paint();
@@ -59,7 +65,24 @@ bool Diagrama::on_button_release_event(GdkEventButton* event){
 	return true;*/
 }
 
-bool Diagrama::crearSubdiagrama(string nombre){
+Diagrama* Diagrama::crearSubdiagrama(string nombre){
 	Diagrama* diag = new Diagrama(nombre);
 	this->l_sub_diagramas.push_back(diag);
+	return diag;
+}
+
+void Diagrama::setZoom(double z){
+	if ((z >= ZOOM_MIN) && (z<=ZOOM_MAX)){
+		this->zoom = z;
+		this->ancho = A4_ANCHO * z;
+		this->alto = A4_ALTO * z;
+	}
+}
+
+int Diagrama::getAlto(){
+	return this->alto;
+}
+
+int Diagrama::getAncho(){
+	return this->ancho;
 }

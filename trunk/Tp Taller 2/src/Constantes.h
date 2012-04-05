@@ -14,6 +14,8 @@
 #define A4_ANCHO 794
 #define A4_ALTO 1123
 #define MAX_HPAD 300
-
+#define ZOOM_DEFECTO 1
+#define ZOOM_MIN 0.1
+#define ZOOM_MAX 1.2
 
 #endif /* CONSTANTES_H_ */
