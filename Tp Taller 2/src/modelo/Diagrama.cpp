@@ -9,9 +9,9 @@
 
 Diagrama::Diagrama(string nom) : nombre(nom) {
 	this->zoom = ZOOM_DEFECTO;
-	int ancho = A4_ANCHO * zoom;
-	int alto = A4_ALTO * zoom;
-	this->set_size_request(ancho,alto);
+	this->ancho = A4_ANCHO * zoom;
+	this->alto = A4_ALTO * zoom;
+	this->set_size_request(this->ancho,this->alto);
 }
 
 Diagrama::~Diagrama() {
@@ -20,9 +20,7 @@ Diagrama::~Diagrama() {
 
 
 bool Diagrama::on_expose_event(GdkEventExpose* e){
-	int ancho = A4_ANCHO * zoom;
-	int alto = A4_ALTO * zoom;
-	this->set_size_request(ancho,alto);
+	this->set_size_request(this->ancho,this->alto);
 	Cairo::RefPtr<Cairo::Context> cr = this->get_window()->create_cairo_context();
 	cr->set_source_rgba(1, 1, 1, 1);   // white
 	cr->paint();
