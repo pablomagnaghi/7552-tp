@@ -25,9 +25,15 @@ private:
 
 		ModeloColumnas() {
 			add(m_col_Nombre);
+			add(m_col_Diag_Pointer);
+			add(m_col_Comp_Pointer);
+			add(m_col_esDiag);
 		}
 
 		Gtk::TreeModelColumn<string> m_col_Nombre;
+		Gtk::TreeModelColumn<Diagrama*> m_col_Diag_Pointer;
+		Gtk::TreeModelColumn<Componente*> m_col_Comp_Pointer;
+		Gtk::TreeModelColumn<bool> m_col_esDiag;
 	};
 
 	ModeloColumnas m_Columnas;

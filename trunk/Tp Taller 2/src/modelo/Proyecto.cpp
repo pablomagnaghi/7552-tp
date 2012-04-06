@@ -14,6 +14,7 @@ Ide_builder(builder), d_principal("Principal") {
 	this->testCargarDiagramas();
 	//
 	this->treePanel = new TreePanel(this);
+	this->diag_actual = NULL;
 	this->cargarDiagrama(&this->d_principal);
 }
 
@@ -24,8 +25,14 @@ Proyecto::~Proyecto() {
 void Proyecto::cargarDiagrama(Diagrama* diagrama){
 	Gtk::Layout* contenedorDiag;
 	this->Ide_builder->get_widget("contenedor_diag", contenedorDiag);
+	//Primero tengo que sacar el diag actual
+	if (this->diag_actual != NULL){
+		contenedorDiag->remove(*(this->diag_actual));
+	}
+	cout<<"ANCHO:"<<diagrama->getAncho()<<"ALTO:"<<diagrama->getAlto()<<endl;
 	contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
 	contenedorDiag->put(*diagrama, 0, 0);
+	this->diag_actual = diagrama;
 	diagrama->show();
 }
 
