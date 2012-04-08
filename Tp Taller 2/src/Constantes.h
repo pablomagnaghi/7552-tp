@@ -8,8 +8,8 @@
 #ifndef CONSTANTES_H_
 #define CONSTANTES_H_
 
+//#define ARCH_GLADE_IDE "./Tp Taller 2/src/vista/IDE.glade"
 #define ARCH_GLADE_IDE "./src/vista/IDE.glade"
-
 
 #define A4_ANCHO 794
 #define A4_ALTO 1123
