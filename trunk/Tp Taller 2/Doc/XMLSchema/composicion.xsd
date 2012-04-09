@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="proyecto">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="diagrama_principal" type="tipo_diagrama" />
+			</xsd:sequence>
+			<xsd:attribute name="nombre" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- El diagrama es quien contiene la definicion de los elementos de los componentes (entidad, relacion y jerarquia).
+	 Entre los componentes solo existen referencias al nombre (el string) de otro componente.
+	 Debido a esto los nombres tienen que ser unicos para cada tipo de componente. -->
+
+	<xsd:complexType name="tipo_diagrama">
+		<xsd:sequence>
+			<xsd:element name="diagrama_hijo" type="tipo_diagrama" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="entidad" type="tipo_entidad" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="relacion" type="tipo_relacion" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="jerarquia" type="tipo_jerarquia" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="nombre" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="tipo_entidad">
+		<xsd:sequence>
+			<xsd:element name="atributo" type="tipo_atributo" minOccurs="1" maxOccurs="unbounded" />
+			<xsd:element name="identificador" type="tipo_identificador" minOccurs="1" maxOccurs="unbounded" />
+			<xsd:element name="relacion" type="xsd:string" minOccurs="0" maxOccurs="unbounded" /> 
+			<xsd:element name="jerarquia" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="nombre" type="xsd:string" />
+		<xsd:attribute name="tipo" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="tipo_relacion">
+		<xsd:sequence>
+			<xsd:element name="entidad" type="xsd:string" minOccurs="2" maxOccurs="unbounded" />
+			<xsd:element name="cardinalidad" type="xsd:string" minOccurs="2" maxOccurs="unbounded" />
+			<xsd:element name="atributo" type="tipo_atributo" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="nombre" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="tipo_jerarquia">
+		<xsd:sequence>
+			<xsd:element name="entidad_padre" type="xsd:string" />
+			<xsd:element name="entidad_hijo" type="xsd:string" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="nombre" type="xsd:string" />
+		<xsd:attribute name="cardinalidad" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="tipo_atributo">
+		<xsd:sequence>
+			<xsd:element name="atributo_hijo" type="tipo_atributo" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="nombre" type="xsd:string" />
+		<xsd:attribute name="tipo" type="xsd:string" /> <!-- TODO definir tipos para los atributos -->
+		<xsd:attribute name="cardinalidad" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="tipo_identificador">
+		<xsd:sequence>
+			<xsd:element name="atributo" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
+			<xsd:element name="relacion" type="xsd:string" minOccurs="0" maxOccurs="unbounded" /> <!-- en caso de entidades debiles -->
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>
+
