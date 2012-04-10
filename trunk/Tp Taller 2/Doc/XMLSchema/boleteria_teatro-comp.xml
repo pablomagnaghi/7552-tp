@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="composicion.xsd"
+	nombre="boleteria teatro">
+		
+	<entidad nombre="SeccionSala">
+		<atributo nombre="nroSecc" tipo="integer"/>
+		<atributo nombre="nomSecc" tipo="string"/>
+		<identificador>
+			<atributo>nroSecc</atributo>
+		</identificador>
+		<identificador>
+			<atributo>nomSecc</atributo>
+		</identificador>
+		<relacion>SL</relacion>
+	</entidad>
+	
+	<entidad nombre="Localidad">
+		<atributo nombre="fila" tipo="integer" />
+		<atributo nombre="nroButaca" tipo="integer" />
+		<identificador>
+			<atributo>fila</atributo>
+			<atributo>nroButaca</atributo>
+			<relacion>SL</relacion>
+		</identificador>
+		<relacion>SL</relacion>
+		<relacion>VtaLoc</relacion>
+	</entidad>
+	
+	<entidad nombre="Obra">
+		<atributo nombre="idObra" tipo="integer" />
+		<atributo nombre="titulo" tipo="string" />
+		<atributo nombre="autor" tipo="string" cardinalidad="(1,n)" />
+		<atributo nombre="director" tipo="string" cardinalidad="(1,n)" />
+		<atributo nombre="genero" tipo="string" />
+		<atributo nombre="nroProxFunc" tipo="integer" />
+		<identificador>
+			<atributo>idObra</atributo>
+		</identificador>
+		<identificador>
+			<atributo>titulo</atributo>
+		</identificador>  
+		<relacion>VtaLoc</relacion>
+		<relacion>FO</relacion>
+	</entidad>
+	
+	<entidad nombre="Funcion">
+		<atributo nombre="nroFunc" tipo="integer" />
+		<atributo nombre="fecha" tipo="date" />
+		<atributo nombre="hora" tipo="date" />
+		<identificador>
+			<atributo>nroFunc</atributo>
+			<relacion>FO</relacion>
+		</identificador>
+		<identificador>
+			<atributo>fecha</atributo>
+			<atributo>hora</atributo>
+			<relacion>FO</relacion>
+		</identificador>
+		<relacion>FO</relacion> 
+	</entidad>
+	
+	<relacion nombre="SL">
+		<entidad nombre="SeccionSala" cardinalidad="(1,n)" />
+		<entidad nombre="Localidad" cardinalidad="(1,1)" />
+	</relacion>
+	
+	<relacion nombre="VtaLoc">
+		<entidad nombre="Localidad" cardinalidad="(0,n)" />
+		<entidad nombre="Obra" cardinalidad="(0,n)" />
+		<atributo nombre="tarj" tipo="complex" cardinalidad="(0,1)">
+			<atributo_hijo nombre="nomTarj" tipo="string" />
+			<atributo_hijo nombre="bco" tipo="integer" />
+			<atributo_hijo nombre="nroTarj" tipo="integer" />
+			<atributo_hijo nombre="nroAutoriz" tipo="integer" />
+			<atributo_hijo nombre="cr" tipo="complex" cardinalidad="(0,1)">
+				<atributo_hijo nombre="cuotas" tipo="integer" />
+				<atributo_hijo nombre="int" tipo="integer" cardinalidad="(0,1)"/>
+			</atributo_hijo>
+		</atributo>
+	</relacion>
+	
+	<relacion nombre="FO">
+		<entidad nombre="Obra" cardinalidad="(0,n)"/>
+		<entidad nombre="Funcion" cardinalidad="(1,1)" />
+	</relacion>
+	
+</diagrama>
+
