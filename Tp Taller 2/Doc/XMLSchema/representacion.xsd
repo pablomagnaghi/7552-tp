@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-	<xsd:element name="diagrama" />
+	<xsd:element name="diagrama" type="tipo_diagrama" />
 
+	<xsd:complexType name="tipo_diagrama">
+		<xsd:sequence>
+			<xsd:element name="componente" type="tipo_componente" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="estado" type="tipo_estado_validacion" />
+	</xsd:complexType>
+	
+	<xsd:simpleType name="tipo_estado_validacion">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="sin_validar" />
+			<xsd:enumeration value="validado_con_observaciones" />
+			<xsd:enumeration value="validado" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="tipo_componente">
+		<xsd:sequence>
+			<xsd:element name="posicion" type="tipo_posicion" />
+			<xsd:element name="tamanio" type="tipo_tamanio" />
+			<xsd:element name="color" type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="tipo_posicion">
+		<xsd:attribute name="x" type="xsd:integer" use="required" />
+		<xsd:attribute name="y" type="xsd:integer" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="tipo_tamanio">
+		<xsd:attribute name="ancho" type="xsd:integer" use="required" />
+		<xsd:attribute name="alto" type="xsd:integer" use="required" />
+	</xsd:complexType>
 	
 </xsd:schema>
 

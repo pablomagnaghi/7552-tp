@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="representacion.xsd"
+	estado="sin_validar">
+
+	<componente codigo="1">
+		<posicion x="20" y="30" />
+		<tamanio ancho="10" alto="2" />
+		<color>negro</color>
+	</componente>		
+	
+</diagrama>
+
