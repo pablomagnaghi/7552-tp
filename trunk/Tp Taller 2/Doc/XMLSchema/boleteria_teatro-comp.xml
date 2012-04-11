@@ -3,9 +3,9 @@
 	xsi:noNamespaceSchemaLocation="composicion.xsd"
 	nombre="boleteria teatro">
 		
-	<entidad nombre="SeccionSala">
-		<atributo nombre="nroSecc" tipo="integer"/>
-		<atributo nombre="nomSecc" tipo="string"/>
+	<entidad codigo="1" nombre="SeccionSala" >
+		<atributo codigo="2" nombre="nroSecc" tipo="caracterizacion" composicion="simple"/>
+		<atributo codigo="3" nombre="nomSecc" tipo="caracterizacion" composicion="simple"/>
 		<identificador>
 			<atributo>nroSecc</atributo>
 		</identificador>
@@ -15,9 +15,9 @@
 		<relacion>SL</relacion>
 	</entidad>
 	
-	<entidad nombre="Localidad">
-		<atributo nombre="fila" tipo="integer" />
-		<atributo nombre="nroButaca" tipo="integer" />
+	<entidad codigo="4" nombre="Localidad">
+		<atributo codigo="5" nombre="fila" tipo="caracterizacion" composicion="simple" />
+		<atributo codigo="6" nombre="nroButaca" tipo="caracterizacion" composicion="simple" />
 		<identificador>
 			<atributo>fila</atributo>
 			<atributo>nroButaca</atributo>
@@ -27,13 +27,13 @@
 		<relacion>VtaLoc</relacion>
 	</entidad>
 	
-	<entidad nombre="Obra">
-		<atributo nombre="idObra" tipo="integer" />
-		<atributo nombre="titulo" tipo="string" />
-		<atributo nombre="autor" tipo="string" cardinalidad="(1,n)" />
-		<atributo nombre="director" tipo="string" cardinalidad="(1,n)" />
-		<atributo nombre="genero" tipo="string" />
-		<atributo nombre="nroProxFunc" tipo="integer" />
+	<entidad codigo="7" nombre="Obra">
+		<atributo codigo="8" nombre="idObra" tipo="caracterizacion" composicion="simple" />
+		<atributo codigo="9" nombre="titulo" tipo="caracterizacion" composicion="simple" />
+		<atributo codigo="10" nombre="autor" tipo="caracterizacion" composicion="simple" cardinalidad="(1,n)" />
+		<atributo codigo="11" nombre="director" tipo="caracterizacion" composicion="simple" cardinalidad="(1,n)" />
+		<atributo codigo="12" nombre="genero" tipo="caracterizacion" composicion="simple" />
+		<atributo codigo="13" nombre="nroProxFunc" tipo="caracterizacion" composicion="simple" />
 		<identificador>
 			<atributo>idObra</atributo>
 		</identificador>
@@ -44,10 +44,10 @@
 		<relacion>FO</relacion>
 	</entidad>
 	
-	<entidad nombre="Funcion">
-		<atributo nombre="nroFunc" tipo="integer" />
-		<atributo nombre="fecha" tipo="date" />
-		<atributo nombre="hora" tipo="date" />
+	<entidad codigo="14" nombre="Funcion">
+		<atributo codigo="15" nombre="nroFunc" tipo="caracterizacion" composicion="simple" />
+		<atributo codigo="16" nombre="fecha" tipo="caracterizacion" composicion="simple"/>
+		<atributo codigo="17" nombre="hora" tipo="caracterizacion" composicion="simple"/>
 		<identificador>
 			<atributo>nroFunc</atributo>
 			<relacion>FO</relacion>
@@ -60,27 +60,27 @@
 		<relacion>FO</relacion> 
 	</entidad>
 	
-	<relacion nombre="SL">
+	<relacion codigo="18" nombre="SL">
 		<entidad nombre="SeccionSala" cardinalidad="(1,n)" />
 		<entidad nombre="Localidad" cardinalidad="(1,1)" />
 	</relacion>
 	
-	<relacion nombre="VtaLoc">
+	<relacion codigo="21" nombre="VtaLoc">
 		<entidad nombre="Localidad" cardinalidad="(0,n)" />
 		<entidad nombre="Obra" cardinalidad="(0,n)" />
-		<atributo nombre="tarj" tipo="complex" cardinalidad="(0,1)">
-			<atributo_hijo nombre="nomTarj" tipo="string" />
-			<atributo_hijo nombre="bco" tipo="integer" />
-			<atributo_hijo nombre="nroTarj" tipo="integer" />
-			<atributo_hijo nombre="nroAutoriz" tipo="integer" />
-			<atributo_hijo nombre="cr" tipo="complex" cardinalidad="(0,1)">
-				<atributo_hijo nombre="cuotas" tipo="integer" />
-				<atributo_hijo nombre="int" tipo="integer" cardinalidad="(0,1)"/>
+		<atributo codigo="22" nombre="tarj" tipo="caracterizacion" composicion="compuesto" cardinalidad="(0,1)">
+			<atributo_hijo codigo="23" nombre="nomTarj" tipo="caracterizacion" composicion="simple" />
+			<atributo_hijo codigo="24" nombre="bco" tipo="caracterizacion" composicion="simple" />
+			<atributo_hijo codigo="25" nombre="nroTarj" tipo="caracterizacion" composicion="simple" />
+			<atributo_hijo codigo="26" nombre="nroAutoriz" tipo="caracterizacion" composicion="simple" />
+			<atributo_hijo codigo="27" nombre="cr" tipo="caracterizacion" composicion="compuesto" cardinalidad="(0,1)">
+				<atributo_hijo codigo="28" nombre="cuotas" tipo="caracterizacion" composicion="simple" />
+				<atributo_hijo codigo="29" nombre="int" tipo="caracterizacion" cardinalidad="(0,1)" composicion="simple" />
 			</atributo_hijo>
 		</atributo>
 	</relacion>
 	
-	<relacion nombre="FO">
+	<relacion codigo="30" nombre="FO">
 		<entidad nombre="Obra" cardinalidad="(0,n)"/>
 		<entidad nombre="Funcion" cardinalidad="(1,1)" />
 	</relacion>

@@ -5,9 +5,10 @@
 
 	<xsd:complexType name="tipo_diagrama">
 		<xsd:sequence>
-			<xsd:element name="diagrama_padre" type="xsd:string" minOccurs="0" />
+			<xsd:element name="diagrama_ancestro" type="xsd:string" minOccurs="0" />
 			<xsd:element name="diagrama_hijo" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
 			<xsd:element name="entidad" type="tipo_entidad" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="entidad_global" type="tipo_entidad_global" minOccurs="0" maxOccurs="unbounded" />
 			<xsd:element name="relacion" type="tipo_relacion" minOccurs="0" maxOccurs="unbounded" />
 			<xsd:element name="jerarquia" type="tipo_jerarquia" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
@@ -22,7 +23,14 @@
 			<xsd:element name="jerarquia" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="nombre" type="xsd:string" use="required" />
+		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
 		<xsd:attribute name="tipo" type="xsd:string" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="tipo_entidad_global">
+		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
+		<xsd:attribute name="nombre" type="xsd:string" use="required" />
+		<xsd:attribute name="diagrama_ancestro" type="xsd:string" use="required" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tipo_relacion">
@@ -30,16 +38,20 @@
 			<xsd:element name="entidad" type="tipo_entidad_cardinalidad" minOccurs="2" maxOccurs="unbounded" />
 			<xsd:element name="atributo" type="tipo_atributo" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
+		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
 		<xsd:attribute name="nombre" type="xsd:string" use="required" />
+		<xsd:attribute name="tipo" type="xsd:string" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tipo_jerarquia">
 		<xsd:sequence>
-			<xsd:element name="entidad_padre" type="xsd:string" />
-			<xsd:element name="entidad_hijo" type="xsd:string" maxOccurs="unbounded" />
+			<xsd:element name="entidad_general" type="xsd:string" />
+			<xsd:element name="entidad_especializada" type="xsd:string" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="nombre" type="xsd:string" use="required" />
-		<xsd:attribute name="cardinalidad" type="xsd:string" use="required" />
+		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
+		<xsd:attribute name="cobertura" type="tipo_cobertura" />
+		<xsd:attribute name="interseccion" type="tipo_interseccion" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tipo_atributo">
@@ -47,8 +59,11 @@
 			<xsd:element name="atributo_hijo" type="tipo_atributo" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="nombre" type="xsd:string" use="required" />
+		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
 		<xsd:attribute name="tipo" type="tipo_tipo_atributo" use="required" /> 
+		<xsd:attribute name="composicion" type="tipo_composicion_atributo" use="required" />
 		<xsd:attribute name="cardinalidad" type="xsd:string" />
+		<xsd:attribute name="expresion" type="xsd:string" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tipo_identificador">
@@ -60,18 +75,38 @@
 	
 	<xsd:simpleType name="tipo_tipo_atributo">
 		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="integer" />
-			<xsd:enumeration value="float" />
-			<xsd:enumeration value="string" />
-			<xsd:enumeration value="date" />
-			<xsd:enumeration value="complex" />
+			<xsd:enumeration value="caracterizacion" />
+			<xsd:enumeration value="derivado_copia" />
+			<xsd:enumeration value="derivado_calculo" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="tipo_composicion_atributo">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="simple" />
+			<xsd:enumeration value="compuesto" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	
 	<xsd:complexType name="tipo_entidad_cardinalidad">
 		<xsd:attribute name="nombre" type="xsd:string" use="required" />
-		<xsd:attribute name="cardinalidad" type="xsd:string" use="required" />
+		<xsd:attribute name="cardinalidad" type="xsd:string" />
+		<xsd:attribute name="rol" type="xsd:string" />
 	</xsd:complexType>
+	
+	<xsd:simpleType name="tipo_cobertura">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="total" />
+			<xsd:enumeration value="parcial" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="tipo_interseccion">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="exclusiva" />
+			<xsd:enumeration value="superpuesta" />
+		</xsd:restriction>
+	</xsd:simpleType>
 	
 </xsd:schema>
 
