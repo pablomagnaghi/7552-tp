@@ -3,86 +3,86 @@
 	xsi:noNamespaceSchemaLocation="composicion.xsd"
 	nombre="boleteria teatro">
 		
-	<entidad codigo="1" nombre="SeccionSala" >
-		<atributo codigo="2" nombre="nroSecc" tipo="caracterizacion" composicion="simple"/>
-		<atributo codigo="3" nombre="nomSecc" tipo="caracterizacion" composicion="simple"/>
+	<entidad_nueva codigo="1" nombre="SeccionSala" tipo="cosa" >
+		<atributo codigo="2" nombre="nroSecc" tipo="caracterizacion" />
+		<atributo codigo="3" nombre="nomSecc" tipo="caracterizacion" />
 		<identificador>
-			<atributo>nroSecc</atributo>
+			<atributo>2</atributo>
 		</identificador>
 		<identificador>
-			<atributo>nomSecc</atributo>
+			<atributo>3</atributo>
 		</identificador>
-		<relacion>SL</relacion>
-	</entidad>
+		<relacion>18</relacion>
+	</entidad_nueva>
 	
-	<entidad codigo="4" nombre="Localidad">
-		<atributo codigo="5" nombre="fila" tipo="caracterizacion" composicion="simple" />
-		<atributo codigo="6" nombre="nroButaca" tipo="caracterizacion" composicion="simple" />
+	<entidad_nueva codigo="4" nombre="Localidad" tipo="cosa">
+		<atributo codigo="5" nombre="fila" tipo="caracterizacion" />
+		<atributo codigo="6" nombre="nroButaca" tipo="caracterizacion" />
 		<identificador>
-			<atributo>fila</atributo>
-			<atributo>nroButaca</atributo>
-			<relacion>SL</relacion>
+			<atributo>5</atributo>
+			<atributo>6</atributo>
+			<relacion>18</relacion>
 		</identificador>
-		<relacion>SL</relacion>
-		<relacion>VtaLoc</relacion>
-	</entidad>
+		<relacion>18</relacion>
+		<relacion>21</relacion>
+	</entidad_nueva>
 	
-	<entidad codigo="7" nombre="Obra">
-		<atributo codigo="8" nombre="idObra" tipo="caracterizacion" composicion="simple" />
-		<atributo codigo="9" nombre="titulo" tipo="caracterizacion" composicion="simple" />
-		<atributo codigo="10" nombre="autor" tipo="caracterizacion" composicion="simple" cardinalidad="(1,n)" />
-		<atributo codigo="11" nombre="director" tipo="caracterizacion" composicion="simple" cardinalidad="(1,n)" />
-		<atributo codigo="12" nombre="genero" tipo="caracterizacion" composicion="simple" />
-		<atributo codigo="13" nombre="nroProxFunc" tipo="caracterizacion" composicion="simple" />
+	<entidad_nueva codigo="7" nombre="Obra" tipo="cosa">
+		<atributo codigo="8" nombre="idObra" tipo="caracterizacion" />
+		<atributo codigo="9" nombre="titulo" tipo="caracterizacion" />
+		<atributo codigo="10" nombre="autor" tipo="caracterizacion" cardinalidad_minima="1" cardinalidad_maxima="n" />
+		<atributo codigo="11" nombre="director" tipo="caracterizacion" cardinalidad_minima="1" cardinalidad_maxima="n" />
+		<atributo codigo="12" nombre="genero" tipo="caracterizacion"  />
+		<atributo codigo="13" nombre="nroProxFunc" tipo="copiado"  />
 		<identificador>
-			<atributo>idObra</atributo>
+			<atributo>8</atributo>
 		</identificador>
 		<identificador>
-			<atributo>titulo</atributo>
+			<atributo>9</atributo>
 		</identificador>  
-		<relacion>VtaLoc</relacion>
-		<relacion>FO</relacion>
-	</entidad>
+		<relacion>21</relacion>
+		<relacion>30</relacion>
+	</entidad_nueva>
 	
-	<entidad codigo="14" nombre="Funcion">
-		<atributo codigo="15" nombre="nroFunc" tipo="caracterizacion" composicion="simple" />
-		<atributo codigo="16" nombre="fecha" tipo="caracterizacion" composicion="simple"/>
-		<atributo codigo="17" nombre="hora" tipo="caracterizacion" composicion="simple"/>
+	<entidad_nueva codigo="14" nombre="Funcion" tipo="cosa">
+		<atributo codigo="15" nombre="nroFunc" tipo="caracterizacion" />
+		<atributo codigo="16" nombre="fecha" tipo="caracterizacion" />
+		<atributo codigo="17" nombre="hora" tipo="caracterizacion"/>
 		<identificador>
-			<atributo>nroFunc</atributo>
-			<relacion>FO</relacion>
+			<atributo>15</atributo>
+			<relacion>30</relacion>
 		</identificador>
 		<identificador>
-			<atributo>fecha</atributo>
-			<atributo>hora</atributo>
-			<relacion>FO</relacion>
+			<atributo>16</atributo>
+			<atributo>17</atributo>
+			<relacion>30</relacion>
 		</identificador>
-		<relacion>FO</relacion> 
-	</entidad>
+		<relacion>30</relacion> 
+	</entidad_nueva>
 	
 	<relacion codigo="18" nombre="SL">
-		<entidad nombre="SeccionSala" cardinalidad="(1,n)" />
-		<entidad nombre="Localidad" cardinalidad="(1,1)" />
+		<entidad codigo="1" cardinalidad_minima="1" cardinalidad_maxima="n" />
+		<entidad codigo="4" cardinalidad_minima="1" cardinalidad_maxima="1" />
 	</relacion>
 	
 	<relacion codigo="21" nombre="VtaLoc">
-		<entidad nombre="Localidad" cardinalidad="(0,n)" />
-		<entidad nombre="Obra" cardinalidad="(0,n)" />
-		<atributo codigo="22" nombre="tarj" tipo="caracterizacion" composicion="compuesto" cardinalidad="(0,1)">
-			<atributo_hijo codigo="23" nombre="nomTarj" tipo="caracterizacion" composicion="simple" />
-			<atributo_hijo codigo="24" nombre="bco" tipo="caracterizacion" composicion="simple" />
-			<atributo_hijo codigo="25" nombre="nroTarj" tipo="caracterizacion" composicion="simple" />
-			<atributo_hijo codigo="26" nombre="nroAutoriz" tipo="caracterizacion" composicion="simple" />
-			<atributo_hijo codigo="27" nombre="cr" tipo="caracterizacion" composicion="compuesto" cardinalidad="(0,1)">
-				<atributo_hijo codigo="28" nombre="cuotas" tipo="caracterizacion" composicion="simple" />
-				<atributo_hijo codigo="29" nombre="int" tipo="caracterizacion" cardinalidad="(0,1)" composicion="simple" />
-			</atributo_hijo>
+		<entidad codigo="4" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<entidad codigo="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<atributo codigo="22" nombre="tarj" tipo="caracterizacion" cardinalidad_minima="0" cardinalidad_maxima="1">
+			<atributo codigo="23" nombre="nomTarj" tipo="caracterizacion"  />
+			<atributo codigo="24" nombre="bco" tipo="caracterizacion"  />
+			<atributo codigo="25" nombre="nroTarj" tipo="caracterizacion"  />
+			<atributo codigo="26" nombre="nroAutoriz" tipo="caracterizacion"  />
+			<atributo codigo="27" nombre="cr" tipo="caracterizacion" cardinalidad_minima="0" cardinalidad_maxima="1" >
+				<atributo codigo="28" nombre="cuotas" tipo="caracterizacion"  />
+				<atributo codigo="29" nombre="int" tipo="calculado" expresion="cuotas*0.1" cardinalidad_minima="0" cardinalidad_maxima="1" />
+			</atributo>
 		</atributo>
 	</relacion>
 	
 	<relacion codigo="30" nombre="FO">
-		<entidad nombre="Obra" cardinalidad="(0,n)"/>
-		<entidad nombre="Funcion" cardinalidad="(1,1)" />
+		<entidad codigo="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<entidad codigo="14" cardinalidad_minima="1" cardinalidad_maxima="1" />
 	</relacion>
 	
 </diagrama>
