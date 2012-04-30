@@ -1,15 +1,15 @@
-/* Proyecto.cpp
+/* ControladorTreePanel.cpp
  *  Created on: 30/04/2012
  *      Author: Gonzalo Ferrero 89657
  */
 
-#include "Proyecto.h"
+#include "ControladorTreePanel.h"
 
-Proyecto::Proyecto() {
+ControladorTreePanel::ControladorTreePanel() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Proyecto::~Proyecto() {
+ControladorTreePanel::~ControladorTreePanel() {
 	// TODO Auto-generated destructor stub
 }

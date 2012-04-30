@@ -8,14 +8,14 @@
 #include "TreePanel.h"
 
 
-TreePanel::TreePanel(Proyecto* proy){
+TreePanel::TreePanel(VistaProyecto* proy){
 	add_events(Gdk::ALL_EVENTS_MASK);
 	this->proyecto = proy;
 	this->enlazarWidgets();
 }
 
 void TreePanel::regenerar(){
-	Diagrama *principal = &(this->proyecto->d_principal);
+	VistaDiagrama *principal = &(this->proyecto->d_principal);
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = principal->nombre;
 	row[this->m_Columnas.m_col_Diag_Pointer] = principal;
@@ -23,11 +23,11 @@ void TreePanel::regenerar(){
 	this->regenerarRecur(principal, &row);
 }
 
-void TreePanel::regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row) {
+void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
 	//primero cargo los componentes de ese diag y luego los diag hijos
 	if (diag->l_componentes.size() > 0) {
-		list<Componente*>::iterator it1 = diag->l_componentes.begin();
-		list<Componente*>::iterator it2 = diag->l_componentes.end();
+		list<VistaComponente*>::iterator it1 = diag->l_componentes.begin();
+		list<VistaComponente*>::iterator it2 = diag->l_componentes.end();
 		while (it1 != it2) {
 			Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
 					row->children()));
@@ -39,8 +39,8 @@ void TreePanel::regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row) {
 	}
 	if (diag->l_sub_diagramas.size() > 0) {
 		//cargo el sub diagrama y lurgo regenerar recur sobre ese
-		list<Diagrama*>::iterator it1 = diag->l_sub_diagramas.begin();
-		list<Diagrama*>::iterator it2 = diag->l_sub_diagramas.end();
+		list<VistaDiagrama*>::iterator it1 = diag->l_sub_diagramas.begin();
+		list<VistaDiagrama*>::iterator it2 = diag->l_sub_diagramas.end();
 		while (it1 != it2) {
 			Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
 					row->children()));
@@ -83,7 +83,7 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 			//Hay que distinguir entre diagramas y componentes
 			bool esDiagrama = (*iter)[this->m_Columnas.m_col_esDiag];
 			if (esDiagrama) {
-				Diagrama *diagPointer =
+				VistaDiagrama *diagPointer =
 						(*iter)[this->m_Columnas.m_col_Diag_Pointer];
 				this->proyecto->cargarDiagrama(diagPointer);
 			} else {
@@ -91,7 +91,7 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 				parentIter = (*iter)->parent();
 				//Se supone que tiene que ser un diagrama
 				if (((*parentIter)[this->m_Columnas.m_col_esDiag]) == true) {
-					Diagrama *diagPointer =
+					VistaDiagrama *diagPointer =
 							(*parentIter)[this->m_Columnas.m_col_Diag_Pointer];
 					this->proyecto->cargarDiagrama(diagPointer);
 				}

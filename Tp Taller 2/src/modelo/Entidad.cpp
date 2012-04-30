@@ -1,15 +1,15 @@
-/* Proyecto.cpp
+/* Entidad.cpp
  *  Created on: 30/04/2012
  *      Author: Gonzalo Ferrero 89657
  */
 
-#include "Proyecto.h"
+#include "Entidad.h"
 
-Proyecto::Proyecto() {
+Entidad::Entidad() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Proyecto::~Proyecto() {
+Entidad::~Entidad() {
 	// TODO Auto-generated destructor stub
 }

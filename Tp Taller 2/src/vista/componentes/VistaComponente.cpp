@@ -5,9 +5,9 @@
  *      Author: Guagnini Enzo 88325
  */
 
-#include "Componente.h"
+#include "VistaComponente.h"
 
-Componente::Componente() {
+VistaComponente::VistaComponente() {
 	this->setposfin(0,0);
 	this->setposini(0,0);
 	this->pos_selec_x = 0;
@@ -15,38 +15,38 @@ Componente::Componente() {
 	this->m_pMenuPopup = 0;
 }
 
-Componente::~Componente() {
+VistaComponente::~VistaComponente() {
 	// TODO Auto-generated destructor stub
 }
 
-void Componente::getposini(double&x, double&y)const{
+void VistaComponente::getposini(double&x, double&y)const{
 	x = this->pos_ini_x;
 	y = this->pos_ini_y;
 }
 
-void Componente::setposini(double x,double y){
+void VistaComponente::setposini(double x,double y){
 	this->pos_ini_x = x;
 	this->pos_ini_y = y;
 }
 
-void Componente::getposfin(double&x, double&y)const{
+void VistaComponente::getposfin(double&x, double&y)const{
 	x = this->pos_fin_x;
 	y = this->pos_fin_y;
 }
 
-void Componente::setposfin(double x,double y){
+void VistaComponente::setposfin(double x,double y){
 	this->pos_fin_x = x;
 	this->pos_fin_y = y;
 }
 
-void Componente::setDibujable(bool d){
+void VistaComponente::setDibujable(bool d){
 	this->dibujable = d;
 }
 
-bool Componente::getDibujable(){
+bool VistaComponente::getDibujable(){
 	return this->dibujable;
 }
 
-string Componente::getNombre()const{
+string VistaComponente::getNombre()const{
 	return this->nombre;
 }

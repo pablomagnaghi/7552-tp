@@ -28,5 +28,5 @@ void Ide::guardar_proyecto(){
 }
 
 void Ide::testCargarProyecto(){
-	this->proyecto = new Proyecto(this->m_builder);
+	this->proyecto = new VistaProyecto(this->m_builder);
 }

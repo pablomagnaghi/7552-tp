@@ -7,7 +7,7 @@
 
 #ifndef IDE_H_
 #define IDE_H_
-#include "Proyecto.h"
+#include "VistaProyecto.h"
 #include <gtkmm.h>
 #include <iostream>
 using namespace std;
@@ -16,7 +16,7 @@ class Ide : public Gtk::Window {
 private:
 	Glib::RefPtr<Gtk::Builder> m_builder;
 	//Posse un proyecto por vez
-	Proyecto* proyecto;
+	VistaProyecto* proyecto;
 
 public:
 	Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder);

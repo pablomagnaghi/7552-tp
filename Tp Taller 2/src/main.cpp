@@ -5,8 +5,8 @@
  *      Author: metal
  */
 
-#include "modelo/Ide.h"
-#include "Constantes.h"
+#include "vista/Ide.h"
+#include "vista/VistaConstantes.h"
 #include <iostream>
 
 int main(int argc, char *argv[]){

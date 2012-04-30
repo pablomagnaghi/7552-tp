@@ -1,15 +1,15 @@
-/* Proyecto.cpp
+/* Jerarquia.cpp
  *  Created on: 30/04/2012
  *      Author: Gonzalo Ferrero 89657
  */
 
-#include "Proyecto.h"
+#include "Jerarquia.h"
 
-Proyecto::Proyecto() {
+Jerarquia::Jerarquia() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Proyecto::~Proyecto() {
+Jerarquia::~Jerarquia() {
 	// TODO Auto-generated destructor stub
 }

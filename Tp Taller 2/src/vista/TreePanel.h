@@ -8,12 +8,12 @@
 #ifndef TREEPANEL_H_
 #define TREEPANEL_H_
 
-#include "Proyecto.h"
+#include "VistaProyecto.h"
 #include <iostream>
-#include "../Constantes.h"
+#include "VistaConstantes.h"
 using namespace std;
 
-class Proyecto;
+class VistaProyecto;
 
 typedef GtkRequisition Requisition;
 
@@ -31,19 +31,19 @@ private:
 		}
 
 		Gtk::TreeModelColumn<string> m_col_Nombre;
-		Gtk::TreeModelColumn<Diagrama*> m_col_Diag_Pointer;
-		Gtk::TreeModelColumn<Componente*> m_col_Comp_Pointer;
+		Gtk::TreeModelColumn<VistaDiagrama*> m_col_Diag_Pointer;
+		Gtk::TreeModelColumn<VistaComponente*> m_col_Comp_Pointer;
 		Gtk::TreeModelColumn<bool> m_col_esDiag;
 	};
 
 	ModeloColumnas m_Columnas;
 	Glib::RefPtr<Gtk::TreeStore> refTreeModel;
-	Proyecto* proyecto;
+	VistaProyecto* proyecto;
 	void enlazarWidgets();
-	void regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row);
+	void regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row);
 	virtual bool on_button_press_event(GdkEventButton* event);
 public:
-	TreePanel(Proyecto* proy);
+	TreePanel(VistaProyecto* proy);
 	virtual ~TreePanel();
 	void regenerar();
 };
