@@ -12,7 +12,7 @@
 #include <string>
 using namespace std;
 
-class Componente {
+class VistaComponente {
 protected:
 	double pos_ini_x;
 	double pos_ini_y;
@@ -24,8 +24,8 @@ protected:
 	Gtk::Menu* m_pMenuPopup;
 	string nombre;
 public:
-	Componente();
-	virtual ~Componente();
+	VistaComponente();
+	virtual ~VistaComponente();
 
 	void getposini(double &x, double&y) const;
 	void setposini(double x, double y);

@@ -1,15 +1,15 @@
-/* Proyecto.cpp
+/* ControladorMenu.cpp
  *  Created on: 30/04/2012
  *      Author: Gonzalo Ferrero 89657
  */
 
-#include "Proyecto.h"
+#include "ControladorMenu.h"
 
-Proyecto::Proyecto() {
+ControladorMenu::ControladorMenu() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Proyecto::~Proyecto() {
+ControladorMenu::~ControladorMenu() {
 	// TODO Auto-generated destructor stub
 }

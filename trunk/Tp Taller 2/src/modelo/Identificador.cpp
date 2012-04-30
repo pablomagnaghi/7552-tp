@@ -1,15 +1,15 @@
-/* Proyecto.cpp
+/* Identificador.cpp
  *  Created on: 30/04/2012
  *      Author: Gonzalo Ferrero 89657
  */
 
-#include "Proyecto.h"
+#include "Identificador.h"
 
-Proyecto::Proyecto() {
+Identificador::Identificador() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Proyecto::~Proyecto() {
+Identificador::~Identificador() {
 	// TODO Auto-generated destructor stub
 }

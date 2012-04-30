@@ -7,10 +7,10 @@
 
 #ifndef ATRIBUTO_H_
 #define ATRIBUTO_H_
-#include "Componente.h"
+#include "VistaComponente.h"
 #include <list>
 
-class Atributo : public Componente  {
+class Atributo : public VistaComponente  {
 private:
 	string nombre;
 	list<Atributo*> l_atrib_deri;

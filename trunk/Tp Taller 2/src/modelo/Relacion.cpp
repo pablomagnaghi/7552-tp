@@ -1,15 +1,15 @@
-/* Proyecto.cpp
+/* Relacion.cpp
  *  Created on: 30/04/2012
  *      Author: Gonzalo Ferrero 89657
  */
 
-#include "Proyecto.h"
+#include "Relacion.h"
 
-Proyecto::Proyecto() {
+Relacion::Relacion() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Proyecto::~Proyecto() {
+Relacion::~Relacion() {
 	// TODO Auto-generated destructor stub
 }

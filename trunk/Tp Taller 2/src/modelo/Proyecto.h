@@ -1,43 +1,22 @@
-/*
- * Proyecto.h
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
+/* Proyecto.h
+ *  Created on: 30/04/2012
+ *      Author: Gonzalo Ferrero 89657
  */
-
 #ifndef PROYECTO_H_
 #define PROYECTO_H_
 
 #include "Diagrama.h"
-#include <list>
+#include <vector>
 #include <string>
-#include "../Constantes.h"
-using namespace std;
-
-class TreePanel;
 
 class Proyecto {
 private:
-	string nombre;
-	Diagrama d_principal;
-
-	Diagrama *diag_actual;
-
-	TreePanel* treePanel;
-
-	const Glib::RefPtr<Gtk::Builder>& Ide_builder;
-	void cargarDiagrama(Diagrama* diagrama);
-
-	void testCargarDiagramas();
-
-	friend class TreePanel;
+	std::vector<Diagrama*> diagramas;
+	std::string nombre;
 
 public:
-	Proyecto(const Glib::RefPtr<Gtk::Builder>& builder);
+	Proyecto();
 	virtual ~Proyecto();
-
-	inline string getNombre(){return this->nombre;}
-	inline void setNombre(string nom){this->nombre = nom;}
 };
 
 #endif /* PROYECTO_H_ */

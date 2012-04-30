@@ -7,17 +7,17 @@
 
 #ifndef ENTIDAD_H_
 #define ENTIDAD_H_
-#include "Componente.h"
-#include "Atributo.h"
+#include "VistaComponente.h"
+#include "VistaAtributo.h"
 #include <list>
 
-class Entidad: public Componente {
+class VistaEntidad: public VistaComponente {
 private:
-	list<Atributo*> l_atributos;
+	list<VistaAtributo*> l_atributos;
 	string nombre;
 public:
-	Entidad();
-	virtual ~Entidad();
+	VistaEntidad();
+	virtual ~VistaEntidad();
 
 	inline string getNombre() {
 		return this->nombre;
