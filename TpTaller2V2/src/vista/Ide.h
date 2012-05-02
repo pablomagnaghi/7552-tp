@@ -40,7 +40,6 @@ private:
 	//Devuelve true si hay un proyecto cargado
 	bool hayProyecto();
 
-
 public:
 	Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder);
 	virtual ~Ide();
@@ -50,6 +49,8 @@ public:
 	void abrir_proyecto(string path);
 	void guardar_proyecto();
 	void cargarDiagrama(VistaDiagrama* diagrama);
+	inline VistaProyecto* getProyecto(){return this->vproyecto;}
+	inline VistaDiagrama* getDiagActual(){return this->diag_actual;}
 };
 
 #endif /* IDE_H_ */

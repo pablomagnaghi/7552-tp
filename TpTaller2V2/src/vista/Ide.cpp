@@ -15,6 +15,7 @@ Ide::Ide(BaseObjectType* cobject,
 	this->enlazarWidgets();
 	this->maximize();
 	this->vproyecto = NULL;
+	this->diag_actual = NULL;
 	this->show();
 
 	//TODO ESTO ES PARA PROBAR
@@ -49,11 +50,11 @@ void Ide::guardar_proyecto(){
 
 }
 
+//TODO nuevo Proyecto
 void Ide::nuevoProyecto(){
 	this->vproyecto = new VistaProyecto();
-	this->treePanel.setProyecto(this->vproyecto);
-	this->panelAcciones.setDiagrama(this->vproyecto->getDiagramaPrincipal());
-	this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
+	this->treePanel.regenerar();
+	//this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 }
 
 void Ide::cargarDiagrama(VistaDiagrama* diagrama){
@@ -67,5 +68,6 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama){
 	contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
 	contenedorDiag->put(*diagrama, 0, 0);
 	this->diag_actual = diagrama;
+
 	diagrama->show();
 }

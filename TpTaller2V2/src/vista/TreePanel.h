@@ -51,10 +51,6 @@ public:
 	TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i);
 	virtual ~TreePanel();
 	bool regenerar();
-
-	//TODO CerrarProyecto
-
-	void setProyecto(VistaProyecto* proy);
 };
 
 #endif /* TREEPANEL_H_ */

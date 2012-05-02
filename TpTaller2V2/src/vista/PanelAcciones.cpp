@@ -10,7 +10,6 @@
 
 PanelAcciones::PanelAcciones(const Glib::RefPtr<Gtk::Builder> Ide_b,Ide *i): Ide_builder(Ide_b)
 ,ide(i){
-	this->vdiagrama = NULL;
 	this->enlazarWidgets();
 }
 
@@ -26,13 +25,8 @@ void PanelAcciones::enlazarWidgets(){
 }
 
 
-
-void PanelAcciones::setDiagrama(const VistaDiagrama* diag){
-	this->vdiagrama = diag;
-}
-
 bool PanelAcciones::hayDiagrama() {
-	if (this->vdiagrama == NULL) {
+	if (this->ide->getDiagActual() == NULL) {
 
 		Gtk::MessageDialog mensaje(*(this->ide), "Error.", false, Gtk::MESSAGE_ERROR,
 						Gtk::BUTTONS_OK);
