@@ -22,7 +22,6 @@ void VistaEntidad::lanzarProp(GdkEventButton* event){
 			ARCH_GLADE_APENTIDAD);
 	nHbuilder->get_widget_derived("PropEntidad", nuevaProp);
 	nuevaProp->setEntidad(this);
-
 }
 
 

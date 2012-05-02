@@ -24,8 +24,6 @@ class PanelAcciones{
 private:
 	const Glib::RefPtr<Gtk::Builder>& Ide_builder;
 
-	const VistaDiagrama* vdiagrama;
-
 	Ide* ide;
 
 	void on_click_nuevaEntidad();
@@ -39,7 +37,6 @@ public:
 
 	virtual ~PanelAcciones();
 
-	void setDiagrama(const VistaDiagrama* diag);
 };
 
 #endif /* PANELACCIONES_H_ */

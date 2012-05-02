@@ -16,7 +16,7 @@ TreePanel::TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b,Ide* i) : ide(i), I
 bool TreePanel::regenerar() {
 	if (!this->hayProyecto())
 		return false;
-	VistaDiagrama *principal = this->vproyecto->getDiagramaPrincipal();
+	VistaDiagrama *principal = this->ide->getProyecto()->getDiagramaPrincipal();
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = principal->getNombre();
 	row[this->m_Columnas.m_col_Diag_Pointer] = principal;
@@ -108,11 +108,6 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 	return true;
 }
 
-void TreePanel::setProyecto(VistaProyecto* proy){
-	this->vproyecto = proy;
-	this->regenerar();
-}
-
 bool TreePanel::hayProyecto(){
-	return this->vproyecto!=NULL;
+	return this->ide->getProyecto()!=NULL;
 }
