@@ -15,7 +15,7 @@ class Entidad;
 class Jerarquia : public Componente{
 private:
 	Entidad * padre;
-	std::vector<Entidad * > hijos;
+	std::vector<Entidad*> hijos;
 //	std::string nombre;
 public:
 	Jerarquia();
