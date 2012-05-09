@@ -4,7 +4,7 @@
  *  Created on: 08/04/2012
  *      Author: pablo
  */
-
+/*
 #include "XmlNodo.h"
 #include <iostream>
 #include "Exceptions.h"
@@ -213,3 +213,4 @@ void XmlNodo::setContenido( bool& contenido) {
 bool XmlNodo::esValido () {
   return ( nodo != NULL );
 }
+*/

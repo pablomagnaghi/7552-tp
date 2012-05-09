@@ -18,10 +18,7 @@ using namespace std;
 
 class Diagrama {
 protected:
-//	std::vector<Entidad*> entidades;
-//	std::vector<Relacion*> relaciones;
-//	std::vector<Jerarquia*> jerarquias;
-	//std::vector<Componente *> componentes;
+	std::vector<Componente*> componentes;
 	std::string nombre;
 	Diagrama * padre;
 	//std::vector<Diagrama *> hijos;

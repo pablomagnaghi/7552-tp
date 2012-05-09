@@ -1,3 +1,4 @@
+/*
 #ifndef XMLNODO_H_
 #define XMLNODO_H_
 #include <libxml2/libxml/tree.h>
@@ -56,3 +57,4 @@ public:
 	}
 };
 #endif
+*/
