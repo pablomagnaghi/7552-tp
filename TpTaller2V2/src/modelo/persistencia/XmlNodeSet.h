@@ -4,7 +4,7 @@
  *  Created on: 08/04/2012
  *      Author: pablo
  */
-
+/*
 #ifndef _XML_NODE_SET_H_INCLUDED_
 #define _XML_NODE_SET_H_INCLUDED_
 
@@ -36,3 +36,4 @@ public:
 };
 
 #endif
+*/

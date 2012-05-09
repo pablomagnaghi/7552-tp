@@ -4,7 +4,7 @@
  *  Created on: 08/04/2012
  *      Author: pablo
  */
-
+/*
 #include "Xml.h"
 
 // xmlParseFile carga el documento desde el fichero especificado como parámetro
@@ -39,7 +39,7 @@ void Xml::nuevoDoc (const std::string& version) {
 	this->nodoRaiz = xmlDocGetRootElement( doc );
 }
 
-/**** Métodos relacionados con consutas Xpath *****/
+// Métodos relacionados con consutas Xpath
 
 void Xml::crearContextoXpath() {
 	if ( !doc )
@@ -142,3 +142,4 @@ void Xml::liberarRecursos() {
 		xmlXPathFreeContext(context);
 	context = NULL;
 }
+*/

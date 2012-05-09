@@ -50,3 +50,62 @@ bool VistaComponente::getDibujable(){
 string VistaComponente::getNombre()const{
 	return this->nombre;
 }
+/* PERSISTENCIA REPRESENTACION
+void VistaComponente::agregarPropiedadesRep(XmlNodo* nodo) {
+	nodo->setPropiedad("codigo",this->codigo);
+}
+
+void VistaComponente::obtenerPropiedadesRep(XmlNodo* nodo) {
+	this->codigo = nodo->getPropiedadInt("codigo");
+}
+
+VER nombre de los atributos, que tomamos por "x" e "y" y por
+"ancho" y "alto". Podria ser
+
+	x = this->pos_ini_x;
+	y = this->pos_ini_y;
+
+	ancho = this->pos_fin_x - this->pos_ini_x;
+	alto = this->pos_fin_y - his->pos_ini_y;
+
+Falta definir color
+
+void VistaComponente:agregarAtributosRep ( XmlNodo* nodo ) {
+	XmlNodo nodoPosicion("posicion");
+	nodoPosicion.setPropiedad("x", verPosicionX);
+	nodoPosicion.setPropiedad("y", verPosicionY);
+	nodo->agregarHijo(nodoPosicion);
+
+	XmlNodo nodoTamanio("tamanio");
+	nodoTamanio.setPropiedad("ancho", verAncho);
+	nodoTamanio.setPropiedad("alto", verAlto);
+	nodo->agregarHijo(nodoTamanio);
+
+	XmlNodo nodoColor("color");
+	nodoColor.setContenido(this->color verColor);
+	nodo->agregarHijo(nodoColor);
+}
+
+void VistaComponente:obtenerAtributosRep ( XmlNodo* nodo ) {
+	VER this->PosX = nodo->getPropiedadInt("x");
+	VER this->PosY = nodo->getPropiedadInt("yo");
+	*nodo = nodo->getHermano();
+
+	VER this->ancho = nodo->getPropiedadInt("ancho");
+	VER this->alto = nodo->getPropiedadInt("alto");
+	*nodo = nodo->getHermano();
+
+	VER this->color = nodo->getContenidoInt();
+	*nodo = nodo->getHermano();
+}
+
+XmlNodo VistaComponente:guardarXmlREP() {
+	XmlNodo nodo("componente");
+
+	this->agregarPropiedades(&nodo);
+
+	this->agregarAtributos(&nodo);
+
+	return nodo;
+}
+ */

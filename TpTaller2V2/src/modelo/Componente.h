@@ -10,18 +10,30 @@ using namespace std;
 
 class Componente {
 protected:
+	/* PERSITENCIA
+	// si hay que agregar más propiedades, se redefinen
+	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
+	// virtual void obtenerPropiedadesDER (XmlNodo* nodo);
+
+	// si hay que agregar más atributos, se redefinen
+	// Estos dos metodos estarian de mas por ahora
+	// virtual void agregarAtributosDER ( XmlNodo* );
+	// virtual void obtenerAtributosDER ( XmlNodo* );
+	 */
 	int codigo;
 	std::string nombre;
 	Componente();
 public:
+	int getCodigo() const;
+	void setCodigo(int codigo);
+
+	std::string getNombre() const;
+	void setNombre(const std::string& codigo);
 
 	virtual ~Componente();
-	inline string getNombre() {
-		return this->nombre;
-	}
-	inline void setNombre(string nom) {
-		this->nombre = nom;
-	}
+
+	// virtual XmlNodo guardarXmlDER() = 0;
+
 };
 
 #endif /* COMPONENTE_H_ */

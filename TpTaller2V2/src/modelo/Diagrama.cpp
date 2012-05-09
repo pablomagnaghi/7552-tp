@@ -19,3 +19,18 @@ Diagrama* Diagrama::crearSubdiagrama(string nombre){
 	this->l_sub_diagramas.push_back(diag);
 	return diag;
 }
+
+/*
+void Hoja::obtenerObjetosGraficos ( XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if ( nodo->getNombre() == "objetoLista" ) {
+			ObjetoLista* objeto = new ObjetoLista (nodo);
+			this->agregarObjeto(objeto);
+		}
+		if ( nodo->getNombre() == "linea" ) {
+      Linea* objeto = new Linea (nodo);
+      this->agregarObjeto(objeto);
+	}
+	*nodo = nodo->getHermano();
+  }
+}*/

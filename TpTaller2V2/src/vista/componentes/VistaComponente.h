@@ -56,6 +56,15 @@ public:
 	 */
 	virtual void lanzarProp(GdkEventButton* event) = 0;
 
+	/*PERSISTENCIA REP*/
+	// void Componente::agregarPropiedadesRep(XmlNodo* nodo);
+	// void Componente::obtenerPropiedadesRep(XmlNodo* nodo);
+
+	// void VistaComponente:agregarAtributosRep ( XmlNodo* nodo );
+	// void VistaComponente:obtenerAtributosRep ( XmlNodo* nodo );
+
+	// XmlNodo guardarXmlREP();
+
 };
 
 #endif /* VISTACOMPONENTE_H_ */
