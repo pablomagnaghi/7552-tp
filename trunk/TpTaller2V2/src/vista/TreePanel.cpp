@@ -27,31 +27,28 @@ bool TreePanel::regenerar() {
 
 void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
 	//primero cargo los componentes de ese diag y luego los diag hijos
-	if (diag->l_componentes.size() > 0) {
-		list<Componente*>::iterator it1 = diag->l_componentes.begin();
-		list<Componente*>::iterator it2 = diag->l_componentes.end();
-		while (it1 != it2) {
-			Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
-					row->children()));
-			rowSec[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
-			rowSec[this->m_Columnas.m_col_Comp_Pointer] = *it1;
-			rowSec[this->m_Columnas.m_col_esDiag] = false;
-			it1++;
-		}
+	vector<Componente*>::iterator itComp = diag->componentesBegin();
+	vector<Componente*>::iterator compEnd = diag->componentesEnd();
+	while (itComp != compEnd) {
+		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
+				row->children()));
+		rowSec[this->m_Columnas.m_col_Nombre] = (*itComp)->getNombre();
+		rowSec[this->m_Columnas.m_col_Comp_Pointer] = *itComp;
+		rowSec[this->m_Columnas.m_col_esDiag] = false;
+		itComp++;
 	}
-	if (diag->l_sub_diagramas.size() > 0) {
-		//cargo el sub diagrama y lurgo regenerar recur sobre ese
-		list<Diagrama*>::iterator it1 = diag->l_sub_diagramas.begin();
-		list<Diagrama*>::iterator it2 = diag->l_sub_diagramas.end();
-		while (it1 != it2) {
-			Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
-					row->children()));
-			rowSec[this->m_Columnas.m_col_Nombre] = (*it1)->nombre;
-			rowSec[this->m_Columnas.m_col_Diag_Pointer] = (*it1);
-			rowSec[this->m_Columnas.m_col_esDiag] = true;
-			this->regenerarRecur((VistaDiagrama*)(*it1), &rowSec);
-			it1++;
-		}
+
+	//cargo el sub diagrama y lurgo regenerar recur sobre ese
+	vector<Diagrama*>::iterator itHijos = diag->diagramasHijosBegin();
+	vector<Diagrama*>::iterator HijosEnd = diag->diagramasHijosEnd();
+	while (itHijos != HijosEnd) {
+		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
+				row->children()));
+		rowSec[this->m_Columnas.m_col_Nombre] = (*itHijos)->getNombre();
+		rowSec[this->m_Columnas.m_col_Diag_Pointer] = (*itHijos);
+		rowSec[this->m_Columnas.m_col_esDiag] = true;
+		this->regenerarRecur((VistaDiagrama*)(*itHijos), &rowSec);
+		itHijos++;
 	}
 
 }

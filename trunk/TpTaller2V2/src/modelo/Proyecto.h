@@ -8,26 +8,28 @@
 #ifndef PROYECTO_H_
 #define PROYECTO_H_
 
-#include "Diagrama.h"
 #include <list>
 #include <string>
-using namespace std;
+#include "Diagrama.h"
 
 class Proyecto {
+
 protected:
 
-	string nombre;
-
-	Diagrama* d_principal;
+	std::string nombre;
+	Diagrama* diagramaPrincipal;
 
 public:
+
 	Proyecto();
-	Proyecto(string nom);
+	Proyecto(std::string nombre);
 	virtual ~Proyecto();
 
-	inline string getNombre(){return this->nombre;}
-	inline void setNombre(string nom){this->nombre = nom;}
+	std::string getNombre();
+	void setNombre(std::string nom);
 	virtual Diagrama* getDiagramaPrincipal();
+	virtual void setDiagramaPrincipal(Diagrama* diagramaPrincipal);
+
 };
 
 #endif /* PROYECTO_H_ */

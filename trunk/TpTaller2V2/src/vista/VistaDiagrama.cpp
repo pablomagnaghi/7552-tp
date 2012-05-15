@@ -52,15 +52,15 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event){
 	/*//Dependiendo del boton seleccionado en el panel ejecutamos diferentes acciones
 	int accion = this->panelAcciones->getBotonSeleccionado();
 	(this->*acciones[accion])(event);
-	this->redibujar();
-	return true;*/
+	this->redibujar();*/
+	return true;
 }
 
 bool VistaDiagrama::on_button_release_event(GdkEventButton* event){
 	/*//Dependiendo del boton seleccionado en el panel ejecutamos diferentes acciones
 	int accion = this->panelAcciones->getBotonSeleccionado();
-	(this->*acciones[accion])(event);
-	return true;*/
+	(this->*acciones[accion])(event);*/
+	return true;
 }
 
 
@@ -80,8 +80,8 @@ int VistaDiagrama::getAncho(){
 	return this->ancho;
 }
 
-VistaDiagrama* VistaDiagrama::crearSubdiagrama(string nombre){
-	VistaDiagrama* diag = new VistaDiagrama(nombre);
-	this->l_sub_diagramas.push_back(diag);
-	return diag;
+VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre){
+	VistaDiagrama* diagramaHijo = new VistaDiagrama(nombre);
+	this->diagramasHijos.push_back(diagramaHijo);
+	return diagramaHijo;
 }

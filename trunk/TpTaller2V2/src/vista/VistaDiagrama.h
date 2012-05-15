@@ -45,7 +45,7 @@ public:
 
 	void setZoom(double z);
 
-	virtual VistaDiagrama* crearSubdiagrama(string nombre);
+	virtual VistaDiagrama* crearDiagramaHijo(string nombre);
 	int getAlto();
 	int getAncho();
 };

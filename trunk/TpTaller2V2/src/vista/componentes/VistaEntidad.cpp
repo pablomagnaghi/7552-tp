@@ -30,7 +30,7 @@ void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 }
 
 bool VistaEntidad::esSeleccionado(double x, double y) {
-
+	return false;
 }
 
 void VistaEntidad::finSeleccionado(double x, double y) {
