@@ -11,14 +11,26 @@ Proyecto::Proyecto() {
 
 }
 
-Proyecto::Proyecto(string nom) : nombre(nom){
+Proyecto::Proyecto(std::string nombre)
+	: nombre (nombre) {
 
 }
 
 Proyecto::~Proyecto() {
-	// TODO Auto-generated destructor stub
+}
+
+std::string Proyecto::getNombre(){
+	return this->nombre;
+}
+
+void Proyecto::setNombre(std::string nombre){
+	this->nombre = nombre;
 }
 
 Diagrama* Proyecto::getDiagramaPrincipal(){
-	return this->d_principal;
+	return this->diagramaPrincipal;
+}
+
+void Proyecto::setDiagramaPrincipal(Diagrama* diagramaPrincipal){
+	this->diagramaPrincipal = diagramaPrincipal;
 }

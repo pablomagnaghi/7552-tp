@@ -6,40 +6,65 @@
 #ifndef DIAGRAMA_H_
 #define DIAGRAMA_H_
 
+#include <iostream>
 #include <vector>
 #include <string>
-//#include "Entidad.h"
-//#include "Relacion.h"
-//#include "Jerarquia.h"
+#include "Entidad.h"
+#include "EntidadGlobal.h"
+#include "Relacion.h"
+#include "Jerarquia.h"
 #include "Componente.h"
-#include <iostream>
-#include <list>
-using namespace std;
 
 class Diagrama {
-protected:
-	std::vector<Componente*> componentes;
-	std::string nombre;
-	Diagrama * padre;
-	//std::vector<Diagrama *> hijos;
 
-	list<Diagrama*> l_sub_diagramas;
-	list<Componente*> l_componentes;
-	friend class TreePanel;
-	friend class VistaDiagrama;
-	Diagrama(string nombre);
+protected:
+
+	std::string nombre;
+	Diagrama* diagramaAncestro;
+	std::vector<Diagrama*> diagramasHijos;
+	std::vector<Entidad*> entidades;
+	std::vector<EntidadGlobal*> entidadesGlobales;
+	std::vector<Relacion*> relaciones;
+	std::vector<Jerarquia*> jerarquias;
+	std::vector<Componente*> componentes;
+
+	void agregarComponente(Componente*);
+	void quitarComponente(Componente*);
+
 public:
 
+	Diagrama(std::string nombre);
 	virtual ~Diagrama();
 
-	inline string getNombre() {
-		return this->nombre;
-	}
-	inline void setNombre(string nom) {
-		this->nombre = nom;
-	}
+	void setNombre(std::string);
+	std::string getNombre();
 
-	virtual Diagrama* crearSubdiagrama(string nombre);
+	void setDiagramaAncestro(Diagrama*);
+	Diagrama* getDiagramaAncestro();
+
+	void agregarDiagramaHijo(Diagrama*);
+	void quitarDiagramaHijo(Diagrama*);
+
+	void agregarEntidad(Entidad*);
+	void quitarEntidad(Entidad*);
+
+	void agregarEntidadGlobal(EntidadGlobal*);
+	void quitarEntidadGlobal(EntidadGlobal*);
+
+	void agregarRelacion(Relacion*);
+	void quitarRelacion(Relacion*);
+
+	void agregarJerarquia(Jerarquia*);
+	void quitarJerarquia(Jerarquia*);
+
+	std::vector<Componente*>::iterator componentesBegin();
+	std::vector<Componente*>::iterator componentesEnd();
+
+	std::vector<Diagrama*>::iterator diagramasHijosBegin();
+	std::vector<Diagrama*>::iterator diagramasHijosEnd();
+
+	Diagrama* crearDiagramaHijo(std::string);
+
 };
 
 #endif /* DIAGRAMA_H_ */

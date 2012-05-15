@@ -10,7 +10,7 @@
 
 VistaProyecto::VistaProyecto()  {
 	//Prueba
-	this->d_principal = new VistaDiagrama("Principal");
+	this->diagramaPrincipal = new VistaDiagrama("Principal");
 	this->testCargarDiagramas();
 }
 
@@ -21,9 +21,9 @@ VistaProyecto::~VistaProyecto() {
 
 
 void VistaProyecto::testCargarDiagramas(){
-	this->getDiagramaPrincipal()->crearSubdiagrama("Sub Diag Prueba1");
-	(*(this->getDiagramaPrincipal()->l_sub_diagramas.begin()))->crearSubdiagrama("SUB SUB DIAG 1");
-	VistaDiagrama *diag = this->getDiagramaPrincipal()->crearSubdiagrama("Sub Diag Prueba2 0.75");
+	this->getDiagramaPrincipal()->crearDiagramaHijo("Sub Diag Prueba1");
+	(*(this->getDiagramaPrincipal()->diagramasHijosBegin()))->crearDiagramaHijo("SUB SUB DIAG 1");
+	VistaDiagrama *diag = this->getDiagramaPrincipal()->crearDiagramaHijo("Sub Diag Prueba2 0.75");
 	diag->setZoom(0.75);
 }
 
