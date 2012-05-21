@@ -5,7 +5,7 @@
 
 #include "Diagrama.h"
 
-Diagrama::Diagrama(std::string nombre):
+Diagrama::Diagrama(const std::string nombre):
 	nombre (nombre) {
 
 }
@@ -19,19 +19,27 @@ Diagrama::~Diagrama() {
 	// TODO definir quien borra los diagramas hijos.
 }
 
-void Diagrama::setNombre(std::string nombre){
+void Diagrama::setNombre(const std::string nombre){
 	this->nombre = nombre;
 }
 
-std::string Diagrama::getNombre(){
+std::string Diagrama::getNombre() const{
 	return this->nombre;
+}
+
+void Diagrama::setEstado(const std::string estado){
+	this->estado = estado;
+}
+
+std::string Diagrama::getEstado() const{
+	return this->estado;
 }
 
 void Diagrama::setDiagramaAncestro(Diagrama* diagramaAncestro){
 	this->diagramaAncestro = diagramaAncestro;
 }
 
-Diagrama* Diagrama::getDiagramaAncestro(){
+Diagrama* Diagrama::getDiagramaAncestro() const{
 	return this->diagramaAncestro;
 }
 

@@ -17,11 +17,14 @@
 
 class Diagrama {
 
-protected:
+private:
 
 	std::string nombre;
+	std::string estado;
 	Diagrama* diagramaAncestro;
 	std::vector<Diagrama*> diagramasHijos;
+	// TODO diagramaAncestro y diagramasHijos podrían ser strings,
+	// no hace falta tener todos los diagramas juntos en memoria.
 	std::vector<Entidad*> entidades;
 	std::vector<EntidadGlobal*> entidadesGlobales;
 	std::vector<Relacion*> relaciones;
@@ -33,14 +36,17 @@ protected:
 
 public:
 
-	Diagrama(std::string nombre);
+	Diagrama(const std::string nombre);
 	virtual ~Diagrama();
 
-	void setNombre(std::string);
-	std::string getNombre();
+	void setNombre(const std::string);
+	std::string getNombre() const;
+
+	void setEstado(const std::string);
+	std::string getEstado() const;
 
 	void setDiagramaAncestro(Diagrama*);
-	Diagrama* getDiagramaAncestro();
+	Diagrama* getDiagramaAncestro() const;
 
 	void agregarDiagramaHijo(Diagrama*);
 	void quitarDiagramaHijo(Diagrama*);
