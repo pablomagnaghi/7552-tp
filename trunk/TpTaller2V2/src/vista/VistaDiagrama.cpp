@@ -82,6 +82,6 @@ int VistaDiagrama::getAncho(){
 
 VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre){
 	VistaDiagrama* diagramaHijo = new VistaDiagrama(nombre);
-	this->diagramasHijos.push_back(diagramaHijo);
+	this->agregarDiagramaHijo(diagramaHijo);
 	return diagramaHijo;
 }

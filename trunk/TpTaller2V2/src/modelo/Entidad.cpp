@@ -50,6 +50,11 @@ void Entidad::borrarComponentes() {
 		delete (*it);
 		it++;
 	}
+	/** FIXME la entidad debería hacer delete solo de sus atributos,
+	 * no de todos los componentes. Si hiciera delete de una relación a la
+	 * que pertenece, la otra entidad de la relación también hace delete.
+	 * Sugerencia: El delete de los componentes podría hacerlo el diagrama.
+	 */
 
 	this->componentes.clear();
 }

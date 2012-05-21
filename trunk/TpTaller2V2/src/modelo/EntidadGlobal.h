@@ -15,14 +15,15 @@ class EntidadGlobal : public Componente {
 private:
 
 	std::string diagramaAncestro;
+	// TODO evaluar si puede tener relaciones
 
 public:
 
 	EntidadGlobal();
 	virtual ~EntidadGlobal();
 
-	void setDiagrama(std::string diagramaAncestro);
-	std::string getDiagramaAncestro();
+	void setDiagramaAncestro(const std::string diagramaAncestro);
+	std::string getDiagramaAncestro() const;
 
 };
 

@@ -9,8 +9,6 @@
 #include <string>
 #include <algorithm>
 #include "Entidad.h"
-#include "Relacion.h"
-#include "Jerarquia.h"
 #include "Atributo.h"
 #include "Identificador.h"
 #include "Componente.h"
