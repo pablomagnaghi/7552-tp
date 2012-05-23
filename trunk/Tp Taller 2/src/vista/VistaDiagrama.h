@@ -11,7 +11,7 @@
 #include "./componentes/VistaAtributo.h"
 #include <list>
 #include "VistaConstantes.h"
-
+#include "./componentes/VistaEntidad.h"
 
 using namespace std;
 

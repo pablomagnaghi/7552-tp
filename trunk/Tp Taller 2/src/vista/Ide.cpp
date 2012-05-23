@@ -17,14 +17,14 @@ Ide::Ide(BaseObjectType* cobject,
 }
 
 Ide::~Ide() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void Ide::abrir_proyecto(string path){
-
+	// Abre un proyecto en un archivo y lo carga en el programa
 }
 void Ide::guardar_proyecto(){
-
+	// Guarda el proyecto en un archivo
 }
 
 void Ide::testCargarProyecto(){
