@@ -6,10 +6,14 @@
 #ifndef CONTROLADORVISTADIAGRAMAS_H_
 #define CONTROLADORVISTADIAGRAMAS_H_
 
+#include <gtkmm/button.h>
+
 class ControladorVistaDiagramas {
 public:
 	ControladorVistaDiagramas();
 	virtual ~ControladorVistaDiagramas();
+
+
 };
 
 #endif /* CONTROLADORVISTADIAGRAMAS_H_ */

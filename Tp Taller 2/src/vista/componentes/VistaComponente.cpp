@@ -16,7 +16,6 @@ VistaComponente::VistaComponente() {
 }
 
 VistaComponente::~VistaComponente() {
-	// TODO Auto-generated destructor stub
 }
 
 void VistaComponente::getposini(double&x, double&y)const{
