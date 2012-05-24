@@ -39,8 +39,8 @@ bool PanelAcciones::hayDiagrama() {
 }
 
 void PanelAcciones::on_click_nuevaEntidad(){
-	if (this->hayDiagrama()){
+	//if (this->hayDiagrama()){
 		VistaEntidad *nEntidad = new VistaEntidad();
 		nEntidad->lanzarProp(NULL);
-	}
+	//}
 }
