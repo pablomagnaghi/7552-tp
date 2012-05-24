@@ -1,23 +1,17 @@
-/*
- * Entidad.h
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
+/* VistaRelacion.h
+ *  Created on: 24/05/2012
+ *      Author: Gonzalo Ferrero 89657
  */
 
-#ifndef VISTAENTIDAD_H_
-#define VISTAENTIDAD_H_
-#include "VistaComponente.h"
-#include "../../controlador/AsistenteEntidad.h"
-#include "../../modelo/Entidad.h"
-#include <list>
+#ifndef VISTARELACION_H_
+#define VISTARELACION_H_
 
-class VistaEntidad: public VistaComponente {
-private:
-	friend class AsistenteEntidad;
+#include "VistaComponente.h"
+
+class VistaRelacion : public VistaComponente{
 public:
-	VistaEntidad();
-	virtual ~VistaEntidad();
+	VistaRelacion();
+	virtual ~VistaRelacion();
 
 	/*
 	 * Dibuja el objeto en el contexto cairo pasado como parametro.
@@ -40,4 +34,4 @@ public:
 	virtual void lanzarProp(GdkEventButton* event);
 };
 
-#endif /* VISTAENTIDAD_H_ */
+#endif /* VISTARELACION_H_ */

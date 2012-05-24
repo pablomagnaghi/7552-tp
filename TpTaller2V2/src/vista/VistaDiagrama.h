@@ -7,11 +7,15 @@
 
 #ifndef VISTADIAGRAMA_H_
 #define VISTADIAGRAMA_H_
-#include "./componentes/VistaComponente.h"
-#include "./componentes/VistaAtributo.h"
+
 #include "../modelo/Diagrama.h"
 #include <list>
 #include "VistaConstantes.h"
+#include "./componentes/VistaComponente.h"
+#include "./componentes/VistaAtributo.h"
+#include "./componentes/VistaEntidad.h"
+#include "./componentes/VistaRelacion.h"
+#include "./componentes/VistaUnion.h"
 
 using namespace std;
 
