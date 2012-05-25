@@ -6,6 +6,9 @@
  */
 
 #include "VistaDiagrama.h"
+#include <gdkmm.h>
+#include <iostream>
+using namespace std;
 
 VistaDiagrama::VistaDiagrama(string nom) :
 	Diagrama(nom) {
@@ -13,6 +16,8 @@ VistaDiagrama::VistaDiagrama(string nom) :
 	this->ancho = A4_ANCHO * zoom;
 	this->alto = A4_ALTO * zoom;
 	this->set_size_request(this->ancho, this->alto);
+
+	configurar_drag_and_drop();
 }
 
 VistaDiagrama::~VistaDiagrama() {
@@ -88,4 +93,102 @@ VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre) {
 	VistaDiagrama* diagramaHijo = new VistaDiagrama(nombre);
 	this->agregarDiagramaHijo(diagramaHijo);
 	return diagramaHijo;
+}
+
+void VistaDiagrama::configurar_drag_and_drop() {
+	// Drag And Drop
+
+	// Defino las cosas que se pueden arrastrar
+	std::vector<Gtk::TargetEntry> listaDeTargets;
+	listaDeTargets.push_back(Gtk::TargetEntry("Entidad"));
+	listaDeTargets.push_back(Gtk::TargetEntry("Relacion"));
+	listaDeTargets.push_back(Gtk::TargetEntry("Union"));
+	// TODO crear Comentarios
+	listaDeTargets.push_back(Gtk::TargetEntry("Comentario"));
+
+	// Configuro el widget origen
+	this->drag_source_set(listaDeTargets, Gdk::BUTTON1_MASK, Gdk::ACTION_MOVE);
+	this->signal_drag_begin().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_begin));
+	this->signal_drag_motion().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_motion));
+	this->signal_drag_data_delete().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_data_delete));
+	this->signal_drag_data_get().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_data_get));
+	this->signal_drag_drop().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_drop));
+	this->signal_drag_end().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_end));
+	this->signal_drag_failed().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_failed));
+	this->signal_drag_leave().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_leave));
+
+	// Configuro el widget destino
+	this->drag_dest_set(listaDeTargets, Gtk::DEST_DEFAULT_ALL, Gdk::ACTION_MOVE);
+	this->signal_drag_data_received().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::drag_data_received));
+}
+
+void VistaDiagrama::drag_begin(const Glib::RefPtr<Gdk::DragContext>&context) {
+	Glib::ustring seleccion = context->get_selection();
+	cout << "DRAG_BEGIN " << seleccion << endl;
+}
+
+bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
+		gint x_actual, gint y_actual, guint timestamp) {
+	cout << "DRAG_MOTION" << endl;
+	return true;
+}
+
+void VistaDiagrama::drag_data_get(const Glib::RefPtr<Gdk::DragContext>&context,
+		Gtk::SelectionData& selection_data, guint info, guint timestamp) {
+
+	/* 8 bits format */
+	/* 9 the length of I'm Data! in bytes */
+	selection_data.set(selection_data.get_target(), 8,
+			(const guchar*) "I'm Data!", 9);
+
+	cout << "DRAG_DATA_GET " << endl;
+}
+
+bool VistaDiagrama::drag_drop(const Glib::RefPtr<Gdk::DragContext>& context,
+		int x, int y, guint timestamp) {
+	cout << "DRAG_DROP" << endl;
+	return true;
+}
+
+void VistaDiagrama::drag_end(const Glib::RefPtr<Gdk::DragContext>&context) {
+	cout << "DRAG_END" << endl;
+}
+
+void VistaDiagrama::drag_data_delete(
+		const Glib::RefPtr<Gdk::DragContext>&context) {
+	cout << "DRAG_DELETE" << endl;
+}
+
+bool VistaDiagrama::drag_failed(const Glib::RefPtr<Gdk::DragContext>&context,
+		Gtk::DragResult result) {
+	cout << "DRAG_FAILED" << endl;
+	return true;
+}
+
+void VistaDiagrama::drag_leave(const Glib::RefPtr<Gdk::DragContext>&context,
+		guint timestamp) {
+	cout << "DRAG_LEAVE" << endl;
+}
+
+void VistaDiagrama::drag_data_received(
+		const Glib::RefPtr<Gdk::DragContext>& context, gint x_dropped,
+		gint y_dropped, const Gtk::SelectionData& selection_data, guint info,
+		guint timestamp) {
+	const int length = selection_data.get_length();
+	if ((length >= 0) && (selection_data.get_format() == 8)) {
+		std::cout << "Received \"" << selection_data.get_data_as_string()
+				<< "\" in label " << std::endl;
+	}
+
+	context->drag_finish(false, false, timestamp);
+	cout << "DRAG_DATA_RECEIVED " << endl;
 }

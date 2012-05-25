@@ -11,6 +11,7 @@
 #include <cairomm/cairomm.h>
 #include <string>
 #include "../VistaConstantes.h"
+#include <gtkmm/targetentry.h>
 using namespace std;
 
 class VistaComponente {
@@ -36,24 +37,16 @@ public:
 	bool getDibujable();
 	string getNombre()const;
 
-	/*
-	 * Dibuja el objeto en el contexto cairo pasado como parametro.
-	 */
+	// Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr) = 0;
 
-	/*
-	 * Indica q sucede cuando el objeto es seleccionado
-	 */
+	// Indica q sucede cuando el objeto es seleccionado
 	virtual bool esSeleccionado(double x, double y) = 0;
 
-	/*
-	 * indica q sucede con el objeto cuando deja de ser seleccionado
-	 */
+	// indica q sucede con el objeto cuando deja de ser seleccionado
 	virtual void finSeleccionado(double x, double y) = 0;
 
-	/*
-	 * Lanza el asistente de prpiedades del objeto en cuestion.
-	 */
+	// Lanza el asistente de prpiedades del objeto en cuestion.
 	virtual void lanzarProp(GdkEventButton* event) = 0;
 
 	/*PERSISTENCIA REP*/
