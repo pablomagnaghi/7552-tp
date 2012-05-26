@@ -25,6 +25,10 @@ protected:
 	bool dibujable;
 	Gtk::Menu* m_pMenuPopup;
 	string nombre;
+
+	bool seleccionado;
+	Gdk::Color colorNegro;
+	Gdk::Color colorDeSeleccion;
 public:
 	VistaComponente();
 	virtual ~VistaComponente();
@@ -48,6 +52,16 @@ public:
 
 	// Lanza el asistente de prpiedades del objeto en cuestion.
 	virtual void lanzarProp(GdkEventButton* event) = 0;
+
+	// Verifica si el punto cae dentro de este componente
+	virtual bool contieneAEstePunto(double x, double y) = 0;
+
+	// Para seleccionar a este componente
+	void seleccionar(double x, double y) ;
+	void deseleccionar();
+
+	// para mover el componente
+	void mover(double x, double y);
 
 	/*PERSISTENCIA REP*/
 	// void Componente::agregarPropiedadesRep(XmlNodo* nodo);

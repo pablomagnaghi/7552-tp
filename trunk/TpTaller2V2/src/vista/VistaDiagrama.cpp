@@ -17,6 +17,13 @@ VistaDiagrama::VistaDiagrama(string nom) :
 	this->alto = A4_ALTO * zoom;
 	this->set_size_request(this->ancho, this->alto);
 
+	this->signal_button_press_event().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::on_button_press_event));
+	this->signal_button_release_event().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::on_button_release_event));
+
+	test_cargar_componentes_visuales();
+
 	configurar_drag_and_drop();
 }
 
@@ -24,53 +31,88 @@ VistaDiagrama::~VistaDiagrama() {
 	// TODO Auto-generated destructor stub
 }
 
+void VistaDiagrama::test_cargar_componentes_visuales() {
+	VistaComponente * componenteNuevo;
+
+	componenteNuevo = new VistaEntidad();
+	componenteNuevo->setposini(10, 10);
+	componenteNuevo->setposfin(60, 50);
+	this->componentes.push_back(componenteNuevo);
+
+	// Dibujo una relacion
+	componenteNuevo = new VistaRelacion();
+	componenteNuevo->setposini(70, 10);
+	componenteNuevo->setposfin(120, 60);
+	this->componentes.push_back(componenteNuevo);
+
+	// Dibujo un atributo
+	componenteNuevo = new VistaAtributo();
+	componenteNuevo->setposini(130, 20);
+	componenteNuevo->setposfin(140, 30);
+	this->componentes.push_back(componenteNuevo);
+
+	// Dibujo una union (Flecha)
+	componenteNuevo = new VistaUnion();
+	componenteNuevo->setposini(150, 20);
+	componenteNuevo->setposfin(170, 30);
+	this->componentes.push_back(componenteNuevo);
+
+}
+
 bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	this->set_size_request(this->ancho, this->alto);
-	Cairo::RefPtr<Cairo::Context> cr =
-			this->get_window()->create_cairo_context();
+	Cairo::RefPtr<Cairo::Context> cr;
+	cr = this->get_window()->create_cairo_context();
 	cr->set_source_rgba(1, 1, 1, 1); // white
 	cr->paint();
 
-	// Dibujo una entidad
-	VistaEntidad * entidad = new VistaEntidad();
-	entidad->setposini(10, 10);
-	entidad->setposfin(60, 50);
-	entidad->dibujar(cr);
+	std::vector<VistaComponente *>::iterator componenteActual;
 
-	// Dibujo una relacion
-	VistaRelacion * relacion = new VistaRelacion();
-	relacion->setposini(70, 10);
-	relacion->setposfin(120, 60);
-	relacion->dibujar(cr);
-
-	// Dibujo un atributo
-	VistaAtributo * atributo = new VistaAtributo();
-	atributo->setposini(130, 20);
-	atributo->setposfin(140, 30);
-	atributo->dibujar(cr);
-
-	// Dibujo una union (Flecha)
-	VistaUnion * vistaunion = new VistaUnion();
-	vistaunion->setposini(150, 20);
-	vistaunion->setposfin(170, 30);
-	vistaunion->dibujar(cr);
+	for (componenteActual = this->componentes.begin(); componenteActual
+			!= this->componentes.end(); componenteActual++) {
+		(*componenteActual)->dibujar(cr);
+	}
 
 	return true;
 }
 
 bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
-	/*//Dependiendo del boton seleccionado en el panel ejecutamos diferentes acciones
-	 int accion = this->panelAcciones->getBotonSeleccionado();
-	 (this->*acciones[accion])(event);
-	 this->redibujar();*/
+
+	cout << "X= " << event->x << " Y=" << event->y << endl;
+
+	seleccionar_componente_clickeado(event->x, event->y);
+
+	this->x_button_press = event->x;
+	this->y_button_press = event->y;
+
+	// Para redibujar el area de dibujo
+	this->queue_draw();
 	return true;
 }
 
 bool VistaDiagrama::on_button_release_event(GdkEventButton* event) {
-	/*//Dependiendo del boton seleccionado en el panel ejecutamos diferentes acciones
-	 int accion = this->panelAcciones->getBotonSeleccionado();
-	 (this->*acciones[accion])(event);*/
+
+	cout << "X= " << event->x << " Y=" << event->y << endl;
+
+	this->queue_draw();
 	return true;
+}
+
+void VistaDiagrama::seleccionar_componente_clickeado(gdouble x, gdouble y) {
+
+	std::vector<VistaComponente *>::iterator componenteActual;
+	componentes_seleccionados.clear();
+
+	for (componenteActual = this->componentes.begin(); componenteActual
+			!= this->componentes.end(); componenteActual++) {
+		if ((*componenteActual)->contieneAEstePunto(x, y)) {
+			(*componenteActual)->seleccionar(x,y);
+			componentes_seleccionados.push_back((*componenteActual));
+		} else {
+			(*componenteActual)->deseleccionar();
+		}
+		//(*componenteActual)->dibujar(cr);
+	}
 }
 
 void VistaDiagrama::setZoom(double z) {
@@ -107,46 +149,65 @@ void VistaDiagrama::configurar_drag_and_drop() {
 	listaDeTargets.push_back(Gtk::TargetEntry("Comentario"));
 
 	// Configuro el widget origen
+	// SI NO PONGO ESTO NO REACCIONA A LA SEÑAL DE CLICK
 	this->drag_source_set(listaDeTargets, Gdk::BUTTON1_MASK, Gdk::ACTION_MOVE);
 	this->signal_drag_begin().connect(sigc::mem_fun(*this,
 			&VistaDiagrama::drag_begin));
 	this->signal_drag_motion().connect(sigc::mem_fun(*this,
 			&VistaDiagrama::drag_motion));
-	this->signal_drag_data_delete().connect(sigc::mem_fun(*this,
-			&VistaDiagrama::drag_data_delete));
-	this->signal_drag_data_get().connect(sigc::mem_fun(*this,
-			&VistaDiagrama::drag_data_get));
-	this->signal_drag_drop().connect(sigc::mem_fun(*this,
-			&VistaDiagrama::drag_drop));
-	this->signal_drag_end().connect(sigc::mem_fun(*this,
-			&VistaDiagrama::drag_end));
-	this->signal_drag_failed().connect(sigc::mem_fun(*this,
-			&VistaDiagrama::drag_failed));
-	this->signal_drag_leave().connect(sigc::mem_fun(*this,
-			&VistaDiagrama::drag_leave));
+	//this->signal_drag_data_delete().connect(sigc::mem_fun(*this,
+	//		&VistaDiagrama::drag_data_delete));
+	//this->signal_drag_data_get().connect(sigc::mem_fun(*this,
+	//		&VistaDiagrama::drag_data_get));
+	//this->signal_drag_drop().connect(sigc::mem_fun(*this,
+	//		&VistaDiagrama::drag_drop));
+	//this->signal_drag_end().connect(sigc::mem_fun(*this,
+	//		&VistaDiagrama::drag_end));
+	//this->signal_drag_failed().connect(sigc::mem_fun(*this,
+	//		&VistaDiagrama::drag_failed));
+	//this->signal_drag_leave().connect(sigc::mem_fun(*this,
+	//		&VistaDiagrama::drag_leave));
 
 	// Configuro el widget destino
 	this->drag_dest_set(listaDeTargets, Gtk::DEST_DEFAULT_ALL, Gdk::ACTION_MOVE);
-	this->signal_drag_data_received().connect(sigc::mem_fun(*this,
-			&VistaDiagrama::drag_data_received));
+	//this->signal_drag_data_received().connect(sigc::mem_fun(*this,
+	//		&VistaDiagrama::drag_data_received));
 }
 
 void VistaDiagrama::drag_begin(const Glib::RefPtr<Gdk::DragContext>&context) {
 	Glib::ustring seleccion = context->get_selection();
+	//Glib::RefPtr<Gdk::Pixbuf> icono = Gdk::Pixbuf::create_from_inline(0,NULL,false);
+	// Le saco el icono
+	Cairo::RefPtr<Cairo::ImageSurface> imSur = Cairo::ImageSurface::create(
+			Cairo::FORMAT_RGB24, 1, 1);
+	Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_data(
+	    imSur->get_data(), Gdk::COLORSPACE_RGB, false, 8, 1, 1, imSur->get_stride());
+
+	context->set_icon(pixbuf,0,0);
 	cout << "DRAG_BEGIN " << seleccion << endl;
 }
 
 bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
 		gint x_actual, gint y_actual, guint timestamp) {
+
+	std::vector<VistaComponente *>::iterator componenteSeleccionado;
+
+	for (componenteSeleccionado = componentes_seleccionados.begin(); componenteSeleccionado
+			!= componentes_seleccionados.end(); componenteSeleccionado++) {
+		(*componenteSeleccionado)->mover(x_actual, y_actual);
+		//(*componenteSeleccionado)->setposini(x_actual, y_actual);
+		//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
+	}
 	cout << "DRAG_MOTION" << endl;
+	this->queue_draw();
 	return true;
 }
 
 void VistaDiagrama::drag_data_get(const Glib::RefPtr<Gdk::DragContext>&context,
 		Gtk::SelectionData& selection_data, guint info, guint timestamp) {
 
-	/* 8 bits format */
-	/* 9 the length of I'm Data! in bytes */
+	// 8 bits format
+	// 9 the length of I'm Data! in bytes
 	selection_data.set(selection_data.get_target(), 8,
 			(const guchar*) "I'm Data!", 9);
 
