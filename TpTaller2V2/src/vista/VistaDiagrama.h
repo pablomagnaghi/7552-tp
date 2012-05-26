@@ -27,10 +27,18 @@ private:
 	int ancho;
 	int alto;
 
+	std::vector<VistaComponente *> componentes;
+	std::vector<VistaComponente *> componentes_seleccionados;
+
+	// Para controlar el drag and drop
+	bool mouse_apretado;
+	gdouble x_button_press;
+	gdouble y_button_press;
+
 	// Redefinicion del metodo de Gtk::DrawingArea q se llama cada vez q debe dibujarse la hoja.
 	bool on_expose_event(GdkEventExpose* e);
 
-	// Se lanza cada vez que el mouse interactua con la hoja preionando alguno de sus botones
+	// Se lanza cada vez que el mouse interactua con la hoja presionando alguno de sus botones
 	bool on_button_press_event(GdkEventButton* event);
 
 	// Se lanza cada vez que el mouse interactua con la hoja soltando alguno de sus botones
@@ -67,6 +75,9 @@ private:
 	// Cuando el destino recibe los datos del objeto arrastrado
 	void drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context, gint,
 			int, const Gtk::SelectionData& selection_data, guint, guint time);
+
+	void test_cargar_componentes_visuales();
+	void seleccionar_componente_clickeado(gdouble x, gdouble y);
 
 public:
 

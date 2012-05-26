@@ -9,34 +9,46 @@
 #include "vista/VistaConstantes.h"
 #include <iostream>
 
-int main(int argc, char *argv[]){
+#include "modelo/Modelo.h"
+
+int aplicacion_principal(int argc, char *argv[]) {
 	Gtk::Main kit(argc, argv);
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
-	  try
-	  {
-	    builder->add_from_file(ARCH_GLADE_IDE);
-	  }
-	  catch(const Glib::FileError& ex)
-	  {
-	    std::cerr << "FileError: " << ex.what() << std::endl;
-	    return 1;
-	  }
-	  catch(const Gtk::BuilderError& ex)
-	  {
-	    std::cerr << "BuilderError: " << ex.what() << std::endl;
-	    return 1;
-	  }
-	  Ide* ide = 0;
+	try {
+		builder->add_from_file(ARCH_GLADE_IDE);
+	} catch (const Glib::FileError& ex) {
+		std::cerr << "FileError: " << ex.what() << std::endl;
+		return 1;
+	} catch (const Gtk::BuilderError& ex) {
+		std::cerr << "BuilderError: " << ex.what() << std::endl;
+		return 1;
+	}
+	Ide* ide = 0;
 
-	  builder->get_widget_derived("IDE", ide);
+	builder->get_widget_derived("IDE", ide);
 
-	  if(ide)
-	  {
-	    //Start:
-		  Gtk::Main::run(*ide);
-	  }
+	if (ide) {
+		//Start:
+		Gtk::Main::run(*ide);
+	}
 
-	  delete ide;
+	delete ide;
 
-	  return 0;
+	return 0;
+}
+
+void test_modelo() {
+	Proyecto * proyecto = new Proyecto();
+	proyecto->setNombre("Proyecto 1");
+
+
+
+
+	delete proyecto;
+}
+
+int main(int argc, char *argv[]) {
+	//test_modelo();
+	aplicacion_principal(argc,argv);
+	return 0;
 }
