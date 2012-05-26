@@ -25,8 +25,8 @@ std::string Componente::getNombre() const {
 	return nombre;
 }
 
-void Componente::setNombre(const std::string& codigo) {
-	this->nombre = nombre;
+void Componente::setNombre(const std::string& nom) {
+	this->nombre = nom;
 }
 
 /* PERSISTENCIA PARA DATOS

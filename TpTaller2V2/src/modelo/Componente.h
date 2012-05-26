@@ -28,7 +28,7 @@ public:
 	void setCodigo(int codigo);
 
 	std::string getNombre() const;
-	void setNombre(const std::string& codigo);
+	void setNombre(const std::string& nombre);
 
 	virtual ~Componente();
 

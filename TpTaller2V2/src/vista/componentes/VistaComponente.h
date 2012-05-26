@@ -12,9 +12,9 @@
 #include <string>
 #include "../VistaConstantes.h"
 #include <gtkmm/targetentry.h>
-using namespace std;
+#include "../../modelo/Componente.h"
 
-class VistaComponente {
+class VistaComponente: public Componente {
 protected:
 	double pos_ini_x;
 	double pos_ini_y;
@@ -24,7 +24,6 @@ protected:
 	double pos_selec_y;
 	bool dibujable;
 	Gtk::Menu* m_pMenuPopup;
-	string nombre;
 
 	bool seleccionado;
 	Gdk::Color colorNegro;
@@ -39,7 +38,6 @@ public:
 	virtual void setposfin(double x, double y);
 	void setDibujable(bool d);
 	bool getDibujable();
-	string getNombre()const;
 
 	// Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr) = 0;
@@ -57,7 +55,7 @@ public:
 	virtual bool contieneAEstePunto(double x, double y) = 0;
 
 	// Para seleccionar a este componente
-	void seleccionar(double x, double y) ;
+	void seleccionar(double x, double y);
 	void deseleccionar();
 
 	// para mover el componente

@@ -35,23 +35,22 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	VistaComponente * componenteNuevo;
 
 	componenteNuevo = new VistaEntidad();
+	componenteNuevo->setNombre("Alumno");
 	componenteNuevo->setposini(10, 10);
 	componenteNuevo->setposfin(60, 50);
 	this->componentes.push_back(componenteNuevo);
 
-	// Dibujo una relacion
 	componenteNuevo = new VistaRelacion();
+	componenteNuevo->setNombre("Cursa");
 	componenteNuevo->setposini(70, 10);
 	componenteNuevo->setposfin(120, 60);
 	this->componentes.push_back(componenteNuevo);
 
-	// Dibujo un atributo
 	componenteNuevo = new VistaAtributo();
 	componenteNuevo->setposini(130, 20);
 	componenteNuevo->setposfin(140, 30);
 	this->componentes.push_back(componenteNuevo);
 
-	// Dibujo una union (Flecha)
 	componenteNuevo = new VistaUnion();
 	componenteNuevo->setposini(150, 20);
 	componenteNuevo->setposfin(170, 30);
@@ -72,6 +71,15 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 			!= this->componentes.end(); componenteActual++) {
 		(*componenteActual)->dibujar(cr);
 	}
+
+	Glib::RefPtr < Pango::Layout > layout =  this->create_pango_layout("Hola");
+
+
+	//	layout
+
+	cr->move_to(100, 100);
+	layout->update_from_cairo_context(cr);
+	layout->show_in_cairo_context(cr);
 
 	return true;
 }
@@ -101,17 +109,30 @@ bool VistaDiagrama::on_button_release_event(GdkEventButton* event) {
 void VistaDiagrama::seleccionar_componente_clickeado(gdouble x, gdouble y) {
 
 	std::vector<VistaComponente *>::iterator componenteActual;
+
+	// IF NOT APRETO CONTROL
 	componentes_seleccionados.clear();
 
 	for (componenteActual = this->componentes.begin(); componenteActual
 			!= this->componentes.end(); componenteActual++) {
 		if ((*componenteActual)->contieneAEstePunto(x, y)) {
-			(*componenteActual)->seleccionar(x,y);
+			(*componenteActual)->seleccionar(x, y);
 			componentes_seleccionados.push_back((*componenteActual));
+			componenteActual++;
+			// if(!apreto_control){
+			break;
+			//} else {
+			//return;
+			//}
 		} else {
 			(*componenteActual)->deseleccionar();
 		}
 		//(*componenteActual)->dibujar(cr);
+	}
+
+	while (componenteActual != this->componentes.end()) {
+		(*componenteActual)->deseleccionar();
+		componenteActual++;
 	}
 }
 
@@ -181,9 +202,10 @@ void VistaDiagrama::drag_begin(const Glib::RefPtr<Gdk::DragContext>&context) {
 	Cairo::RefPtr<Cairo::ImageSurface> imSur = Cairo::ImageSurface::create(
 			Cairo::FORMAT_RGB24, 1, 1);
 	Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_data(
-	    imSur->get_data(), Gdk::COLORSPACE_RGB, false, 8, 1, 1, imSur->get_stride());
+			imSur->get_data(), Gdk::COLORSPACE_RGB, false, 8, 1, 1,
+			imSur->get_stride());
 
-	context->set_icon(pixbuf,0,0);
+	context->set_icon(pixbuf, 0, 0);
 	cout << "DRAG_BEGIN " << seleccion << endl;
 }
 
