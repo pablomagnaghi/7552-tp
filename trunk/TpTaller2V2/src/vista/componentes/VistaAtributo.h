@@ -12,18 +12,12 @@
 
 class VistaAtributo: public VistaComponente {
 private:
-	string nombre;
 	list<VistaAtributo*> l_atrib_deri;
 public:
 	VistaAtributo();
 	virtual ~VistaAtributo();
 
-	inline string getNombre() {
-		return this->nombre;
-	}
-	inline void setNombre(string nom) {
-		this->nombre = nom;
-	}
+
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);

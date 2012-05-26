@@ -1,10 +1,3 @@
-/*
- * Entidad.h
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
- */
-
 #ifndef VISTAENTIDAD_H_
 #define VISTAENTIDAD_H_
 #include "VistaComponente.h"
@@ -15,6 +8,7 @@
 class VistaEntidad: public VistaComponente {
 private:
 	friend class AsistenteEntidad;
+	void calcular_ancho_a_partir_del_nombre();
 public:
 	VistaEntidad();
 	virtual ~VistaEntidad();

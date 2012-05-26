@@ -52,10 +52,6 @@ bool VistaComponente::getDibujable() {
 	return this->dibujable;
 }
 
-string VistaComponente::getNombre() const {
-	return this->nombre;
-}
-
 void VistaComponente::mover(double x, double y) {
 	double ancho, alto;
 	ancho = this->pos_fin_x - this->pos_ini_x;
