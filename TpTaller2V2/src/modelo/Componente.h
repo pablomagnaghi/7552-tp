@@ -6,10 +6,14 @@
 #define COMPONENTE_H_
 
 #include <string>
-using namespace std;
 
 class Componente {
-protected:
+
+private:
+
+	int codigo;
+	std::string nombre;
+
 	/* PERSITENCIA
 	// si hay que agregar más propiedades, se redefinen
 	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
@@ -20,17 +24,16 @@ protected:
 	// virtual void agregarAtributosDER ( XmlNodo* );
 	// virtual void obtenerAtributosDER ( XmlNodo* );
 	 */
-	int codigo;
-	std::string nombre;
-	Componente();
-public:
-	int getCodigo() const;
-	void setCodigo(int codigo);
 
-	std::string getNombre() const;
-	void setNombre(const std::string& nombre);
+public:
 
 	virtual ~Componente();
+
+	int getCodigo() const;
+	void setCodigo(int);
+
+	std::string getNombre() const;
+	void setNombre(const std::string&);
 
 	// virtual XmlNodo guardarXmlDER() = 0;
 

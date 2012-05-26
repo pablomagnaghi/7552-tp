@@ -5,7 +5,9 @@
 
 #include "Atributo.h"
 
-Atributo::Atributo() {
+Atributo::Atributo() :
+	cardinalidadMinima ("1"),
+	cardinalidadMaxima ("1") {
 
 }
 
@@ -24,6 +26,7 @@ void Atributo::setTipo(const std::string& tipo) {
 std::string Atributo::getExpresion() const {
 	return this->expresion;
 }
+
 void Atributo::setExpresion(const std::string& expresion) {
 	this->expresion = expresion;
 }
@@ -44,35 +47,33 @@ void Atributo::setCardinalidadMaxima(const std::string& cardinalidadMaxima) {
 	this->cardinalidadMaxima = cardinalidadMaxima;
 }
 
-void Atributo::agregarAtributoDerivable(Atributo *atributo) {
+void Atributo::agregarAtributoDerivable(Atributo* atributo) {
 	this->atributosDerivables.push_back(atributo);
 }
 
-void Atributo::quitarAtributoDerivable(Atributo *atributo) {
+void Atributo::quitarAtributoDerivable(Atributo* atributo) {
 	std::vector<Atributo*>::iterator e;
-
-		e = find(this->atributosDerivables.begin(), this->atributosDerivables.end(), atributo);
-		if (*e == atributo)
-			this->atributosDerivables.erase(e);
+	e = find(this->atributosDerivables.begin(), this->atributosDerivables.end(), atributo);
+	if (*e == atributo){
+		this->atributosDerivables.erase(e);
+	}
 }
 
-std::vector<Atributo*>::iterator Atributo::atributoDerivableBegin() {
+std::vector<Atributo*>::iterator Atributo::atributosDerivablesBegin() {
 	return this->atributosDerivables.begin();
 }
 
-std::vector<Atributo*>::iterator Atributo::atributoDerivableEnd() {
+std::vector<Atributo*>::iterator Atributo::atributosDerivablesEnd() {
 	return this->atributosDerivables.end();
 }
 
 void Atributo::borrarAtributosDerivables() {
 	std::vector<Atributo*>::iterator it = this->atributosDerivables.begin();
-
-		while ( it != this->atributosDerivables.end() ) {
-			delete (*it);
-			it++;
-		}
-
-		this->atributosDerivables.clear();
+	while ( it != this->atributosDerivables.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->atributosDerivables.clear();
 }
 
 /* PERSISTENCIA PARA DATOS

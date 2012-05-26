@@ -13,20 +13,20 @@ Jerarquia::~Jerarquia() {
 
 }
 
-Entidad* Jerarquia::getEntidadGeneral() const {
+EntidadNueva* Jerarquia::getEntidadGeneral() const {
 	return this->entidadGeneral;
 }
 
-void Jerarquia::setEntidadGeneral(Entidad* entidadGeneral) {
+void Jerarquia::setEntidadGeneral(EntidadNueva* entidadGeneral) {
 	this->entidadGeneral = entidadGeneral;
 }
 
-void Jerarquia::agregarEntidadEspecializada(Entidad* entidadEspecializada){
+void Jerarquia::agregarEntidadEspecializada(EntidadNueva* entidadEspecializada){
 	this->entidadesEspecializadas.push_back(entidadEspecializada);
 }
 
-void Jerarquia::quitarEntidadEspecializada(Entidad* entidadEspecializada){
-	std::vector<Entidad*>::iterator e;
+void Jerarquia::quitarEntidadEspecializada(EntidadNueva* entidadEspecializada){
+	std::vector<EntidadNueva*>::iterator e;
 	e = find(this->entidadesEspecializadas.begin(), this->entidadesEspecializadas.end(), entidadEspecializada);
 	if (*e == entidadEspecializada){
 		this->entidadesEspecializadas.erase(e);
@@ -49,11 +49,11 @@ void Jerarquia::setInterseccion(const std::string interseccion) {
 	this->interseccion = interseccion;
 }
 
-std::vector<Entidad*>::iterator Jerarquia::entidadesEspecializadasBegin(){
+std::vector<EntidadNueva*>::iterator Jerarquia::entidadesEspecializadasBegin(){
 	return this->entidadesEspecializadas.begin();
 }
 
-std::vector<Entidad*>::iterator Jerarquia::entidadesEspecializadasEnd(){
+std::vector<EntidadNueva*>::iterator Jerarquia::entidadesEspecializadasEnd(){
 	return this->entidadesEspecializadas.end();
 }
 

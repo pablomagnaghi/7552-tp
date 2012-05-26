@@ -6,10 +6,9 @@
 #ifndef DIAGRAMA_H_
 #define DIAGRAMA_H_
 
-#include <iostream>
 #include <vector>
 #include <string>
-#include "Entidad.h"
+#include "EntidadNueva.h"
 #include "EntidadGlobal.h"
 #include "Relacion.h"
 #include "Jerarquia.h"
@@ -23,19 +22,24 @@ private:
 	std::string estado;
 	Diagrama* diagramaAncestro;
 	std::vector<Diagrama*> diagramasHijos;
-	// TODO diagramaAncestro y diagramasHijos podrían ser strings,
-	// no hace falta tener todos los diagramas juntos en memoria.
-	std::vector<Entidad*> entidades;
+	std::vector<EntidadNueva*> entidadesNuevas;
 	std::vector<EntidadGlobal*> entidadesGlobales;
 	std::vector<Relacion*> relaciones;
 	std::vector<Jerarquia*> jerarquias;
-	std::vector<Componente*> componentes;
+	std::vector<Componente*> componentes; // No se persiste, es solo para iterarla desde afuera.
 
 	void agregarComponente(Componente*);
 	void quitarComponente(Componente*);
 
+	void borrarDiagramasHijos();
+	void borrarEntidadesNuevas();
+	void borrarEntidadesGlobales();
+	void borrarJerarquias();
+	void borrarRelaciones();
+
 public:
 
+	Diagrama();
 	Diagrama(const std::string nombre);
 	virtual ~Diagrama();
 
@@ -51,8 +55,8 @@ public:
 	void agregarDiagramaHijo(Diagrama*);
 	void quitarDiagramaHijo(Diagrama*);
 
-	void agregarEntidad(Entidad*);
-	void quitarEntidad(Entidad*);
+	void agregarEntidadNueva(EntidadNueva*);
+	void quitarEntidadNueva(EntidadNueva*);
 
 	void agregarEntidadGlobal(EntidadGlobal*);
 	void quitarEntidadGlobal(EntidadGlobal*);
@@ -63,13 +67,23 @@ public:
 	void agregarJerarquia(Jerarquia*);
 	void quitarJerarquia(Jerarquia*);
 
-	std::vector<Componente*>::iterator componentesBegin();
-	std::vector<Componente*>::iterator componentesEnd();
-
 	std::vector<Diagrama*>::iterator diagramasHijosBegin();
 	std::vector<Diagrama*>::iterator diagramasHijosEnd();
 
-	Diagrama* crearDiagramaHijo(std::string);
+	std::vector<EntidadNueva*>::iterator entidadesNuevasBegin();
+	std::vector<EntidadNueva*>::iterator entidadesNuevasEnd();
+
+	std::vector<EntidadGlobal*>::iterator entidadesGlobalesBegin();
+	std::vector<EntidadGlobal*>::iterator entidadesGlobalesEnd();
+
+	std::vector<Relacion*>::iterator relacionesBegin();
+	std::vector<Relacion*>::iterator relacionesEnd();
+
+	std::vector<Jerarquia*>::iterator jerarquiasBegin();
+	std::vector<Jerarquia*>::iterator jerarquiasEnd();
+
+	std::vector<Componente*>::iterator componentesBegin();
+	std::vector<Componente*>::iterator componentesEnd();
 
 };
 

@@ -10,7 +10,8 @@ Relacion::Relacion() {
 }
 
 Relacion::~Relacion() {
-
+	this->borrarAtributos();
+	this->borrarEntidadesRelacion();
 }
 
 std::string Relacion::getTipo() const {
@@ -59,5 +60,23 @@ std::vector<Atributo*>::iterator Relacion::atributosBegin(){
 
 std::vector<Atributo*>::iterator Relacion::atributosEnd(){
 	return this->atributos.end();
+}
+
+void Relacion::borrarAtributos(){
+	std::vector<Atributo*>::iterator it = this->atributos.begin();
+	while (it != this->atributos.end()){
+		delete (*it);
+		it++;
+	}
+	this->atributos.clear();
+}
+
+void Relacion::borrarEntidadesRelacion(){
+	std::vector<EntidadRelacion*>::iterator it = this->entidadesRelacion.begin();
+	while (it != this->entidadesRelacion.end()){
+		delete (*it);
+		it++;
+	}
+	this->entidadesRelacion.clear();
 }
 

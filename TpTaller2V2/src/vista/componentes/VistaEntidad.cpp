@@ -38,7 +38,7 @@ void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	centro_y = (this->pos_ini_y + this->pos_fin_y)/2;
 
 	cr->move_to(centro_x,centro_y);
-	cr->show_text(this->nombre);
+	cr->show_text(this->getNombre());
 	cr->stroke();
 	//cr->set_source_rgba(0, 0, 0, 1); // negro
 
