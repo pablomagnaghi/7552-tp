@@ -5,18 +5,21 @@
 
 #include "Diagrama.h"
 
+Diagrama::Diagrama(){
+
+}
+
 Diagrama::Diagrama(const std::string nombre):
 	nombre (nombre) {
 
 }
 
 Diagrama::~Diagrama() {
-	std::vector<Componente*>::iterator it = this->componentes.begin();
-	while (it != this->componentes.end()) {
-		delete (*it);
-		it++;
-	}
-	// TODO definir quien borra los diagramas hijos.
+	this->borrarDiagramasHijos();
+	this->borrarEntidadesNuevas();
+	this->borrarEntidadesGlobales();
+	this->borrarRelaciones();
+	this->borrarJerarquias();
 }
 
 void Diagrama::setNombre(const std::string nombre){
@@ -67,18 +70,18 @@ void Diagrama::quitarComponente(Componente* componente){
 	}
 }
 
-void Diagrama::agregarEntidad(Entidad* entidad){
-	this->entidades.push_back(entidad);
-	this->agregarComponente(entidad);
+void Diagrama::agregarEntidadNueva(EntidadNueva* entidadNueva){
+	this->entidadesNuevas.push_back(entidadNueva);
+	this->agregarComponente(entidadNueva);
 }
 
-void Diagrama::quitarEntidad(Entidad* entidad){
-	std::vector<Entidad*>::iterator e;
-	e = find(this->entidades.begin(), this->entidades.end(), entidad);
-	if (*e == entidad){
-		this->entidades.erase(e);
+void Diagrama::quitarEntidadNueva(EntidadNueva* entidadNueva){
+	std::vector<EntidadNueva*>::iterator e;
+	e = find(this->entidadesNuevas.begin(), this->entidadesNuevas.end(), entidadNueva);
+	if (*e == entidadNueva){
+		this->entidadesNuevas.erase(e);
 	}
-	this->quitarComponente(entidad);
+	this->quitarComponente(entidadNueva);
 }
 
 void Diagrama::agregarEntidadGlobal(EntidadGlobal* entidadGlobal){
@@ -123,14 +126,6 @@ void Diagrama::quitarJerarquia(Jerarquia* jerarquia){
 	this->quitarComponente(jerarquia);
 }
 
-std::vector<Componente*>::iterator Diagrama::componentesBegin(){
-	return this->componentes.begin();
-}
-
-std::vector<Componente*>::iterator Diagrama::componentesEnd(){
-	return this->componentes.end();
-}
-
 std::vector<Diagrama*>::iterator Diagrama::diagramasHijosBegin(){
 	return this->diagramasHijos.begin();
 }
@@ -139,10 +134,89 @@ std::vector<Diagrama*>::iterator Diagrama::diagramasHijosEnd(){
 	return this->diagramasHijos.end();
 }
 
-Diagrama* Diagrama::crearDiagramaHijo(std::string nombre){
-	Diagrama* diagramaHijo = new Diagrama(nombre);
-	this->diagramasHijos.push_back(diagramaHijo);
-	return diagramaHijo;
+std::vector<EntidadNueva*>::iterator Diagrama::entidadesNuevasBegin(){
+	return this->entidadesNuevas.begin();
+}
+
+std::vector<EntidadNueva*>::iterator Diagrama::entidadesNuevasEnd(){
+	return this->entidadesNuevas.end();
+}
+
+std::vector<EntidadGlobal*>::iterator Diagrama::entidadesGlobalesBegin(){
+	return this->entidadesGlobales.begin();
+}
+
+std::vector<EntidadGlobal*>::iterator Diagrama::entidadesGlobalesEnd(){
+	return this->entidadesGlobales.end();
+}
+
+std::vector<Relacion*>::iterator Diagrama::relacionesBegin(){
+	return this->relaciones.begin();
+}
+
+std::vector<Relacion*>::iterator Diagrama::relacionesEnd(){
+	return this->relaciones.end();
+}
+
+std::vector<Jerarquia*>::iterator Diagrama::jerarquiasBegin(){
+	return this->jerarquias.begin();
+}
+
+std::vector<Jerarquia*>::iterator Diagrama::jerarquiasEnd(){
+	return this->jerarquias.end();
+}
+
+std::vector<Componente*>::iterator Diagrama::componentesBegin(){
+	return this->componentes.begin();
+}
+
+std::vector<Componente*>::iterator Diagrama::componentesEnd(){
+	return this->componentes.end();
+}
+
+void Diagrama::borrarDiagramasHijos(){
+	std::vector<Diagrama*>::iterator it = this->diagramasHijos.begin();
+	while (it != this->diagramasHijos.end()) {
+		delete (*it);
+		it++;
+	}
+	this->diagramasHijos.clear();
+}
+
+void Diagrama::borrarEntidadesNuevas(){
+	std::vector<EntidadNueva*>::iterator it = this->entidadesNuevas.begin();
+	while (it != this->entidadesNuevas.end()) {
+		delete (*it);
+		it++;
+	}
+	this->entidadesNuevas.clear();
+}
+
+void Diagrama::borrarEntidadesGlobales(){
+	std::vector<EntidadGlobal*>::iterator it = this->entidadesGlobales.begin();
+	while (it != this->entidadesGlobales.end()) {
+		delete (*it);
+		it++;
+	}
+	this->entidadesGlobales.clear();
+}
+
+void Diagrama::borrarRelaciones(){
+	std::vector<Relacion*>::iterator it = this->relaciones.begin();
+	while (it != this->relaciones.end()) {
+		delete (*it);
+		it++;
+	}
+	this->relaciones.clear();
+}
+
+void Diagrama::borrarJerarquias(){
+	std::vector<Jerarquia*>::iterator it = this->jerarquias.begin();
+	while (it != this->jerarquias.end()) {
+		delete (*it);
+		it++;
+	}
+	this->jerarquias.end();
 }
 
 /*

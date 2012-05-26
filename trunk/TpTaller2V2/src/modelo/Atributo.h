@@ -7,12 +7,15 @@
 
 #ifndef ATRIBUTO_H_
 #define ATRIBUTO_H_
-#include "Componente.h"
+
 #include <vector>
 #include <algorithm>
+#include "Componente.h"
 
-class Atributo : public Componente{
-protected:
+class Atributo : public Componente {
+
+private:
+
 	/* PERSITENCIA
 	// si hay que agregar más propiedades, se redefinen
 	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
@@ -27,31 +30,33 @@ protected:
 	std::string expresion;
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
-	vector<Atributo*> atributosDerivables;
-	Atributo();
-public:
-	std::string getTipo() const;
-	void setTipo(const std::string& tipo);
-
-	std::string getExpresion() const;
-	void setExpresion(const std::string& expresion);
-
-	std::string getCardinalidadMinima() const;
-	void setCardinalidadMinima(const std::string& cardinalidadMinima);
-
-	std::string getCardinalidadMaxima() const;
-	void setCardinalidadMaxima(const std::string& cardinalidadMaxima);
-
-	// atributos
-	void agregarAtributoDerivable(Atributo*);
-	void quitarAtributoDerivable(Atributo*);
-
-	std::vector<Atributo*>::iterator atributoDerivableBegin();
-	std::vector<Atributo*>::iterator atributoDerivableEnd();
+	std::vector<Atributo*> atributosDerivables;
 
 	void borrarAtributosDerivables();
 
+public:
+
+	Atributo();
 	virtual ~Atributo();
+
+	std::string getTipo() const;
+	void setTipo(const std::string&);
+
+	std::string getExpresion() const;
+	void setExpresion(const std::string&);
+
+	std::string getCardinalidadMinima() const;
+	void setCardinalidadMinima(const std::string&);
+
+	std::string getCardinalidadMaxima() const;
+	void setCardinalidadMaxima(const std::string&);
+
+	void agregarAtributoDerivable(Atributo*);
+	void quitarAtributoDerivable(Atributo*);
+
+	std::vector<Atributo*>::iterator atributosDerivablesBegin();
+	std::vector<Atributo*>::iterator atributosDerivablesEnd();
+
 };
 
 #endif /* ATRIBUTO_H_ */

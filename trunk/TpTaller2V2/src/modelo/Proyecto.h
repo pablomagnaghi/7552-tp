@@ -26,9 +26,10 @@ public:
 	virtual ~Proyecto();
 
 	std::string getNombre();
-	void setNombre(std::string nom);
+	void setNombre(std::string);
+
 	virtual Diagrama* getDiagramaPrincipal();
-	virtual void setDiagramaPrincipal(Diagrama* diagramaPrincipal);
+	virtual void setDiagramaPrincipal(Diagrama*);
 
 };
 

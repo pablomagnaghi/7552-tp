@@ -14,6 +14,8 @@
 #include <gtkmm/targetentry.h>
 #include "../../modelo/Componente.h"
 
+using namespace std;
+
 class VistaComponente: public Componente {
 protected:
 	double pos_ini_x;

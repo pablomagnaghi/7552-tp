@@ -17,6 +17,7 @@ Proyecto::Proyecto(std::string nombre)
 }
 
 Proyecto::~Proyecto() {
+	delete this->diagramaPrincipal;
 }
 
 std::string Proyecto::getNombre(){

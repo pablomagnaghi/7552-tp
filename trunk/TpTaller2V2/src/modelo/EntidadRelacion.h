@@ -20,9 +20,6 @@ class EntidadRelacion {
 private:
 
 	Entidad* entidad;
-	// TODO esto tambien tiene que soportar entidades globales.
-	// Sugerencia: hacer una clase EntidadNueva para la actual clase Entidad.
-	// y que las clases EntidadNueva y EntidadGlobal hereden de Entidad.
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
 	std::string rol;

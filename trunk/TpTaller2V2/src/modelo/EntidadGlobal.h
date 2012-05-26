@@ -8,21 +8,20 @@
 #define ENTIDADGLOBAL_H_
 
 #include <string>
-#include "Componente.h"
+#include "Entidad.h"
 
-class EntidadGlobal : public Componente {
+class EntidadGlobal : public Entidad {
 
 private:
 
 	std::string diagramaAncestro;
-	// TODO evaluar si puede tener relaciones
 
 public:
 
 	EntidadGlobal();
 	virtual ~EntidadGlobal();
 
-	void setDiagramaAncestro(const std::string diagramaAncestro);
+	void setDiagramaAncestro(const std::string);
 	std::string getDiagramaAncestro() const;
 
 };

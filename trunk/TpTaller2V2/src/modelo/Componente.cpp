@@ -5,10 +5,6 @@
 
 #include "Componente.h"
 
-Componente::Componente() {
-
-}
-
 Componente::~Componente() {
 
 }
@@ -25,8 +21,8 @@ std::string Componente::getNombre() const {
 	return nombre;
 }
 
-void Componente::setNombre(const std::string& nom) {
-	this->nombre = nom;
+void Componente::setNombre(const std::string& nombre) {
+	this->nombre = nombre;
 }
 
 /* PERSISTENCIA PARA DATOS

@@ -13,13 +13,16 @@
 
 class Entidad;
 
-class Relacion : public Componente{
+class Relacion : public Componente {
 
 private:
 
 	std::string tipo;
 	std::vector<EntidadRelacion*> entidadesRelacion;
 	std::vector<Atributo*> atributos;
+
+	void borrarAtributos();
+	void borrarEntidadesRelacion();
 
 public:
 

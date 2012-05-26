@@ -7,17 +7,15 @@
 
 #include <vector>
 #include <string>
-#include "Entidad.h"
+#include "EntidadNueva.h"
 #include "Componente.h"
-
-class Entidad;
 
 class Jerarquia : public Componente {
 
 private:
 
-	Entidad* entidadGeneral;
-	std::vector<Entidad*> entidadesEspecializadas;
+	EntidadNueva* entidadGeneral;
+	std::vector<EntidadNueva*> entidadesEspecializadas;
 	std::string cobertura;
 	std::string interseccion;
 
@@ -26,11 +24,11 @@ public:
 	Jerarquia();
 	virtual ~Jerarquia();
 
-	Entidad* getEntidadGeneral() const;
-	void setEntidadGeneral(Entidad*);
+	EntidadNueva* getEntidadGeneral() const;
+	void setEntidadGeneral(EntidadNueva*);
 
-	void agregarEntidadEspecializada(Entidad*);
-	void quitarEntidadEspecializada(Entidad*);
+	void agregarEntidadEspecializada(EntidadNueva*);
+	void quitarEntidadEspecializada(EntidadNueva*);
 
 	std::string getCobertura() const;
 	void setCobertura(const std::string);
@@ -38,8 +36,8 @@ public:
 	std::string getInterseccion() const;
 	void setInterseccion(const std::string);
 
-	std::vector<Entidad*>::iterator entidadesEspecializadasBegin();
-	std::vector<Entidad*>::iterator entidadesEspecializadasEnd();
+	std::vector<EntidadNueva*>::iterator entidadesEspecializadasBegin();
+	std::vector<EntidadNueva*>::iterator entidadesEspecializadasEnd();
 
 };
 

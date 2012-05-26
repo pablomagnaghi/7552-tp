@@ -6,7 +6,9 @@
 
 #include "EntidadRelacion.h"
 
-EntidadRelacion::EntidadRelacion() {
+EntidadRelacion::EntidadRelacion() :
+	cardinalidadMinima ("1"),
+	cardinalidadMaxima ("1"){
 
 }
 

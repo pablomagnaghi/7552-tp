@@ -16,7 +16,7 @@ class Identificador {
 private:
 
 	std::vector<Atributo*> atributos;
-	std::vector<Relacion*> relaciones; // Para el caso de entidades debiles. El identificador podría guardar las entidades fuertes, en vez de las relaciones.
+	std::vector<Relacion*> relaciones;
 
 public:
 

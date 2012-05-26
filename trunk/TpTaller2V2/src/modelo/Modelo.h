@@ -6,15 +6,18 @@
 #ifndef MODELO_H_
 #define MODELO_H_
 
-#include "Entidad.h"
-#include "Relacion.h"
-#include "Atributo.h"
-#include "Componente.h"
-#include "EntidadGlobal.h"
-#include "Identificador.h"
-#include "Jerarquia.h"
 #include "Proyecto.h"
 #include "Diagrama.h"
+#include "Componente.h"
+#include "Entidad.h"
+#include "EntidadNueva.h"
+#include "EntidadGlobal.h"
+#include "Relacion.h"
+#include "Jerarquia.h"
+#include "Atributo.h"
+#include "Identificador.h"
 #include "EntidadRelacion.h"
+#include "GeneradorCodigo.h"
+#include "ConstantesModelo.h"
 
 #endif /* MODELO_H_ */
