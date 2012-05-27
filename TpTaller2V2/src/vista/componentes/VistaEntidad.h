@@ -5,7 +5,7 @@
 #include "../../modelo/Entidad.h"
 #include <list>
 
-class VistaEntidad: public VistaComponente {
+class VistaEntidad: public VistaComponente, public Entidad {
 private:
 	friend class AsistenteEntidad;
 	void calcular_ancho_a_partir_del_nombre();
@@ -27,6 +27,8 @@ public:
 
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y);
+
+	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
 
 };
 

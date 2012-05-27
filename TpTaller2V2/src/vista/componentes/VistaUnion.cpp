@@ -53,4 +53,7 @@ bool VistaUnion::contieneAEstePunto(double x, double y) {
 
 }
 
+void VistaUnion::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents){
+
+}
 

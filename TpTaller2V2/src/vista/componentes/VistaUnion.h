@@ -27,6 +27,7 @@ public:
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y);
 
+	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
 };
 
 #endif /* VISTAUNION_H_ */

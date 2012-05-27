@@ -32,6 +32,7 @@ void VistaComponente::getposini(double&x, double&y) const {
 void VistaComponente::setposini(double x, double y) {
 	this->pos_ini_x = x;
 	this->pos_ini_y = y;
+
 }
 
 void VistaComponente::getposfin(double&x, double&y) const {
@@ -74,7 +75,8 @@ void VistaComponente::deseleccionar() {
 	this->pos_selec_y = 0;
 }
 
-void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr) {
+void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
+		const std::string nombre) {
 	double centro_x, centro_y;
 	double textoCentrado_x, textoCentrado_y;
 	Cairo::TextExtents textExtents;
@@ -116,7 +118,7 @@ void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr) {
 	 zero except for vertical text layout as found in East-Asian languages.*/
 
 	// Obtengo dimensiones del texto
-	cr->get_text_extents(this->getNombre(), textExtents);
+	cr->get_text_extents(nombre, textExtents);
 	textoCentrado_x = centro_x - (textExtents.width / 2);
 	textoCentrado_y = centro_y + (textExtents.height / 2);
 
@@ -124,7 +126,7 @@ void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr) {
 	 cout << "dimentions "<< textExtents.width << " " << textExtents.height << " ";
 	 cout << "advance "<< textExtents.x_advance << " " << textExtents.y_advance << endl;*/
 	cr->move_to(textoCentrado_x, textoCentrado_y);
-	cr->show_text(this->getNombre());
+	cr->show_text(nombre);
 	cr->stroke();
 }
 

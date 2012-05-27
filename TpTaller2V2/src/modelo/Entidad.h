@@ -13,8 +13,8 @@ class Relacion;
 
 class Entidad : public Componente {
 
-private:
-
+protected:
+	bool esDebil;
 	std::vector<Relacion*> relaciones;
 
 public:
@@ -25,6 +25,8 @@ public:
 	void quitarRelacion(Relacion*);
 
 	Relacion* getRelacionByCodigo(int);
+
+	void setEsDebil(bool esDebil);
 
 };
 

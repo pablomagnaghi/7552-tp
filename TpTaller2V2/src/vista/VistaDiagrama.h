@@ -46,6 +46,8 @@ private:
 
 	bool on_mouse_motion_event(GdkEventMotion * event);
 
+
+
 	friend class TreePanel;
 	friend class VistaProyecto;
 
