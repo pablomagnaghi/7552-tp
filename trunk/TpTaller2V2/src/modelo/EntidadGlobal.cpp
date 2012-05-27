@@ -22,3 +22,11 @@ std::string EntidadGlobal::getDiagramaAncestro() const{
 	return this->diagramaAncestro;
 }
 
+void EntidadGlobal::setCodigoEntidadNueva(int codigoEntidadNueva) {
+	this->codigoEntidadNueva = codigoEntidadNueva;
+}
+
+int EntidadGlobal::getCodigoEntidadNueva() const {
+	return this->codigoEntidadNueva;
+}
+

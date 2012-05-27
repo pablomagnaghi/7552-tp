@@ -33,7 +33,7 @@
 		<atributo codigo="10" nombre="autor" tipo="caracterizacion" cardinalidad_minima="1" cardinalidad_maxima="n" />
 		<atributo codigo="11" nombre="director" tipo="caracterizacion" cardinalidad_minima="1" cardinalidad_maxima="n" />
 		<atributo codigo="12" nombre="genero" tipo="caracterizacion"  />
-		<atributo codigo="13" nombre="nroProxFunc" tipo="copiado"  />
+		<atributo codigo="13" nombre="nroProxFunc" tipo="caracterizacion"  />
 		<identificador>
 			<atributo>8</atributo>
 		</identificador>
@@ -61,13 +61,13 @@
 	</entidad_nueva>
 	
 	<relacion codigo="18" nombre="SL">
-		<entidad codigo="1" cardinalidad_minima="1" cardinalidad_maxima="n" />
-		<entidad codigo="4" cardinalidad_minima="1" cardinalidad_maxima="1" />
+		<entidad_relacion entidad="1" cardinalidad_minima="1" cardinalidad_maxima="n" />
+		<entidad_relacion entidad="4" cardinalidad_minima="1" cardinalidad_maxima="1" />
 	</relacion>
 	
 	<relacion codigo="21" nombre="VtaLoc">
-		<entidad codigo="4" cardinalidad_minima="0" cardinalidad_maxima="n" />
-		<entidad codigo="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<entidad_relacion entidad="4" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<entidad_relacion entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
 		<atributo codigo="22" nombre="tarj" tipo="caracterizacion" cardinalidad_minima="0" cardinalidad_maxima="1">
 			<atributo codigo="23" nombre="nomTarj" tipo="caracterizacion"  />
 			<atributo codigo="24" nombre="bco" tipo="caracterizacion"  />
@@ -81,8 +81,8 @@
 	</relacion>
 	
 	<relacion codigo="30" nombre="FO">
-		<entidad codigo="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
-		<entidad codigo="14" cardinalidad_minima="1" cardinalidad_maxima="1" />
+		<entidad_relacion entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<entidad_relacion entidad="14" cardinalidad_minima="1" cardinalidad_maxima="1" />
 	</relacion>
 	
 </diagrama>

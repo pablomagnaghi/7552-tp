@@ -10,7 +10,8 @@ Diagrama::Diagrama(){
 }
 
 Diagrama::Diagrama(const std::string nombre):
-	nombre (nombre) {
+	nombre (nombre),
+	estado (DIAGRAMA_SIN_VALIDAR){
 
 }
 

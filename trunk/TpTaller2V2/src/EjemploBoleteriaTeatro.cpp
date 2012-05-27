@@ -252,7 +252,8 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	atrInt->setNombre("int");
 	atrInt->setCodigo(GeneradorCodigo::siguienteCodigo());
 	atrInt->setCardinalidadMinima("0");
-	atrInt->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
+	atrInt->setTipo(TIPO_ATRIBUTO_CALCULADO);
+	atrInt->setExpresion("cuotas*0.1");
 	cr->agregarAtributoDerivable(atrInt);
 
 	return vtaLoc;
