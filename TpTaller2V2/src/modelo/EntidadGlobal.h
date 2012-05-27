@@ -15,6 +15,7 @@ class EntidadGlobal : public Entidad {
 private:
 
 	std::string diagramaAncestro;
+	int codigoEntidadNueva; // Codigo de la EntidadNueva en el diagrama ancestro.
 
 public:
 
@@ -23,6 +24,9 @@ public:
 
 	void setDiagramaAncestro(const std::string);
 	std::string getDiagramaAncestro() const;
+
+	void setCodigoEntidadNueva(int);
+	int getCodigoEntidadNueva() const;
 
 };
 
