@@ -102,6 +102,18 @@ void EntidadNueva::borrarIdentificadores() {
 	this->identificadores.clear();
 }
 
+Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
+	Atributo* atributo = NULL;
+	std::vector<Atributo*>::iterator it = this->atributos.begin();
+	while (it != this->atributos.end()) {
+		if ((*it)->getCodigo() == codigo){
+			atributo = *it;
+		}
+		it++;
+	}
+	return atributo;
+}
+
 /* PERSISTENCIA PARA DATOS
 
 Entidad::Entidad(XmlNodo* nodo) {

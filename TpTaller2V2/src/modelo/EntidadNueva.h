@@ -70,6 +70,8 @@ public:
 	std::vector<Identificador*>::iterator identificadoresBegin();
 	std::vector<Identificador*>::iterator identificadoresEnd();
 
+	Atributo* getAtributoByCodigo(int);
+
 	// Entidad ( XmlNodo* nodo);
 	// XmlNodo guardarXmlDER();
 

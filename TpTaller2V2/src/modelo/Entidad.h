@@ -24,6 +24,8 @@ public:
 	void agregarRelacion(Relacion*);
 	void quitarRelacion(Relacion*);
 
+	Relacion* getRelacionByCodigo(int);
+
 };
 
 #endif /* ENTIDAD_H_ */

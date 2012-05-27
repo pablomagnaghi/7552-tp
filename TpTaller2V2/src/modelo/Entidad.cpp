@@ -22,3 +22,14 @@ void Entidad::quitarRelacion(Relacion* relacion){
 	}
 }
 
+Relacion* Entidad::getRelacionByCodigo(int codigo){
+	Relacion* relacion = NULL;
+	std::vector<Relacion*>::iterator it = this->relaciones.begin();
+	while (it != this->relaciones.end()) {
+		if ((*it)->getCodigo() == codigo){
+			relacion = *it;
+		}
+		it++;
+	}
+	return relacion;
+}
