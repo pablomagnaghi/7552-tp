@@ -13,6 +13,7 @@
 #include "Relacion.h"
 #include "Jerarquia.h"
 #include "Componente.h"
+#include "ConstantesModelo.h"
 
 class Diagrama {
 
