@@ -17,10 +17,16 @@ VistaDiagrama::VistaDiagrama(string nom) :
 	this->alto = A4_ALTO * zoom;
 	this->set_size_request(this->ancho, this->alto);
 
+	// Habilito el evento de apretar el boton del mouse
+	this->add_events(Gdk::BUTTON_PRESS_MASK | Gdk::POINTER_MOTION_MASK);
+
 	this->signal_button_press_event().connect(sigc::mem_fun(*this,
 			&VistaDiagrama::on_button_press_event));
 	this->signal_button_release_event().connect(sigc::mem_fun(*this,
 			&VistaDiagrama::on_button_release_event));
+	this->signal_motion_notify_event().connect(sigc::mem_fun(*this,
+			&VistaDiagrama::on_mouse_motion_event));
+	this->
 
 	test_cargar_componentes_visuales();
 
@@ -72,8 +78,7 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 		(*componenteActual)->dibujar(cr);
 	}
 
-	Glib::RefPtr < Pango::Layout > layout =  this->create_pango_layout("Hola");
-
+	Glib::RefPtr < Pango::Layout > layout = this->create_pango_layout("Hola");
 
 	//	layout
 
@@ -158,6 +163,11 @@ VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre) {
 	return diagramaHijo;
 }
 
+bool VistaDiagrama::on_mouse_motion_event(GdkEventMotion * event) {
+	cout << "Mouse Motion X= " << event->x << " Y= " << event->y << endl;
+	return true;
+}
+
 void VistaDiagrama::configurar_drag_and_drop() {
 	// Drag And Drop
 
@@ -170,7 +180,6 @@ void VistaDiagrama::configurar_drag_and_drop() {
 	listaDeTargets.push_back(Gtk::TargetEntry("Comentario"));
 
 	// Configuro el widget origen
-	// SI NO PONGO ESTO NO REACCIONA A LA SEÑAL DE CLICK
 	this->drag_source_set(listaDeTargets, Gdk::BUTTON1_MASK, Gdk::ACTION_MOVE);
 	this->signal_drag_begin().connect(sigc::mem_fun(*this,
 			&VistaDiagrama::drag_begin));

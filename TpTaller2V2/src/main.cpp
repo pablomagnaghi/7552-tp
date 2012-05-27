@@ -37,16 +37,6 @@ int aplicacion_principal(int argc, char *argv[]) {
 	return 0;
 }
 
-void test_modelo() {
-	Proyecto * proyecto = new Proyecto();
-	proyecto->setNombre("Proyecto 1");
-
-
-
-
-	delete proyecto;
-}
-
 int main(int argc, char *argv[]) {
 	//test_modelo();
 	aplicacion_principal(argc,argv);
