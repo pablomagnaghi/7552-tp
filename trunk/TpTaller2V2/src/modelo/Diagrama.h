@@ -86,6 +86,12 @@ public:
 	std::vector<Componente*>::iterator componentesBegin();
 	std::vector<Componente*>::iterator componentesEnd();
 
+	EntidadNueva* getEntidadNuevaByCodigo(int);
+	EntidadGlobal* getEntidadGlobalByCodigo(int);
+	Relacion* getRelacionByCodigo(int);
+	Jerarquia* getJerarquiaByCodigo(int);
+	Componente* getComponenteByCodigo(int);
+
 };
 
 #endif /* DIAGRAMA_H_ */

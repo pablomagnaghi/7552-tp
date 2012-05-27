@@ -217,7 +217,67 @@ void Diagrama::borrarJerarquias(){
 		delete (*it);
 		it++;
 	}
-	this->jerarquias.end();
+	this->jerarquias.clear();
+}
+
+EntidadNueva* Diagrama::getEntidadNuevaByCodigo(int codigo){
+	EntidadNueva* entidadNueva = NULL;
+	std::vector<EntidadNueva*>::iterator it = this->entidadesNuevas.begin();
+	while (it != this->entidadesNuevas.end()) {
+		if ((*it)->getCodigo() == codigo){
+			entidadNueva = *it;
+		}
+		it++;
+	}
+	return entidadNueva;
+}
+
+EntidadGlobal* Diagrama::getEntidadGlobalByCodigo(int codigo){
+	EntidadGlobal* entidadGlobal = NULL;
+	std::vector<EntidadGlobal*>::iterator it = this->entidadesGlobales.begin();
+	while (it != this->entidadesGlobales.end()) {
+		if ((*it)->getCodigo() == codigo){
+			entidadGlobal = *it;
+		}
+		it++;
+	}
+	return entidadGlobal;
+}
+
+Relacion* Diagrama::getRelacionByCodigo(int codigo){
+	Relacion* relacion = NULL;
+	std::vector<Relacion*>::iterator it = this->relaciones.begin();
+	while (it != this->relaciones.end()) {
+		if ((*it)->getCodigo() == codigo){
+			relacion = *it;
+		}
+		it++;
+	}
+	return relacion;
+}
+
+Jerarquia* Diagrama::getJerarquiaByCodigo(int codigo){
+	Jerarquia* jerarquia = NULL;
+	std::vector<Jerarquia*>::iterator it = this->jerarquias.begin();
+	while (it != this->jerarquias.end()) {
+		if ((*it)->getCodigo() == codigo){
+			jerarquia = *it;
+		}
+		it++;
+	}
+	return jerarquia;
+}
+
+Componente* Diagrama::getComponenteByCodigo(int codigo){
+	Componente* componente = NULL;
+	std::vector<Componente*>::iterator it = this->componentes.begin();
+	while (it != this->componentes.end()) {
+		if ((*it)->getCodigo() == codigo){
+			componente = *it;
+		}
+		it++;
+	}
+	return componente;
 }
 
 /*
