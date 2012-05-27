@@ -21,9 +21,10 @@ void VistaRelacion::lanzarProp(GdkEventButton* event) {
 }
 
 void VistaRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
-	// Dibujo el cuadrado en el contexto
-	// Ancho de linea arbitrario
-	cr->set_line_width(2);
+	double mitad_x, mitad_y;
+	Cairo::TextExtents textExtents;
+
+	cr->set_line_width(2); // Ancho de linea arbitrario
 	if (!this->seleccionado) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
 				colorNegro.get_blue_p());
@@ -34,10 +35,14 @@ void VistaRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 	//TODO IF(ES DEBIL)
 
-	double mitad_x, mitad_y;
+	cr->get_text_extents(this->getNombre(), textExtents);
+
+	this->calcularDimensionesAPartirDeTexto(&textExtents);
 
 	mitad_x = (this->pos_fin_x + this->pos_ini_x) / 2;
 	mitad_y = (this->pos_fin_y + this->pos_ini_y) / 2;
+
+	this->dibujarNombreCentrado(cr,this->nombre);
 
 	cr->move_to(mitad_x, this->pos_ini_y);
 	cr->line_to(this->pos_fin_x, mitad_y);
@@ -68,3 +73,13 @@ bool VistaRelacion::contieneAEstePunto(double x, double y) {
 	return false;
 }
 
+void VistaRelacion::calcularDimensionesAPartirDeTexto(
+		Cairo::TextExtents * textExtents) {
+	double alto, ancho;
+	ancho = textExtents->width;
+	alto = textExtents->height;
+
+	this->pos_fin_x = this->pos_ini_x + ancho + 6 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
+	this->pos_fin_y = this->pos_ini_y + alto + 6 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
+
+}

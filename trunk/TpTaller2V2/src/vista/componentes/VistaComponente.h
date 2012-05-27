@@ -16,7 +16,9 @@
 
 using namespace std;
 
-class VistaComponente: public Componente {
+#define ESPACIO_ENTRE_TEXTO_Y_BORDE 5
+
+class VistaComponente /*: public Componente*/ {
 protected:
 	double pos_ini_x;
 	double pos_ini_y;
@@ -31,7 +33,7 @@ protected:
 	Gdk::Color colorNegro;
 	Gdk::Color colorDeSeleccion;
 
-	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr);
+	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
 public:
 	VistaComponente();
@@ -65,6 +67,9 @@ public:
 
 	// para mover el componente
 	void mover(double x, double y);
+
+	// Calcula las dimensiones del componente a partir de las dimensiones del nombre
+	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents)=0;
 
 
 

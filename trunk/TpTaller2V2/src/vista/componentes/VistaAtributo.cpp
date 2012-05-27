@@ -65,3 +65,7 @@ bool VistaAtributo::contieneAEstePunto(double x, double y) {
 	}
 	return false;
 }
+
+void VistaAtributo::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents){
+
+}

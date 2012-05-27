@@ -39,28 +39,40 @@ VistaDiagrama::~VistaDiagrama() {
 
 void VistaDiagrama::test_cargar_componentes_visuales() {
 	VistaComponente * componenteNuevo;
+	VistaEntidad * entidadDebil;
+	VistaEntidad * entidad;
+	VistaRelacion * relacion;
+	VistaAtributo * atributo;
+	VistaUnion * vUnion;
 
-	componenteNuevo = new VistaEntidad();
-	componenteNuevo->setNombre("Alumno");
-	componenteNuevo->setposini(10, 10);
-	componenteNuevo->setposfin(60, 50);
-	this->componentes.push_back(componenteNuevo);
+	entidad = new VistaEntidad();
+	entidad->setNombre("Alumno");
+	entidad->setposini(10, 10);
+	entidad->setposfin(60, 50);
+	this->componentes.push_back(entidad);
 
-	componenteNuevo = new VistaRelacion();
-	componenteNuevo->setNombre("Cursa");
-	componenteNuevo->setposini(70, 10);
-	componenteNuevo->setposfin(120, 60);
-	this->componentes.push_back(componenteNuevo);
+	entidadDebil = new VistaEntidad();
+	entidadDebil->setNombre("Entidad Debil");
+	entidadDebil->setposini(180, 10);
+	entidadDebil->setposfin(60, 50);
+	entidadDebil->setEsDebil(true);
+	this->componentes.push_back(entidadDebil);
 
-	componenteNuevo = new VistaAtributo();
-	componenteNuevo->setposini(130, 20);
-	componenteNuevo->setposfin(140, 30);
-	this->componentes.push_back(componenteNuevo);
+	relacion = new VistaRelacion();
+	relacion->setNombre("Cursa");
+	relacion->setposini(70, 10);
+	relacion->setposfin(120, 60);
+	this->componentes.push_back(relacion);
 
-	componenteNuevo = new VistaUnion();
-	componenteNuevo->setposini(150, 20);
-	componenteNuevo->setposfin(170, 30);
-	this->componentes.push_back(componenteNuevo);
+	atributo = new VistaAtributo();
+	atributo->setposini(130, 20);
+	atributo->setposfin(138, 28);
+	this->componentes.push_back(atributo);
+
+	vUnion = new VistaUnion();
+	vUnion->setposini(150, 20);
+	vUnion->setposfin(170, 30);
+	this->componentes.push_back(vUnion);
 
 }
 

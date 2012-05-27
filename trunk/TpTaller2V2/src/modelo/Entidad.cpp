@@ -33,3 +33,7 @@ Relacion* Entidad::getRelacionByCodigo(int codigo){
 	}
 	return relacion;
 }
+
+void Entidad::setEsDebil(bool esDebil){
+	this->esDebil = esDebil;
+}

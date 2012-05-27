@@ -9,7 +9,7 @@
 
 class Componente {
 
-private:
+protected:
 
 	int codigo;
 	std::string nombre;

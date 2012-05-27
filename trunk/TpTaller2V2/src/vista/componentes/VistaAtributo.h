@@ -8,9 +8,10 @@
 #ifndef VISTAATRIBUTO_H_
 #define VISTAATRIBUTO_H_
 #include "VistaComponente.h"
+#include "../../modelo/Atributo.h"
 #include <list>
 
-class VistaAtributo: public VistaComponente {
+class VistaAtributo: public VistaComponente, public Atributo {
 private:
 	list<VistaAtributo*> l_atrib_deri;
 public:
@@ -33,6 +34,8 @@ public:
 
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y);
+
+	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
 };
 
 #endif /* VISTAATRIBUTO_H_ */

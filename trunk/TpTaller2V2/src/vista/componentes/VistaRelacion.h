@@ -5,10 +5,10 @@
 
 #ifndef VISTARELACION_H_
 #define VISTARELACION_H_
-
+#include "../../modelo/Relacion.h"
 #include "VistaComponente.h"
 
-class VistaRelacion: public VistaComponente {
+class VistaRelacion: public VistaComponente, public Relacion {
 public:
 	VistaRelacion();
 	virtual ~VistaRelacion();
@@ -27,6 +27,8 @@ public:
 
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y);
+
+	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
 
 };
 

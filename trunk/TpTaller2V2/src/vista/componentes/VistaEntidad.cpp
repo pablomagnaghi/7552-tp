@@ -24,7 +24,7 @@ void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	// Dibujo el cuadrado en el contexto
 	// Ancho de linea arbitrario
 	cr->set_line_width(2);
-	double centro_x, centro_y;
+	Cairo::TextExtents textExtents;
 
 	if (!this->seleccionado) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
@@ -34,7 +34,11 @@ void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 				colorDeSeleccion.get_green_p(), colorDeSeleccion.get_blue_p());
 	}
 
-	this->dibujarNombreCentrado(cr);
+	cr->get_text_extents(this->nombre, textExtents);
+
+	this->calcularDimensionesAPartirDeTexto(&textExtents);
+
+	this->dibujarNombreCentrado(cr, this->nombre);
 
 	//cr->set_source_rgba(0, 0, 0, 1); // negro
 
@@ -46,6 +50,12 @@ void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 	cr->rectangle(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x
 			- this->pos_ini_x, this->pos_fin_y - this->pos_ini_y);
+
+	if (this->esDebil) {
+		cr->set_line_width(1.1);
+		cr->rectangle(this->pos_ini_x + 2.5, this->pos_ini_y + 2.5, this->pos_fin_x
+				- this->pos_ini_x - 5, this->pos_fin_y - this->pos_ini_y - 5);
+	}
 
 	cr->stroke();
 }
@@ -65,5 +75,26 @@ bool VistaEntidad::contieneAEstePunto(double x, double y) {
 		}
 	}
 	return false;
+}
+
+void VistaEntidad::calcularDimensionesAPartirDeTexto(
+		Cairo::TextExtents * textExtents) {
+
+	double alto, ancho;
+	ancho = textExtents->width;
+	alto = textExtents->height;
+
+	if (!this->esDebil) {
+		this->pos_fin_x = this->pos_ini_x + ancho + 2
+				* ESPACIO_ENTRE_TEXTO_Y_BORDE;
+		this->pos_fin_y = this->pos_ini_y + alto + 2
+				* ESPACIO_ENTRE_TEXTO_Y_BORDE;
+	} else {
+		this->pos_fin_x = this->pos_ini_x + ancho + 4
+				* ESPACIO_ENTRE_TEXTO_Y_BORDE;
+		this->pos_fin_y = this->pos_ini_y + alto + 3
+				* ESPACIO_ENTRE_TEXTO_Y_BORDE;
+	}
+
 }
 
