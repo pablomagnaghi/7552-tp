@@ -34,12 +34,8 @@ void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 				colorDeSeleccion.get_green_p(), colorDeSeleccion.get_blue_p());
 	}
 
-	centro_x = (this->pos_ini_x + this->pos_fin_x)/2;
-	centro_y = (this->pos_ini_y + this->pos_fin_y)/2;
+	this->dibujarNombreCentrado(cr);
 
-	cr->move_to(centro_x,centro_y);
-	cr->show_text(this->getNombre());
-	cr->stroke();
 	//cr->set_source_rgba(0, 0, 0, 1); // negro
 
 	//cr->move_to(this->pos_ini_x, this->pos_ini_y);

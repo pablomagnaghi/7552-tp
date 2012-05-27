@@ -30,6 +30,9 @@ protected:
 	bool seleccionado;
 	Gdk::Color colorNegro;
 	Gdk::Color colorDeSeleccion;
+
+	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr);
+
 public:
 	VistaComponente();
 	virtual ~VistaComponente();
@@ -62,6 +65,8 @@ public:
 
 	// para mover el componente
 	void mover(double x, double y);
+
+
 
 	/*PERSISTENCIA REP*/
 	// void Componente::agregarPropiedadesRep(XmlNodo* nodo);

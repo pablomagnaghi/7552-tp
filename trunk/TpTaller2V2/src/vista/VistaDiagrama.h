@@ -44,6 +44,8 @@ private:
 	// Se lanza cada vez que el mouse interactua con la hoja soltando alguno de sus botones
 	bool on_button_release_event(GdkEventButton* event);
 
+	bool on_mouse_motion_event(GdkEventMotion * event);
+
 	friend class TreePanel;
 	friend class VistaProyecto;
 
