@@ -30,3 +30,36 @@ int EntidadGlobal::getCodigoEntidadNueva() const {
 	return this->codigoEntidadNueva;
 }
 
+/* PERSISTENCIA PARA DATOS
+
+EntidadGlobal::EntidadGlobal(XmlNodo* nodo) {
+	this->obtenerPropiedadesDER(nodo);
+
+	XmlNodo nodoAux = nodo->getHijo();
+
+	this->obtenerComponentesDER(&nodoAux);
+}
+
+void EntidadGlobal::agregarPropiedadesDER(XmlNodo* nodo) {
+	nodo->setPropiedad("diagrama_ancestro",this->diagramaAncetro.getNombre());
+	nodo->setPropiedad("codigo_entidad_nueva", this->codigoEntidadNueva);
+}
+
+void EntidadGlobal::obtenerPropiedadesDER(XmlNodo* nodo) {
+	this->diagramaAncestro.setNombre( nodo->getPropiedad("diagrama_ancestro"));
+	this->codigoEntidadNueva = nodo->getPropiedad("codigo_entidad_nueva");
+}
+
+XmlNodo EntidadGlobal::guardarXmlDER() {
+	XmlNodo nodo("entidad_nueva");
+
+	this->agregarPropiedades(&nodo);
+
+	this->guardarRelacionesXmlDER(&nodo);
+
+	return nodo;
+}
+*/
+
+
+

@@ -27,22 +27,19 @@ private:
 	void borrarIdentificadores();
 
 	/* PERSITENCIA DER
-	void obtenerComponentesDER(XmlNodo*);
+	// void obtenerComponentesDER(XmlNodo*);
 
-	void guardarComponentesXmlDER(XmlNodo*);
-	void guardarIdentificadoresXmlDER(XmlNodo*);
-	*/
-
-	/*
+	// void guardarAtributosXmlDER(XmlNodo*);
+	// void guardarIdentificadoresXmlDER(XmlNodo*);
+	// void guardarRelacionesXmlDER(XmlNodo*);
+	// void guardarJerarquiasXmlDER(XmlNodo*);
+	 */
+protected:
+	/* PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
 	// virtual void agregarPropiedadesDER (XmlNodo*);
 	// virtual void obtenerPropiedadesDER (XmlNodo*);
-
-	// si hay que agregar más atributos, se redefinen
-	// Estos dos metodos estarian de mas por ahora
-	// virtual void agregarAtributosDER (XmlNodo*);
-	// virtual void obtenerAtributosDER (XmlNodo*);
-	*/
+	 */
 
 public:
 
@@ -72,8 +69,10 @@ public:
 
 	Atributo* getAtributoByCodigo(int);
 
-	// Entidad ( XmlNodo* nodo);
+	/* PERSISTENCIA DER
+	// EntidadNueva ( XmlNodo* nodo);
 	// XmlNodo guardarXmlDER();
+	 */
 
 };
 
