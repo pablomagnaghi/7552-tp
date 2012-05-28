@@ -37,7 +37,7 @@ int aplicacion_principal(int argc, char *argv[]) {
 	return 0;
 }
 
-int main(int argc, char *argv[]) {
+int main2(int argc, char *argv[]) {
 	//test_modelo();
 	aplicacion_principal(argc,argv);
 	return 0;

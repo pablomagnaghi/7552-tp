@@ -5,6 +5,7 @@
  */
 
 #include "modelo/Modelo.h"
+#include <iostream>
 
 EntidadNueva* crearSeccionSala(){
 	EntidadNueva* seccionSala = new EntidadNueva();
@@ -308,7 +309,7 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	return fO;
 }
 
-int main2(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 

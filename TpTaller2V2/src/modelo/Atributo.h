@@ -16,15 +16,12 @@ class Atributo : public Componente {
 
 private:
 
-	/* PERSITENCIA
+	/* PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
 	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
 	// virtual void obtenerPropiedadesDER (XmlNodo* nodo);
 
-	// si hay que agregar más atributos, se redefinen
-	// Estos dos metodos estarian de mas por ahora
-	// virtual void agregarAtributosDER ( XmlNodo* );
-	// virtual void obtenerAtributosDER ( XmlNodo* );
+	// void obtenerComponentesDER (XmlNodo*) {
 	 */
 	std::string tipo;
 	std::string expresion;
@@ -57,6 +54,28 @@ public:
 	std::vector<Atributo*>::iterator atributosDerivablesBegin();
 	std::vector<Atributo*>::iterator atributosDerivablesEnd();
 
+	/* PERSISTENCIA DER
+	// Atributo(XmlNodo*);
+	// virtual XmlNodo guardarXmlDER();
+	 */
+
 };
 
 #endif /* ATRIBUTO_H_ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

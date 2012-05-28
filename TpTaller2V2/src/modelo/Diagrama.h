@@ -6,6 +6,12 @@
 #ifndef DIAGRAMA_H_
 #define DIAGRAMA_H_
 
+
+#define XMLNS "xmlns:xsi"
+#define INSTANCE "http:\/\/www.w3.org/2001/XMLSxhema-instance"
+#define XSI "xsi:noNamespaceSchemaLocation"
+#define COMPOSICION "composicion.xsd"
+
 #include <vector>
 #include <string>
 #include "EntidadNueva.h"
@@ -37,6 +43,16 @@ private:
 	void borrarEntidadesGlobales();
 	void borrarJerarquias();
 	void borrarRelaciones();
+
+	/* PERSISTENCIA DER
+	// void agregarPropiedadesDER (XmlNodo*);
+	// void obtenerPropiedadesDER (XmlNodo*);
+
+	// void guardarEntidadesNuevasXmlDER(XmlNodo *nodo) {
+	// void guardarEntidadesGlobalesXmlDER(XmlNodo *nodo) {
+	// void guardarRelacionesXmlDER(XmlNodo *nodo) {
+	// void guardarJerarquiasXmlDER(XmlNodo *nodo) {
+	*/
 
 public:
 
@@ -92,6 +108,11 @@ public:
 	Jerarquia* getJerarquiaByCodigo(int);
 	Componente* getComponenteByCodigo(int);
 
+
+	/* PERSITENCIA DER
+	// Diagrama(XmlNodo*);
+	// XmlNodo guardarXmlDER() {
+	*/
 };
 
 #endif /* DIAGRAMA_H_ */

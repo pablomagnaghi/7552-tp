@@ -14,15 +14,10 @@ protected:
 	int codigo;
 	std::string nombre;
 
-	/* PERSITENCIA
+	/* PERSITENCIA DER
 	// si hay que agregar más propiedades, se redefinen
 	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
 	// virtual void obtenerPropiedadesDER (XmlNodo* nodo);
-
-	// si hay que agregar más atributos, se redefinen
-	// Estos dos metodos estarian de mas por ahora
-	// virtual void agregarAtributosDER ( XmlNodo* );
-	// virtual void obtenerAtributosDER ( XmlNodo* );
 	 */
 
 public:
@@ -35,7 +30,9 @@ public:
 	std::string getNombre() const;
 	void setNombre(const std::string&);
 
+	/* PERSISTENCIA DER
 	// virtual XmlNodo guardarXmlDER() = 0;
+	 */
 
 };
 
