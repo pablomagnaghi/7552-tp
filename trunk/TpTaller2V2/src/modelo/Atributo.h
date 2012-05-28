@@ -17,11 +17,7 @@ class Atributo : public Componente {
 private:
 
 	/* PERSISTENCIA DER
-	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
-	// virtual void obtenerPropiedadesDER (XmlNodo* nodo);
-
-	// void obtenerComponentesDER (XmlNodo*) {
+	// void obtenerComponentesDER (XmlNodo*);
 	 */
 	std::string tipo;
 	std::string expresion;
@@ -30,6 +26,13 @@ private:
 	std::vector<Atributo*> atributosDerivables;
 
 	void borrarAtributosDerivables();
+
+protected:
+	/* PERSISTENCIA DER
+	// si hay que agregar más propiedades, se redefinen
+	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
+	// virtual void obtenerPropiedadesDER (XmlNodo* nodo);
+	 */
 
 public:
 

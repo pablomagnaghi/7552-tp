@@ -48,10 +48,10 @@ private:
 	// void agregarPropiedadesDER (XmlNodo*);
 	// void obtenerPropiedadesDER (XmlNodo*);
 
-	// void guardarEntidadesNuevasXmlDER(XmlNodo *nodo) {
-	// void guardarEntidadesGlobalesXmlDER(XmlNodo *nodo) {
-	// void guardarRelacionesXmlDER(XmlNodo *nodo) {
-	// void guardarJerarquiasXmlDER(XmlNodo *nodo) {
+	// void guardarEntidadesNuevasXmlDER(XmlNodo *nodo);
+	// void guardarEntidadesGlobalesXmlDER(XmlNodo *nodo);
+	// void guardarRelacionesXmlDER(XmlNodo *nodo);
+	// void guardarJerarquiasXmlDER(XmlNodo *nodo);
 	*/
 
 public:
@@ -111,7 +111,7 @@ public:
 
 	/* PERSITENCIA DER
 	// Diagrama(XmlNodo*);
-	// XmlNodo guardarXmlDER() {
+	// XmlNodo guardarXmlDER();
 	*/
 };
 
