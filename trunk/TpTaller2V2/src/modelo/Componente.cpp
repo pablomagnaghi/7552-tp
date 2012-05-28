@@ -26,12 +26,12 @@ void Componente::setNombre(const std::string& nombre) {
 }
 
 /* PERSISTENCIA PARA DATOS
-void Componente::agregarPropiedadesDER(XmlNodo* nodo) {
+void Componente::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 	nodo->setPropiedad("codigo",this->codigo);
 	nodo->setPropiedad("nombre",this->nombre);
 }
 
-void Componente::obtenerPropiedadesDER(XmlNodo* nodo) {
+void Componente::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	this->codigo = nodo->getPropiedadInt("codigo");
 	this->nombre = nodo->getPropiedad("nombre");
 }

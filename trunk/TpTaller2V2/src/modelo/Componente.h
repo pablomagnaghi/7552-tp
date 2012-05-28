@@ -16,8 +16,8 @@ protected:
 
 	/* PERSITENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
-	// virtual void obtenerPropiedadesDER (XmlNodo* nodo);
+	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
 	 */
 
 public:

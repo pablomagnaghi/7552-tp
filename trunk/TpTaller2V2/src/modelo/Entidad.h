@@ -17,12 +17,19 @@ protected:
 	bool esDebil;
 	std::vector<Relacion*> relaciones;
 
+	/* PERSISTENCIA DER
+	// void guardarRelacionesXmlDER(XmlNodo*);
+	 */
+
 public:
 
 	virtual ~Entidad();
 
 	void agregarRelacion(Relacion*);
 	void quitarRelacion(Relacion*);
+
+	std::vector<Relacion*>::iterator relacionesBegin();
+	std::vector<Relacion*>::iterator relacionesEnd();
 
 	Relacion* getRelacionByCodigo(int);
 

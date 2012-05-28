@@ -283,26 +283,23 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 /* PERSISTENCIA DER
 
 Diagrama::Diagrama(XmlNodo* nodo) {
-	this->obtenerPropiedadesDER(nodo);
+	this->obtenerPropiedadesXmlDER(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesDER(&nodoAux);
+	this->obtenerComponentesXmlDER(&nodoAux);
 }
 
-void Diagrama::obtenerPropiedadesDER(XmlNodo* nodo) {
+void Diagrama::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	this->nombre = nodo->getPropiedad("nombre");
 }
 
-void Diagrama::obtenerComponentesDER (XmlNodo* nodo) {
+void Diagrama::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
-
-		VERRRRRR DIAGRAMA ANCESTRO O DIAGRAMA HIJO
-		if (nodo->getNombre() == "entidad_nueva") {
-	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
-			this->agregarEntidadNueva(entidadNueva);
+		if (nodo->getNombre() == "diagrama_ancestro") {
+	  		diagramaAncestro.setNombre(nodo->getContenido(););
 		}
-		VERRRRRR DIGRAMA ANCESTRO O DIAGRAMA HIJO
+
 		if (nodo->getNombre() == "entidad_nueva") {
 	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
 			this->agregarEntidadNueva(entidadNueva);
@@ -323,12 +320,17 @@ void Diagrama::obtenerComponentesDER (XmlNodo* nodo) {
 	}
 }
 
-void Diagrama::agregarPropiedadesDER(XmlNodo* nodo) {
+void Diagrama::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 	nodo->setPropiedad("XMLNS", "INSTANCE");
 	nodo->setPropiedad("XSI", "COMPOSICION");
 	nodo->setPropiedad("nombre",this->nombre);
 }
 
+void Diagrama::agregarNodoDiagramaAncestroXmlDER(XmlNodo *nodo);
+	Xml nodoDiagramaAncestro("diagrama_ancestro");
+	nodoDiagramaAncestro.setContenido(this->diagramaAncestro.getNombre());
+	nodo->agregarHijo(nodoDiagramaAncestro);
+}
 
 void Diagrama::guardarEntidadesNuevasXmlDER(XmlNodo *nodo) {
 	std::vector<EntidadNueva*>::iterator i;
@@ -361,7 +363,12 @@ void Diagrama::guardarJerarquiasXmlDER(XmlNodo *nodo) {
 XmlNodo Diagrama::guardarXmlDER() {
 	XmlNodo nodo("entidad_nueva");
 
-	this->agregarPropiedades(&nodo);
+	this->agregarPropiedadesXmlDER(&nodo);
+
+	// puede no tener diagrama ancestro
+	if (diagramaAncestro.getNombre()){
+		this->agregarNodoDiagramaAncestroXmlDER(&nodo);
+	}
 
 	this->guardarEntidadesNuevasXmlDER(&nodo);
 	this->guardarEntidadesGlobalesXmlDER(&nodo);

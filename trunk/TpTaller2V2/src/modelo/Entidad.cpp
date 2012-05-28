@@ -22,6 +22,14 @@ void Entidad::quitarRelacion(Relacion* relacion){
 	}
 }
 
+std::vector<Relacion*>::iterator Entidad::relacionesBegin(){
+	return this->relaciones.begin();
+}
+
+std::vector<Relacion*>::iterator Entidad::relacionesEnd(){
+	return this->relaciones.end();
+}
+
 Relacion* Entidad::getRelacionByCodigo(int codigo){
 	Relacion* relacion = NULL;
 	std::vector<Relacion*>::iterator it = this->relaciones.begin();
@@ -37,3 +45,16 @@ Relacion* Entidad::getRelacionByCodigo(int codigo){
 void Entidad::setEsDebil(bool esDebil){
 	this->esDebil = esDebil;
 }
+
+/* PERSISTENCIA DER
+void Entidad::guardarRelacionesXmlDER(XmlNodo *nodo) {
+	std::vector<Relacion*>::iterator i;
+
+	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXml());
+}
+*/
+
+
+
+
