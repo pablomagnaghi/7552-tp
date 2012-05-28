@@ -11,6 +11,8 @@
 #include <vector>
 #include <algorithm>
 #include "Componente.h"
+#include "persistencia/Persistencia.h"
+
 
 class Atributo : public Componente {
 
