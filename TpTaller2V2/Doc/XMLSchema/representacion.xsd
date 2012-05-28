@@ -20,21 +20,22 @@
 	
 	<xsd:complexType name="tipo_componente">
 		<xsd:sequence>
-			<xsd:element name="posicion" type="tipo_posicion" />
-			<xsd:element name="tamanio" type="tipo_tamanio" />
-			<xsd:element name="color" type="xsd:string" />
+			<xsd:element name="posicion_inicial" type="tipo_posicion" />
+			<xsd:element name="posicion_final" type="tipo_posicion" />
+			<xsd:element name="color" type="tipo_color" />
 		</xsd:sequence>
 		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
 	</xsd:complexType>
 	
 	<xsd:complexType name="tipo_posicion">
-		<xsd:attribute name="x" type="xsd:integer" use="required" />
-		<xsd:attribute name="y" type="xsd:integer" use="required" />
+		<xsd:attribute name="x" type="xsd:double" use="required" />
+		<xsd:attribute name="y" type="xsd:double" use="required" />
 	</xsd:complexType>
 
-	<xsd:complexType name="tipo_tamanio">
-		<xsd:attribute name="ancho" type="xsd:integer" use="required" />
-		<xsd:attribute name="alto" type="xsd:integer" use="required" />
+	<xsd:complexType name="tipo_color">
+		<xsd:attribute name="r" type="xsd:double" use="required" />
+		<xsd:attribute name="g" type="xsd:double" use="required" />
+		<xsd:attribute name="b" type="xsd:double" use="required" />
 	</xsd:complexType>
 	
 </xsd:schema>

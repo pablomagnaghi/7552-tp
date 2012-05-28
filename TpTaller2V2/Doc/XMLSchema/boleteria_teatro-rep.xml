@@ -4,21 +4,21 @@
 	estado="sin_validar">
 
 	<componente codigo="1">
-		<posicion x="10" y="10" />
-		<tamanio ancho="20" alto="10" />
-		<color>negro</color>
+		<posicion_inicial x="10" y="10" />
+		<posicion_final x="30" y="20" />
+		<color r="0" g="0" b="0"/>
 	</componente>	
 	
 	<componente codigo="2">
-		<posicion x="9" y="9" />
-		<tamanio ancho="5" alto="2" />
-		<color>negro</color>
+		<posicion_inicial x="9" y="9" />
+		<posicion_final x="14" y="11" />
+		<color r="0" g="0" b="0"/>
 	</componente>	
 	
 	<componente codigo="3">
-		<posicion x="11" y="9" />
-		<tamanio ancho="5" alto="2" />
-		<color>negro</color>
+		<posicion_inicial x="11" y="9" />
+		<posicion_final x="16" y="11" />
+		<color r="0" g="0" b="0"/>
 	</componente>	
 	
 </diagrama>
