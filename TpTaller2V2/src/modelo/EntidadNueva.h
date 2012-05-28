@@ -27,7 +27,7 @@ private:
 	void borrarIdentificadores();
 
 	/* PERSITENCIA DER
-	// void obtenerComponentesDER(XmlNodo*);
+	// void obtenerComponentesXmlDER(XmlNodo*);
 
 	// void guardarAtributosXmlDER(XmlNodo*);
 	// void guardarIdentificadoresXmlDER(XmlNodo*);
@@ -36,8 +36,8 @@ private:
 protected:
 	/* PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesDER (XmlNodo*);
-	// virtual void obtenerPropiedadesDER (XmlNodo*);
+	// virtual void agregarPropiedadesXmlDER (XmlNodo*);
+	// virtual void obtenerPropiedadesXmlDER (XmlNodo*);
 	 */
 
 public:

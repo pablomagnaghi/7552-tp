@@ -117,15 +117,15 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
 /* PERSISTENCIA PARA DATOS
 
 EntidadNueva::EntidadNueva(XmlNodo* nodo) {
-	this->obtenerPropiedadesDER(nodo);
+	this->obtenerPropiedadesXmlDER(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesDER(&nodoAux);
+	this->obtenerComponentesXmlDER(&nodoAux);
 }
 
 
-void EntidadNueva::obtenerComponentesDER (XmlNodo* nodo) {
+void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
 	  		Atributo *atributo = new Atributo (nodo);
@@ -147,11 +147,11 @@ void EntidadNueva::obtenerComponentesDER (XmlNodo* nodo) {
 	}
 }
 
-void EntidadNueva::agregarPropiedadesDER(XmlNodo* nodo) {
+void EntidadNueva::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 	nodo->setPropiedad("tipo",this->tipo);
 }
 
-void EntidadNueva::obtenerPropiedadesDER(XmlNodo* nodo) {
+void EntidadNueva::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	this->tipo = nodo->getPropiedad("tipo");
 }
 
@@ -159,27 +159,27 @@ void EntidadNueva::guardarAtributosXmlDER(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributos.begin(); i != this->atributos.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
 void EntidadNueva::guardarIdentificadoresXmlDER(XmlNodo *nodo) {
 	std::vector<Identificador*>::iterator i;
 
 	for(i = this->identificadores.begin(); i != this->identificadores.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
 void EntidadNueva::guardarJerarquiasXmlDER(XmlNodo *nodo) {
 	std::vector<Jerarquia*>::iterator i;
 
 	for(i = this->jerarquias.begin(); i != this->jerarquias.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
 XmlNodo EntidadNueva::guardarXmlDER() {
 	XmlNodo nodo("entidad_nueva");
 
-	this->agregarPropiedades(&nodo);
+	this->agregarPropiedadesXmlDER(&nodo);
 
 	this->guardarAtributosXmlDER(&nodo);
 	this->guardarIdentificadoresXmlDER(&nodo);

@@ -15,6 +15,13 @@ class Identificador {
 
 private:
 
+	/* PERSITENCIA DER
+	// void obtenerComponentesXmlDER(XmlNodo*);
+
+	// void guardarAtributosXmlDER(XmlNodo*);
+	// void guardarRelacionesXmlDER(XmlNodo*);
+	 */
+
 	std::vector<Atributo*> atributos;
 	std::vector<Relacion*> relaciones;
 
@@ -34,6 +41,11 @@ public:
 
 	std::vector<Relacion*>::iterator relacionesBegin();
 	std::vector<Relacion*>::iterator relacionesEnd();
+
+	/* PERSISTENCIA DER
+	// EntidadNueva ( XmlNodo* nodo);
+	// XmlNodo guardarXmlDER();
+	 */
 
 };
 

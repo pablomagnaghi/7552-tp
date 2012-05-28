@@ -336,28 +336,28 @@ void Diagrama::guardarEntidadesNuevasXmlDER(XmlNodo *nodo) {
 	std::vector<EntidadNueva*>::iterator i;
 
 	for(i = this->entidadesNuevas.begin(); i != this->entidadesNuevsa.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
 void Diagrama::guardarEntidadesGlobalesXmlDER(XmlNodo *nodo) {
 	std::vector<EntidadGlobal*>::iterator i;
 
 	for(i = this->entidadesGlobales.begin(); i != this->entidadesGlobales.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
 void Diagrama::guardarRelacionesXmlDER(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 
 	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
 void Diagrama::guardarJerarquiasXmlDER(XmlNodo *nodo) {
 	std::vector<Jerarquia*>::iterator i;
 
 	for(i = this->jerarquias.begin(); i != this->jerarquias.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
 XmlNodo Diagrama::guardarXmlDER() {
