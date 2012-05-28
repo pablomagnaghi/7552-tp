@@ -51,7 +51,7 @@ void Entidad::guardarRelacionesXmlDER(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 
 	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 */
 

@@ -340,6 +340,10 @@ int main(int argc, char* argv[]){
 	delete proyecto;
 	GeneradorCodigo::destruir();
 
+	// prueba de constantes
+	std::cout << XMLNS << "=" << INSTANCE << std::endl;
+	std::cout << XSI << "=" << COMPOSICION << std::endl;
+
 	return 0;
 }
 

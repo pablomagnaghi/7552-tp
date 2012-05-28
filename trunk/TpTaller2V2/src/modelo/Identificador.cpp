@@ -54,3 +54,53 @@ std::vector<Relacion*>::iterator Identificador::relacionesEnd(){
 	return this->relaciones.end();
 }
 
+
+/* PERSISTENCIA PARA DATOS
+
+Identificador::EntidadNueva(XmlNodo* nodo) {
+	XmlNodo nodoAux = nodo->getHijo();
+
+	this->obtenerComponentesXmlDER(&nodoAux);
+}
+
+void Identificador::obtenerComponentesXmlDER (XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "atributo") {
+	  		Atributo *atributo = new Atributo (nodo);
+			this->agregarAtributo(atributo);
+		}
+		if (nodo->getNombre() == "relacion")	{
+			Relacion *relacion = new Relacion (nodo);
+			this->agregarRelacion(relacion);
+		}
+
+		*nodo = nodo->getHermano();
+	}
+}
+
+void Identificador::guardarAtributosXmlDER(XmlNodo *nodo) {
+	std::vector<Atributo*>::iterator i;
+
+	for(i = this->atributos.begin(); i != this->atributos.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXmlDER());
+}
+
+void Identificador::guardarRelacionesXmlDER(XmlNodo *nodo) {
+	std::vector<Relacion*>::iterator i;
+
+	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXmlDER());
+}
+
+
+
+XmlNodo EntidadNueva::guardarXmlDER() {
+	XmlNodo nodo("identificador");
+
+	this->guardarAtributosXmlDER(&nodo);
+	this->guardarRelacionesXmlDER(&nodo);
+
+	return nodo;
+}
+*/
+

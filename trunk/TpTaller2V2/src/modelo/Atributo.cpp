@@ -79,7 +79,7 @@ void Atributo::borrarAtributosDerivables() {
 /* PERSISTENCIA DER
 
 Atributo::Atributo(XmlNodo* nodo) {
-	this->obtenerPropiedadesDER(nodo);
+	this->obtenerPropiedadesXmlDER(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
