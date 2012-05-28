@@ -76,7 +76,7 @@ void Atributo::borrarAtributosDerivables() {
 	this->atributosDerivables.clear();
 }
 
-/* PERSISTENCIA PARA DATOS
+/* PERSISTENCIA DER
 
 Atributo::Atributo(XmlNodo* nodo) {
 	this->obtenerPropiedadesDER(nodo);
@@ -86,7 +86,14 @@ Atributo::Atributo(XmlNodo* nodo) {
 	this->obtenerComponentesDER(&nodoAux);
 }
 
-void Entidad::obtenerComponentesDER (XmlNodo* nodo) {
+void Atributo::obtenerPropiedadesDER(XmlNodo* nodo) {
+	this->tipo = nodo->getPropiedad("tipo");
+	this->expresion = nodo->getPropiedad("tipo");
+	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_Minima");
+	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_Maxima");
+}
+
+void Atributo::obtenerComponentesDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
 	  		Atributo *atributo = new Atributo (nodo);
@@ -99,18 +106,13 @@ void Entidad::obtenerComponentesDER (XmlNodo* nodo) {
 void Atributo::agregarPropiedadesDER(XmlNodo* nodo) {
 	nodo->setPropiedad("tipo",this->tipo);
 	// VER si son nulos los siguientes quizas no poner
-	nodo->setPropiedad("expresion",this->expresion);
-	nodo->setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
-	nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
+	if (this->expresion)
+		nodo->setPropiedad("expresion",this->expresion);
+	if (this->cardinalidadMinima)
+		nodo->setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
+	if (this->cardinalidadMaxima)
+		nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
 }
-
-void Atributo::obtenerPropiedadesDER(XmlNodo* nodo) {
-	this->tipo = nodo->getPropiedad("tipo");
-	this->expresion = nodo->getPropiedad("tipo");
-	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_Minima");
-	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_Maxima");
-}
-
 
 XmlNodo Entidad::guardarXmlDER() {
 	XmlNodo nodo("entidad_nueva");

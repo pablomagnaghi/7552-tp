@@ -35,6 +35,14 @@ protected:
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
+	/*PERSISTENCIA REP
+	// void Componente::agregarPropiedadesRep(XmlNodo* nodo);
+	// void Componente::obtenerPropiedadesRep(XmlNodo* nodo);
+
+	// void VistaComponente:agregarAtributosRep ( XmlNodo* nodo );
+	// void VistaComponente:obtenerAtributosRep ( XmlNodo* nodo );
+	*/
+
 public:
 	VistaComponente();
 	virtual ~VistaComponente();
@@ -73,14 +81,9 @@ public:
 
 
 
-	/*PERSISTENCIA REP*/
-	// void Componente::agregarPropiedadesRep(XmlNodo* nodo);
-	// void Componente::obtenerPropiedadesRep(XmlNodo* nodo);
-
-	// void VistaComponente:agregarAtributosRep ( XmlNodo* nodo );
-	// void VistaComponente:obtenerAtributosRep ( XmlNodo* nodo );
-
+	/*PERSISTENCIA REP
 	// XmlNodo guardarXmlREP();
+	 */
 
 };
 

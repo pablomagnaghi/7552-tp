@@ -280,17 +280,94 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 	return componente;
 }
 
-/*
-void Hoja::obtenerObjetosGraficos ( XmlNodo* nodo) {
+/* PERSISTENCIA DER
+
+Diagrama::Diagrama(XmlNodo* nodo) {
+	this->obtenerPropiedadesDER(nodo);
+
+	XmlNodo nodoAux = nodo->getHijo();
+
+	this->obtenerComponentesDER(&nodoAux);
+}
+
+void Diagrama::obtenerPropiedadesDER(XmlNodo* nodo) {
+	this->nombre = nodo->getPropiedad("nombre");
+}
+
+void Diagrama::obtenerComponentesDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
-		if ( nodo->getNombre() == "objetoLista" ) {
-			ObjetoLista* objeto = new ObjetoLista (nodo);
-			this->agregarObjeto(objeto);
+
+		VERRRRRR DIAGRAMA ANCESTRO O DIAGRAMA HIJO
+		if (nodo->getNombre() == "entidad_nueva") {
+	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
+			this->agregarEntidadNueva(entidadNueva);
 		}
-		if ( nodo->getNombre() == "linea" ) {
-      Linea* objeto = new Linea (nodo);
-      this->agregarObjeto(objeto);
+		VERRRRRR DIGRAMA ANCESTRO O DIAGRAMA HIJO
+		if (nodo->getNombre() == "entidad_nueva") {
+	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
+			this->agregarEntidadNueva(entidadNueva);
+		}
+		if (nodo->getNombre() == "entidad_global") {
+	  		EntidadGlobal *entidadGlobal = new EntidadGlobal (nodo);
+			this->agregarEntidadGlobal(entidadGlobal);
+		}
+		if (nodo->getNombre() == "relacion") {
+			Relacion *relacion = new Relacion (nodo);
+			this->agregarRelacion(relacion);
+		}
+		if ( nodo->getNombre() == "jerarquia" )	{
+			Jerarquia *jerarquia = new Jerarquia (nodo);
+			this->agregarJerarquia(jerarquia);
+		}
+		*nodo = nodo->getHermano();
 	}
-	*nodo = nodo->getHermano();
-  }
-}*/
+}
+
+void Diagrama::agregarPropiedadesDER(XmlNodo* nodo) {
+	nodo->setPropiedad("XMLNS", "INSTANCE");
+	nodo->setPropiedad("XSI", "COMPOSICION");
+	nodo->setPropiedad("nombre",this->nombre);
+}
+
+
+void Diagrama::guardarEntidadesNuevasXmlDER(XmlNodo *nodo) {
+	std::vector<EntidadNueva*>::iterator i;
+
+	for(i = this->entidadesNuevas.begin(); i != this->entidadesNuevsa.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXml());
+}
+
+void Diagrama::guardarEntidadesGlobalesXmlDER(XmlNodo *nodo) {
+	std::vector<EntidadGlobal*>::iterator i;
+
+	for(i = this->entidadesGlobales.begin(); i != this->entidadesGlobales.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXml());
+}
+
+void Diagrama::guardarRelacionesXmlDER(XmlNodo *nodo) {
+	std::vector<Relacion*>::iterator i;
+
+	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXml());
+}
+
+void Diagrama::guardarJerarquiasXmlDER(XmlNodo *nodo) {
+	std::vector<Jerarquia*>::iterator i;
+
+	for(i = this->jerarquias.begin(); i != this->jerarquias.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXml());
+}
+
+XmlNodo Diagrama::guardarXmlDER() {
+	XmlNodo nodo("entidad_nueva");
+
+	this->agregarPropiedades(&nodo);
+
+	this->guardarEntidadesNuevasXmlDER(&nodo);
+	this->guardarEntidadesGlobalesXmlDER(&nodo);
+	this->guardarRelacionesXmlDER(&nodo);
+	this->guardarJerarquiasXmlDER(&nodo);
+
+	return nodo;
+}
+*/
