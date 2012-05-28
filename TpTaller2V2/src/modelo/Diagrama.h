@@ -6,12 +6,6 @@
 #ifndef DIAGRAMA_H_
 #define DIAGRAMA_H_
 
-
-#define XMLNS "xmlns:xsi"
-#define INSTANCE "http:\/\/www.w3.org/2001/XMLSxhema-instance"
-#define XSI "xsi:noNamespaceSchemaLocation"
-#define COMPOSICION "composicion.xsd"
-
 #include <vector>
 #include <string>
 #include "EntidadNueva.h"
@@ -45,8 +39,12 @@ private:
 	void borrarRelaciones();
 
 	/* PERSISTENCIA DER
-	// void agregarPropiedadesDER (XmlNodo*);
-	// void obtenerPropiedadesDER (XmlNodo*);
+	// void agregarPropiedadesXmlDER (XmlNodo*);
+	// void obtenerPropiedadesXmlDER (XmlNodo*);
+
+	// void obtenerComponentesXmlDER(XmlNodo *nodo);
+
+	// void agregarNodoDiagramaAncestroXmlDER(XmlNodo *nodo);
 
 	// void guardarEntidadesNuevasXmlDER(XmlNodo *nodo);
 	// void guardarEntidadesGlobalesXmlDER(XmlNodo *nodo);

@@ -83,17 +83,17 @@ Atributo::Atributo(XmlNodo* nodo) {
 
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesDER(&nodoAux);
+	this->obtenerComponentesXmlDER(&nodoAux);
 }
 
-void Atributo::obtenerPropiedadesDER(XmlNodo* nodo) {
+void Atributo::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	this->tipo = nodo->getPropiedad("tipo");
 	this->expresion = nodo->getPropiedad("tipo");
 	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_Minima");
 	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_Maxima");
 }
 
-void Atributo::obtenerComponentesDER (XmlNodo* nodo) {
+void Atributo::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
 	  		Atributo *atributo = new Atributo (nodo);
@@ -103,9 +103,9 @@ void Atributo::obtenerComponentesDER (XmlNodo* nodo) {
 	}
 }
 
-void Atributo::agregarPropiedadesDER(XmlNodo* nodo) {
+void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 	nodo->setPropiedad("tipo",this->tipo);
-	// VER si son nulos los siguientes quizas no poner
+	// si son nulos los siguientes atributos, no poner
 	if (this->expresion)
 		nodo->setPropiedad("expresion",this->expresion);
 	if (this->cardinalidadMinima)
@@ -117,12 +117,12 @@ void Atributo::agregarPropiedadesDER(XmlNodo* nodo) {
 XmlNodo Entidad::guardarXmlDER() {
 	XmlNodo nodo("entidad_nueva");
 
-	this->agregarPropiedades(&nodo);
+	this->agregarPropiedadesXmlDER(&nodo);
 
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributo.begin(); i != this->atributo.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
+		nodo->agregarHijo((*i)->guardarXmlDER());
 
 	return nodo;
 }

@@ -169,13 +169,6 @@ void EntidadNueva::guardarIdentificadoresXmlDER(XmlNodo *nodo) {
 		nodo->agregarHijo((*i)->guardarXml());
 }
 
-void EntidadNueva::guardarRelacionesXmlDER(XmlNodo *nodo) {
-	std::vector<Relacion*>::iterator i;
-
-	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXml());
-}
-
 void EntidadNueva::guardarJerarquiasXmlDER(XmlNodo *nodo) {
 	std::vector<Jerarquia*>::iterator i;
 

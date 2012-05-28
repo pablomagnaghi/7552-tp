@@ -40,15 +40,26 @@ EntidadGlobal::EntidadGlobal(XmlNodo* nodo) {
 	this->obtenerComponentesDER(&nodoAux);
 }
 
+void EntidadGlobal::obtenerPropiedadesDER(XmlNodo* nodo) {
+	this->diagramaAncestro.setNombre( nodo->getPropiedad("diagrama_ancestro"));
+	this->codigoEntidadNueva = nodo->getPropiedad("codigo_entidad_nueva");
+}
+
+void EntidadNueva::obtenerComponentesDER (XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "relacion")	{
+			Relacion *relacion = new Relacion (nodo);
+			this->agregarRelacion(relacion);
+		}
+		*nodo = nodo->getHermano();
+	}
+}
+
 void EntidadGlobal::agregarPropiedadesDER(XmlNodo* nodo) {
 	nodo->setPropiedad("diagrama_ancestro",this->diagramaAncetro.getNombre());
 	nodo->setPropiedad("codigo_entidad_nueva", this->codigoEntidadNueva);
 }
 
-void EntidadGlobal::obtenerPropiedadesDER(XmlNodo* nodo) {
-	this->diagramaAncestro.setNombre( nodo->getPropiedad("diagrama_ancestro"));
-	this->codigoEntidadNueva = nodo->getPropiedad("codigo_entidad_nueva");
-}
 
 XmlNodo EntidadGlobal::guardarXmlDER() {
 	XmlNodo nodo("entidad_nueva");

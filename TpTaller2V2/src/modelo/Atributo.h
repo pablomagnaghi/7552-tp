@@ -17,7 +17,7 @@ class Atributo : public Componente {
 private:
 
 	/* PERSISTENCIA DER
-	// void obtenerComponentesDER (XmlNodo*);
+	// void obtenerComponentesXmlDER (XmlNodo*);
 	 */
 	std::string tipo;
 	std::string expresion;
@@ -30,8 +30,8 @@ private:
 protected:
 	/* PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesDER (XmlNodo* nodo);
-	// virtual void obtenerPropiedadesDER (XmlNodo* nodo);
+	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
 	 */
 
 public:
@@ -65,20 +65,3 @@ public:
 };
 
 #endif /* ATRIBUTO_H_ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

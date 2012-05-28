@@ -33,4 +33,11 @@ const char* const TIPO_COBERTURA_PARCIAL = "parcial";
 const char* const TIPO_INTERSECCION_EXCLUSIVA = "exclusiva";
 const char* const TIPO_INTERSECCION_SUPERPUESTA = "superpuesta";
 
+// Para la creacion de los XML
+const char* const XMLNS = "xmlns:xsi";
+const char* const INSTANCE = "http:\/\/www.w3.org/2001/XMLSxhema-instance";
+const char* const XSI = "xsi:noNamespaceSchemaLocation";
+const char* const COMPOSICION = "composicion.xsd";
+
+
 #endif /* CONSTANTESMODELO_H_ */

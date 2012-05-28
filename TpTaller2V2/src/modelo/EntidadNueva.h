@@ -31,7 +31,6 @@ private:
 
 	// void guardarAtributosXmlDER(XmlNodo*);
 	// void guardarIdentificadoresXmlDER(XmlNodo*);
-	// void guardarRelacionesXmlDER(XmlNodo*);
 	// void guardarJerarquiasXmlDER(XmlNodo*);
 	 */
 protected:
