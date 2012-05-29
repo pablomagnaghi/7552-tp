@@ -80,3 +80,84 @@ void Relacion::borrarEntidadesRelacion(){
 	this->entidadesRelacion.clear();
 }
 
+
+/* PERSISTENCIA DER
+
+Relacion::Relacion(XmlNodo* nodo) {
+	this->obtenerPropiedadesXmlDER(nodo);
+
+	XmlNodo nodoAux = nodo->getHijo();
+
+	this->obtenerComponentesXmlDER(&nodoAux);
+}
+
+void Relacion::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
+	this->tipo = nodo->getPropiedad("tipo");
+}
+
+void Relacion::obtenerComponentesXmlDER (XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "entidad_relacion") {
+	  		EntidadRelacion *entidadRelacion = new EntidadRelacion (nodo);
+			this->agregarEntidadRelacion(entidadRelacion);
+		}
+		if (nodo->getNombre() == "atributo") {
+	  		Atributo *atributo = new Atributo (nodo);
+			this->agregarAtributo(atributo);
+		}
+		*nodo = nodo->getHermano();
+	}
+}
+
+void Relacion::agregarPropiedadesXmlDER(XmlNodo* nodo) {
+	if (this->tipo)
+		nodo->setPropiedad("tipo",this->tipo);
+
+}
+
+void Relacion::guardarEntidadesRelacionesXmlDER(XmlNodo *nodo) {
+	std::vector<EntidadRelacion*>::iterator i;
+
+	for(i = this->entidadesRelacionBegin(); i != this->entidadesRelacionEnd(); ++i)
+		nodo->agregarHijo((*i)->guardarXmlDER());
+}
+
+void Relacion::guardarAtritbutosXmlDER(XmlNodo *nodo) {
+	std::vector<Atributo*>::iterator i;
+
+	for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
+		nodo->agregarHijo((*i)->guardarXmlDER());
+}
+
+XmlNodo Relacion::guardarXmlDER() {
+	XmlNodo nodo("relacion");
+
+	this->agregarPropiedadesXmlDER(&nodo);
+
+	this->guardarAtributosXmlDER(&nodo);
+	this->guardarIdentificadoresXmlDER(&nodo);
+
+	return nodo;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+		<entidad_relacion entidad="4" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<entidad_relacion entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
+element "entidad_relacion"
+element "atributo" t
+attribute "tipo"
+attribute "entidad"
+attribute "cardinalidad_minima"
+attribute "cardinalidad_maxima" t
+attribute "rol"
