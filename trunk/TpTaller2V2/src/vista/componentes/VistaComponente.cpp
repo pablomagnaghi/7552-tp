@@ -131,59 +131,61 @@ void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
 }
 
 /* PERSISTENCIA REP
-	void VistaComponente::agregarPropiedadesRep(XmlNodo* nodo) {
-		nodo->setPropiedad("codigo",this->codigo);
-	}
 
-	void VistaComponente::obtenerPropiedadesRep(XmlNodo* nodo) {
-		this->codigo = nodo->getPropiedadInt("codigo");
-	}
+void VistaComponente::obtenerPropiedadesRep(XmlNodo* nodo) {
+	this->codigo = nodo->getPropiedadInt("codigo");
+}
 
-	VER nombre de los atributos, que tomamos por "x" e "y" y por
-	"ancho" y "alto". Podria ser
-
-	x = this->pos_ini_x;
-	y = this->pos_ini_y;
-
-	ancho = this->pos_fin_x - this->pos_ini_x;
-	alto = this->pos_fin_y - his->pos_ini_y;
-
-	Falta definir color
-
-	void VistaComponente:agregarAtributosRep ( XmlNodo* nodo ) {
-		XmlNodo nodoPosicion("posicion");
-		nodoPosicion.setPropiedad("x", verPosicionX);
-		nodoPosicion.setPropiedad("y", verPosicionY);
-		nodo->agregarHijo(nodoPosicion);
-
-		XmlNodo nodoTamanio("tamanio");
-		nodoTamanio.setPropiedad("ancho", verAncho);
-		nodoTamanio.setPropiedad("alto", verAlto);
-		nodo->agregarHijo(nodoTamanio);
-
-		XmlNodo nodoColor("color");
-		nodoColor.setContenido(this->color verColor);
-		nodo->agregarHijo(nodoColor);
-	}
-
-	void VistaComponente:obtenerAtributosRep ( XmlNodo* nodo ) {
-		VER this->PosX = nodo->getPropiedadInt("x");
-		VER this->PosY = nodo->getPropiedadInt("yo");
+void VistaComponente::obtenerComponentesREP (XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "posicion_incial") {
+	  		this->pos_ini_x = nodo->getPropiedadInt("x");
+	  		this->pos_ini_y = nodo->getPropiedadInt("y");
+		}
+		if (nodo->getNombre() == "posicion_final") {
+	  		this->pos_fin_x = nodo->getPropiedadInt("x");
+	  		this->pos_fin_y = nodo->getPropiedadInt("y");
+		}
+		if (nodo->getNombre() == "color") {
+	  		this->colorR = nodo->getPropiedadInt("r");
+	  		this->colorG = nodo->getPropiedadInt("g");
+	  		this->colorB = nodo->getPropiedadInt("b");
+		}
 		*nodo = nodo->getHermano();
-
-		VER this->ancho = nodo->getPropiedadInt("ancho");
-		VER this->alto = nodo->getPropiedadInt("alto");
- 	 	*nodo = nodo->getHermano();
-
- 	 	VER this->color = nodo->getContenidoInt();
- 	 	*nodo = nodo->getHermano();
 	}
+}
 
-	XmlNodo VistaComponente:guardarXmlREP() {
-		XmlNodo nodo("componente");
-		this->agregarPropiedades(&nodo);
-		this->agregarAtributos(&nodo);
 
-		return nodo;
-	}
+void VistaComponente::agregarPropiedadesRep(XmlNodo* nodo) {
+	nodo->setPropiedad("codigo",this->codigo);
+
+}
+void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
+	nodo->setPropiedad("tipo",this->tipo);
+}
+
+XmlNodo Entidad::guardarXmlDER() {
+	XmlNodo nodo("componente");
+
+	this->agregarPropiedadesXmlDER(&nodo);
+
+	XmlNodo nodoPosicionInicial("posicion_incial");
+	nodo->setPropiedad("x",this->pos_ini_x);
+	nodo->setPropiedad("y",this->pos_ini_y);
+	nodo->agregarHijo(nodoPosicionInicial);
+
+	XmlNodo nodoPosicionFinal("posicion_final");
+	nodo->setPropiedad("x",this->pos_fin_x);
+	nodo->setPropiedad("y",this->pos_fin_y);
+	nodo->agregarHijo(nodoPosicionFinal);
+
+	XmlNodo nodoColor("color");
+	nodo->setPropiedad("r",this->colorR);
+	nodo->setPropiedad("g",this->colorG);
+	nodo->setPropiedad("b",this->colorB);
+	nodo->agregarHijo(nodoColor);
+
+	return nodo;
+}
 */
+

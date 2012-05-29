@@ -26,6 +26,9 @@ protected:
 	double pos_fin_y;
 	double pos_selec_x;
 	double pos_selec_y;
+	double colorR;
+	double colorG;
+	double colorB;
 	bool dibujable;
 	Gtk::Menu* m_pMenuPopup;
 
@@ -39,8 +42,7 @@ protected:
 	// void Componente::agregarPropiedadesRep(XmlNodo* nodo);
 	// void Componente::obtenerPropiedadesRep(XmlNodo* nodo);
 
-	// void VistaComponente:agregarAtributosRep ( XmlNodo* nodo );
-	// void VistaComponente:obtenerAtributosRep ( XmlNodo* nodo );
+	// void VistaComponente::obtenerComponentesREP (XmlNodo* nodo);
 	*/
 
 public:

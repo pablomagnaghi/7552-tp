@@ -24,6 +24,19 @@ private:
 	void borrarAtributos();
 	void borrarEntidadesRelacion();
 
+	/* PERSISTENCIA DER
+	// void obtenerComponentesXmlDER (XmlNodo*);
+	// void guardarEntidadesRelacionesXmlDER(XmlNodo *nodo);
+	// void guardarAtritbutosXmlDER(XmlNodo *nodo);
+	*/
+
+protected:
+	/* PERSISTENCIA DER
+	// si hay que agregar más propiedades, se redefinen
+	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
+	 */
+
 public:
 
 	Relacion();
@@ -44,6 +57,11 @@ public:
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
 
+
+	/* PERSISTENCIA DER
+	// Relacion(XmlNodo*);
+	// virtual XmlNodo guardarXmlDER();
+	 */
 };
 
 #endif /* RELACION_H_ */

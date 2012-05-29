@@ -98,6 +98,8 @@ XmlNodo Jerarquia::guardarXmlDER() {
 
 	std::vector<Atributo*>::iterator i;
 
+	nodo->agregarHijo(entidadGeneral->guardarXmlDER());
+
 	for(i = this->entidadesEspecializadas.begin(); i != this->entidadesEspecializadas.end(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlDER());
 
