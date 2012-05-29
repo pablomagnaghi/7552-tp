@@ -18,9 +18,6 @@ class Atributo : public Componente {
 
 private:
 
-	/* PERSISTENCIA DER
-	// void obtenerComponentesXmlDER (XmlNodo*);
-	 */
 	std::string tipo;
 	std::string expresion;
 	std::string cardinalidadMinima;
@@ -28,6 +25,10 @@ private:
 	std::vector<Atributo*> atributosDerivables;
 
 	void borrarAtributosDerivables();
+
+	/* PERSISTENCIA DER
+	// void obtenerComponentesXmlDER (XmlNodo*);
+	 */
 
 protected:
 	/* PERSISTENCIA DER
