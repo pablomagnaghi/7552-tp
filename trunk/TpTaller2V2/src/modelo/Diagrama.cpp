@@ -282,6 +282,28 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 
 /* PERSISTENCIA DER
 
+Diagrama::Diagrama(const string& path) {
+    // Abro el archivo
+    Xml docXml( path );
+
+
+    XmlNodo* nodoRaiz = docXml.getNodoRaiz();
+    XmlNodo::verificarNombre( NOMBRE_NODO, *nodoRaiz );
+
+    XmlNodo nodo = nodoRaiz->getHijo();
+    XmlNodo::verificarNombre( NOMBRE_TAG_NOMBRE, nodo );
+    this->nombre = nodo.getContenido();
+
+    nodo = nodo.getHermano();
+    XmlNodo::verificarNombre( NOMBRE_TAG_DESC, nodo );
+    this->descripcion = nodo.getContenido();
+}
+
+
+
+
+
+
 Diagrama::Diagrama(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlDER(nodo);
 

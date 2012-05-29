@@ -140,24 +140,3 @@ XmlNodo Relacion::guardarXmlDER() {
 	return nodo;
 }
 */
-
-
-
-
-
-
-
-
-
-
-
-
-		<entidad_relacion entidad="4" cardinalidad_minima="0" cardinalidad_maxima="n" />
-		<entidad_relacion entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
-element "entidad_relacion"
-element "atributo" t
-attribute "tipo"
-attribute "entidad"
-attribute "cardinalidad_minima"
-attribute "cardinalidad_maxima" t
-attribute "rol"

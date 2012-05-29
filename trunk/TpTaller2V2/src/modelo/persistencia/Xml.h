@@ -4,7 +4,7 @@
  *  Created on: 08/04/2012
  *      Author: pablo
  */
-/*
+
 #ifndef XML_H_
 #define XML_H_
 #include <libxml2/libxml/parser.h>
@@ -76,4 +76,4 @@ public:
 
 };
 #endif
-*/
+

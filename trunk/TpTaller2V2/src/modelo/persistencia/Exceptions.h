@@ -4,7 +4,7 @@
  *  Created on: 08/04/2012
  *      Author: pablo
  */
-/*
+
 #ifndef _EXCEPCION_H_INCLUDED_
 #define _EXCEPCION_H_INCLUDED_
 
@@ -161,4 +161,4 @@ public:
 };
 
 #endif
-*/
+
