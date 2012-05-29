@@ -19,6 +19,17 @@ private:
 	std::string cobertura;
 	std::string interseccion;
 
+	/* PERSISTENCIA DER
+	// void obtenerComponentesXmlDER (XmlNodo*);
+	 */
+
+protected:
+	/* PERSITENCIA DER
+	// si hay que agregar más propiedades, se redefinen
+	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
+	 */
+
 public:
 
 	Jerarquia();
@@ -38,6 +49,11 @@ public:
 
 	std::vector<EntidadNueva*>::iterator entidadesEspecializadasBegin();
 	std::vector<EntidadNueva*>::iterator entidadesEspecializadasEnd();
+
+	/* PERSISTENCIA DER
+	// Jerarquia(XmlNodo*);
+	// virtual XmlNodo guardarXmlDER();
+	 */
 
 };
 
