@@ -4,7 +4,7 @@
  *  Created on: 08/04/2012
  *      Author: pablo
  */
-/*
+
 #include "Xml.h"
 
 // xmlParseFile carga el documento desde el fichero especificado como parámetro
@@ -142,4 +142,3 @@ void Xml::liberarRecursos() {
 		xmlXPathFreeContext(context);
 	context = NULL;
 }
-*/

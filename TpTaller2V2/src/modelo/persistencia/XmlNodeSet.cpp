@@ -4,7 +4,7 @@
  *  Created on: 08/04/2012
  *      Author: pablo
  */
-/*
+
 #include "XmlNodeSet.h"
 
 #include <libxml/xpath.h>
@@ -31,4 +31,4 @@ XmlNodeSet::~XmlNodeSet() {
 		xmlXPathFreeObject(result);
 	}
 }
-*/
+
