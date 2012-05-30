@@ -34,6 +34,7 @@ private:
 	bool mouse_apretado;
 	gdouble x_button_press;
 	gdouble y_button_press;
+	bool estaRedimensionandoElemento; // Para que no se haga el drag
 
 	// Redefinicion del metodo de Gtk::DrawingArea q se llama cada vez q debe dibujarse la hoja.
 	bool on_expose_event(GdkEventExpose* e);

@@ -27,7 +27,13 @@ public:
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y);
 
-	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
+	virtual void calcularDimensionesAPartirDeTexto(
+			Cairo::TextExtents * textExtents);
+
+	// Verifica si el punto cae dentro de un punto para redimensionar el elemento
+	virtual bool esPuntoDeRedimension(double x, double y);
+
+	virtual void setMouseArriba(double x, double y);
 };
 
 #endif /* VISTAUNION_H_ */

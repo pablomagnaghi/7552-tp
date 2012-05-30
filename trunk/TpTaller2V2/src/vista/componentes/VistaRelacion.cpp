@@ -42,7 +42,7 @@ void VistaRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	mitad_x = (this->pos_fin_x + this->pos_ini_x) / 2;
 	mitad_y = (this->pos_fin_y + this->pos_ini_y) / 2;
 
-	this->dibujarNombreCentrado(cr,this->nombre);
+	this->dibujarNombreCentrado(cr, this->nombre);
 
 	cr->move_to(mitad_x, this->pos_ini_y);
 	cr->line_to(this->pos_fin_x, mitad_y);
@@ -64,13 +64,8 @@ void VistaRelacion::finSeleccionado(double x, double y) {
 }
 
 bool VistaRelacion::contieneAEstePunto(double x, double y) {
-	if (x > this->pos_ini_x && x < this->pos_fin_x) {
-		if (y > this->pos_ini_y && y < this->pos_fin_y) {
-			return true;
-		}
-	}
-
-	return false;
+	return Geometria::estaContenidoEnRectangulo(x, y, this->pos_ini_x,
+			this->pos_ini_y, this->pos_fin_x, this->pos_fin_y);
 }
 
 void VistaRelacion::calcularDimensionesAPartirDeTexto(
@@ -81,5 +76,13 @@ void VistaRelacion::calcularDimensionesAPartirDeTexto(
 
 	this->pos_fin_x = this->pos_ini_x + ancho + 6 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
 	this->pos_fin_y = this->pos_ini_y + alto + 6 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
+
+}
+
+bool VistaRelacion::esPuntoDeRedimension(double x, double y) {
+
+}
+
+void VistaRelacion::setMouseArriba(double x, double y) {
 
 }

@@ -17,6 +17,8 @@ VistaDiagrama::VistaDiagrama(string nom) :
 	this->alto = A4_ALTO * zoom;
 	this->set_size_request(this->ancho, this->alto);
 
+	this->estaRedimensionandoElemento = false;
+
 	// Habilito el evento de apretar el boton del mouse
 	this->add_events(Gdk::BUTTON_PRESS_MASK | Gdk::POINTER_MOTION_MASK);
 
@@ -26,11 +28,12 @@ VistaDiagrama::VistaDiagrama(string nom) :
 			&VistaDiagrama::on_button_release_event));
 	this->signal_motion_notify_event().connect(sigc::mem_fun(*this,
 			&VistaDiagrama::on_mouse_motion_event));
-	this->
 
 	test_cargar_componentes_visuales();
 
 	configurar_drag_and_drop();
+
+	cout << "Diagrama" << endl;
 }
 
 VistaDiagrama::~VistaDiagrama() {
@@ -90,13 +93,11 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 		(*componenteActual)->dibujar(cr);
 	}
 
-	Glib::RefPtr < Pango::Layout > layout = this->create_pango_layout("Hola");
-
+	//Glib::RefPtr < Pango::Layout > layout = this->create_pango_layout("Hola");
 	//	layout
-
-	cr->move_to(100, 100);
-	layout->update_from_cairo_context(cr);
-	layout->show_in_cairo_context(cr);
+	//cr->move_to(100, 100);
+	//layout->update_from_cairo_context(cr);
+	//layout->show_in_cairo_context(cr);
 
 	return true;
 }
@@ -135,6 +136,11 @@ void VistaDiagrama::seleccionar_componente_clickeado(gdouble x, gdouble y) {
 		if ((*componenteActual)->contieneAEstePunto(x, y)) {
 			(*componenteActual)->seleccionar(x, y);
 			componentes_seleccionados.push_back((*componenteActual));
+			if ((*componenteActual)->esPuntoDeRedimension(x, y)) {
+				this->estaRedimensionandoElemento = true;
+			} else {
+				this->estaRedimensionandoElemento = false;
+			}
 			componenteActual++;
 			// if(!apreto_control){
 			break;
@@ -176,7 +182,22 @@ VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre) {
 }
 
 bool VistaDiagrama::on_mouse_motion_event(GdkEventMotion * event) {
+	std::vector<VistaComponente *>::iterator componenteActual;
+
+	for (componenteActual = this->componentes.begin(); componenteActual
+			!= this->componentes.end(); componenteActual++) {
+		(*componenteActual)->setMouseArriba(event->x, event->y);
+		// VIEJO
+		/*if ((*componenteActual)->contieneAEstePunto(event->x, event->y)) {
+			(*componenteActual)->setMouseArriba(true);
+		} else {
+			(*componenteActual)->setMouseArriba(false);
+		}*/
+		//(*componenteActual)->dibujar(cr);
+	}
+
 	cout << "Mouse Motion X= " << event->x << " Y= " << event->y << endl;
+	this->queue_draw();
 	return true;
 }
 
@@ -235,13 +256,17 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
 
 	std::vector<VistaComponente *>::iterator componenteSeleccionado;
 
-	for (componenteSeleccionado = componentes_seleccionados.begin(); componenteSeleccionado
-			!= componentes_seleccionados.end(); componenteSeleccionado++) {
-		(*componenteSeleccionado)->mover(x_actual, y_actual);
-		//(*componenteSeleccionado)->setposini(x_actual, y_actual);
-		//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
+	if (!this->estaRedimensionandoElemento) {
+
+		for (componenteSeleccionado = componentes_seleccionados.begin(); componenteSeleccionado
+				!= componentes_seleccionados.end(); componenteSeleccionado++) {
+			(*componenteSeleccionado)->mover(x_actual, y_actual);
+			//(*componenteSeleccionado)->setposini(x_actual, y_actual);
+			//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
+		}
+		cout << "DRAG_MOTION" << endl;
+
 	}
-	cout << "DRAG_MOTION" << endl;
 	this->queue_draw();
 	return true;
 }

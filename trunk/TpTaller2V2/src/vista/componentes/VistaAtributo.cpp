@@ -69,3 +69,11 @@ bool VistaAtributo::contieneAEstePunto(double x, double y) {
 void VistaAtributo::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents){
 
 }
+
+bool VistaAtributo::esPuntoDeRedimension(double x, double y){
+	return false;
+}
+
+void VistaAtributo::setMouseArriba(double x, double y){
+
+}
