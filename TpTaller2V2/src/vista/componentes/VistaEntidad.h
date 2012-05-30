@@ -30,6 +30,10 @@ public:
 
 	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
 
+	// Verifica si el punto cae dentro de un punto para redimensionar el elemento
+	virtual bool esPuntoDeRedimension(double x, double y);
+
+	virtual void setMouseArriba(double x, double y);
 };
 
 #endif /* VISTAENTIDAD_H_ */

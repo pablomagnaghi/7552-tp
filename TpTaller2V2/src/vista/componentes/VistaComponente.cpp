@@ -7,6 +7,11 @@
 
 #include "VistaComponente.h"
 
+Gdk::Color VistaComponente::colorNegro;
+Gdk::Color VistaComponente::colorDeSeleccion;
+Gdk::Color VistaComponente::colorDeRedimension;
+Gdk::Color VistaComponente::colorBlanco;
+
 VistaComponente::VistaComponente() {
 	this->setposfin(0, 0);
 	this->setposini(0, 0);
@@ -14,10 +19,13 @@ VistaComponente::VistaComponente() {
 	this->pos_selec_y = 0;
 	this->m_pMenuPopup = 0;
 
-	this->colorNegro.set_rgb_p(0, 0, 0);
+	VistaComponente::colorNegro.set_rgb_p(0, 0, 0);
 	//this->colorDeSeleccion.set_rgb(135,225,255);
-	this->colorDeSeleccion.set_rgb_p(0.25, 0.69, 1);
+	VistaComponente::colorDeSeleccion.set_rgb_p(0.25, 0.69, 1);
+	VistaComponente::colorDeRedimension.set_rgb_p(1, 0, 0);
+	VistaComponente::colorBlanco.set_rgb_p(1, 1, 1);
 	this->seleccionado = false;
+	this->estaMouseArriba = false;
 }
 
 VistaComponente::~VistaComponente() {
@@ -74,6 +82,8 @@ void VistaComponente::deseleccionar() {
 	this->pos_selec_x = 0;
 	this->pos_selec_y = 0;
 }
+
+
 
 void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
 		const std::string nombre) {

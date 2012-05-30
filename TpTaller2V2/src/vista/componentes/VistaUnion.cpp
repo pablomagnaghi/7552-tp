@@ -50,10 +50,18 @@ void VistaUnion::finSeleccionado(double x, double y) {
 }
 
 bool VistaUnion::contieneAEstePunto(double x, double y) {
+	return false;
+}
+
+void VistaUnion::calcularDimensionesAPartirDeTexto(
+		Cairo::TextExtents * textExtents) {
 
 }
 
-void VistaUnion::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents){
-
+bool VistaUnion::esPuntoDeRedimension(double x, double y) {
+	return false;
 }
 
+void VistaUnion::setMouseArriba(double x, double y) {
+
+}

@@ -13,10 +13,14 @@
 #include "../VistaConstantes.h"
 #include <gtkmm/targetentry.h>
 #include "../../modelo/Componente.h"
+#include "Geometria.h"
 
 using namespace std;
 
 #define ESPACIO_ENTRE_TEXTO_Y_BORDE 5
+#define LONGITUD_LINEAS_REDIMENSION 2
+
+
 
 class VistaComponente /*: public Componente*/ {
 protected:
@@ -33,8 +37,11 @@ protected:
 	Gtk::Menu* m_pMenuPopup;
 
 	bool seleccionado;
-	Gdk::Color colorNegro;
-	Gdk::Color colorDeSeleccion;
+	bool estaMouseArriba;
+	static Gdk::Color colorNegro;
+	static Gdk::Color colorDeSeleccion;
+	static Gdk::Color colorDeRedimension;
+	static Gdk::Color colorBlanco;
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
@@ -75,13 +82,16 @@ public:
 	void seleccionar(double x, double y);
 	void deseleccionar();
 
+	virtual void setMouseArriba(double x, double y) = 0;
+
 	// para mover el componente
 	void mover(double x, double y);
 
 	// Calcula las dimensiones del componente a partir de las dimensiones del nombre
 	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents)=0;
 
-
+	// Verifica si el punto cae dentro de un punto para redimensionar el elemento
+	virtual bool esPuntoDeRedimension(double x, double y) = 0;
 
 	/*PERSISTENCIA REP
 	// XmlNodo guardarXmlREP();
