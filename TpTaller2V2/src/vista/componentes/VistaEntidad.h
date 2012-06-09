@@ -9,6 +9,8 @@ class VistaEntidad: public VistaComponente, public Entidad {
 private:
 	friend class AsistenteEntidad;
 	void calcular_ancho_a_partir_del_nombre();
+	void dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr);
+	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 public:
 	VistaEntidad();
 	virtual ~VistaEntidad();
@@ -34,6 +36,8 @@ public:
 	virtual bool esPuntoDeRedimension(double x, double y);
 
 	virtual void setMouseArriba(double x, double y);
+
+	virtual void redimensionar(double x, double y);
 };
 
 #endif /* VISTAENTIDAD_H_ */

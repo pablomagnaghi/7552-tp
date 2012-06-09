@@ -65,3 +65,7 @@ bool VistaUnion::esPuntoDeRedimension(double x, double y) {
 void VistaUnion::setMouseArriba(double x, double y) {
 
 }
+
+void VistaUnion::redimensionar(double x, double y) {
+
+}

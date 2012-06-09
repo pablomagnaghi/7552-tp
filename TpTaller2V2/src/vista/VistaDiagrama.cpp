@@ -108,6 +108,14 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 
 	seleccionar_componente_clickeado(event->x, event->y);
 
+	if (this->componentes_seleccionados.size() == 1
+			&& this->componentes_seleccionados[0]->esPuntoDeRedimension(
+					event->x, event->y)) {
+		this->estaRedimensionandoElemento = true;
+	} else {
+		this->estaRedimensionandoElemento = false;
+	}
+
 	this->x_button_press = event->x;
 	this->y_button_press = event->y;
 
@@ -118,7 +126,8 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 
 bool VistaDiagrama::on_button_release_event(GdkEventButton* event) {
 
-	cout << "X= " << event->x << " Y=" << event->y << endl;
+	this->estaRedimensionandoElemento = false;
+	cout << "Release X= " << event->x << " Y= " << event->y << endl;
 
 	this->queue_draw();
 	return true;
@@ -136,11 +145,6 @@ void VistaDiagrama::seleccionar_componente_clickeado(gdouble x, gdouble y) {
 		if ((*componenteActual)->contieneAEstePunto(x, y)) {
 			(*componenteActual)->seleccionar(x, y);
 			componentes_seleccionados.push_back((*componenteActual));
-			if ((*componenteActual)->esPuntoDeRedimension(x, y)) {
-				this->estaRedimensionandoElemento = true;
-			} else {
-				this->estaRedimensionandoElemento = false;
-			}
 			componenteActual++;
 			// if(!apreto_control){
 			break;
@@ -184,16 +188,11 @@ VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre) {
 bool VistaDiagrama::on_mouse_motion_event(GdkEventMotion * event) {
 	std::vector<VistaComponente *>::iterator componenteActual;
 
-	for (componenteActual = this->componentes.begin(); componenteActual
-			!= this->componentes.end(); componenteActual++) {
-		(*componenteActual)->setMouseArriba(event->x, event->y);
-		// VIEJO
-		/*if ((*componenteActual)->contieneAEstePunto(event->x, event->y)) {
-			(*componenteActual)->setMouseArriba(true);
-		} else {
-			(*componenteActual)->setMouseArriba(false);
-		}*/
-		//(*componenteActual)->dibujar(cr);
+	if (!this->estaRedimensionandoElemento) {
+		for (componenteActual = this->componentes.begin(); componenteActual
+				!= this->componentes.end(); componenteActual++) {
+			(*componenteActual)->setMouseArriba(event->x, event->y);
+		}
 	}
 
 	cout << "Mouse Motion X= " << event->x << " Y= " << event->y << endl;
@@ -257,16 +256,19 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
 	std::vector<VistaComponente *>::iterator componenteSeleccionado;
 
 	if (!this->estaRedimensionandoElemento) {
-
 		for (componenteSeleccionado = componentes_seleccionados.begin(); componenteSeleccionado
 				!= componentes_seleccionados.end(); componenteSeleccionado++) {
 			(*componenteSeleccionado)->mover(x_actual, y_actual);
 			//(*componenteSeleccionado)->setposini(x_actual, y_actual);
 			//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
 		}
-		cout << "DRAG_MOTION" << endl;
-
+		cout << "Arrastrando X= " << x_actual << " Y= " << y_actual << endl;
+	} else {
+		this->componentes_seleccionados[0]->redimensionar(x_actual, y_actual);
+		//context->drag_finish(true, true, timestamp);
+		cout << "Redimensionando X= " << x_actual << " Y= " << y_actual << endl;
 	}
+
 	this->queue_draw();
 	return true;
 }

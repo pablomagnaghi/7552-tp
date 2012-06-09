@@ -19,7 +19,7 @@ using namespace std;
 
 #define ESPACIO_ENTRE_TEXTO_Y_BORDE 5
 #define LONGITUD_LINEAS_REDIMENSION 2
-
+#define RADIO_CIRCULOS_REDIMENSION 3
 
 
 class VistaComponente /*: public Componente*/ {
@@ -37,11 +37,13 @@ protected:
 	Gtk::Menu* m_pMenuPopup;
 
 	bool seleccionado;
-	bool estaMouseArriba;
+	//bool estaMouseArriba;
 	static Gdk::Color colorNegro;
 	static Gdk::Color colorDeSeleccion;
 	static Gdk::Color colorDeRedimension;
 	static Gdk::Color colorBlanco;
+	int mouseArribaDePuntoDeRedimension;
+	bool inicializado;
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
@@ -86,6 +88,8 @@ public:
 
 	// para mover el componente
 	void mover(double x, double y);
+
+	virtual void redimensionar(double x, double y)=0;
 
 	// Calcula las dimensiones del componente a partir de las dimensiones del nombre
 	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents)=0;
