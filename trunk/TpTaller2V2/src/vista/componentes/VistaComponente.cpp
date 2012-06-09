@@ -25,7 +25,8 @@ VistaComponente::VistaComponente() {
 	VistaComponente::colorDeRedimension.set_rgb_p(1, 0, 0);
 	VistaComponente::colorBlanco.set_rgb_p(1, 1, 1);
 	this->seleccionado = false;
-	this->estaMouseArriba = false;
+	this->inicializado = false;
+	//this->estaMouseArriba = false;
 }
 
 VistaComponente::~VistaComponente() {

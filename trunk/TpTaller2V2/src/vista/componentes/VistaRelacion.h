@@ -9,6 +9,9 @@
 #include "VistaComponente.h"
 
 class VistaRelacion: public VistaComponente, public Relacion {
+private:
+	void dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr);
+	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 public:
 	VistaRelacion();
 	virtual ~VistaRelacion();
@@ -35,6 +38,8 @@ public:
 	virtual bool esPuntoDeRedimension(double x, double y);
 
 	virtual void setMouseArriba(double x, double y);
+
+	virtual void redimensionar(double x, double y);
 };
 
 #endif /* VISTARELACION_H_ */

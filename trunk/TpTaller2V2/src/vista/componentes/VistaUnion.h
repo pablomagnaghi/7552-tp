@@ -34,6 +34,8 @@ public:
 	virtual bool esPuntoDeRedimension(double x, double y);
 
 	virtual void setMouseArriba(double x, double y);
+
+	virtual void redimensionar(double x, double y);
 };
 
 #endif /* VISTAUNION_H_ */

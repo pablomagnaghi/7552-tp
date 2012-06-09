@@ -11,7 +11,8 @@ Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 	Gtk::Window(cobject), m_builder(builder), treePanel(builder, this),
 			panelAcciones(builder, this) {
 	this->enlazarWidgets();
-	this->maximize();
+	this->set_size_request(800,600);
+	//this->maximize();
 	this->vproyecto = NULL;
 	this->diag_actual = NULL;
 	this->show();

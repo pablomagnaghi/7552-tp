@@ -77,3 +77,7 @@ bool VistaAtributo::esPuntoDeRedimension(double x, double y){
 void VistaAtributo::setMouseArriba(double x, double y){
 
 }
+
+void VistaAtributo::redimensionar(double x, double y) {
+
+}
