@@ -25,7 +25,7 @@ VistaComponente::VistaComponente() {
 	VistaComponente::colorDeRedimension.set_rgb_p(1, 0, 0);
 	VistaComponente::colorBlanco.set_rgb_p(1, 1, 1);
 	this->seleccionado = false;
-	this->inicializado = false;
+	this->ajustarTamanioPorTexto = true;
 	//this->estaMouseArriba = false;
 }
 
@@ -139,6 +139,10 @@ void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
 	cr->move_to(textoCentrado_x, textoCentrado_y);
 	cr->show_text(nombre);
 	cr->stroke();
+}
+
+void VistaComponente::ajustarTamanioAlTexto(){
+	this->ajustarTamanioPorTexto = true;
 }
 
 /* PERSISTENCIA REP

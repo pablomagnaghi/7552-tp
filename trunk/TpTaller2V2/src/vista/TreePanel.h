@@ -14,7 +14,6 @@
 #include "VistaConstantes.h"
 using namespace std;
 
-class Proyecto;
 class Ide;
 
 typedef GtkRequisition Requisition;

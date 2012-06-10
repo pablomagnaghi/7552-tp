@@ -17,8 +17,8 @@ VistaUnion::~VistaUnion() {
 	// TODO Auto-generated destructor stub
 }
 
-void VistaUnion::lanzarProp(GdkEventButton* event) {
-
+bool VistaUnion::lanzarProp() {
+	return false;
 }
 
 void VistaUnion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {

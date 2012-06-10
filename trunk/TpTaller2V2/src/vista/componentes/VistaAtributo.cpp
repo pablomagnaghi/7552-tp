@@ -19,8 +19,8 @@ VistaAtributo::~VistaAtributo() {
 	// TODO Auto-generated destructor stub
 }
 
-void VistaAtributo::lanzarProp(GdkEventButton* event) {
-
+bool VistaAtributo::lanzarProp() {
+	return false;
 }
 
 void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {

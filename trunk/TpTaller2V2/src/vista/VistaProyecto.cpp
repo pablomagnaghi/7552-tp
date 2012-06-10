@@ -11,14 +11,12 @@
 VistaProyecto::VistaProyecto()  {
 	//Prueba
 	this->diagramaPrincipal = new VistaDiagrama("Principal");
-	this->testCargarDiagramas();
+	//this->testCargarDiagramas();
 }
 
 VistaProyecto::~VistaProyecto() {
 	// TODO Auto-generated destructor stub
 }
-
-
 
 void VistaProyecto::testCargarDiagramas(){
 	VistaDiagrama* diagrama = new VistaDiagrama("Sub Diag Prueba1");

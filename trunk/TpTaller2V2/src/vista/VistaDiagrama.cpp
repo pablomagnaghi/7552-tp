@@ -29,11 +29,11 @@ VistaDiagrama::VistaDiagrama(string nom) :
 	this->signal_motion_notify_event().connect(sigc::mem_fun(*this,
 			&VistaDiagrama::on_mouse_motion_event));
 
-	test_cargar_componentes_visuales();
+	//test_cargar_componentes_visuales();
 
 	configurar_drag_and_drop();
 
-	cout << "Diagrama" << endl;
+	//cout << "Diagrama" << endl;
 }
 
 VistaDiagrama::~VistaDiagrama() {
@@ -194,8 +194,9 @@ bool VistaDiagrama::on_mouse_motion_event(GdkEventMotion * event) {
 			(*componenteActual)->setMouseArriba(event->x, event->y);
 		}
 	}
-
+#ifdef DEBUG
 	cout << "Mouse Motion X= " << event->x << " Y= " << event->y << endl;
+#endif
 	this->queue_draw();
 	return true;
 }
@@ -247,7 +248,9 @@ void VistaDiagrama::drag_begin(const Glib::RefPtr<Gdk::DragContext>&context) {
 			imSur->get_stride());
 
 	context->set_icon(pixbuf, 0, 0);
+#ifdef DEBUG
 	cout << "DRAG_BEGIN " << seleccion << endl;
+#endif
 }
 
 bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
@@ -262,7 +265,9 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
 			//(*componenteSeleccionado)->setposini(x_actual, y_actual);
 			//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
 		}
+#ifdef DEBUG
 		cout << "Arrastrando X= " << x_actual << " Y= " << y_actual << endl;
+#endif
 	} else {
 		this->componentes_seleccionados[0]->redimensionar(x_actual, y_actual);
 		//context->drag_finish(true, true, timestamp);
@@ -280,13 +285,16 @@ void VistaDiagrama::drag_data_get(const Glib::RefPtr<Gdk::DragContext>&context,
 	// 9 the length of I'm Data! in bytes
 	selection_data.set(selection_data.get_target(), 8,
 			(const guchar*) "I'm Data!", 9);
-
+#ifdef DEBUG
 	cout << "DRAG_DATA_GET " << endl;
+#endif
 }
 
 bool VistaDiagrama::drag_drop(const Glib::RefPtr<Gdk::DragContext>& context,
 		int x, int y, guint timestamp) {
+#ifdef DEBUG
 	cout << "DRAG_DROP" << endl;
+#endif
 	return true;
 }
 
@@ -322,4 +330,11 @@ void VistaDiagrama::drag_data_received(
 
 	context->drag_finish(false, false, timestamp);
 	cout << "DRAG_DATA_RECEIVED " << endl;
+}
+
+void VistaDiagrama::agregarComponente(VistaComponente * componente){
+	if(componente!=NULL){
+		this->componentes.push_back(componente);
+		this->queue_draw();
+	}
 }

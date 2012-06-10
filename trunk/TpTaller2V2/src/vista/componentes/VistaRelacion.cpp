@@ -16,8 +16,8 @@ VistaRelacion::~VistaRelacion() {
 	// TODO Auto-generated destructor stub
 }
 
-void VistaRelacion::lanzarProp(GdkEventButton* event) {
-
+bool VistaRelacion::lanzarProp() {
+	return false;
 }
 
 void VistaRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
@@ -41,10 +41,10 @@ void VistaRelacion::dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr) {
 
 	cr->set_line_width(2); // Ancho de linea arbitrario
 
-	if (!this->inicializado) {
+	if (this->ajustarTamanioPorTexto) {
 		cr->get_text_extents(this->nombre, textExtents);
 		this->calcularDimensionesAPartirDeTexto(&textExtents);
-		this->inicializado = true;
+		this->ajustarTamanioPorTexto = false;
 	}
 
 	mitad_x = (this->pos_fin_x + this->pos_ini_x) / 2;
@@ -177,7 +177,7 @@ bool VistaRelacion::esPuntoDeRedimension(double x, double y) {
 			- LONGITUD_LINEAS_REDIMENSION;
 	limiteY4 = this->pos_fin_y + RADIO_CIRCULOS_REDIMENSION
 			+ LONGITUD_LINEAS_REDIMENSION;
-
+#ifdef DEBUG
 	if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY1,
 			limiteX2, limiteY2)) { // Circulo arriba a la izquierda
 		cout << "arriba a la izquierda" << endl;
@@ -195,7 +195,7 @@ bool VistaRelacion::esPuntoDeRedimension(double x, double y) {
 		cout << "abajo a la derecha" << endl;
 		return true;
 	}
-
+#endif
 	return false;
 }
 
@@ -234,7 +234,7 @@ void VistaRelacion::setMouseArriba(double x, double y) {
 	} else {
 		this->mouseArribaDePuntoDeRedimension = 0;
 	}
-
+#ifdef DEBUG
 	cout << "Punto Seleccionado " << this->mouseArribaDePuntoDeRedimension
 			<< endl;
 
@@ -253,12 +253,15 @@ void VistaRelacion::setMouseArriba(double x, double y) {
 		cout << "Circulo abajo der: (" << limiteX3 << ";" << limiteY3 << ") ("
 				<< limiteX4 << ";" << limiteY4 << ")" << endl;
 	}
+#endif
 }
 
 void VistaRelacion::redimensionar(double x, double y) {
 	if (this->seleccionado) {
+#ifdef DEBUG
 		cout << "Elemento Redimensionado "
 				<< this->mouseArribaDePuntoDeRedimension << endl;
+#endif
 		switch (this->mouseArribaDePuntoDeRedimension) {
 		case 1:
 			if (x < this->pos_fin_x && y < this->pos_fin_y) {
