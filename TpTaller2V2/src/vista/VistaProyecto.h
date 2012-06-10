@@ -15,14 +15,10 @@
 #include "../modelo/Proyecto.h"
 using namespace std;
 
-class TreePanel;
-
 class VistaProyecto : public Proyecto {
 private:
 
 	void testCargarDiagramas();
-
-	friend class TreePanel;
 
 public:
 	VistaProyecto();

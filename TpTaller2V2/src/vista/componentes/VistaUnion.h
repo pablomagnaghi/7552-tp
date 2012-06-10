@@ -22,7 +22,7 @@ public:
 	virtual void finSeleccionado(double x, double y);
 
 	//Lanza el asistente de prpiedades del objeto en cuestion.
-	virtual void lanzarProp(GdkEventButton* event);
+	virtual bool lanzarProp();
 
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y);

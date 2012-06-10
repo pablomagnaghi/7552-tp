@@ -17,12 +17,23 @@ VistaEntidad::~VistaEntidad() {
 	// TODO Auto-generated destructor stub
 }
 
-void VistaEntidad::lanzarProp(GdkEventButton* event) {
+bool VistaEntidad::lanzarProp() {
 	AsistenteEntidad* nuevaProp;
-	Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(
-			ARCH_GLADE_APENTIDAD);
-	nHbuilder->get_widget_derived("PropEntidad", nuevaProp);
+	int result;
+
+	nuevaProp = AsistenteEntidad::getInstance();
 	nuevaProp->setEntidad(this);
+	nuevaProp->show();
+	nuevaProp->set_modal(true);
+
+	// El N° de respuesta se define el glade, en el mismo boton
+	result = nuevaProp->run();
+
+#ifdef DEBUG
+	cout << "Resultado Dialogo: " << result << endl;
+#endif
+
+	return result==1;
 }
 
 void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
@@ -53,10 +64,10 @@ void VistaEntidad::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr) {
 				colorDeSeleccion.get_green_p(), colorDeSeleccion.get_blue_p());
 	}
 
-	if (!this->inicializado) {
+	if (this->ajustarTamanioPorTexto) {
 		cr->get_text_extents(this->nombre, textExtents);
 		this->calcularDimensionesAPartirDeTexto(&textExtents);
-		this->inicializado = true;
+		this->ajustarTamanioPorTexto = false;
 	}
 
 	this->dibujarNombreCentrado(cr, this->nombre);
@@ -198,6 +209,7 @@ bool VistaEntidad::esPuntoDeRedimension(double x, double y) {
 	limiteY4 = this->pos_fin_y + RADIO_CIRCULOS_REDIMENSION
 			+ LONGITUD_LINEAS_REDIMENSION;
 
+#ifdef DEBUG
 	if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY1,
 			limiteX2, limiteY2)) { // Circulo arriba a la izquierda
 		cout << "arriba a la izquierda" << endl;
@@ -215,6 +227,8 @@ bool VistaEntidad::esPuntoDeRedimension(double x, double y) {
 		cout << "abajo a la derecha" << endl;
 		return true;
 	}
+
+#endif
 
 	return false;
 }
@@ -255,6 +269,7 @@ void VistaEntidad::setMouseArriba(double x, double y) {
 		this->mouseArribaDePuntoDeRedimension = 0;
 	}
 
+#ifdef DEBUG
 	cout << "Punto Seleccionado " << this->mouseArribaDePuntoDeRedimension
 			<< endl;
 
@@ -273,6 +288,7 @@ void VistaEntidad::setMouseArriba(double x, double y) {
 		cout << "Circulo abajo der: (" << limiteX3 << ";" << limiteY3 << ") ("
 				<< limiteX4 << ";" << limiteY4 << ")" << endl;
 	}
+#endif
 }
 
 void VistaEntidad::redimensionar(double x, double y) {

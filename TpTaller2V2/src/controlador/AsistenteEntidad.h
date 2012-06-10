@@ -12,10 +12,16 @@
 
 class VistaEntidad;
 
-class AsistenteEntidad: public Gtk::Window {
+// SINGLETON
+
+class AsistenteEntidad: public Gtk::Dialog {
 private:
-	VistaEntidad* entidad;
+	friend class Gtk::Builder;
+	VistaEntidad * entidad;
 	Glib::RefPtr<Gtk::Builder> m_builder;
+	Gtk::Entry * entryNombreEntidad;
+
+	static AsistenteEntidad * instancia;
 
 	//Tree model columns:
 	class ModeloColumnas: public Gtk::TreeModel::ColumnRecord {
@@ -36,17 +42,22 @@ private:
 	Gtk::TreeView treeView;
 	Glib::RefPtr<Gtk::ListStore> refTreeModel;
 
-	void on_clicked_bAceptar();
-	void on_clicked_bCancelar();
-	void on_clicked_bAAtributo();
-	void on_clicked_bMAtributo();
-	void on_clicked_bEAtributo();
+	void on_botonAceptar_click();
+	void on_botonCancelar_click();
+	void on_botonAgregarAtributo_click();
+	void on_botonModificarAtributo_click();
+	void on_botonEliminarAtributo_click();
 	void enlazarWidgets();
 
-public:
+	void inicializarDialogo();
+
 	AsistenteEntidad(BaseObjectType* cobject,
 			const Glib::RefPtr<Gtk::Builder>& builder);
 	virtual ~AsistenteEntidad();
+
+public:
+	static AsistenteEntidad * getInstance(const Glib::RefPtr<Gtk::Builder>& builder);
+	static AsistenteEntidad * getInstance();
 	void setEntidad(VistaEntidad* ent);
 };
 

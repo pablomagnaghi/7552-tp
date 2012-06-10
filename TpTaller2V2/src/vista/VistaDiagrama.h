@@ -8,6 +8,8 @@
 #ifndef VISTADIAGRAMA_H_
 #define VISTADIAGRAMA_H_
 
+#define DEBUG 1
+
 #include "../modelo/Diagrama.h"
 #include <list>
 #include <vector>
@@ -35,6 +37,7 @@ private:
 	gdouble x_button_press;
 	gdouble y_button_press;
 	bool estaRedimensionandoElemento; // Para que no se haga el drag
+	bool estaAgregandoElemento;
 
 	// Redefinicion del metodo de Gtk::DrawingArea q se llama cada vez q debe dibujarse la hoja.
 	bool on_expose_event(GdkEventExpose* e);
@@ -94,6 +97,8 @@ public:
 	virtual VistaDiagrama* crearDiagramaHijo(string nombre);
 	int getAlto();
 	int getAncho();
+
+	void agregarComponente(VistaComponente * componente);
 };
 
 #endif /* VISTADIAGRAMA_H_ */

@@ -113,7 +113,7 @@
                   <object class="GtkMenu" id="menu3">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem10">
+                      <object class="GtkImageMenuItem" id="MAyAcercaDe">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
@@ -134,7 +134,7 @@
           <object class="GtkToolbar" id="toolbar1">
             <property name="visible">True</property>
             <child>
-              <object class="GtkToolButton" id="tbAgregarEntidad">
+              <object class="GtkToolButton" id="TBAgregarEntidad">
                 <property name="visible">True</property>
                 <property name="is_important">True</property>
                 <property name="label" translatable="yes">Entidad</property>
@@ -146,10 +146,55 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="toolbutton1">
+              <object class="GtkToolButton" id="TBAgregarRelacion">
                 <property name="visible">True</property>
                 <property name="is_important">True</property>
                 <property name="label" translatable="yes">Relacion</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="TBAgregarJerarquia">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Jerarquia</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="TBAgregarUnion">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Unir</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="Separador1">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="TBAgregarComentario">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Comentario</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -227,4 +272,190 @@
     <property name="stock">gtk-convert</property>
   </object>
   <object class="GtkTreeStore" id="treestore1"/>
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name Nombre -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkDialog" id="PropEntidad">
+    <property name="border_width">5</property>
+    <property name="type_hint">normal</property>
+    <property name="has_separator">False</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkVBox" id="vbox2">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkLabel" id="label2">
+                    <property name="visible">True</property>
+                    <property name="xalign">0.47999998927116394</property>
+                    <property name="label" translatable="yes">Atributos:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrollLista">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkVBox" id="vbox3">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkVBox" id="vbox4">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkLabel" id="label1">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Nombre Entidad</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="entryNombreEntidad">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkVButtonBox" id="vbuttonbox1">
+                    <property name="visible">True</property>
+                    <property name="spacing">32</property>
+                    <child>
+                      <object class="GtkButton" id="bAAtributo">
+                        <property name="label" translatable="yes">Nuevo Atributo</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="bMAtributo">
+                        <property name="label" translatable="yes">Modificar Atributo</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="bEAtributo">
+                        <property name="label" translatable="yes">Eliminar Atributo</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="hbuttonbox2">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="bCancelar">
+                <property name="label" translatable="yes">Cancelar</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="bAceptar">
+                <property name="label" translatable="yes">Aceptar</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="padding">1</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">bCancelar</action-widget>
+      <action-widget response="1">bAceptar</action-widget>
+    </action-widgets>
+  </object>
 </interface>

@@ -1,6 +1,8 @@
 #ifndef GEOMETRIA_H_
 #define GEOMETRIA_H_
 
+#define DEBUG
+
 class Geometria {
 	Geometria();
 	virtual ~Geometria();

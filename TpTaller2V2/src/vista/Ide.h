@@ -12,10 +12,10 @@
 #include "PanelAcciones.h"
 #include <gtkmm.h>
 #include <iostream>
+#include "../controlador/ControladorPanelHerramientas.h"
 using namespace std;
 
-class PanelAcciones;
-class TreePanel;
+#define DEBUG 1
 
 class Ide : public Gtk::Window {
 private:
@@ -29,8 +29,10 @@ private:
 	//Posse un treePanel
 	TreePanel treePanel;
 
+	ControladorPanelHerramientas controladorPanelHerramientas;
+
 	//Posee un panel de acciones
-	PanelAcciones panelAcciones;
+	//PanelAcciones panelAcciones;
 
 	/*
 	 * Enlaza todos los widgets que forman al Ide con las respectivas funciones.

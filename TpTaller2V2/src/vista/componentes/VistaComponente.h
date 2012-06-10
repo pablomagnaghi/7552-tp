@@ -43,7 +43,7 @@ protected:
 	static Gdk::Color colorDeRedimension;
 	static Gdk::Color colorBlanco;
 	int mouseArribaDePuntoDeRedimension;
-	bool inicializado;
+	bool ajustarTamanioPorTexto;
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
@@ -75,7 +75,7 @@ public:
 	virtual void finSeleccionado(double x, double y) = 0;
 
 	// Lanza el asistente de prpiedades del objeto en cuestion.
-	virtual void lanzarProp(GdkEventButton* event) = 0;
+	virtual bool lanzarProp() = 0;
 
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y) = 0;
@@ -96,6 +96,8 @@ public:
 
 	// Verifica si el punto cae dentro de un punto para redimensionar el elemento
 	virtual bool esPuntoDeRedimension(double x, double y) = 0;
+
+	void ajustarTamanioAlTexto();
 
 	/*PERSISTENCIA REP
 	// XmlNodo guardarXmlREP();

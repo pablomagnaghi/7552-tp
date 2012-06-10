@@ -7,20 +7,25 @@
 
 #include "AsistenteEntidad.h"
 
-AsistenteEntidad::AsistenteEntidad(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder)
-: Gtk::Window(cobject),
-m_builder(builder) {
+AsistenteEntidad * AsistenteEntidad::instancia = NULL;
+
+AsistenteEntidad::AsistenteEntidad(BaseObjectType* cobject, const Glib::RefPtr<
+		Gtk::Builder>& builder) :
+	Gtk::Dialog(cobject), m_builder(builder) {
+	//this->hide();
 	this->entidad = NULL;
 	this->enlazarWidgets();
 }
 
 AsistenteEntidad::~AsistenteEntidad() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void AsistenteEntidad::setEntidad(VistaEntidad* ent) {
-	this->entidad = ent;
 
+	// TODO CARGAR DATOS DE ENTIDAD NUEVA
+	this->inicializarDialogo();
+	this->entidad = ent;
 }
 
 void AsistenteEntidad::enlazarWidgets() {
@@ -34,17 +39,18 @@ void AsistenteEntidad::enlazarWidgets() {
 	this->m_builder->get_widget("bAAtributo", bAAtributo);
 	this->m_builder->get_widget("bMAtributo", bMAtributo);
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
+	this->m_builder->get_widget("entryNombreEntidad", entryNombreEntidad);
 
 	bAceptar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_clicked_bAceptar));
+			&AsistenteEntidad::on_botonAceptar_click));
 	bCancelar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_clicked_bCancelar));
+			&AsistenteEntidad::on_botonCancelar_click));
 	bAAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_clicked_bAAtributo));
+			&AsistenteEntidad::on_botonAgregarAtributo_click));
 	bMAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_clicked_bMAtributo));
+			&AsistenteEntidad::on_botonModificarAtributo_click));
 	bEAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_clicked_bEAtributo));
+			&AsistenteEntidad::on_botonEliminarAtributo_click));
 
 	//Lista
 	this->m_builder->get_widget("scrollLista", scrollLista);
@@ -62,63 +68,91 @@ void AsistenteEntidad::enlazarWidgets() {
 	this->treeView.show();
 }
 
-void AsistenteEntidad::on_clicked_bAceptar(){
-	/*Gtk::Entry *entryNombre = 0, *entryPath = 0;
-	this->m_builder->get_widget("entryNombre", entryNombre);
-	this->m_builder->get_widget("entryPath", entryPath);
-	this->lista->nombre = entryNombre->get_text();
-	if (entryPath->get_text() ==""){
-		Gtk::MessageDialog mensaje(*this, "Error.", false,
-						Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK);
-				mensaje.set_secondary_text("No ingreso XPath de la lista.");
-				mensaje.run();
-	}else{
-	this->lista->path = entryPath->get_text();
-	typedef Gtk::TreeModel::Children type_children;
-	type_children children = this->refTreeModel->children();
-	type_children::iterator iter = children.begin();
-	type_children::iterator iter1 = children.end();
-	if (iter != iter1){
-		this->lista->vaciarLista();
-		while (iter != iter1){
-			Gtk::TreeModel::Row row = *iter;
-			string nombre = row[this->m_Columnas.m_col_Nombre];
-			string datocalculo = row[this->m_Columnas.m_col_DatoCalculo];
-			bool escalc = row[this->m_Columnas.m_col_esCalculable];
-			this->lista->agregarColumna(nombre, datocalculo, escalc);
-			iter++;
-		}
-	}
-	this->lista->hoja->redibujar();
-	this->hide_all();
-	}*/
+void AsistenteEntidad::on_botonAceptar_click() {
+	Gtk::Entry *entryPath = 0;
+	//this->m_builder->get_widget("entryPath", entryPath);
+	this->entidad->setNombre(this->entryNombreEntidad->get_text());
+	this->entidad->setposini(20, 20);
+	//this->entidad->ajustarTamanioAlTexto();
+	/* 	if (entryPath->get_text() == "") {
+	 Gtk::MessageDialog mensaje(*this, "Error.", false, Gtk::MESSAGE_ERROR,
+	 Gtk::BUTTONS_OK);
+	 mensaje.set_secondary_text("No ingreso XPath de la lista.");
+	 mensaje.run();
+	 } else {
+	 this->lista->path = entryPath->get_text();
+	 typedef Gtk::TreeModel::Children type_children;
+	 type_children children = this->refTreeModel->children();
+	 type_children::iterator iter = children.begin();
+	 type_children::iterator iter1 = children.end();
+	 if (iter != iter1) {
+	 this->lista->vaciarLista();
+	 while (iter != iter1) {
+	 Gtk::TreeModel::Row row = *iter;
+	 string nombre = row[this->m_Columnas.m_col_Nombre];
+	 string datocalculo = row[this->m_Columnas.m_col_DatoCalculo];
+	 bool escalc = row[this->m_Columnas.m_col_esCalculable];
+	 this->lista->agregarColumna(nombre, datocalculo, escalc);
+	 iter++;
+	 }
+	 }
+	 this->lista->hoja->redibujar();
+	 this->hide_all();
+	 }*/
+	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
+	this->hide();
 }
 
-void AsistenteEntidad::on_clicked_bCancelar(){
-	this->hide_all();
+void AsistenteEntidad::on_botonCancelar_click() {
+	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
+	this->hide();
 }
 
-void AsistenteEntidad::on_clicked_bAAtributo(){
+void AsistenteEntidad::on_botonAgregarAtributo_click() {
 	/*Gtk::TreeModel::Row row = *(this->refTreeModel->append());
-	row[this->m_Columnas.m_col_Nombre] = "NuevaColumna";
-	row[this->m_Columnas.m_col_esCalculable] = false;
-	row[this->m_Columnas.m_col_DatoCalculo] = "Ingrese Dato";*/
+	 row[this->m_Columnas.m_col_Nombre] = "NuevaColumna";
+	 row[this->m_Columnas.m_col_esCalculable] = false;
+	 row[this->m_Columnas.m_col_DatoCalculo] = "Ingrese Dato";*/
 }
 
-void AsistenteEntidad::on_clicked_bMAtributo(){
+void AsistenteEntidad::on_botonModificarAtributo_click() {
 	/*Gtk::TreeModel::Row row = *(this->refTreeModel->append());
-	row[this->m_Columnas.m_col_Nombre] = "NuevaColumna";
-	row[this->m_Columnas.m_col_esCalculable] = true;
-	row[this->m_Columnas.m_col_DatoCalculo] = "Ingrese Calculo";*/
+	 row[this->m_Columnas.m_col_Nombre] = "NuevaColumna";
+	 row[this->m_Columnas.m_col_esCalculable] = true;
+	 row[this->m_Columnas.m_col_DatoCalculo] = "Ingrese Calculo";*/
 }
 
-void AsistenteEntidad::on_clicked_bEAtributo(){
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =this->treeView.get_selection();
+void AsistenteEntidad::on_botonEliminarAtributo_click() {
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
+			this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 
-	if(iter) //If anything is selected
+	if (iter) //If anything is selected
 	{
-	  //Gtk::TreeModel::Row row = *iter;
-	  this->refTreeModel->erase(iter);
+		//Gtk::TreeModel::Row row = *iter;
+		this->refTreeModel->erase(iter);
 	}
+}
+
+void AsistenteEntidad::inicializarDialogo() {
+	this->entryNombreEntidad->set_text("");
+}
+
+AsistenteEntidad * AsistenteEntidad::getInstance(const Glib::RefPtr<
+		Gtk::Builder>& builder) {
+	if (AsistenteEntidad::instancia == NULL) {
+		builder->get_widget_derived("PropEntidad", AsistenteEntidad::instancia);
+	}
+	return AsistenteEntidad::instancia;
+}
+
+AsistenteEntidad * AsistenteEntidad::getInstance() {
+	if (AsistenteEntidad::instancia != NULL) {
+		return AsistenteEntidad::instancia;
+	} else {
+#ifdef DEBUG
+		cout << "Error Instancia No creada" << endl;
+#endif
+	}
+	return NULL;
 }

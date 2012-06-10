@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include "Componente.h"
+#include "Atributo.h"
 
 class Relacion;
 
@@ -16,6 +17,7 @@ class Entidad : public Componente {
 protected:
 	bool esDebil;
 	std::vector<Relacion*> relaciones;
+	std::vector<Atributo *> atributos;
 
 	/* PERSISTENCIA DER
 	// void guardarRelacionesXmlDER(XmlNodo*);
@@ -34,6 +36,9 @@ public:
 	Relacion* getRelacionByCodigo(int);
 
 	void setEsDebil(bool esDebil);
+
+	void agregarAtributo(Atributo * );
+	void quitarAtributo(Atributo *);
 
 };
 
