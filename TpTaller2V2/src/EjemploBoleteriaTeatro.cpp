@@ -309,7 +309,7 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	return fO;
 }
 
-int main2(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
@@ -337,15 +337,17 @@ int main2(int argc, char* argv[]){
 	Relacion* fO = crearFO(obra, funcion);
 	diagramaPrincipal->agregarRelacion(fO);
 
-	// prueba persistencia
-	diagramaPrincipal->guardarDiagrama("XmlDiagrama");
-
-	delete proyecto;
-	GeneradorCodigo::destruir();
-
 	// prueba de constantes
 	std::cout << XMLNS << "=" << INSTANCE << std::endl;
 	std::cout << XSI << "=" << COMPOSICION << std::endl;
+
+	// prueba persistencia
+	diagramaPrincipal->guardarDiagrama("Prueba1-EjemploBoleteriaTeatro.xml");
+
+	std::cout << "Generacion del xml OK" << std::endl;
+
+	delete proyecto;
+	GeneradorCodigo::destruir();
 
 	return 0;
 }

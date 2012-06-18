@@ -6,13 +6,13 @@
 #include "Diagrama.h"
 
 Diagrama::Diagrama(){
-
+	this->diagramaAncestro = NULL;
+	this->diagramaValido = false;
 }
 
 Diagrama::Diagrama(const std::string nombre):
 	nombre (nombre),
 	estado (DIAGRAMA_SIN_VALIDAR){
-
 }
 
 Diagrama::~Diagrama() {
@@ -393,7 +393,7 @@ XmlNodo Diagrama::guardarXmlDER() {
 	this->agregarPropiedadesXmlDER(&nodo);
 
 	// puede no tener diagrama ancestro
-	if (diagramaAncestro->getNombre() != VACIO) {
+	if (diagramaAncestro) {
 		this->agregarNodoDiagramaAncestroXmlDER(&nodo);
 	}
 
@@ -414,11 +414,9 @@ bool Diagrama::isOpen() const {
 // Guarda el Diagrama
 
 void Diagrama::guardarDiagrama(const std::string& path) {
-	if (diagramaValido) {
-		Xml docXml;
-		docXml.nuevoDoc();
-		XmlNodo nodoDoc = this->guardarXmlDER();
-		docXml.setNodoRaiz(nodoDoc);
-		docXml.guardar(path);
-	}
+	Xml docXml;
+	docXml.nuevoDoc();
+	XmlNodo nodoDoc = this->guardarXmlDER();
+	docXml.setNodoRaiz(nodoDoc);
+	docXml.guardar(path);
 }
