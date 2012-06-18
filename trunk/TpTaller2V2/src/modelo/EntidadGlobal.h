@@ -10,6 +10,9 @@
 #include <string>
 #include "Entidad.h"
 
+// Persistencia
+#include "persistencia/Persistencia.h"
+
 class EntidadGlobal : public Entidad {
 
 private:
@@ -17,20 +20,19 @@ private:
 	std::string diagramaAncestro;
 	int codigoEntidadNueva; // Codigo de la EntidadNueva en el diagrama ancestro.
 
-	/* PERSITENCIA DER
-	// void obtenerRelacionesXmlDER(XmlNodo*);
-	// void guardarRelacionesXmlDER(XmlNodo*);
-	 */
+	// PERSITENCIA DER
+	void obtenerComponentesXmlDER (XmlNodo* nodo);
+
 protected:
-	/* PERSISTENCIA DER
+	// PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesXmlDER (XmlNodo*);
-	// virtual void obtenerPropiedadesXmlDER (XmlNodo*);
-	 */
+	virtual void agregarPropiedadesXmlDER(XmlNodo*);
+	virtual void obtenerPropiedadesXmlDER(XmlNodo*);
 
 public:
 
 	EntidadGlobal();
+
 	virtual ~EntidadGlobal();
 
 	void setDiagramaAncestro(const std::string);
@@ -39,13 +41,9 @@ public:
 	void setCodigoEntidadNueva(int);
 	int getCodigoEntidadNueva() const;
 
-
-	/* PERSISTENCIA DER
-	// Entidad ( XmlNodo* nodo);
-	// XmlNodo guardarXmlDER();
-	 */
-
-
+	// PERSISTENCIA DER
+	EntidadGlobal(XmlNodo* nodo);
+	XmlNodo guardarXmlDER();
 };
 
 #endif /* ENTIDADGLOBAL_H_ */

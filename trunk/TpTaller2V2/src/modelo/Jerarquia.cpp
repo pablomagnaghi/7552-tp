@@ -58,7 +58,7 @@ std::vector<EntidadNueva*>::iterator Jerarquia::entidadesEspecializadasEnd(){
 }
 
 
-/* PERSISTENCIA DER
+// PERSISTENCIA DER
 
 Jerarquia::Jerarquia(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlDER(nodo);
@@ -77,6 +77,7 @@ void Jerarquia::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "entidad_general") {
 	  		EntidadNueva *entidadGeneral = new EntidadNueva (nodo);
+	  		this->entidadGeneral = entidadGeneral;
 		}
 		if (nodo->getNombre() == "entidad_especializada") {
 	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
@@ -96,14 +97,12 @@ XmlNodo Jerarquia::guardarXmlDER() {
 
 	this->agregarPropiedadesXmlDER(&nodo);
 
-	std::vector<Atributo*>::iterator i;
+	std::vector<EntidadNueva*>::iterator i;
 
-	nodo->agregarHijo(entidadGeneral->guardarXmlDER());
+	nodo.agregarHijo(entidadGeneral->guardarXmlDER());
 
 	for(i = this->entidadesEspecializadas.begin(); i != this->entidadesEspecializadas.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+		nodo.agregarHijo((*i)->guardarXmlDER());
 
 	return nodo;
 }
-*/
-

@@ -14,6 +14,8 @@ EntidadNueva::EntidadNueva() {
 EntidadNueva::~EntidadNueva() {
 	this->borrarAtributos();
 	this->borrarIdentificadores();
+	this->borrarRelaciones();
+	this->borrarJerarquias();
 }
 
 std::string EntidadNueva::getTipo() const {
@@ -102,6 +104,25 @@ void EntidadNueva::borrarIdentificadores() {
 	this->identificadores.clear();
 }
 
+void EntidadNueva::borrarRelaciones() {
+	std::vector<Relacion*>::iterator it = this->relaciones.begin();
+	while ( it != this->relaciones.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->relaciones.clear();
+}
+
+void EntidadNueva::borrarJerarquias() {
+	std::vector<Jerarquia*>::iterator it = this->jerarquias.begin();
+	while ( it != this->jerarquias.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->jerarquias.clear();
+}
+
+
 Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
 	Atributo* atributo = NULL;
 	std::vector<Atributo*>::iterator it = this->atributos.begin();
@@ -114,7 +135,7 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
 	return atributo;
 }
 
-/* PERSISTENCIA PARA DATOS
+// PERSISTENCIA PARA DATOS
 
 EntidadNueva::EntidadNueva(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlDER(nodo);
@@ -124,7 +145,6 @@ EntidadNueva::EntidadNueva(XmlNodo* nodo) {
 	this->obtenerComponentesXmlDER(&nodoAux);
 }
 
-
 void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
@@ -133,7 +153,7 @@ void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
 		}
 		if (nodo->getNombre() == "identificador") {
 			Identificador *identificador = new Identificador (nodo);
-			this->agregarIdentificador(objeto);
+			this->agregarIdentificador(identificador);
 		}
 		if (nodo->getNombre() == "relacion")	{
 			Relacion *relacion = new Relacion (nodo);
@@ -188,4 +208,4 @@ XmlNodo EntidadNueva::guardarXmlDER() {
 
 	return nodo;
 }
-*/
+

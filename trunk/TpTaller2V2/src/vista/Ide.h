@@ -9,7 +9,6 @@
 #define IDE_H_
 #include "TreePanel.h"
 #include "VistaProyecto.h"
-#include "PanelAcciones.h"
 #include <gtkmm.h>
 #include <iostream>
 #include "../controlador/ControladorPanelHerramientas.h"

@@ -11,7 +11,11 @@
 #include "Atributo.h"
 #include "Componente.h"
 
+// Persistencia
+#include "persistencia/Persistencia.h"
+
 class Entidad;
+class EntidadRelacion;
 
 class Relacion : public Componente {
 
@@ -24,18 +28,16 @@ private:
 	void borrarAtributos();
 	void borrarEntidadesRelacion();
 
-	/* PERSISTENCIA DER
-	// void obtenerComponentesXmlDER (XmlNodo*);
-	// void guardarEntidadesRelacionesXmlDER(XmlNodo *nodo);
-	// void guardarAtritbutosXmlDER(XmlNodo *nodo);
-	*/
+	// PERSISTENCIA DER
+	void obtenerComponentesXmlDER (XmlNodo*);
+	void guardarEntidadesRelacionesXmlDER(XmlNodo *nodo);
+	void guardarAtributosXmlDER(XmlNodo *nodo);
 
 protected:
-	/* PERSISTENCIA DER
+	// PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
-	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
-	 */
+	virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
 
 public:
 
@@ -57,11 +59,9 @@ public:
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
 
-
-	/* PERSISTENCIA DER
-	// Relacion(XmlNodo*);
-	// virtual XmlNodo guardarXmlDER();
-	 */
+	// PERSISTENCIA DER
+	Relacion(XmlNodo*);
+	virtual XmlNodo guardarXmlDER();
 };
 
 #endif /* RELACION_H_ */

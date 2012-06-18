@@ -81,7 +81,7 @@ void Relacion::borrarEntidadesRelacion(){
 }
 
 
-/* PERSISTENCIA DER
+// PERSISTENCIA DER
 
 Relacion::Relacion(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlDER(nodo);
@@ -110,7 +110,7 @@ void Relacion::obtenerComponentesXmlDER (XmlNodo* nodo) {
 }
 
 void Relacion::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	if (this->tipo)
+	if (this->tipo != VACIO)
 		nodo->setPropiedad("tipo",this->tipo);
 
 }
@@ -122,7 +122,7 @@ void Relacion::guardarEntidadesRelacionesXmlDER(XmlNodo *nodo) {
 		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
-void Relacion::guardarAtritbutosXmlDER(XmlNodo *nodo) {
+void Relacion::guardarAtributosXmlDER(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
@@ -134,9 +134,8 @@ XmlNodo Relacion::guardarXmlDER() {
 
 	this->agregarPropiedadesXmlDER(&nodo);
 
+	this->guardarEntidadesRelacionesXmlDER(&nodo);
 	this->guardarAtributosXmlDER(&nodo);
-	this->guardarIdentificadoresXmlDER(&nodo);
 
 	return nodo;
 }
-*/

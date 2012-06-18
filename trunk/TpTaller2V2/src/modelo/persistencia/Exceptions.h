@@ -46,17 +46,32 @@ public:
 };
 
 class XmlArchivoInvalidoExc: public Exception {
-	private:
-		std::string path;
-	public:
-		XmlArchivoInvalidoExc( std::string path  )
+private:
+	std::string path;
+public:
+	XmlArchivoInvalidoExc( std::string path  )
 		:path ( path ) {
-		}
-		std::string getMsjError() {
-			std::string msj( "XmlException: El archivo " );
-			msj += path;
-			msj += " no es un XML valido ( parserError )";
-			return msj;
+	}
+	std::string getMsjError() {
+		std::string msj( "XmlException: El archivo " );
+		msj += path;
+		msj += " no es un XML valido ( parserError )";
+		return msj;
+	}
+};
+
+class XmlArchivoInexistenteExc: public Exception {
+private:
+    std::string path;
+public:
+	XmlArchivoInexistenteExc( std::string path  )
+		:path ( path ) {
+	}
+	std::string getMsjError() {
+		std::string msj( "XmlException: El archivo " );
+		msj += path;
+		msj += " no existe";
+		return msj;
 	}
 };
 
@@ -156,6 +171,38 @@ public:
 		msj += nameEsperado;
 		msj += " y se obtuvo nodo_name=";
 		msj += nameEncontrado;
+		return msj;
+	}
+};
+
+// Excepciones del diagrama
+
+class DiagramaInvalidoExc: public Exception {
+private:
+	std::string path;
+public:
+	DiagramaInvalidoExc( std::string path  )
+		:path ( path ) {
+	}
+	std::string getMsjError() {
+		std::string msj( "DiagramaException: El archivo " );
+		msj += path;
+		msj += " no es un Documento Template valido";
+		return msj;
+	}
+};
+
+class DiagramaArchivoInexistenteExc: public Exception {
+private:
+	std::string path;
+public:
+	DiagramaArchivoInexistenteExc( std::string path  )
+		:path ( path ) {
+	}
+	std::string getMsjError() {
+		std::string msj( "DiagramaException: El archivo " );
+		msj += path;
+		msj += " no existe";
 		return msj;
 	}
 };

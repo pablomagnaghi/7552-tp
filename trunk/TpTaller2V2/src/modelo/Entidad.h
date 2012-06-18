@@ -9,6 +9,10 @@
 #include <algorithm>
 #include "Componente.h"
 #include "Atributo.h"
+#include "Relacion.h"
+
+// Persistencia
+#include "persistencia/Persistencia.h"
 
 class Relacion;
 
@@ -17,14 +21,12 @@ class Entidad : public Componente {
 protected:
 	bool esDebil;
 	std::vector<Relacion*> relaciones;
-	std::vector<Atributo *> atributos;
 
-	/* PERSISTENCIA DER
-	// void guardarRelacionesXmlDER(XmlNodo*);
-	 */
+	// PERSISTENCIA DER
+	void guardarRelacionesXmlDER(XmlNodo*);
 
 public:
-
+	Entidad();
 	virtual ~Entidad();
 
 	void agregarRelacion(Relacion*);
@@ -37,9 +39,8 @@ public:
 
 	void setEsDebil(bool esDebil);
 
-	void agregarAtributo(Atributo * );
-	void quitarAtributo(Atributo *);
-
+	void agregarAtributo(Atributo*);
+	void quitarAtributo(Atributo*);
 };
 
 #endif /* ENTIDAD_H_ */

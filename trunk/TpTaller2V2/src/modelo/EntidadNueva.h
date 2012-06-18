@@ -11,6 +11,10 @@
 #include "Entidad.h"
 #include "Atributo.h"
 #include "Identificador.h"
+#include "Jerarquia.h"
+
+// Persistencia
+#include "persistencia/Persistencia.h"
 
 class Jerarquia;
 
@@ -25,20 +29,21 @@ private:
 
 	void borrarAtributos();
 	void borrarIdentificadores();
+	void borrarJerarquias();
+	void borrarRelaciones();
 
-	/* PERSITENCIA DER
-	// void obtenerComponentesXmlDER(XmlNodo*);
+	// PERSITENCIA DER
+	void obtenerComponentesXmlDER(XmlNodo*);
 
-	// void guardarAtributosXmlDER(XmlNodo*);
-	// void guardarIdentificadoresXmlDER(XmlNodo*);
-	// void guardarJerarquiasXmlDER(XmlNodo*);
-	 */
+	void guardarAtributosXmlDER(XmlNodo*);
+	void guardarIdentificadoresXmlDER(XmlNodo*);
+	void guardarJerarquiasXmlDER(XmlNodo*);
+
 protected:
-	/* PERSISTENCIA DER
+	// PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesXmlDER (XmlNodo*);
-	// virtual void obtenerPropiedadesXmlDER (XmlNodo*);
-	 */
+	virtual void agregarPropiedadesXmlDER (XmlNodo*);
+	virtual void obtenerPropiedadesXmlDER (XmlNodo*);
 
 public:
 
@@ -68,11 +73,9 @@ public:
 
 	Atributo* getAtributoByCodigo(int);
 
-	/* PERSISTENCIA DER
-	// EntidadNueva ( XmlNodo* nodo);
-	// XmlNodo guardarXmlDER();
-	 */
-
+	// PERSISTENCIA DER
+	EntidadNueva ( XmlNodo* nodo);
+	XmlNodo guardarXmlDER();
 };
 
 #endif /* ENTIDADNUEVA_H_ */

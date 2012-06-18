@@ -9,7 +9,6 @@
 EntidadRelacion::EntidadRelacion() :
 	cardinalidadMinima ("1"),
 	cardinalidadMaxima ("1"){
-
 }
 
 EntidadRelacion::~EntidadRelacion() {
@@ -48,27 +47,24 @@ void EntidadRelacion::setRol(const std::string rol) {
 	this->rol = rol;
 }
 
+// PERSISTENCIA DER
 
-/* PERSISTENCIA DER
-
-Atributo::Atributo(XmlNodo* nodo) {
-	this->entidad.setCodigo(nodo->getPropiedad("entidad"));
+EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
+	this->entidad->setCodigo(nodo->getPropiedadInt("entidad"));
 	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_Minima");
 	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_Maxima");
 	this->rol = nodo->getPropiedad("rol");
 }
 
 
-XmlNodo Entidad::guardarXmlDER() {
-	XmlNodo nodo("entidad_nueva");
+XmlNodo EntidadRelacion::guardarXmlDER() {
+	XmlNodo nodo("entidad_relacion");
 
-	nodo->setPropiedad("entidad",this->entidad.getCodigo());
-	nodo->setPropiedad("cardinalidad_Minima",this->cardinalidadMinima);
-	nodo->setPropiedad("cardinalidad_Maxima",this->cardinalidadMaxima);
-	if (this->rol)
-		nodo->setPropiedad("rol",this->rol);
+	nodo.setPropiedad("entidad",this->entidad->getCodigo());
+	nodo.setPropiedad("cardinalidad_Minima",this->cardinalidadMinima);
+	nodo.setPropiedad("cardinalidad_Maxima",this->cardinalidadMaxima);
+	if (this->rol != VACIO)
+		nodo.setPropiedad("rol",this->rol);
 
 	return nodo;
 }
-*/
-

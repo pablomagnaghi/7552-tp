@@ -15,6 +15,9 @@
 #include "../../modelo/Componente.h"
 #include "Geometria.h"
 
+// Persistencia
+#include "../../modelo/persistencia/Persistencia.h"
+
 using namespace std;
 
 #define ESPACIO_ENTRE_TEXTO_Y_BORDE 5
@@ -47,12 +50,11 @@ protected:
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
-	/*PERSISTENCIA REP
-	// void Componente::agregarPropiedadesRep(XmlNodo* nodo);
-	// void Componente::obtenerPropiedadesRep(XmlNodo* nodo);
+	// PERSISTENCIA REP
+	void agregarPropiedadesXmlREP(XmlNodo* nodo);
+	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 
-	// void VistaComponente::obtenerComponentesREP (XmlNodo* nodo);
-	*/
+	void obtenerComponentesXmlREP (XmlNodo* nodo);
 
 public:
 	VistaComponente();
@@ -99,10 +101,8 @@ public:
 
 	void ajustarTamanioAlTexto();
 
-	/*PERSISTENCIA REP
-	// XmlNodo guardarXmlREP();
-	 */
-
+	// PERSISTENCIA REP
+	XmlNodo guardarXmlREP();
 };
 
 #endif /* VISTACOMPONENTE_H_ */
