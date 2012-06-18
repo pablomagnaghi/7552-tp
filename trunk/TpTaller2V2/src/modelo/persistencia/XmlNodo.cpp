@@ -150,10 +150,15 @@ std::string XmlNodo::getNombre() {
 
 std::string XmlNodo::getPropiedad(const std::string& nombre) {
 	char* propiedad;
+	std::string sinResultado;
 	propiedad = (char*) xmlGetProp(nodo, (const xmlChar*) nombre.c_str());
-	std::string resultado(propiedad);
+
+	if (propiedad) {
+		std::string resultado(propiedad);
+		return resultado;
+	}
 	xmlFree(propiedad);// ver este tema de memoria
-	return resultado;
+	return sinResultado;
 }
 
 // devuelve la propiedad como entero

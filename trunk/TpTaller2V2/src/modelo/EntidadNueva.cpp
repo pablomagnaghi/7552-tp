@@ -138,6 +138,7 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
 // PERSISTENCIA PARA DATOS
 
 EntidadNueva::EntidadNueva(XmlNodo* nodo) {
+
 	this->obtenerPropiedadesXmlDER(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
