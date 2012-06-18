@@ -92,6 +92,7 @@ Relacion::Relacion(XmlNodo* nodo) {
 }
 
 void Relacion::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlDER(nodo);
 	this->tipo = nodo->getPropiedad("tipo");
 }
 
@@ -110,7 +111,8 @@ void Relacion::obtenerComponentesXmlDER (XmlNodo* nodo) {
 }
 
 void Relacion::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	if (this->tipo != VACIO)
+	Componente::agregarPropiedadesXmlDER(nodo);
+	if (this->tipo.size())
 		nodo->setPropiedad("tipo",this->tipo);
 
 }

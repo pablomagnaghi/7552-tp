@@ -338,8 +338,8 @@ int main(int argc, char* argv[]){
 	diagramaPrincipal->agregarRelacion(fO);
 
 	// prueba de constantes
-	std::cout << XMLNS << "=" << INSTANCE << std::endl;
-	std::cout << XSI << "=" << COMPOSICION << std::endl;
+	// std::cout << XMLNS << std::endl;
+	// std::cout << XSI << std::endl;
 
 	// prueba persistencia
 	diagramaPrincipal->guardarDiagrama("Prueba1-EjemploBoleteriaTeatro.xml");
