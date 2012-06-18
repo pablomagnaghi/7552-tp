@@ -76,7 +76,7 @@ void Atributo::borrarAtributosDerivables() {
 	this->atributosDerivables.clear();
 }
 
-/* PERSISTENCIA DER
+// PERSISTENCIA DER
 
 Atributo::Atributo(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlDER(nodo);
@@ -106,24 +106,23 @@ void Atributo::obtenerComponentesXmlDER (XmlNodo* nodo) {
 void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 	nodo->setPropiedad("tipo",this->tipo);
 	// si son nulos los siguientes atributos, no poner
-	if (this->expresion)
+	if (this->expresion != VACIO)
 		nodo->setPropiedad("expresion",this->expresion);
-	if (this->cardinalidadMinima)
+	if (this->cardinalidadMinima != VACIO)
 		nodo->setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
-	if (this->cardinalidadMaxima)
+	if (this->cardinalidadMaxima != VACIO)
 		nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
 }
 
-XmlNodo Entidad::guardarXmlDER() {
-	XmlNodo nodo("entidad_nueva");
+XmlNodo Atributo::guardarXmlDER() {
+	XmlNodo nodo("atributo");
 
 	this->agregarPropiedadesXmlDER(&nodo);
 
 	std::vector<Atributo*>::iterator i;
 
-	for(i = this->atributo.begin(); i != this->atributo.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+	for(i = this->atributosDerivables.begin(); i != this->atributosDerivables.end(); ++i)
+		nodo.agregarHijo((*i)->guardarXmlDER());
 
 	return nodo;
 }
-*/

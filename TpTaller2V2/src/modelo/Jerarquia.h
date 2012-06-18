@@ -10,25 +10,27 @@
 #include "EntidadNueva.h"
 #include "Componente.h"
 
+// Persistencia
+#include "persistencia/Persistencia.h"
+
+class EntidadNueva;
+
 class Jerarquia : public Componente {
 
 private:
-
 	EntidadNueva* entidadGeneral;
 	std::vector<EntidadNueva*> entidadesEspecializadas;
 	std::string cobertura;
 	std::string interseccion;
 
-	/* PERSISTENCIA DER
-	// void obtenerComponentesXmlDER (XmlNodo*);
-	 */
+	// PERSISTENCIA DER
+	void obtenerComponentesXmlDER (XmlNodo*);
 
 protected:
-	/* PERSITENCIA DER
+	// PERSITENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
-	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
-	 */
+	virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
 
 public:
 
@@ -50,11 +52,9 @@ public:
 	std::vector<EntidadNueva*>::iterator entidadesEspecializadasBegin();
 	std::vector<EntidadNueva*>::iterator entidadesEspecializadasEnd();
 
-	/* PERSISTENCIA DER
-	// Jerarquia(XmlNodo*);
-	// virtual XmlNodo guardarXmlDER();
-	 */
-
+	// PERSISTENCIA DER
+	Jerarquia(XmlNodo*);
+	virtual XmlNodo guardarXmlDER();
 };
 
 #endif /* JERARQUIA_H_ */

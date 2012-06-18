@@ -11,8 +11,10 @@
 #include <vector>
 #include <algorithm>
 #include "Componente.h"
-#include "persistencia/Persistencia.h"
+#include "ConstantesModelo.h"
 
+// Persistencia
+#include "persistencia/Persistencia.h"
 
 class Atributo : public Componente {
 
@@ -26,19 +28,16 @@ private:
 
 	void borrarAtributosDerivables();
 
-	/* PERSISTENCIA DER
-	// void obtenerComponentesXmlDER (XmlNodo*);
-	 */
+	// PERSISTENCIA DER
+	void obtenerComponentesXmlDER (XmlNodo*);
 
 protected:
-	/* PERSISTENCIA DER
+	// PERSISTENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
-	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
-	 */
+	virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
 
 public:
-
 	Atributo();
 	virtual ~Atributo();
 
@@ -60,11 +59,9 @@ public:
 	std::vector<Atributo*>::iterator atributosDerivablesBegin();
 	std::vector<Atributo*>::iterator atributosDerivablesEnd();
 
-	/* PERSISTENCIA DER
-	// Atributo(XmlNodo*);
-	// virtual XmlNodo guardarXmlDER();
-	 */
-
+	// PERSISTENCIA DER
+	Atributo(XmlNodo*);
+	virtual XmlNodo guardarXmlDER();
 };
 
 #endif /* ATRIBUTO_H_ */

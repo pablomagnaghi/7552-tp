@@ -55,9 +55,9 @@ std::vector<Relacion*>::iterator Identificador::relacionesEnd(){
 }
 
 
-/* PERSISTENCIA PARA DATOS
+// PERSISTENCIA PARA DATOS
 
-Identificador::EntidadNueva(XmlNodo* nodo) {
+Identificador::Identificador(XmlNodo* nodo) {
 	XmlNodo nodoAux = nodo->getHijo();
 
 	this->obtenerComponentesXmlDER(&nodoAux);
@@ -92,9 +92,7 @@ void Identificador::guardarRelacionesXmlDER(XmlNodo *nodo) {
 		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
-
-
-XmlNodo EntidadNueva::guardarXmlDER() {
+XmlNodo Identificador::guardarXmlDER() {
 	XmlNodo nodo("identificador");
 
 	this->guardarAtributosXmlDER(&nodo);
@@ -102,5 +100,3 @@ XmlNodo EntidadNueva::guardarXmlDER() {
 
 	return nodo;
 }
-*/
-

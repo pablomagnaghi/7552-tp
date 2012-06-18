@@ -145,13 +145,13 @@ void VistaComponente::ajustarTamanioAlTexto(){
 	this->ajustarTamanioPorTexto = true;
 }
 
-/* PERSISTENCIA REP
+// PERSISTENCIA REP
 
-void VistaComponente::obtenerPropiedadesRep(XmlNodo* nodo) {
-	this->codigo = nodo->getPropiedadInt("codigo");
+void VistaComponente::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
+	// this->codigo = nodo->getPropiedadInt("codigo");
 }
 
-void VistaComponente::obtenerComponentesREP (XmlNodo* nodo) {
+void VistaComponente::obtenerComponentesXmlREP (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "posicion_incial") {
 	  		this->pos_ini_x = nodo->getPropiedadInt("x");
@@ -170,37 +170,31 @@ void VistaComponente::obtenerComponentesREP (XmlNodo* nodo) {
 	}
 }
 
-
-void VistaComponente::agregarPropiedadesRep(XmlNodo* nodo) {
-	nodo->setPropiedad("codigo",this->codigo);
+void VistaComponente::agregarPropiedadesXmlREP(XmlNodo* nodo) {
+	// nodo->setPropiedad("codigo",this->codigo);
 
 }
-void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	nodo->setPropiedad("tipo",this->tipo);
-}
 
-XmlNodo Entidad::guardarXmlDER() {
+XmlNodo VistaComponente::guardarXmlREP() {
 	XmlNodo nodo("componente");
 
-	this->agregarPropiedadesXmlDER(&nodo);
+	this->agregarPropiedadesXmlREP(&nodo);
 
 	XmlNodo nodoPosicionInicial("posicion_incial");
-	nodo->setPropiedad("x",this->pos_ini_x);
-	nodo->setPropiedad("y",this->pos_ini_y);
-	nodo->agregarHijo(nodoPosicionInicial);
+	nodoPosicionInicial.setPropiedad("x",this->pos_ini_x);
+	nodoPosicionInicial.setPropiedad("y",this->pos_ini_y);
+	nodo.agregarHijo(nodoPosicionInicial);
 
 	XmlNodo nodoPosicionFinal("posicion_final");
-	nodo->setPropiedad("x",this->pos_fin_x);
-	nodo->setPropiedad("y",this->pos_fin_y);
-	nodo->agregarHijo(nodoPosicionFinal);
+	nodoPosicionFinal.setPropiedad("x",this->pos_fin_x);
+	nodoPosicionFinal.setPropiedad("y",this->pos_fin_y);
+	nodo.agregarHijo(nodoPosicionFinal);
 
 	XmlNodo nodoColor("color");
-	nodo->setPropiedad("r",this->colorR);
-	nodo->setPropiedad("g",this->colorG);
-	nodo->setPropiedad("b",this->colorB);
-	nodo->agregarHijo(nodoColor);
+	nodoColor.setPropiedad("r",this->colorR);
+	nodoColor.setPropiedad("g",this->colorG);
+	nodoColor.setPropiedad("b",this->colorB);
+	nodo.agregarHijo(nodoColor);
 
 	return nodo;
 }
-*/
-

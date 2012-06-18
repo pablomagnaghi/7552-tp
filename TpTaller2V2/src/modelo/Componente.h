@@ -7,6 +7,9 @@
 
 #include <string>
 
+// Persistencia
+#include "persistencia/Persistencia.h"
+
 class Componente {
 
 protected:
@@ -14,11 +17,10 @@ protected:
 	int codigo;
 	std::string nombre;
 
-	/* PERSITENCIA DER
+	// PERSITENCIA DER
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
-	// virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
-	 */
+	virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
+	virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
 
 public:
 
@@ -29,11 +31,6 @@ public:
 
 	std::string getNombre() const;
 	void setNombre(const std::string&);
-
-	/* PERSISTENCIA DER
-	// virtual XmlNodo guardarXmlDER() = 0;
-	 */
-
 };
 
 #endif /* COMPONENTE_H_ */

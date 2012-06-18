@@ -4,7 +4,10 @@
  */
 
 #include "Entidad.h"
-#include "Relacion.h"
+
+Entidad::Entidad() {
+
+}
 
 Entidad::~Entidad() {
 
@@ -46,30 +49,10 @@ void Entidad::setEsDebil(bool esDebil){
 	this->esDebil = esDebil;
 }
 
-void Entidad::agregarAtributo(Atributo * atributoNuevo){
-	this->atributos.push_back(atributoNuevo);
-}
-
-void Entidad::quitarAtributo(Atributo * atributo){
-	std::vector<Atributo *>::iterator iterador;
-
-	for(iterador = this->atributos.begin();iterador != this->atributos.end();iterador++){
-		if((*iterador)->getNombre() == atributo->getNombre()){
-			this->atributos.erase(iterador);
-		}
-	}
-
-}
-
-/* PERSISTENCIA DER
+// PERSISTENCIA DER
 void Entidad::guardarRelacionesXmlDER(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 
 	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlDER());
 }
-*/
-
-
-
-

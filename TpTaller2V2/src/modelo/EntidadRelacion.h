@@ -8,18 +8,21 @@
 #define ENTIDADRELACION_H_
 
 #include "Entidad.h"
+#include "ConstantesModelo.h"
 
-/**
- * Clase usada dentro de una Relacion para vincular
- * una Entidad a su cardinalidad y a su rol.
- *
- * En el xsd aparece como "tipo_entidad_cardinalidad"
- */
+// Persistencia
+#include "persistencia/Persistencia.h"
+
+// Clase usada dentro de una Relacion para vincular
+// una Entidad a su cardinalidad y a su rol.
+// En el xsd aparece como "tipo_entidad_cardinalidad"
+
+class Entidad;
+
 class EntidadRelacion {
 
 private:
-
-	Entidad* entidad;
+	Entidad *entidad;
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
 	std::string rol;
@@ -41,11 +44,9 @@ public:
 	std::string getRol() const;
 	void setRol(const std::string rol);
 
-	/* PERSISTENCIA DER
-	// EntidadRelacion(XmlNodo*);
-	// virtual XmlNodo guardarXmlDER();
-	*/
-
+	// PERSISTENCIA DER
+	EntidadRelacion(XmlNodo*);
+	virtual XmlNodo guardarXmlDER();
 };
 
 #endif /* ENTIDADRELACION_H_ */

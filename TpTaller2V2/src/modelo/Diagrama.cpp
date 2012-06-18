@@ -280,37 +280,42 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 	return componente;
 }
 
-/* PERSISTENCIA DER
+// PERSISTENCIA DER
 
-Diagrama::Diagrama(const string& path) {
-    // Abro el archivo
-    Xml docXml( path );
+// Abre un archivo xml, y carga un diagrama con la informacion que contenga.
+void Diagrama::abrir(const std::string& path) {
 
+	this->diagramaValido = false;
 
-    XmlNodo* nodoRaiz = docXml.getNodoRaiz();
-    XmlNodo::verificarNombre( NOMBRE_NODO, *nodoRaiz );
+	try {
+		// Abro el archivo
+		Xml docXml(path);
+		this->diagramaValido = true;
 
-    XmlNodo nodo = nodoRaiz->getHijo();
-    XmlNodo::verificarNombre( NOMBRE_TAG_NOMBRE, nodo );
-    this->nombre = nodo.getContenido();
+		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
+		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
 
-    nodo = nodo.getHermano();
-    XmlNodo::verificarNombre( NOMBRE_TAG_DESC, nodo );
-    this->descripcion = nodo.getContenido();
+		// archivo listo para cargar el diagrama
+		// se cargan los componentes del doc.
+		this->obtenerPropiedadesXmlDER(nodoRaiz);
+		XmlNodo nodo = nodoRaiz->getHijo();
+		this->obtenerComponentesXmlDER(&nodo);
+	}
+	catch ( XmlArchivoInexistenteExc* ex ) {
+		delete ex;
+		throw new DiagramaArchivoInexistenteExc( path );
+	}
+	catch ( XmlArchivoInvalidoExc* ex ) {
+		delete ex;
+		throw new DiagramaInvalidoExc( path );
+	}
 }
 
-
-
-
-
-
-Diagrama::Diagrama(XmlNodo* nodo) {
-	this->obtenerPropiedadesXmlDER(nodo);
-
-	XmlNodo nodoAux = nodo->getHijo();
-
-	this->obtenerComponentesXmlDER(&nodoAux);
-}
+//Diagrama::Diagrama(XmlNodo* nodo) {
+//	this->obtenerPropiedadesXmlDER(nodo);
+//	XmlNodo nodoAux = nodo->getHijo();
+//	this->obtenerComponentesXmlDER(&nodoAux);
+//}
 
 void Diagrama::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	this->nombre = nodo->getPropiedad("nombre");
@@ -319,7 +324,7 @@ void Diagrama::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 void Diagrama::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "diagrama_ancestro") {
-	  		diagramaAncestro.setNombre(nodo->getContenido(););
+	  		diagramaAncestro->setNombre(nodo->getContenido());
 		}
 
 		if (nodo->getNombre() == "entidad_nueva") {
@@ -348,16 +353,16 @@ void Diagrama::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 	nodo->setPropiedad("nombre",this->nombre);
 }
 
-void Diagrama::agregarNodoDiagramaAncestroXmlDER(XmlNodo *nodo);
-	Xml nodoDiagramaAncestro("diagrama_ancestro");
-	nodoDiagramaAncestro.setContenido(this->diagramaAncestro.getNombre());
+void Diagrama::agregarNodoDiagramaAncestroXmlDER(XmlNodo *nodo) {
+	XmlNodo nodoDiagramaAncestro("diagrama_ancestro");
+	nodoDiagramaAncestro.setContenido(this->diagramaAncestro->getNombre());
 	nodo->agregarHijo(nodoDiagramaAncestro);
 }
 
 void Diagrama::guardarEntidadesNuevasXmlDER(XmlNodo *nodo) {
 	std::vector<EntidadNueva*>::iterator i;
 
-	for(i = this->entidadesNuevas.begin(); i != this->entidadesNuevsa.end(); ++i)
+	for(i = this->entidadesNuevas.begin(); i != this->entidadesNuevas.end(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlDER());
 }
 
@@ -383,12 +388,12 @@ void Diagrama::guardarJerarquiasXmlDER(XmlNodo *nodo) {
 }
 
 XmlNodo Diagrama::guardarXmlDER() {
-	XmlNodo nodo("entidad_nueva");
+	XmlNodo nodo("diagrama");
 
 	this->agregarPropiedadesXmlDER(&nodo);
 
 	// puede no tener diagrama ancestro
-	if (diagramaAncestro.getNombre()){
+	if (diagramaAncestro->getNombre() != VACIO) {
 		this->agregarNodoDiagramaAncestroXmlDER(&nodo);
 	}
 
@@ -399,4 +404,21 @@ XmlNodo Diagrama::guardarXmlDER() {
 
 	return nodo;
 }
-*/
+
+// Devuelve true si se logró abrir y cargar el documento.
+
+bool Diagrama::isOpen() const {
+	return this->diagramaValido;
+}
+
+// Guarda el Diagrama
+
+void Diagrama::guardarDiagrama(const std::string& path) {
+	if (diagramaValido) {
+		Xml docXml;
+		docXml.nuevoDoc();
+		XmlNodo nodoDoc = this->guardarXmlDER();
+		docXml.setNodoRaiz(nodoDoc);
+		docXml.guardar(path);
+	}
+}

@@ -38,6 +38,8 @@ const char* const XMLNS = "xmlns:xsi";
 const char* const INSTANCE = "http://www.w3.org/2001/XMLSxhema-instance";
 const char* const XSI = "xsi:noNamespaceSchemaLocation";
 const char* const COMPOSICION = "composicion.xsd";
+const char* const NOMBRE_DIAGRAMA = "diagrama";
 
+const char* const VACIO = "";
 
 #endif /* CONSTANTESMODELO_H_ */

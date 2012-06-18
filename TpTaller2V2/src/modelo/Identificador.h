@@ -14,16 +14,14 @@ class Relacion;
 class Identificador {
 
 private:
-
-	/* PERSITENCIA DER
-	// void obtenerComponentesXmlDER(XmlNodo*);
-
-	// void guardarAtributosXmlDER(XmlNodo*);
-	// void guardarRelacionesXmlDER(XmlNodo*);
-	 */
-
 	std::vector<Atributo*> atributos;
 	std::vector<Relacion*> relaciones;
+
+	// PERSITENCIA DER
+	void obtenerComponentesXmlDER(XmlNodo*);
+
+	void guardarAtributosXmlDER(XmlNodo*);
+	void guardarRelacionesXmlDER(XmlNodo*);
 
 public:
 
@@ -42,10 +40,9 @@ public:
 	std::vector<Relacion*>::iterator relacionesBegin();
 	std::vector<Relacion*>::iterator relacionesEnd();
 
-	/* PERSISTENCIA DER
-	// EntidadNueva ( XmlNodo* nodo);
-	// XmlNodo guardarXmlDER();
-	 */
+	// PERSISTENCIA DER
+	Identificador(XmlNodo* nodo);
+	XmlNodo guardarXmlDER();
 
 };
 

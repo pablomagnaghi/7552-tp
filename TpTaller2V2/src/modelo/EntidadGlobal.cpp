@@ -11,7 +11,12 @@ EntidadGlobal::EntidadGlobal() {
 }
 
 EntidadGlobal::~EntidadGlobal() {
-
+	std::vector<Relacion*>::iterator it = this->relaciones.begin();
+	while ( it != this->relaciones.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->relaciones.clear();
 }
 
 void EntidadGlobal::setDiagramaAncestro(const std::string diagramaAncestro){
@@ -30,7 +35,7 @@ int EntidadGlobal::getCodigoEntidadNueva() const {
 	return this->codigoEntidadNueva;
 }
 
-/* PERSISTENCIA PARA DATOS
+// PERSISTENCIA PARA DATOS
 
 EntidadGlobal::EntidadGlobal(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlDER(nodo);
@@ -40,12 +45,12 @@ EntidadGlobal::EntidadGlobal(XmlNodo* nodo) {
 	this->obtenerComponentesXmlDER(&nodoAux);
 }
 
-void EntidadGlobal::obtenerPropiedadesDER(XmlNodo* nodo) {
-	this->diagramaAncestro.setNombre( nodo->getPropiedad("diagrama_ancestro"));
-	this->codigoEntidadNueva = nodo->getPropiedad("codigo_entidad_nueva");
+void EntidadGlobal::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
+	this->diagramaAncestro = nodo->getPropiedad("diagrama_ancestro");
+	this->codigoEntidadNueva = nodo->getPropiedadInt("codigo_entidad_nueva");
 }
 
-void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
+void EntidadGlobal::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "relacion")	{
 			Relacion *relacion = new Relacion (nodo);
@@ -56,13 +61,13 @@ void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
 }
 
 void EntidadGlobal::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	nodo->setPropiedad("diagrama_ancestro",this->diagramaAncetro.getNombre());
+	nodo->setPropiedad("diagrama_ancestro",this->diagramaAncestro);
 	nodo->setPropiedad("codigo_entidad_nueva", this->codigoEntidadNueva);
 }
 
 
 XmlNodo EntidadGlobal::guardarXmlDER() {
-	XmlNodo nodo("entidad_nueva");
+	XmlNodo nodo("entidad_global");
 
 	this->agregarPropiedadesXmlDER(&nodo);
 
@@ -70,7 +75,3 @@ XmlNodo EntidadGlobal::guardarXmlDER() {
 
 	return nodo;
 }
-*/
-
-
-
