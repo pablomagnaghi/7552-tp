@@ -8,7 +8,6 @@
 Atributo::Atributo() :
 	cardinalidadMinima ("1"),
 	cardinalidadMaxima ("1") {
-
 }
 
 Atributo::~Atributo() {
@@ -80,7 +79,6 @@ void Atributo::borrarAtributosDerivables() {
 
 Atributo::Atributo(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlDER(nodo);
-
 	XmlNodo nodoAux = nodo->getHijo();
 
 	this->obtenerComponentesXmlDER(&nodoAux);
@@ -88,10 +86,12 @@ Atributo::Atributo(XmlNodo* nodo) {
 
 void Atributo::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	Componente::obtenerPropiedadesXmlDER(nodo);
+
 	this->tipo = nodo->getPropiedad("tipo");
-	this->expresion = nodo->getPropiedad("tipo");
-	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_Minima");
-	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_Maxima");
+
+	this->expresion = nodo->getPropiedad("expresion");
+	this->cardinalidadMinima = nodo->getPropiedadInt("cardinalidad_minima");
+	this->cardinalidadMaxima = nodo->getPropiedadInt("cardinalidad_maxima");
 }
 
 void Atributo::obtenerComponentesXmlDER (XmlNodo* nodo) {
@@ -108,11 +108,11 @@ void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 	Componente::agregarPropiedadesXmlDER(nodo);
 	nodo->setPropiedad("tipo",this->tipo);
 	// si son nulos los siguientes atributos, no poner
-	if (this->expresion != VACIO)
+	if (this->expresion.size())
 		nodo->setPropiedad("expresion",this->expresion);
-	if (this->cardinalidadMinima != VACIO)
+	if (this->cardinalidadMinima.size())
 		nodo->setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
-	if (this->cardinalidadMaxima != VACIO)
+	if (this->cardinalidadMaxima.size())
 		nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
 }
 

@@ -13,6 +13,7 @@ Diagrama::Diagrama(){
 Diagrama::Diagrama(const std::string nombre):
 	nombre (nombre),
 	estado (DIAGRAMA_SIN_VALIDAR){
+	this->diagramaAncestro = NULL;
 }
 
 Diagrama::~Diagrama() {
@@ -293,12 +294,15 @@ void Diagrama::abrir(const std::string& path) {
 		this->diagramaValido = true;
 
 		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
+
 		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
 
 		// archivo listo para cargar el diagrama
 		// se cargan los componentes del doc.
 		this->obtenerPropiedadesXmlDER(nodoRaiz);
+
 		XmlNodo nodo = nodoRaiz->getHijo();
+
 		this->obtenerComponentesXmlDER(&nodo);
 	}
 	catch ( XmlArchivoInexistenteExc* ex ) {
@@ -310,12 +314,6 @@ void Diagrama::abrir(const std::string& path) {
 		throw new DiagramaInvalidoExc( path );
 	}
 }
-
-//Diagrama::Diagrama(XmlNodo* nodo) {
-//	this->obtenerPropiedadesXmlDER(nodo);
-//	XmlNodo nodoAux = nodo->getHijo();
-//	this->obtenerComponentesXmlDER(&nodoAux);
-//}
 
 void Diagrama::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	this->nombre = nodo->getPropiedad("nombre");
