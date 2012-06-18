@@ -87,6 +87,7 @@ Atributo::Atributo(XmlNodo* nodo) {
 }
 
 void Atributo::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlDER(nodo);
 	this->tipo = nodo->getPropiedad("tipo");
 	this->expresion = nodo->getPropiedad("tipo");
 	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_Minima");
@@ -104,6 +105,7 @@ void Atributo::obtenerComponentesXmlDER (XmlNodo* nodo) {
 }
 
 void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
+	Componente::agregarPropiedadesXmlDER(nodo);
 	nodo->setPropiedad("tipo",this->tipo);
 	// si son nulos los siguientes atributos, no poner
 	if (this->expresion != VACIO)

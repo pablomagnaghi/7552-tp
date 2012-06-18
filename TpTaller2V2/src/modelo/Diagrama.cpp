@@ -348,8 +348,8 @@ void Diagrama::obtenerComponentesXmlDER (XmlNodo* nodo) {
 }
 
 void Diagrama::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	nodo->setPropiedad("XMLNS", "INSTANCE");
-	nodo->setPropiedad("XSI", "COMPOSICION");
+	//nodo->setPropiedad("xmlnsxsi","A:");
+	//nodo->setPropiedad("XSI", "B:");
 	nodo->setPropiedad("nombre",this->nombre);
 }
 

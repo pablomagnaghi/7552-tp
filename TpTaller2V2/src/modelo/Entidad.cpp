@@ -53,6 +53,9 @@ void Entidad::setEsDebil(bool esDebil){
 void Entidad::guardarRelacionesXmlDER(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 
-	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i) {
+		XmlNodo nodoRelacion("relacion");
+		nodoRelacion.setContenido((*i)->getCodigo());
+		nodo->agregarHijo(nodoRelacion);
+	}
 }

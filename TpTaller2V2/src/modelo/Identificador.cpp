@@ -66,11 +66,13 @@ Identificador::Identificador(XmlNodo* nodo) {
 void Identificador::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
-	  		Atributo *atributo = new Atributo (nodo);
+	  		Atributo *atributo = new Atributo ();
+	  		atributo->setCodigo(nodo->getContenidoInt());
 			this->agregarAtributo(atributo);
 		}
 		if (nodo->getNombre() == "relacion")	{
-			Relacion *relacion = new Relacion (nodo);
+			Relacion *relacion = new Relacion();
+			relacion->setCodigo(nodo->getContenidoInt());
 			this->agregarRelacion(relacion);
 		}
 
@@ -81,15 +83,21 @@ void Identificador::obtenerComponentesXmlDER (XmlNodo* nodo) {
 void Identificador::guardarAtributosXmlDER(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
-	for(i = this->atributos.begin(); i != this->atributos.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+	for(i = this->atributos.begin(); i != this->atributos.end(); ++i) {
+		XmlNodo nodoAtributo("atributo");
+		nodoAtributo.setContenido((*i)->getCodigo());
+		nodo->agregarHijo(nodoAtributo);
+	}
 }
 
 void Identificador::guardarRelacionesXmlDER(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 
-	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i) {
+		XmlNodo nodoRelacion("relacion");
+		nodoRelacion.setContenido((*i)->getCodigo());
+		nodo->agregarHijo(nodoRelacion);
+	}
 }
 
 XmlNodo Identificador::guardarXmlDER() {

@@ -53,7 +53,8 @@ void EntidadGlobal::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 void EntidadGlobal::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "relacion")	{
-			Relacion *relacion = new Relacion (nodo);
+			Relacion *relacion = new Relacion ();
+			relacion->setCodigo(nodo->getContenidoInt());
 			this->agregarRelacion(relacion);
 		}
 		*nodo = nodo->getHermano();
