@@ -99,7 +99,7 @@ void Relacion::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 void Relacion::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "entidad_relacion") {
-	  		EntidadRelacion *entidadRelacion = new EntidadRelacion (nodo);
+	  		EntidadRelacion *entidadRelacion = new EntidadRelacion(nodo);
 			this->agregarEntidadRelacion(entidadRelacion);
 		}
 		if (nodo->getNombre() == "atributo") {

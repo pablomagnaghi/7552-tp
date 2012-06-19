@@ -18,9 +18,9 @@ int main(int argc, char* argv[]){
 	// prueba persistencia
 	diagramaPrincipal->abrir("Prueba1-EjemploBoleteriaTeatro.xml");
 
-	//diagramaPrincipal->guardarDiagrama("PruebaDeCarga.xml");
+	diagramaPrincipal->guardarDiagrama("PruebaDeCarga.xml");
 
-	//std::cout << "Apertura del xml OK" << std::endl;
+	std::cout << "Apertura del xml OK" << std::endl;
 
 	return 0;
 }
