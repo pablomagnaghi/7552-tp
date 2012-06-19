@@ -9,10 +9,12 @@
 EntidadRelacion::EntidadRelacion() :
 	cardinalidadMinima ("1"),
 	cardinalidadMaxima ("1"){
+	this->entidad = NULL;
 }
 
 EntidadRelacion::~EntidadRelacion() {
-
+	if (this->entidad)
+		delete this->entidad;
 }
 
 Entidad* EntidadRelacion::getEntidad() const {

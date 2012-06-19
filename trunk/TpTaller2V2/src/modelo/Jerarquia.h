@@ -23,6 +23,8 @@ private:
 	std::string cobertura;
 	std::string interseccion;
 
+	void borrarEntidadesEspecializadas();
+
 	// PERSISTENCIA DER
 	void obtenerComponentesXmlDER (XmlNodo*);
 

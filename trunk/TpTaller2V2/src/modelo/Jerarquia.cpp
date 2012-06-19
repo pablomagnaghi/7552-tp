@@ -6,11 +6,13 @@
 #include "Jerarquia.h"
 
 Jerarquia::Jerarquia() {
-
+	this->entidadGeneral = NULL;
 }
 
 Jerarquia::~Jerarquia() {
-
+	if (this->entidadGeneral)
+		delete this->entidadGeneral;
+	this->borrarEntidadesEspecializadas();
 }
 
 EntidadNueva* Jerarquia::getEntidadGeneral() const {
@@ -57,6 +59,14 @@ std::vector<EntidadNueva*>::iterator Jerarquia::entidadesEspecializadasEnd(){
 	return this->entidadesEspecializadas.end();
 }
 
+void Jerarquia::borrarEntidadesEspecializadas() {
+	std::vector<EntidadNueva*>::iterator it = this->entidadesEspecializadas.begin();
+	while ( it != this->entidadesEspecializadas.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->entidadesEspecializadas.clear();
+}
 
 // PERSISTENCIA DER
 

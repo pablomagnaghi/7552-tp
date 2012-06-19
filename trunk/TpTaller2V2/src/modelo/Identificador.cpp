@@ -11,7 +11,8 @@ Identificador::Identificador() {
 }
 
 Identificador::~Identificador() {
-
+	this->borrarAtributos();
+	this->borrarRelaciones();
 }
 
 void Identificador::agregarAtributo(Atributo* atributo){
@@ -54,6 +55,24 @@ std::vector<Relacion*>::iterator Identificador::relacionesEnd(){
 	return this->relaciones.end();
 }
 
+
+void Identificador::borrarAtributos() {
+	std::vector<Atributo*>::iterator it = this->atributos.begin();
+	while ( it != this->atributos.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->atributos.clear();
+}
+
+void Identificador::borrarRelaciones() {
+	std::vector<Relacion*>::iterator it = this->relaciones.begin();
+	while ( it != this->relaciones.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->relaciones.clear();
+}
 
 // PERSISTENCIA PARA DATOS
 

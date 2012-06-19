@@ -216,4 +216,3 @@ XmlNodo EntidadNueva::guardarXmlDER() {
 
 	return nodo;
 }
-

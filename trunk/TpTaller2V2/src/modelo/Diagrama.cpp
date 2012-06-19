@@ -17,6 +17,8 @@ Diagrama::Diagrama(const std::string nombre):
 }
 
 Diagrama::~Diagrama() {
+	if (this->diagramaAncestro)
+		delete this->diagramaAncestro;
 	this->borrarDiagramasHijos();
 	this->borrarEntidadesNuevas();
 	this->borrarEntidadesGlobales();
@@ -322,7 +324,9 @@ void Diagrama::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 void Diagrama::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "diagrama_ancestro") {
+			Diagrama *diagramaAncestro = new Diagrama();
 	  		diagramaAncestro->setNombre(nodo->getContenido());
+	  		this->diagramaAncestro = diagramaAncestro;
 		}
 		if (nodo->getNombre() == "entidad_nueva") {
 	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);

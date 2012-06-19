@@ -17,6 +17,9 @@ private:
 	std::vector<Atributo*> atributos;
 	std::vector<Relacion*> relaciones;
 
+	void borrarAtributos();
+	void borrarRelaciones();
+
 	// PERSITENCIA DER
 	void obtenerComponentesXmlDER(XmlNodo*);
 
@@ -43,7 +46,6 @@ public:
 	// PERSISTENCIA DER
 	Identificador(XmlNodo* nodo);
 	XmlNodo guardarXmlDER();
-
 };
 
 #endif /* IDENTIFICADOR_H_ */
