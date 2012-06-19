@@ -15,6 +15,7 @@
 #include "XmlNodo.h"
 #include "XmlNodeSet.h"
 #include "Exceptions.h"
+#include "ConstantesPersistencia.h"
 
 class Xml {
 private:
@@ -68,7 +69,7 @@ public:
 	void fromString( const std::string& docString );
 
 	// crea un nuevo documento xml
-	void nuevoDoc (const std::string& version = "1.0" );
+	void nuevoDoc (const std::string& version = XML_VERSION );
 
 	// Crea un documento xml a partir del buffer y su tamaño
 	// llamando a la función xmlReadMemory y xmlDocGetRootElement de libxml
