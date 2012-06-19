@@ -149,15 +149,15 @@ EntidadNueva::EntidadNueva(XmlNodo* nodo) {
 void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
-	  		Atributo *atributo = new Atributo (nodo);
+	  		Atributo *atributo = new Atributo(nodo);
 			this->agregarAtributo(atributo);
 		}
 		if (nodo->getNombre() == "identificador") {
-			Identificador *identificador = new Identificador (nodo);
+			Identificador *identificador = new Identificador(nodo);
 			this->agregarIdentificador(identificador);
 		}
 		if (nodo->getNombre() == "relacion")	{
-			Relacion *relacion = new Relacion ();
+			Relacion *relacion = new Relacion();
 			relacion->setCodigo(nodo->getContenidoInt());
 			this->agregarRelacion(relacion);
 		}

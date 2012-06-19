@@ -88,10 +88,9 @@ void Atributo::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	Componente::obtenerPropiedadesXmlDER(nodo);
 
 	this->tipo = nodo->getPropiedad("tipo");
-
 	this->expresion = nodo->getPropiedad("expresion");
-	this->cardinalidadMinima = nodo->getPropiedadInt("cardinalidad_minima");
-	this->cardinalidadMaxima = nodo->getPropiedadInt("cardinalidad_maxima");
+	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_minima");
+	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
 }
 
 void Atributo::obtenerComponentesXmlDER (XmlNodo* nodo) {

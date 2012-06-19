@@ -324,7 +324,6 @@ void Diagrama::obtenerComponentesXmlDER (XmlNodo* nodo) {
 		if (nodo->getNombre() == "diagrama_ancestro") {
 	  		diagramaAncestro->setNombre(nodo->getContenido());
 		}
-
 		if (nodo->getNombre() == "entidad_nueva") {
 	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
 			this->agregarEntidadNueva(entidadNueva);
@@ -346,8 +345,8 @@ void Diagrama::obtenerComponentesXmlDER (XmlNodo* nodo) {
 }
 
 void Diagrama::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	nodo->setPropiedad(XMLNS, INSTANCE);
-	nodo->setPropiedad(XSI, COMPOSICION);
+	//nodo->setPropiedad(XMLNS, INSTANCE);
+	//nodo->setPropiedad(XSI, COMPOSICION);
 	nodo->setPropiedad("nombre",this->nombre);
 }
 

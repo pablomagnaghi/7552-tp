@@ -50,12 +50,13 @@ void EntidadRelacion::setRol(const std::string rol) {
 // PERSISTENCIA DER
 
 EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
-	this->entidad->setCodigo(nodo->getPropiedadInt("entidad"));
+	Entidad *entidad = new Entidad();
+	entidad->setCodigo(nodo->getPropiedadInt("entidad"));
+	this->entidad = entidad;
 	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_minima");
 	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
 	this->rol = nodo->getPropiedad("rol");
 }
-
 
 XmlNodo EntidadRelacion::guardarXmlDER() {
 	XmlNodo nodo("entidad_relacion");
@@ -63,7 +64,7 @@ XmlNodo EntidadRelacion::guardarXmlDER() {
 	nodo.setPropiedad("entidad",this->entidad->getCodigo());
 	nodo.setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
 	nodo.setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
-	if (this->rol != VACIO)
+	if (this->rol.size())
 		nodo.setPropiedad("rol",this->rol);
 
 	return nodo;

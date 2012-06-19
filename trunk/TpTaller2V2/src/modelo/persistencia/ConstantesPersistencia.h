@@ -14,8 +14,6 @@ const char* const XSI = "xsi:noNamespaceSchemaLocation";
 const char* const COMPOSICION = "composicion.xsd";
 const char* const NOMBRE_DIAGRAMA = "diagrama";
 
-const char* const VACIO = "";
-
 const char* const XML_VERSION = "1.0";
 const char* const XML_ENCODING = "UTF-8";
 
