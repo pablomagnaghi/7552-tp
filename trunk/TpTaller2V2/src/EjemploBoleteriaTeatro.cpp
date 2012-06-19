@@ -200,7 +200,7 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	vtaLoc->agregarEntidadRelacion(erLocalidad);
 
 	EntidadRelacion* erObra = new EntidadRelacion();
-	erObra->setEntidad(localidad);
+	erObra->setEntidad(obra);
 	erObra->setCardinalidadMinima("0");
 	erObra->setCardinalidadMaxima("n");
 	vtaLoc->agregarEntidadRelacion(erObra);

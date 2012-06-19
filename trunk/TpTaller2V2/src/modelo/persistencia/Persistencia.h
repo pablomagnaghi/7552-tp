@@ -12,5 +12,6 @@
 #include "Xml.h"
 #include "XmlNodeSet.h"
 #include "XmlNodo.h"
+#include "ConstantesPersistencia.h"
 
 #endif /* PERSISTENCIA_H_ */

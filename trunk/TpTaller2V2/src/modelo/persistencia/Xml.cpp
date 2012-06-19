@@ -29,7 +29,7 @@ bool Xml::valido() const {
 }
 
 void Xml::guardar(const std::string& ubicacion) {
-	xmlSaveFile(ubicacion.c_str(), doc);
+	xmlSaveFileEnc(ubicacion.c_str(), doc, XML_ENCODING);
 }
 
 // xmlNewDoc crea un nuevo documento xml

@@ -33,15 +33,4 @@ const char* const TIPO_COBERTURA_PARCIAL = "parcial";
 const char* const TIPO_INTERSECCION_EXCLUSIVA = "exclusiva";
 const char* const TIPO_INTERSECCION_SUPERPUESTA = "superpuesta";
 
-// Para la creacion de los XML
-const char* const XMLNS = "xmlns:xsi";
-const char* const INSTANCE = "\"http://www.w3.org/2001/XMLSxhema-instance\"";
-const char* const XSI = "xsi:noNamespaceSchemaLocation";
-const char* const COMPOSICION = "composicion.xsd";
-//const char* const XMLNS = "xmlns:xsi=\"http://www.w3.org/2001/XMLSxhema-instance\"";
-//const char* const XSI = "xsi:noNamespaceSchemaLocation=composicion.xsd";
-const char* const NOMBRE_DIAGRAMA = "diagrama";
-
-const char* const VACIO = "";
-
 #endif /* CONSTANTESMODELO_H_ */
