@@ -10,7 +10,6 @@ GeneradorCodigo* GeneradorCodigo::instance = NULL;
 
 GeneradorCodigo::GeneradorCodigo() :
 	codigo (0) {
-
 }
 
 GeneradorCodigo* GeneradorCodigo::getInstance(){

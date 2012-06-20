@@ -49,8 +49,8 @@ void Entidad::setEsDebil(bool esDebil){
 	this->esDebil = esDebil;
 }
 
-// PERSISTENCIA DER
-void Entidad::guardarRelacionesXmlDER(XmlNodo *nodo) {
+// PERSISTENCIA COMP
+void Entidad::guardarRelacionesXmlCOMP(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 
 	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i) {

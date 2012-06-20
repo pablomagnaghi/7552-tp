@@ -75,17 +75,17 @@ void Atributo::borrarAtributosDerivables() {
 	this->atributosDerivables.clear();
 }
 
-// PERSISTENCIA DER
+// PERSISTENCIA COMP
 
 Atributo::Atributo(XmlNodo* nodo) {
-	this->obtenerPropiedadesXmlDER(nodo);
+	this->obtenerPropiedadesXmlCOMP(nodo);
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesXmlDER(&nodoAux);
+	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
 
-void Atributo::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
-	Componente::obtenerPropiedadesXmlDER(nodo);
+void Atributo::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlCOMP(nodo);
 
 	this->tipo = nodo->getPropiedad("tipo");
 	this->expresion = nodo->getPropiedad("expresion");
@@ -93,7 +93,7 @@ void Atributo::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
 	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
 }
 
-void Atributo::obtenerComponentesXmlDER (XmlNodo* nodo) {
+void Atributo::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
 	  		Atributo *atributo = new Atributo (nodo);
@@ -103,8 +103,8 @@ void Atributo::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	}
 }
 
-void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	Componente::agregarPropiedadesXmlDER(nodo);
+void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::agregarPropiedadesXmlCOMP(nodo);
 	nodo->setPropiedad("tipo",this->tipo);
 	// si son nulos los siguientes atributos, no poner
 	if (this->expresion.size())
@@ -115,15 +115,15 @@ void Atributo::agregarPropiedadesXmlDER(XmlNodo* nodo) {
 		nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
 }
 
-XmlNodo Atributo::guardarXmlDER() {
+XmlNodo Atributo::guardarXmlCOMP() {
 	XmlNodo nodo("atributo");
 
-	this->agregarPropiedadesXmlDER(&nodo);
+	this->agregarPropiedadesXmlCOMP(&nodo);
 
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributosDerivables.begin(); i != this->atributosDerivables.end(); ++i)
-		nodo.agregarHijo((*i)->guardarXmlDER());
+		nodo.agregarHijo((*i)->guardarXmlCOMP());
 
 	return nodo;
 }

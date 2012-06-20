@@ -68,22 +68,22 @@ void Jerarquia::borrarEntidadesEspecializadas() {
 	this->entidadesEspecializadas.clear();
 }
 
-// PERSISTENCIA DER
+// PERSISTENCIA COMP
 
 Jerarquia::Jerarquia(XmlNodo* nodo) {
-	this->obtenerPropiedadesXmlDER(nodo);
+	this->obtenerPropiedadesXmlCOMP(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesXmlDER(&nodoAux);
+	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
 
-void Jerarquia::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
+void Jerarquia::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->cobertura = nodo->getPropiedad("cobertura");
 	this->interseccion = nodo->getPropiedad("interseccion");
 }
 
-void Jerarquia::obtenerComponentesXmlDER (XmlNodo* nodo) {
+void Jerarquia::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "entidad_general") {
 	  		EntidadNueva *entidadGeneral = new EntidadNueva (nodo);
@@ -97,22 +97,22 @@ void Jerarquia::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	}
 }
 
-void Jerarquia::agregarPropiedadesXmlDER(XmlNodo* nodo) {
+void Jerarquia::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	nodo->setPropiedad("cobertura",this->cobertura);
 	nodo->setPropiedad("interseccion",this->interseccion);
 }
 
-XmlNodo Jerarquia::guardarXmlDER() {
+XmlNodo Jerarquia::guardarXmlCOMP() {
 	XmlNodo nodo("jerarquia");
 
-	this->agregarPropiedadesXmlDER(&nodo);
+	this->agregarPropiedadesXmlCOMP(&nodo);
 
 	std::vector<EntidadNueva*>::iterator i;
 
-	nodo.agregarHijo(entidadGeneral->guardarXmlDER());
+	nodo.agregarHijo(entidadGeneral->guardarXmlCOMP());
 
 	for(i = this->entidadesEspecializadas.begin(); i != this->entidadesEspecializadas.end(); ++i)
-		nodo.agregarHijo((*i)->guardarXmlDER());
+		nodo.agregarHijo((*i)->guardarXmlCOMP());
 
 	return nodo;
 }

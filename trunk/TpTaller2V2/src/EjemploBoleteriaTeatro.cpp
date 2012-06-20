@@ -342,7 +342,7 @@ int main2(int argc, char* argv[]){
 	// std::cout << XSI << std::endl;
 
 	// prueba persistencia
-	diagramaPrincipal->guardarDiagrama("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->guardarDiagramaCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
 
 	std::cout << "Generacion del xml OK" << std::endl;
 

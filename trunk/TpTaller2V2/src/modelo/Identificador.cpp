@@ -74,15 +74,15 @@ void Identificador::borrarRelaciones() {
 	this->relaciones.clear();
 }
 
-// PERSISTENCIA PARA DATOS
+// PERSISTENCIA COMP
 
 Identificador::Identificador(XmlNodo* nodo) {
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesXmlDER(&nodoAux);
+	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
 
-void Identificador::obtenerComponentesXmlDER (XmlNodo* nodo) {
+void Identificador::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
 	  		Atributo *atributo = new Atributo ();
@@ -94,12 +94,11 @@ void Identificador::obtenerComponentesXmlDER (XmlNodo* nodo) {
 			relacion->setCodigo(nodo->getContenidoInt());
 			this->agregarRelacion(relacion);
 		}
-
 		*nodo = nodo->getHermano();
 	}
 }
 
-void Identificador::guardarAtributosXmlDER(XmlNodo *nodo) {
+void Identificador::guardarAtributosXmlCOMP(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributos.begin(); i != this->atributos.end(); ++i) {
@@ -109,7 +108,7 @@ void Identificador::guardarAtributosXmlDER(XmlNodo *nodo) {
 	}
 }
 
-void Identificador::guardarRelacionesXmlDER(XmlNodo *nodo) {
+void Identificador::guardarRelacionesXmlCOMP(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 
 	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i) {
@@ -119,11 +118,11 @@ void Identificador::guardarRelacionesXmlDER(XmlNodo *nodo) {
 	}
 }
 
-XmlNodo Identificador::guardarXmlDER() {
+XmlNodo Identificador::guardarXmlCOMP() {
 	XmlNodo nodo("identificador");
 
-	this->guardarAtributosXmlDER(&nodo);
-	this->guardarRelacionesXmlDER(&nodo);
+	this->guardarAtributosXmlCOMP(&nodo);
+	this->guardarRelacionesXmlCOMP(&nodo);
 
 	return nodo;
 }

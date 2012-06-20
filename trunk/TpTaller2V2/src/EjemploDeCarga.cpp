@@ -16,9 +16,9 @@ int main(int argc, char* argv[]){
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	// prueba persistencia
-	diagramaPrincipal->abrir("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->abrirCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
 
-	diagramaPrincipal->guardarDiagrama("PruebaDeCarga.xml");
+	diagramaPrincipal->guardarDiagramaCOMP("PruebaDeCarga.xml");
 
 	std::cout << "Apertura del xml OK" << std::endl;
 

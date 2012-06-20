@@ -20,14 +20,14 @@ private:
 	std::string diagramaAncestro;
 	int codigoEntidadNueva; // Codigo de la EntidadNueva en el diagrama ancestro.
 
-	// PERSITENCIA DER
-	void obtenerComponentesXmlDER (XmlNodo* nodo);
+	// PERSITENCIA COMP
+	void obtenerComponentesXmlCOMP(XmlNodo* nodo);
 
 protected:
-	// PERSISTENCIA DER
+	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlDER(XmlNodo*);
-	virtual void obtenerPropiedadesXmlDER(XmlNodo*);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 
@@ -41,9 +41,9 @@ public:
 	void setCodigoEntidadNueva(int);
 	int getCodigoEntidadNueva() const;
 
-	// PERSISTENCIA DER
+	// PERSISTENCIA COMP
 	EntidadGlobal(XmlNodo* nodo);
-	XmlNodo guardarXmlDER();
+	XmlNodo guardarXmlCOMP();
 };
 
 #endif /* ENTIDADGLOBAL_H_ */

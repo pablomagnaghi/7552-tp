@@ -87,6 +87,16 @@ private:
 	void test_cargar_componentes_visuales();
 	void seleccionar_componente_clickeado(gdouble x, gdouble y);
 
+	// Persistencia
+	bool diagramaValidoREP;
+
+	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
+	void obtenerComponentesXmlREP (XmlNodo* nodo);
+	void agregarPropiedadesXmlREP(XmlNodo* nodo);
+	void guardarComponentesXmlREP(XmlNodo *nodo);
+
+	XmlNodo guardarXmlREP();
+
 public:
 
 	VistaDiagrama(string nom);
@@ -99,6 +109,11 @@ public:
 	int getAncho();
 
 	void agregarComponente(VistaComponente * componente);
+
+	// Persistencia REP
+	void abrirREP(const std::string& path);
+	bool isOpenREP() const;
+	void guardarDiagramaREP(const std::string& path);
 };
 
 #endif /* VISTADIAGRAMA_H_ */

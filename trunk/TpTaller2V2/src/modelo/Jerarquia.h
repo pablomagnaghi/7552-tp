@@ -25,17 +25,16 @@ private:
 
 	void borrarEntidadesEspecializadas();
 
-	// PERSISTENCIA DER
-	void obtenerComponentesXmlDER (XmlNodo*);
+	// PERSISTENCIA COMP
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
 protected:
-	// PERSITENCIA DER
+	// PERSITENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
-	virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo* nodo);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo* nodo);
 
 public:
-
 	Jerarquia();
 	virtual ~Jerarquia();
 
@@ -54,9 +53,9 @@ public:
 	std::vector<EntidadNueva*>::iterator entidadesEspecializadasBegin();
 	std::vector<EntidadNueva*>::iterator entidadesEspecializadasEnd();
 
-	// PERSISTENCIA DER
+	// PERSISTENCIA COMP
 	Jerarquia(XmlNodo*);
-	virtual XmlNodo guardarXmlDER();
+	virtual XmlNodo guardarXmlCOMP();
 };
 
 #endif /* JERARQUIA_H_ */

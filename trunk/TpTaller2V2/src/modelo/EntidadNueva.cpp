@@ -135,18 +135,18 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
 	return atributo;
 }
 
-// PERSISTENCIA PARA DATOS
+// PERSISTENCIA COMP
 
 EntidadNueva::EntidadNueva(XmlNodo* nodo) {
 
-	this->obtenerPropiedadesXmlDER(nodo);
+	this->obtenerPropiedadesXmlCOMP(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesXmlDER(&nodoAux);
+	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
 
-void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
+void EntidadNueva::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
 	  		Atributo *atributo = new Atributo(nodo);
@@ -170,31 +170,31 @@ void EntidadNueva::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	}
 }
 
-void EntidadNueva::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	Componente::agregarPropiedadesXmlDER(nodo);
+void EntidadNueva::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::agregarPropiedadesXmlCOMP(nodo);
 	nodo->setPropiedad("tipo",this->tipo);
 }
 
-void EntidadNueva::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
-	Componente::obtenerPropiedadesXmlDER(nodo);
+void EntidadNueva::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlCOMP(nodo);
 	this->tipo = nodo->getPropiedad("tipo");
 }
 
-void EntidadNueva::guardarAtributosXmlDER(XmlNodo *nodo) {
+void EntidadNueva::guardarAtributosXmlCOMP(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributos.begin(); i != this->atributos.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
 
-void EntidadNueva::guardarIdentificadoresXmlDER(XmlNodo *nodo) {
+void EntidadNueva::guardarIdentificadoresXmlCOMP(XmlNodo *nodo) {
 	std::vector<Identificador*>::iterator i;
 
 	for(i = this->identificadores.begin(); i != this->identificadores.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
 
-void EntidadNueva::guardarJerarquiasXmlDER(XmlNodo *nodo) {
+void EntidadNueva::guardarJerarquiasXmlCOMP(XmlNodo *nodo) {
 	std::vector<Jerarquia*>::iterator i;
 
 	for(i = this->jerarquias.begin(); i != this->jerarquias.end(); ++i) {
@@ -204,15 +204,15 @@ void EntidadNueva::guardarJerarquiasXmlDER(XmlNodo *nodo) {
 	}
 }
 
-XmlNodo EntidadNueva::guardarXmlDER() {
+XmlNodo EntidadNueva::guardarXmlCOMP() {
 	XmlNodo nodo("entidad_nueva");
 
-	this->agregarPropiedadesXmlDER(&nodo);
+	this->agregarPropiedadesXmlCOMP(&nodo);
 
-	this->guardarAtributosXmlDER(&nodo);
-	this->guardarIdentificadoresXmlDER(&nodo);
-	this->guardarRelacionesXmlDER(&nodo);
-	this->guardarJerarquiasXmlDER(&nodo);
+	this->guardarAtributosXmlCOMP(&nodo);
+	this->guardarIdentificadoresXmlCOMP(&nodo);
+	this->guardarRelacionesXmlCOMP(&nodo);
+	this->guardarJerarquiasXmlCOMP(&nodo);
 
 	return nodo;
 }

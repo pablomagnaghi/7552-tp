@@ -84,8 +84,6 @@ void VistaComponente::deseleccionar() {
 	this->pos_selec_y = 0;
 }
 
-
-
 void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
 		const std::string nombre) {
 	double centro_x, centro_y;
@@ -147,8 +145,17 @@ void VistaComponente::ajustarTamanioAlTexto(){
 
 // PERSISTENCIA REP
 
+VistaComponente::VistaComponente(XmlNodo* nodo) {
+
+	this->obtenerPropiedadesXmlREP(nodo);
+
+	XmlNodo nodoAux = nodo->getHijo();
+
+	this->obtenerComponentesXmlREP(&nodoAux);
+}
+
 void VistaComponente::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
-	// this->codigo = nodo->getPropiedadInt("codigo");
+	this->codigo = nodo->getPropiedadInt("codigo");
 }
 
 void VistaComponente::obtenerComponentesXmlREP (XmlNodo* nodo) {
@@ -171,8 +178,7 @@ void VistaComponente::obtenerComponentesXmlREP (XmlNodo* nodo) {
 }
 
 void VistaComponente::agregarPropiedadesXmlREP(XmlNodo* nodo) {
-	// nodo->setPropiedad("codigo",this->codigo);
-
+	nodo->setPropiedad("codigo",this->codigo);
 }
 
 XmlNodo VistaComponente::guardarXmlREP() {
