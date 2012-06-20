@@ -26,6 +26,7 @@ private:
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
 	std::string rol;
+	bool entidadGuardada;
 
 public:
 

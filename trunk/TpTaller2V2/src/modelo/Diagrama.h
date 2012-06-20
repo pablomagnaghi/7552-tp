@@ -55,6 +55,8 @@ private:
 
 	XmlNodo guardarXmlCOMP();
 
+	void obtenerRelacionesIdentificadores();
+
 protected:
 	// Persistencia REP
 	std::string estado;

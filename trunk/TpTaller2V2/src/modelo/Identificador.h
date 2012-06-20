@@ -21,8 +21,6 @@ private:
 	void borrarRelaciones();
 
 	// PERSITENCIA COMP
-	void obtenerComponentesXmlCOMP(XmlNodo*);
-
 	void guardarAtributosXmlCOMP(XmlNodo*);
 	void guardarRelacionesXmlCOMP(XmlNodo*);
 
@@ -44,7 +42,6 @@ public:
 	std::vector<Relacion*>::iterator relacionesEnd();
 
 	// PERSISTENCIA DER
-	Identificador(XmlNodo* nodo);
 	XmlNodo guardarXmlCOMP();
 };
 
