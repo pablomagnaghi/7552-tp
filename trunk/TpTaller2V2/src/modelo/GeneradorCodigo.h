@@ -25,6 +25,7 @@ public:
 	int getCodigo() const;
 	int getSiguienteCodigo();
 	static int siguienteCodigo();
+	static void testAndSetCodigo(int);
 
 };
 
