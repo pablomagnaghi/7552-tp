@@ -223,6 +223,14 @@ void Diagrama::borrarJerarquias(){
 	this->jerarquias.clear();
 }
 
+Entidad* Diagrama::getEntidadByCodigo(int codigo){
+	Entidad* entidad = this->getEntidadNuevaByCodigo(codigo);
+	if (entidad == NULL){
+		entidad = this->getEntidadGlobalByCodigo(codigo);
+	}
+	return entidad;
+}
+
 EntidadNueva* Diagrama::getEntidadNuevaByCodigo(int codigo){
 	EntidadNueva* entidadNueva = NULL;
 	std::vector<EntidadNueva*>::iterator it = this->entidadesNuevas.begin();
