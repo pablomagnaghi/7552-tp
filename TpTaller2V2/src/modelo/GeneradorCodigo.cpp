@@ -40,3 +40,9 @@ int GeneradorCodigo::getSiguienteCodigo(){
 int GeneradorCodigo::siguienteCodigo(){
 	return GeneradorCodigo::getInstance()->getSiguienteCodigo();
 }
+
+void GeneradorCodigo::testAndSetCodigo(int nuevoCodigo){
+	if (nuevoCodigo > GeneradorCodigo::getInstance()->getCodigo()){
+		GeneradorCodigo::getInstance()->setCodigo(nuevoCodigo);
+	}
+}
