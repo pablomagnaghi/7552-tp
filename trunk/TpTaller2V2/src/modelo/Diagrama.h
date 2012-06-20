@@ -109,6 +109,7 @@ public:
 	std::vector<Componente*>::iterator componentesBegin();
 	std::vector<Componente*>::iterator componentesEnd();
 
+	Entidad* getEntidadByCodigo(int);
 	EntidadNueva* getEntidadNuevaByCodigo(int);
 	EntidadGlobal* getEntidadGlobalByCodigo(int);
 	Relacion* getRelacionByCodigo(int);
