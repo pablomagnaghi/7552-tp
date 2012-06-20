@@ -22,8 +22,8 @@ protected:
 	bool esDebil;
 	std::vector<Relacion*> relaciones;
 
-	// PERSISTENCIA DER
-	void guardarRelacionesXmlDER(XmlNodo*);
+	// PERSISTENCIA COMP
+	void guardarRelacionesXmlCOMP(XmlNodo*);
 
 public:
 	Entidad();

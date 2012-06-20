@@ -20,11 +20,11 @@ private:
 	void borrarAtributos();
 	void borrarRelaciones();
 
-	// PERSITENCIA DER
-	void obtenerComponentesXmlDER(XmlNodo*);
+	// PERSITENCIA COMP
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
-	void guardarAtributosXmlDER(XmlNodo*);
-	void guardarRelacionesXmlDER(XmlNodo*);
+	void guardarAtributosXmlCOMP(XmlNodo*);
+	void guardarRelacionesXmlCOMP(XmlNodo*);
 
 public:
 
@@ -45,7 +45,7 @@ public:
 
 	// PERSISTENCIA DER
 	Identificador(XmlNodo* nodo);
-	XmlNodo guardarXmlDER();
+	XmlNodo guardarXmlCOMP();
 };
 
 #endif /* IDENTIFICADOR_H_ */

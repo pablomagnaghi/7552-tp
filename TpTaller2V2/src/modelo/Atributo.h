@@ -28,14 +28,14 @@ private:
 
 	void borrarAtributosDerivables();
 
-	// PERSISTENCIA DER
-	void obtenerComponentesXmlDER (XmlNodo*);
+	// PERSISTENCIA COMP
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
 protected:
-	// PERSISTENCIA DER
+	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
-	virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo* nodo);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo* nodo);
 
 public:
 	Atributo();
@@ -59,9 +59,9 @@ public:
 	std::vector<Atributo*>::iterator atributosDerivablesBegin();
 	std::vector<Atributo*>::iterator atributosDerivablesEnd();
 
-	// PERSISTENCIA DER
+	// PERSISTENCIA COMP
 	Atributo(XmlNodo*);
-	virtual XmlNodo guardarXmlDER();
+	virtual XmlNodo guardarXmlCOMP();
 };
 
 #endif /* ATRIBUTO_H_ */

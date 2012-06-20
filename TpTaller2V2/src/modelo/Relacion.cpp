@@ -81,22 +81,22 @@ void Relacion::borrarEntidadesRelacion(){
 }
 
 
-// PERSISTENCIA DER
+// PERSISTENCIA COMP
 
 Relacion::Relacion(XmlNodo* nodo) {
-	this->obtenerPropiedadesXmlDER(nodo);
+	this->obtenerPropiedadesXmlCOMP(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
-	this->obtenerComponentesXmlDER(&nodoAux);
+	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
 
-void Relacion::obtenerPropiedadesXmlDER(XmlNodo* nodo) {
-	Componente::obtenerPropiedadesXmlDER(nodo);
+void Relacion::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlCOMP(nodo);
 	this->tipo = nodo->getPropiedad("tipo");
 }
 
-void Relacion::obtenerComponentesXmlDER (XmlNodo* nodo) {
+void Relacion::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "entidad_relacion") {
 	  		EntidadRelacion *entidadRelacion = new EntidadRelacion(nodo);
@@ -110,34 +110,34 @@ void Relacion::obtenerComponentesXmlDER (XmlNodo* nodo) {
 	}
 }
 
-void Relacion::agregarPropiedadesXmlDER(XmlNodo* nodo) {
-	Componente::agregarPropiedadesXmlDER(nodo);
+void Relacion::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::agregarPropiedadesXmlCOMP(nodo);
 	if (this->tipo.size())
 		nodo->setPropiedad("tipo",this->tipo);
 
 }
 
-void Relacion::guardarEntidadesRelacionesXmlDER(XmlNodo *nodo) {
+void Relacion::guardarEntidadesRelacionesXmlCOMP(XmlNodo *nodo) {
 	std::vector<EntidadRelacion*>::iterator i;
 
 	for(i = this->entidadesRelacionBegin(); i != this->entidadesRelacionEnd(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
 
-void Relacion::guardarAtributosXmlDER(XmlNodo *nodo) {
+void Relacion::guardarAtributosXmlCOMP(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlDER());
+		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
 
-XmlNodo Relacion::guardarXmlDER() {
+XmlNodo Relacion::guardarXmlCOMP() {
 	XmlNodo nodo("relacion");
 
-	this->agregarPropiedadesXmlDER(&nodo);
+	this->agregarPropiedadesXmlCOMP(&nodo);
 
-	this->guardarEntidadesRelacionesXmlDER(&nodo);
-	this->guardarAtributosXmlDER(&nodo);
+	this->guardarEntidadesRelacionesXmlCOMP(&nodo);
+	this->guardarAtributosXmlCOMP(&nodo);
 
 	return nodo;
 }

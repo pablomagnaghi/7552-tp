@@ -49,7 +49,7 @@ void EntidadRelacion::setRol(const std::string rol) {
 	this->rol = rol;
 }
 
-// PERSISTENCIA DER
+// PERSISTENCIA COMP
 
 EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
 	Entidad *entidad = new Entidad();
@@ -60,7 +60,7 @@ EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
 	this->rol = nodo->getPropiedad("rol");
 }
 
-XmlNodo EntidadRelacion::guardarXmlDER() {
+XmlNodo EntidadRelacion::guardarXmlCOMP() {
 	XmlNodo nodo("entidad_relacion");
 
 	nodo.setPropiedad("entidad",this->entidad->getCodigo());

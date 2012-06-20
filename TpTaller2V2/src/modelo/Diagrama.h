@@ -21,10 +21,8 @@
 class Diagrama {
 
 private:
-
 	std::string nombre;
-	std::string estado;
-	bool diagramaValido; // para persistencia
+	bool diagramaValidoCOMP; // para persistencia
 	Diagrama* diagramaAncestro;
 	std::vector<Diagrama*> diagramasHijos;
 	std::vector<EntidadNueva*> entidadesNuevas;
@@ -42,20 +40,24 @@ private:
 	void borrarJerarquias();
 	void borrarRelaciones();
 
-	// PERSISTENCIA DER
-	void agregarPropiedadesXmlDER (XmlNodo*);
-	void obtenerPropiedadesXmlDER (XmlNodo*);
+	// PERSISTENCIA COMP
+	void agregarPropiedadesXmlCOMP(XmlNodo*);
+	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
-	void obtenerComponentesXmlDER(XmlNodo *nodo);
+	void obtenerComponentesXmlCOMP(XmlNodo *nodo);
 
-	void agregarNodoDiagramaAncestroXmlDER(XmlNodo *nodo);
+	void agregarNodoDiagramaAncestroXmlCOMP(XmlNodo *nodo);
 
-	void guardarEntidadesNuevasXmlDER(XmlNodo *nodo);
-	void guardarEntidadesGlobalesXmlDER(XmlNodo *nodo);
-	void guardarRelacionesXmlDER(XmlNodo *nodo);
-	void guardarJerarquiasXmlDER(XmlNodo *nodo);
+	void guardarEntidadesNuevasXmlCOMP(XmlNodo *nodo);
+	void guardarEntidadesGlobalesXmlCOMP(XmlNodo *nodo);
+	void guardarRelacionesXmlCOMP(XmlNodo *nodo);
+	void guardarJerarquiasXmlCOMP(XmlNodo *nodo);
 
-	XmlNodo guardarXmlDER();
+	XmlNodo guardarXmlCOMP();
+
+protected:
+	// Persistencia REP
+	std::string estado;
 
 public:
 
@@ -112,11 +114,10 @@ public:
 	Componente* getComponenteByCodigo(int);
 
 
-	// PERSITENCIA DER
-	// Diagrama(XmlNodo*);
-	void abrir(const std::string& path);
-	bool isOpen() const;
-	void guardarDiagrama(const std::string& path);
+	// PERSITENCIA COMP
+	void abrirCOMP(const std::string& path);
+	bool isOpenCOMP() const;
+	void guardarDiagramaCOMP(const std::string& path);
 };
 
 #endif /* DIAGRAMA_H_ */

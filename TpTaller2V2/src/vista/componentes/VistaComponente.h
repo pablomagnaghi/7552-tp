@@ -51,6 +51,7 @@ protected:
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
 	// PERSISTENCIA REP
+	int codigo;
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 
@@ -102,6 +103,7 @@ public:
 	void ajustarTamanioAlTexto();
 
 	// PERSISTENCIA REP
+	VistaComponente(XmlNodo*);
 	XmlNodo guardarXmlREP();
 };
 

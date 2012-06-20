@@ -44,9 +44,9 @@ public:
 	std::string getRol() const;
 	void setRol(const std::string rol);
 
-	// PERSISTENCIA DER
+	// PERSISTENCIA COMP
 	EntidadRelacion(XmlNodo*);
-	virtual XmlNodo guardarXmlDER();
+	virtual XmlNodo guardarXmlCOMP();
 };
 
 #endif /* ENTIDADRELACION_H_ */

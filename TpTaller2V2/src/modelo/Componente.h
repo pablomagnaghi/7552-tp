@@ -17,10 +17,10 @@ protected:
 	int codigo;
 	std::string nombre;
 
-	// PERSITENCIA DER
+	// PERSITENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlDER (XmlNodo* nodo);
-	virtual void obtenerPropiedadesXmlDER (XmlNodo* nodo);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo* nodo);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo* nodo);
 
 public:
 

@@ -32,18 +32,18 @@ private:
 	void borrarJerarquias();
 	void borrarRelaciones();
 
-	// PERSITENCIA DER
-	void obtenerComponentesXmlDER(XmlNodo*);
+	// PERSITENCIA COMP
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
-	void guardarAtributosXmlDER(XmlNodo*);
-	void guardarIdentificadoresXmlDER(XmlNodo*);
-	void guardarJerarquiasXmlDER(XmlNodo*);
+	void guardarAtributosXmlCOMP(XmlNodo*);
+	void guardarIdentificadoresXmlCOMP(XmlNodo*);
+	void guardarJerarquiasXmlCOMP(XmlNodo*);
 
 protected:
-	// PERSISTENCIA DER
+	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlDER (XmlNodo*);
-	virtual void obtenerPropiedadesXmlDER (XmlNodo*);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 
@@ -73,9 +73,9 @@ public:
 
 	Atributo* getAtributoByCodigo(int);
 
-	// PERSISTENCIA DER
-	EntidadNueva ( XmlNodo* nodo);
-	XmlNodo guardarXmlDER();
+	// PERSISTENCIA COMP
+	EntidadNueva(XmlNodo* nodo);
+	XmlNodo guardarXmlCOMP();
 };
 
 #endif /* ENTIDADNUEVA_H_ */
