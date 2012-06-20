@@ -306,6 +306,7 @@ void Diagrama::abrirCOMP(const std::string& path) {
 		XmlNodo nodo = nodoRaiz->getHijo();
 
 		this->obtenerComponentesXmlCOMP(&nodo);
+		this->obtenerRelacionesIdentificadores();
 	}
 	catch ( XmlArchivoInexistenteExc* ex ) {
 		delete ex;
@@ -321,28 +322,49 @@ void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->nombre = nodo->getPropiedad("nombre");
 }
 
+void Diagrama::obtenerRelacionesIdentificadores() {
+	/*std::vector<EntidadNueva*>::iterator it = this->entidadesNuevas.begin();
+
+	while (it != this->entidadesNuevas.end()) {
+		std::vector<int>::iterator itIden = (*it)->codigoIdentificadorBegin();
+		while (itIden != (*it)->codigoIdentificadorEnd()) {
+			std::vector<Relacion*>::iterator itRel = this->relaciones.begin();
+
+			while (itRel != this->relaciones.end()) {
+				if ((*itRel)->getCodigo() == (*itIden))
+					(*it)->
+				itRel++;
+			}
+			itIden++;
+		}
+		it++;
+	}*/
+
+
+}
+
 void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "diagrama_ancestro") {
-			Diagrama *diagramaAncestro = new Diagrama();
-	  		diagramaAncestro->setNombre(nodo->getContenido());
-	  		this->diagramaAncestro = diagramaAncestro;
+			//Diagrama *diagramaAncestro = new Diagrama();
+	  		//diagramaAncestro->setNombre(nodo->getContenido());
+	  		//this->diagramaAncestro = diagramaAncestro;
 		}
 		if (nodo->getNombre() == "entidad_nueva") {
 	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
 			this->agregarEntidadNueva(entidadNueva);
 		}
 		if (nodo->getNombre() == "entidad_global") {
-	  		EntidadGlobal *entidadGlobal = new EntidadGlobal (nodo);
-			this->agregarEntidadGlobal(entidadGlobal);
+	  		//EntidadGlobal *entidadGlobal = new EntidadGlobal (nodo);
+			//this->agregarEntidadGlobal(entidadGlobal);
 		}
 		if (nodo->getNombre() == "relacion") {
-			Relacion *relacion = new Relacion (nodo);
-			this->agregarRelacion(relacion);
+			//Relacion *relacion = new Relacion (nodo);
+			//this->agregarRelacion(relacion);
 		}
 		if ( nodo->getNombre() == "jerarquia" )	{
-			Jerarquia *jerarquia = new Jerarquia (nodo);
-			this->agregarJerarquia(jerarquia);
+			//Jerarquia *jerarquia = new Jerarquia (nodo);
+			//this->agregarJerarquia(jerarquia);
 		}
 		*nodo = nodo->getHermano();
 	}
@@ -400,6 +422,7 @@ XmlNodo Diagrama::guardarXmlCOMP() {
 
 	this->guardarEntidadesNuevasXmlCOMP(&nodo);
 	this->guardarEntidadesGlobalesXmlCOMP(&nodo);
+
 	this->guardarRelacionesXmlCOMP(&nodo);
 	this->guardarJerarquiasXmlCOMP(&nodo);
 

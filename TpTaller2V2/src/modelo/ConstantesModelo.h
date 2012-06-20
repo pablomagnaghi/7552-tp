@@ -33,4 +33,7 @@ const char* const TIPO_COBERTURA_PARCIAL = "parcial";
 const char* const TIPO_INTERSECCION_EXCLUSIVA = "exclusiva";
 const char* const TIPO_INTERSECCION_SUPERPUESTA = "superpuesta";
 
+// Cardinalidad
+const char* const CARDINALIDAD_MINIMA = "1";
+
 #endif /* CONSTANTESMODELO_H_ */

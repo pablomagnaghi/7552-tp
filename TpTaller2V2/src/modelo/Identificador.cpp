@@ -75,29 +75,6 @@ void Identificador::borrarRelaciones() {
 }
 
 // PERSISTENCIA COMP
-
-Identificador::Identificador(XmlNodo* nodo) {
-	XmlNodo nodoAux = nodo->getHijo();
-
-	this->obtenerComponentesXmlCOMP(&nodoAux);
-}
-
-void Identificador::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
-	while (nodo->esValido()) {
-		if (nodo->getNombre() == "atributo") {
-	  		Atributo *atributo = new Atributo ();
-	  		atributo->setCodigo(nodo->getContenidoInt());
-			this->agregarAtributo(atributo);
-		}
-		if (nodo->getNombre() == "relacion")	{
-			Relacion *relacion = new Relacion();
-			relacion->setCodigo(nodo->getContenidoInt());
-			this->agregarRelacion(relacion);
-		}
-		*nodo = nodo->getHermano();
-	}
-}
-
 void Identificador::guardarAtributosXmlCOMP(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 

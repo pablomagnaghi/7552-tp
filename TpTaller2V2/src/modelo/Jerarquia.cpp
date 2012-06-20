@@ -86,11 +86,11 @@ void Jerarquia::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 void Jerarquia::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "entidad_general") {
-	  		EntidadNueva *entidadGeneral = new EntidadNueva (nodo);
+	  		EntidadNueva *entidadGeneral = new EntidadNueva(nodo);
 	  		this->entidadGeneral = entidadGeneral;
 		}
 		if (nodo->getNombre() == "entidad_especializada") {
-	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
+	  		EntidadNueva *entidadNueva = new EntidadNueva(nodo);
 			this->agregarEntidadEspecializada(entidadNueva);
 		}
 		*nodo = nodo->getHermano();

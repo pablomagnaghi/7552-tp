@@ -103,7 +103,7 @@ void Relacion::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 			this->agregarEntidadRelacion(entidadRelacion);
 		}
 		if (nodo->getNombre() == "atributo") {
-	  		Atributo *atributo = new Atributo (nodo);
+	  		Atributo *atributo = new Atributo(nodo);
 			this->agregarAtributo(atributo);
 		}
 		*nodo = nodo->getHermano();

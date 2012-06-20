@@ -109,10 +109,11 @@ void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	// si son nulos los siguientes atributos, no poner
 	if (this->expresion.size())
 		nodo->setPropiedad("expresion",this->expresion);
-	if (this->cardinalidadMinima.size())
-		nodo->setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
-	if (this->cardinalidadMaxima.size())
-		nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
+	if (this->cardinalidadMinima.size() && this->cardinalidadMaxima.size())
+		if (this->cardinalidadMinima != CARDINALIDAD_MINIMA || this->cardinalidadMaxima != CARDINALIDAD_MINIMA) {
+			nodo->setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
+			nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
+		}
 }
 
 XmlNodo Atributo::guardarXmlCOMP() {

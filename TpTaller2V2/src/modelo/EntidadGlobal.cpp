@@ -53,9 +53,9 @@ void EntidadGlobal::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 void EntidadGlobal::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "relacion")	{
-			Relacion *relacion = new Relacion ();
-			relacion->setCodigo(nodo->getContenidoInt());
-			this->agregarRelacion(relacion);
+			//Relacion *relacion = new Relacion ();
+			//relacion->setCodigo(nodo->getContenidoInt());
+			//this->agregarRelacion(relacion);
 		}
 		*nodo = nodo->getHermano();
 	}
@@ -65,7 +65,6 @@ void EntidadGlobal::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	nodo->setPropiedad("diagrama_ancestro",this->diagramaAncestro);
 	nodo->setPropiedad("codigo_entidad_nueva", this->codigoEntidadNueva);
 }
-
 
 XmlNodo EntidadGlobal::guardarXmlCOMP() {
 	XmlNodo nodo("entidad_global");
