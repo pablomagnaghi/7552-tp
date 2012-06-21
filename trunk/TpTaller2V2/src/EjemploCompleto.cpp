@@ -66,6 +66,7 @@ EntidadNueva* crearEntidadNuevaB(){
 
 Jerarquia* crearJerarquia(EntidadNueva* entidadNuevaPapa, EntidadNueva* entidadNuevaA, EntidadNueva* entidadNuevaB){
 	Jerarquia* jerarquia = new Jerarquia();
+	jerarquia->setCodigo(GeneradorCodigo::siguienteCodigo());
 	jerarquia->setEntidadGeneral(entidadNuevaPapa);
 	jerarquia->agregarEntidadEspecializada(entidadNuevaA);
 	jerarquia->agregarEntidadEspecializada(entidadNuevaB);
