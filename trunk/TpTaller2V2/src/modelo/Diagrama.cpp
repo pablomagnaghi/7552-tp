@@ -294,27 +294,15 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 // PERSISTENCIA COMP
 
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
-void Diagrama::abrirCOMP(const std::string& path) {
-
-	this->diagramaValidoCOMP = false;
-
+void Diagrama::abrirXmlCOMP(const std::string& path) {
 	try {
 		// Abro el archivo
 		Xml docXml(path);
 		this->diagramaValidoCOMP = true;
 
 		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
-
 		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
-
-		// archivo listo para cargar el diagrama
-		// se cargan los componentes del doc.
-		this->obtenerPropiedadesXmlCOMP(nodoRaiz);
-
-		XmlNodo nodo = nodoRaiz->getHijo();
-
-		this->obtenerComponentesXmlCOMP(&nodo);
-		this->obtenerRelacionesIdentificadores();
+		this->cargarXmlCOMP(nodoRaiz);
 	}
 	catch ( XmlArchivoInexistenteExc* ex ) {
 		delete ex;
@@ -326,53 +314,48 @@ void Diagrama::abrirCOMP(const std::string& path) {
 	}
 }
 
+void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz) {
+	// archivo listo para cargar los componentes del diagrama
+	this->obtenerPropiedadesXmlCOMP(nodoRaiz);
+
+	XmlNodo nodo = nodoRaiz->getHijo();
+	this->obtenerRelacionesYJerarquiasXmlCOMP(&nodo);
+	nodo = nodoRaiz->getHijo();
+	this->obtenerRestoDeComponentesXmlCOMP(&nodo);
+}
+
 void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->nombre = nodo->getPropiedad("nombre");
 }
 
-void Diagrama::obtenerRelacionesIdentificadores() {
-	/*std::vector<EntidadNueva*>::iterator it = this->entidadesNuevas.begin();
-
-	while (it != this->entidadesNuevas.end()) {
-		std::vector<int>::iterator itIden = (*it)->codigoIdentificadorBegin();
-		while (itIden != (*it)->codigoIdentificadorEnd()) {
-			std::vector<Relacion*>::iterator itRel = this->relaciones.begin();
-
-			while (itRel != this->relaciones.end()) {
-				if ((*itRel)->getCodigo() == (*itIden))
-					(*it)->
-				itRel++;
-			}
-			itIden++;
-		}
-		it++;
-	}*/
-
-
-}
-
-void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
+void Diagrama::obtenerRelacionesYJerarquiasXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
-		if (nodo->getNombre() == "diagrama_ancestro") {
-			//Diagrama *diagramaAncestro = new Diagrama();
-	  		//diagramaAncestro->setNombre(nodo->getContenido());
-	  		//this->diagramaAncestro = diagramaAncestro;
-		}
-		if (nodo->getNombre() == "entidad_nueva") {
-	  		EntidadNueva *entidadNueva = new EntidadNueva (nodo);
-			this->agregarEntidadNueva(entidadNueva);
-		}
-		if (nodo->getNombre() == "entidad_global") {
-	  		//EntidadGlobal *entidadGlobal = new EntidadGlobal (nodo);
-			//this->agregarEntidadGlobal(entidadGlobal);
-		}
 		if (nodo->getNombre() == "relacion") {
-			//Relacion *relacion = new Relacion (nodo);
-			//this->agregarRelacion(relacion);
+			Relacion *relacion = new Relacion (nodo);
+			this->agregarRelacion(relacion);
 		}
 		if ( nodo->getNombre() == "jerarquia" )	{
-			//Jerarquia *jerarquia = new Jerarquia (nodo);
-			//this->agregarJerarquia(jerarquia);
+			Jerarquia *jerarquia = new Jerarquia (nodo);
+			this->agregarJerarquia(jerarquia);
+		}
+		*nodo = nodo->getHermano();
+	}
+}
+
+void Diagrama::obtenerRestoDeComponentesXmlCOMP(XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "diagrama_ancestro") {
+			Diagrama *diagramaAncestro = new Diagrama();
+	  		diagramaAncestro->setNombre(nodo->getContenido());
+	  		this->diagramaAncestro = diagramaAncestro;
+		}
+		if (nodo->getNombre() == "entidad_nueva") {
+	  		//EntidadNueva *entidadNueva = new EntidadNueva(nodo, this->relaciones, this->jerarquias);
+			//this->agregarEntidadNueva(entidadNueva);
+		}
+		if (nodo->getNombre() == "entidad_global") {
+	  		//EntidadGlobal *entidadGlobal = new EntidadGlobal(nodo, this->relaciones);
+			//this->agregarEntidadGlobal(entidadGlobal);
 		}
 		*nodo = nodo->getHermano();
 	}
@@ -430,7 +413,6 @@ XmlNodo Diagrama::guardarXmlCOMP() {
 
 	this->guardarEntidadesNuevasXmlCOMP(&nodo);
 	this->guardarEntidadesGlobalesXmlCOMP(&nodo);
-
 	this->guardarRelacionesXmlCOMP(&nodo);
 	this->guardarJerarquiasXmlCOMP(&nodo);
 
@@ -439,13 +421,13 @@ XmlNodo Diagrama::guardarXmlCOMP() {
 
 // Devuelve true si se logró abrir y cargar el documento.
 
-bool Diagrama::isOpenCOMP() const {
+bool Diagrama::isOpenXmlCOMP() const {
 	return this->diagramaValidoCOMP;
 }
 
 // Guarda el Diagrama
 
-void Diagrama::guardarDiagramaCOMP(const std::string& path) {
+void Diagrama::guardarDiagramaXmlCOMP(const std::string& path) {
 	Xml docXml;
 	docXml.nuevoDoc();
 	XmlNodo nodoDoc = this->guardarXmlCOMP();

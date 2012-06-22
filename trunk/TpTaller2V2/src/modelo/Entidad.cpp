@@ -50,6 +50,18 @@ void Entidad::setEsDebil(bool esDebil){
 }
 
 // PERSISTENCIA COMP
+Relacion* Entidad::obtenerRelacion(int codigo) {
+	Relacion* relacion = NULL;
+	std::vector<Relacion*>::iterator it = this->relaciones.begin();
+	while (it != this->relaciones.end()) {
+		if ((*it)->getCodigo() == codigo){
+			relacion = *it;
+		}
+		it++;
+	}
+	return relacion;
+}
+
 void Entidad::guardarRelacionesXmlCOMP(XmlNodo *nodo) {
 	std::vector<Relacion*>::iterator i;
 

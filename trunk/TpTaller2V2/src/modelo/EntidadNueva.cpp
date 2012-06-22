@@ -136,43 +136,25 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
 }
 
 // PERSISTENCIA COMP
-
-EntidadNueva::EntidadNueva(XmlNodo* nodo) {
+/*
+EntidadNueva::EntidadNueva(XmlNodo* nodo, const std::vector<Relacion*>&, const std::vector<Jerarquia*>&) {
 
 	this->obtenerPropiedadesXmlCOMP(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
 	this->obtenerComponentesXmlCOMP(&nodoAux);
-}
-
-Atributo* EntidadNueva::obtenerAtributo(int codigo) {
-	std::vector<Atributo*>::iterator it = this->atributos.begin();
-	while ( it != this->atributos.end() ) {
-		if ((*it)->getCodigo() == codigo)
-			return (*it);
-		it++;
-	}
-	return NULL;
-}
-
-std::vector<int>::iterator EntidadNueva::codigoIdentificadorBegin() {
-	return this->codigoIdentificador.begin();
-}
-
-std::vector<int>::iterator EntidadNueva::codigoIdentificadorEnd() {
-	return this->codigoIdentificador.end();
-}
+}*/
 
 void EntidadNueva::obtenerComponentesIdentificadorXmlCOMP(Identificador* identificador, XmlNodo* nodo) {
 	XmlNodo nodoAux = nodo->getHijo();
 
 	while (nodoAux.esValido()) {
 		if (nodoAux.getNombre() == "atributo") {
-			identificador->agregarAtributo((this->obtenerAtributo(nodoAux.getContenidoInt())));
+			identificador->agregarAtributo(this->getAtributoByCodigo(nodoAux.getContenidoInt()));
 		}
 		if (nodoAux.getNombre() == "relacion")	{
-			this->codigoIdentificador.push_back((nodoAux.getContenidoInt()));
+			//this->codigoIdentificador.push_back((nodoAux.getContenidoInt()));
 		}
 		nodoAux = nodoAux.getHermano();
 	}

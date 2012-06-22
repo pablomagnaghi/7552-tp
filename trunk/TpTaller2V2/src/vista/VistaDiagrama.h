@@ -8,7 +8,7 @@
 #ifndef VISTADIAGRAMA_H_
 #define VISTADIAGRAMA_H_
 
-#define DEBUG 1
+//#define DEBUG 1
 
 #include "../modelo/Diagrama.h"
 #include <list>

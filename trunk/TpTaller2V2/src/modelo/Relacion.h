@@ -30,14 +30,14 @@ private:
 
 	// PERSISTENCIA COMP
 	void obtenerComponentesXmlCOMP(XmlNodo*);
-	void guardarEntidadesRelacionesXmlCOMP(XmlNodo *nodo);
-	void guardarAtributosXmlCOMP(XmlNodo *nodo);
+	void guardarEntidadesRelacionesXmlCOMP(XmlNodo*);
+	void guardarAtributosXmlCOMP(XmlNodo*);
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlCOMP(XmlNodo* nodo);
-	virtual void obtenerPropiedadesXmlCOMP(XmlNodo* nodo);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 
@@ -45,7 +45,7 @@ public:
 	virtual ~Relacion();
 
 	std::string getTipo() const;
-	void setTipo(const std::string tipo);
+	void setTipo(const std::string&);
 
 	void agregarEntidadRelacion(EntidadRelacion*);
 	void quitarEntidadRelacion(EntidadRelacion*);

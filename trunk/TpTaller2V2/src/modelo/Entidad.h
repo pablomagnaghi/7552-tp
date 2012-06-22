@@ -24,6 +24,7 @@ protected:
 
 	// PERSISTENCIA COMP
 	void guardarRelacionesXmlCOMP(XmlNodo*);
+	Relacion* obtenerRelacion(int);
 
 public:
 	Entidad();
@@ -37,7 +38,7 @@ public:
 
 	Relacion* getRelacionByCodigo(int);
 
-	void setEsDebil(bool esDebil);
+	void setEsDebil(bool);
 
 	void agregarAtributo(Atributo*);
 	void quitarAtributo(Atributo*);

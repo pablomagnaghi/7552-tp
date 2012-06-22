@@ -155,7 +155,7 @@ VistaComponente::VistaComponente(XmlNodo* nodo) {
 }
 
 void VistaComponente::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
-	this->codigo = nodo->getPropiedadInt("codigo");
+	//this->codigo = nodo->getPropiedadInt("codigo");
 }
 
 void VistaComponente::obtenerComponentesXmlREP (XmlNodo* nodo) {
@@ -178,7 +178,7 @@ void VistaComponente::obtenerComponentesXmlREP (XmlNodo* nodo) {
 }
 
 void VistaComponente::agregarPropiedadesXmlREP(XmlNodo* nodo) {
-	nodo->setPropiedad("codigo",this->codigo);
+	//nodo->setPropiedad("codigo",this->codigo);
 }
 
 XmlNodo VistaComponente::guardarXmlREP() {

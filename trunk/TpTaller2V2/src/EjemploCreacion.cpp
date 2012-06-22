@@ -79,12 +79,12 @@ void agregarRelacionAEntidadB(EntidadNueva* entidadB, Diagrama* diagrama){
 
 void agregarEntidadesARelacion(Relacion* relacion, Diagrama* diagrama){
 	EntidadRelacion* erEntidadA = new EntidadRelacion();
-	erEntidadA->setEntidad(diagrama->getEntidadByCodigo(1)); // Carga la entidadA
+	erEntidadA->setCodigoEntidad(diagrama->getEntidadByCodigo(1)->getCodigo()); // Carga la entidadA
 	erEntidadA->setCardinalidadMaxima("n");
 	relacion->agregarEntidadRelacion(erEntidadA);
 
 	EntidadRelacion* erEntidadB = new EntidadRelacion();
-	erEntidadB->setEntidad(diagrama->getEntidadByCodigo(3)); // Carga la entidadB
+	erEntidadB->setCodigoEntidad(diagrama->getEntidadByCodigo(3)->getCodigo()); // Carga la entidadB
 	relacion->agregarEntidadRelacion(erEntidadB);
 }
 
@@ -94,34 +94,37 @@ int main4(int argc, char* argv[]){
 	
 	// 1ra pasada
 
-		// Primero creo dos entidades, sin identificadores, solo con sus atributos
-		EntidadNueva* entidadA = crearEntidadA();
-		EntidadNueva* entidadB = crearEntidadB();
-		diagrama->agregarEntidadNueva(entidadA);
-		diagrama->agregarEntidadNueva(entidadB);
+	// Primero creo dos entidades, sin identificadores, solo con sus atributos
+	EntidadNueva* entidadA = crearEntidadA();
+	EntidadNueva* entidadB = crearEntidadB();
+	diagrama->agregarEntidadNueva(entidadA);
+	diagrama->agregarEntidadNueva(entidadB);
 
-		// Creo la relacion vacia y la agrego al mapa
-		Relacion* relacion = crearRelacion();
-		diagrama->agregarRelacion(relacion);
-
+	// Creo la relacion vacia y la agrego al mapa
+	Relacion* relacion = crearRelacion();
+	diagrama->agregarRelacion(relacion);
 
 	// 2da pasada, se usan los componentes que se cargaron en diagrama
 
-		// Cargo los identificadores en cada entidad
-		cargarIdentificadoresEntidadA(entidadA, diagrama);
-		cargarIdentificadoresEntidadB(entidadB);
+	// Cargo los identificadores en cada entidad
+	cargarIdentificadoresEntidadA(entidadA, diagrama);
+	cargarIdentificadoresEntidadB(entidadB);
 
-		// Agrego la relacion a las entidades
-		agregarRelacionAEntidadA(entidadA, diagrama);
-		agregarRelacionAEntidadB(entidadB, diagrama);
+	// Agrego la relacion a las entidades
+	agregarRelacionAEntidadA(entidadA, diagrama);
+	agregarRelacionAEntidadB(entidadB, diagrama);
 
-		// Agrego las entidades a la relacion
-		agregarEntidadesARelacion(relacion, diagrama);
+	// Agrego las entidades a la relacion
+	agregarEntidadesARelacion(relacion, diagrama);
 
+	diagrama->guardarDiagramaXmlCOMP("PruebaCompleta");
+	std::cout << "Archivo CREADO" << std::endl;
 	delete entidadA;
 	delete entidadB;
 	delete relacion;
 	GeneradorCodigo::destruir();
+
+	std::cout << "Archivo CREADO" << std::endl;
 
 	return 0;
 }

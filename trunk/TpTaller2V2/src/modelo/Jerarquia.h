@@ -18,8 +18,8 @@ class EntidadNueva;
 class Jerarquia : public Componente {
 
 private:
-	EntidadNueva* entidadGeneral;
-	std::vector<EntidadNueva*> entidadesEspecializadas;
+	int codigoEntidadGeneral;
+	std::vector<int> codigosEntidadesEspecializadas;
 	std::string cobertura;
 	std::string interseccion;
 
@@ -27,31 +27,33 @@ private:
 
 	// PERSISTENCIA COMP
 	void obtenerComponentesXmlCOMP(XmlNodo*);
+	void agregarCodigoEntidadGeneralXmlCOMP(XmlNodo*);
+	void agregarCodigosEntidadEspecializadasXmlCOMP(XmlNodo*);
 
 protected:
 	// PERSITENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlCOMP(XmlNodo* nodo);
-	virtual void obtenerPropiedadesXmlCOMP(XmlNodo* nodo);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 	Jerarquia();
 	virtual ~Jerarquia();
 
-	EntidadNueva* getEntidadGeneral() const;
-	void setEntidadGeneral(EntidadNueva*);
+	int getCodigoEntidadGeneral() const;
+	void setCodigoEntidadGeneral(int);
 
-	void agregarEntidadEspecializada(EntidadNueva*);
-	void quitarEntidadEspecializada(EntidadNueva*);
+	void agregarCodigoEntidadEspecializada(int);
+	void quitarCodigoEntidadEspecializada(int);
 
 	std::string getCobertura() const;
-	void setCobertura(const std::string);
+	void setCobertura(const std::string&);
 
 	std::string getInterseccion() const;
-	void setInterseccion(const std::string);
+	void setInterseccion(const std::string&);
 
-	std::vector<EntidadNueva*>::iterator entidadesEspecializadasBegin();
-	std::vector<EntidadNueva*>::iterator entidadesEspecializadasEnd();
+	std::vector<int>::iterator codigosEntidadesEspecializadasBegin();
+	std::vector<int>::iterator codigosEntidadesEspecializadasEnd();
 
 	// PERSISTENCIA COMP
 	Jerarquia(XmlNodo*);

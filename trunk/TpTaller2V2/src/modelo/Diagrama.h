@@ -44,18 +44,19 @@ private:
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
-	void obtenerComponentesXmlCOMP(XmlNodo *nodo);
+	void obtenerRelacionesYJerarquiasXmlCOMP(XmlNodo*);
+	void obtenerRestoDeComponentesXmlCOMP(XmlNodo*);
 
-	void agregarNodoDiagramaAncestroXmlCOMP(XmlNodo *nodo);
+	void agregarNodoDiagramaAncestroXmlCOMP(XmlNodo*);
 
-	void guardarEntidadesNuevasXmlCOMP(XmlNodo *nodo);
-	void guardarEntidadesGlobalesXmlCOMP(XmlNodo *nodo);
-	void guardarRelacionesXmlCOMP(XmlNodo *nodo);
-	void guardarJerarquiasXmlCOMP(XmlNodo *nodo);
+	void guardarEntidadesNuevasXmlCOMP(XmlNodo*);
+	void guardarEntidadesGlobalesXmlCOMP(XmlNodo*);
+	void guardarRelacionesXmlCOMP(XmlNodo*);
+	void guardarJerarquiasXmlCOMP(XmlNodo*);
 
+	void cargarXmlCOMP(XmlNodo*);
 	XmlNodo guardarXmlCOMP();
 
-	void obtenerRelacionesIdentificadores();
 
 protected:
 	// Persistencia REP
@@ -64,7 +65,7 @@ protected:
 public:
 
 	Diagrama();
-	Diagrama(const std::string nombre);
+	Diagrama(const std::string);
 	virtual ~Diagrama();
 
 	void setNombre(const std::string);
@@ -118,9 +119,9 @@ public:
 
 
 	// PERSITENCIA COMP
-	void abrirCOMP(const std::string& path);
-	bool isOpenCOMP() const;
-	void guardarDiagramaCOMP(const std::string& path);
+	void abrirXmlCOMP(const std::string&);
+	bool isOpenXmlCOMP() const;
+	void guardarDiagramaXmlCOMP(const std::string&);
 };
 
 #endif /* DIAGRAMA_H_ */

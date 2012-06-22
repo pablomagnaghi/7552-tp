@@ -22,11 +22,11 @@ protected:
 public:
 
 	Proyecto();
-	Proyecto(std::string nombre);
+	Proyecto(const std::string&);
 	virtual ~Proyecto();
 
-	std::string getNombre();
-	void setNombre(std::string);
+	std::string getNombre() const;
+	void setNombre(const std::string&);
 
 	virtual Diagrama* getDiagramaPrincipal();
 	virtual void setDiagramaPrincipal(Diagrama*);

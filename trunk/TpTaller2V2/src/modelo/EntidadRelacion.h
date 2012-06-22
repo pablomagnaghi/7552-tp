@@ -17,12 +17,10 @@
 // una Entidad a su cardinalidad y a su rol.
 // En el xsd aparece como "tipo_entidad_cardinalidad"
 
-class Entidad;
-
 class EntidadRelacion {
 
 private:
-	Entidad *entidad;
+	int codigoEntidad;
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
 	std::string rol;
@@ -33,17 +31,17 @@ public:
 	EntidadRelacion();
 	virtual ~EntidadRelacion();
 
-	Entidad* getEntidad() const;
-	void setEntidad(Entidad* entidad);
+	int getCodigoEntidad() const;
+	void setCodigoEntidad(int);
 
 	std::string getCardinalidadMinima() const;
-	void setCardinalidadMinima(const std::string cardinalidadMinima);
+	void setCardinalidadMinima(const std::string&);
 
 	std::string getCardinalidadMaxima() const;
-	void setCardinalidadMaxima(const std::string cardinalidadMaxima);
+	void setCardinalidadMaxima(const std::string&);
 
 	std::string getRol() const;
-	void setRol(const std::string rol);
+	void setRol(const std::string&);
 
 	// PERSISTENCIA COMP
 	EntidadRelacion(XmlNodo*);
