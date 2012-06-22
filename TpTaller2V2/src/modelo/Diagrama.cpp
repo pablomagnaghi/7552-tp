@@ -336,18 +336,22 @@ void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 		if (nodo->getNombre() == "entidad_nueva") {
 	  		EntidadNueva *entidadNueva = new EntidadNueva(nodo);
 			this->agregarEntidadNueva(entidadNueva);
+			this->agregarComponente(entidadNueva);
 		}
 		if (nodo->getNombre() == "entidad_global") {
 	  		EntidadGlobal *entidadGlobal = new EntidadGlobal(nodo);
 			this->agregarEntidadGlobal(entidadGlobal);
+			this->agregarComponente(entidadGlobal);
 		}
 		if (nodo->getNombre() == "relacion") {
 			Relacion *relacion = new Relacion (nodo);
 			this->agregarRelacion(relacion);
+			this->agregarComponente(relacion);
 		}
 		if ( nodo->getNombre() == "jerarquia" )	{
 			Jerarquia *jerarquia = new Jerarquia (nodo);
 			this->agregarJerarquia(jerarquia);
+			this->agregarComponente(jerarquia);
 		}
 		*nodo = nodo->getHermano();
 	}

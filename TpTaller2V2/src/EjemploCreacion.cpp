@@ -54,7 +54,7 @@ void cargarIdentificadoresEntidadA(EntidadNueva* entidadA, Diagrama* diagrama){
 	Relacion* relacion = diagrama->getRelacionByCodigo(5);
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(atributoA);
+	id->agregarCodigoAtributo(atributoA->getCodigo());
 	id->agregarCodigoRelacion(relacion->getCodigo());
 	entidadA->agregarIdentificador(id);
 }
@@ -63,7 +63,7 @@ void cargarIdentificadoresEntidadB(EntidadNueva* entidadB){
 	Atributo* atributoB = entidadB->getAtributoByCodigo(4);
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(atributoB);
+	id->agregarCodigoAtributo(atributoB->getCodigo());
 	entidadB->agregarIdentificador(id);
 }
 

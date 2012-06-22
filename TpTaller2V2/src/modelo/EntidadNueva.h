@@ -31,9 +31,13 @@ private:
 	void guardarIdentificadoresXmlCOMP(XmlNodo*);
 	void guardarJerarquiasXmlCOMP(XmlNodo*);
 
+	void guardarAtributosIdentificadorXmlCOMP(XmlNodo*, Identificador*);
+	void guardarRelacionesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
+	XmlNodo guardarIdentificadorXmlCOMP();
+
 	// Agrega los atributos y relaciones a los vectores de
 	// atributos y relaciones del identificador
-	void obtenerComponentesIdentificadorXmlCOMP(Identificador*, XmlNodo*);
+	void obtenerComponentesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
 	Atributo* obtenerAtributo(int codigo);
 
 protected:
