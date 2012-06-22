@@ -44,10 +44,6 @@ private:
 	void obtenerComponentesIdentificadorXmlCOMP(Identificador*, XmlNodo*);
 	Atributo* obtenerAtributo(int codigo);
 
-	std::vector<int> codigoIdentificador;
-
-
-
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
@@ -60,7 +56,7 @@ public:
 	virtual ~EntidadNueva();
 
 	std::string getTipo() const;
-	void setTipo(const std::string& tipo);
+	void setTipo(const std::string&);
 
 	void agregarAtributo(Atributo*);
 	void quitarAtributo(Atributo*);
@@ -80,13 +76,10 @@ public:
 	std::vector<Identificador*>::iterator identificadoresBegin();
 	std::vector<Identificador*>::iterator identificadoresEnd();
 
-	std::vector<int>::iterator codigoIdentificadorBegin();	// Persistencia
-	std::vector<int>::iterator codigoIdentificadorEnd();	// Persistencia
-
 	Atributo* getAtributoByCodigo(int);
 
 	// PERSISTENCIA COMP
-	EntidadNueva(XmlNodo* nodo);
+	//EntidadNueva(XmlNodo*, const std::vector<Jerarquia*>&);
 	XmlNodo guardarXmlCOMP();
 };
 

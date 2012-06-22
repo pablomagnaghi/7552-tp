@@ -21,7 +21,7 @@ private:
 	int codigoEntidadNueva; // Codigo de la EntidadNueva en el diagrama ancestro.
 
 	// PERSITENCIA COMP
-	void obtenerComponentesXmlCOMP(XmlNodo* nodo);
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
 protected:
 	// PERSISTENCIA COMP
@@ -35,14 +35,14 @@ public:
 
 	virtual ~EntidadGlobal();
 
-	void setDiagramaAncestro(const std::string);
+	void setDiagramaAncestro(const std::string&);
 	std::string getDiagramaAncestro() const;
 
 	void setCodigoEntidadNueva(int);
 	int getCodigoEntidadNueva() const;
 
 	// PERSISTENCIA COMP
-	EntidadGlobal(XmlNodo* nodo);
+	//EntidadGlobal(XmlNodo*, const std::vector<Relacion*>&);
 	XmlNodo guardarXmlCOMP();
 };
 

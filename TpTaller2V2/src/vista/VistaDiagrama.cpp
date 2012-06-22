@@ -46,7 +46,7 @@ VistaDiagrama::~VistaDiagrama() {
 }
 
 void VistaDiagrama::test_cargar_componentes_visuales() {
-	VistaComponente * componenteNuevo;
+	//VistaComponente * componenteNuevo;
 	VistaEntidad * entidadDebil;
 	VistaEntidad * entidad;
 	VistaRelacion * relacion;

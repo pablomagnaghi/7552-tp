@@ -13,9 +13,6 @@
 #include "Componente.h"
 #include "ConstantesModelo.h"
 
-// Persistencia
-#include "persistencia/Persistencia.h"
-
 class Atributo : public Componente {
 
 private:
@@ -30,12 +27,13 @@ private:
 
 	// PERSISTENCIA COMP
 	void obtenerComponentesXmlCOMP(XmlNodo*);
+	void guardarAtributosDerivablesXmlCOMP(XmlNodo*);
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlCOMP(XmlNodo* nodo);
-	virtual void obtenerPropiedadesXmlCOMP(XmlNodo* nodo);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 	Atributo();

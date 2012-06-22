@@ -9,28 +9,26 @@
 EntidadRelacion::EntidadRelacion() :
 	cardinalidadMinima ("1"),
 	cardinalidadMaxima ("1"){
-	this->entidadGuardada = false;
+
 }
 
 EntidadRelacion::~EntidadRelacion() {
-	if (this->entidad)
-		delete this->entidad;
+
 }
 
-Entidad* EntidadRelacion::getEntidad() const {
-	return this->entidad;
+int EntidadRelacion::getCodigoEntidad() const {
+	return this->codigoEntidad;
 }
 
-void EntidadRelacion::setEntidad(Entidad* entidad) {
-	this->entidad = entidad;
-	this->entidadGuardada = true;
+void EntidadRelacion::setCodigoEntidad(int codigoEntidad) {
+	this->codigoEntidad = codigoEntidad;
 }
 
 std::string EntidadRelacion::getCardinalidadMinima() const {
 	return this->cardinalidadMinima;
 }
 
-void EntidadRelacion::setCardinalidadMinima(const std::string cardinalidadMinima) {
+void EntidadRelacion::setCardinalidadMinima(const std::string& cardinalidadMinima) {
 	this->cardinalidadMinima = cardinalidadMinima;
 }
 
@@ -38,7 +36,7 @@ std::string EntidadRelacion::getCardinalidadMaxima() const {
 	return this->cardinalidadMaxima;
 }
 
-void EntidadRelacion::setCardinalidadMaxima(const std::string cardinalidadMaxima) {
+void EntidadRelacion::setCardinalidadMaxima(const std::string& cardinalidadMaxima) {
 	this->cardinalidadMaxima = cardinalidadMaxima;
 }
 
@@ -46,16 +44,14 @@ std::string EntidadRelacion::getRol() const {
 	return this->rol;
 }
 
-void EntidadRelacion::setRol(const std::string rol) {
+void EntidadRelacion::setRol(const std::string& rol) {
 	this->rol = rol;
 }
 
 // PERSISTENCIA COMP
 
 EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
-	//Entidad *entidad = new Entidad();
-	//entidad->setCodigo(nodo->getPropiedadInt("entidad"));
-	//this->entidad = entidad;
+	this->codigoEntidad = nodo->getPropiedadInt("entidad");
 	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_minima");
 	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
 	this->rol = nodo->getPropiedad("rol");
@@ -64,9 +60,7 @@ EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
 XmlNodo EntidadRelacion::guardarXmlCOMP() {
 	XmlNodo nodo("entidad_relacion");
 
-	if (this->entidadGuardada)
-		nodo.setPropiedad("entidad",this->entidad->getCodigo());
-
+	nodo.setPropiedad("entidad",this->codigoEntidad);
 	nodo.setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
 	nodo.setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
 	if (this->rol.size())

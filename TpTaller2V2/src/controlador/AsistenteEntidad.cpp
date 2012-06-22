@@ -69,7 +69,7 @@ void AsistenteEntidad::enlazarWidgets() {
 }
 
 void AsistenteEntidad::on_botonAceptar_click() {
-	Gtk::Entry *entryPath = 0;
+	//Gtk::Entry *entryPath = 0;
 	//this->m_builder->get_widget("entryPath", entryPath);
 	this->entidad->setNombre(this->entryNombreEntidad->get_text());
 	this->entidad->setposini(20, 20);

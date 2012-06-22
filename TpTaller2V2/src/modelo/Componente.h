@@ -19,8 +19,8 @@ protected:
 
 	// PERSITENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	virtual void agregarPropiedadesXmlCOMP(XmlNodo* nodo);
-	virtual void obtenerPropiedadesXmlCOMP(XmlNodo* nodo);
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 

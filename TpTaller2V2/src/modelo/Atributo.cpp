@@ -106,7 +106,7 @@ void Atributo::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	Componente::agregarPropiedadesXmlCOMP(nodo);
 	nodo->setPropiedad("tipo",this->tipo);
-	// si son nulos los siguientes atributos, no poner
+	// si son nulos los siguientes atributos, no se ponen
 	if (this->expresion.size())
 		nodo->setPropiedad("expresion",this->expresion);
 	if (this->cardinalidadMinima.size() && this->cardinalidadMaxima.size())
@@ -116,15 +116,19 @@ void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 		}
 }
 
-XmlNodo Atributo::guardarXmlCOMP() {
-	XmlNodo nodo("atributo");
-
-	this->agregarPropiedadesXmlCOMP(&nodo);
+void Atributo::guardarAtributosDerivablesXmlCOMP(XmlNodo* nodo) {
 
 	std::vector<Atributo*>::iterator i;
 
 	for(i = this->atributosDerivables.begin(); i != this->atributosDerivables.end(); ++i)
-		nodo.agregarHijo((*i)->guardarXmlCOMP());
+		nodo->agregarHijo((*i)->guardarXmlCOMP());
+}
+
+XmlNodo Atributo::guardarXmlCOMP() {
+	XmlNodo nodo("atributo");
+
+	this->agregarPropiedadesXmlCOMP(&nodo);
+	this->guardarAtributosDerivablesXmlCOMP(&nodo);
 
 	return nodo;
 }

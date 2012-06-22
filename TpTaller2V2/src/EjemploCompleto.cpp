@@ -67,9 +67,9 @@ EntidadNueva* crearEntidadNuevaB(){
 Jerarquia* crearJerarquia(EntidadNueva* entidadNuevaPapa, EntidadNueva* entidadNuevaA, EntidadNueva* entidadNuevaB){
 	Jerarquia* jerarquia = new Jerarquia();
 	jerarquia->setCodigo(GeneradorCodigo::siguienteCodigo());
-	jerarquia->setEntidadGeneral(entidadNuevaPapa);
-	jerarquia->agregarEntidadEspecializada(entidadNuevaA);
-	jerarquia->agregarEntidadEspecializada(entidadNuevaB);
+	jerarquia->setCodigoEntidadGeneral(entidadNuevaPapa->getCodigo());
+	jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaA->getCodigo());
+	jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaB->getCodigo());
 	jerarquia->setCobertura(TIPO_COBERTURA_TOTAL);
 	jerarquia->setInterseccion(TIPO_INTERSECCION_EXCLUSIVA);
 
@@ -119,11 +119,11 @@ Relacion* crearRelacion1(EntidadGlobal* entidadGlobalA, EntidadNueva* entidadNue
 	entidadNuevaC->agregarRelacion(relacion1);
 
 	EntidadRelacion* erEntidadGlobalA = new EntidadRelacion();
-	erEntidadGlobalA->setEntidad(entidadGlobalA);
+	erEntidadGlobalA->setCodigoEntidad(entidadGlobalA->getCodigo());
 	relacion1->agregarEntidadRelacion(erEntidadGlobalA);
 
 	EntidadRelacion* erEntidadNuevaC = new EntidadRelacion();
-	erEntidadNuevaC->setEntidad(entidadNuevaC);
+	erEntidadNuevaC->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC->setCardinalidadMaxima("N");
 	relacion1->agregarEntidadRelacion(erEntidadNuevaC);
 
@@ -139,12 +139,12 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 	entidadNuevaC->agregarRelacion(relacion2);
 
 	EntidadRelacion* erEntidadNuevaC1 = new EntidadRelacion();
-	erEntidadNuevaC1->setEntidad(entidadNuevaC);
+	erEntidadNuevaC1->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC1->setCardinalidadMinima("0");
 	relacion2->agregarEntidadRelacion(erEntidadNuevaC1);
 
 	EntidadRelacion* erEntidadNuevaC2 = new EntidadRelacion();
-	erEntidadNuevaC2->setEntidad(entidadNuevaC);
+	erEntidadNuevaC2->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC2->setCardinalidadMinima("0");
 	erEntidadNuevaC2->setCardinalidadMaxima("N");
 	relacion2->agregarEntidadRelacion(erEntidadNuevaC2);
@@ -152,7 +152,7 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 	return relacion2;
 }
 
-int main7(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("Proyecto");
 
@@ -187,8 +187,10 @@ int main7(int argc, char* argv[]){
 	Relacion* relacion2 = crearRelacion2(entidadNuevaC);
 	diagramaHijo->agregarRelacion(relacion2);
 
-	diagramaPrincipal->guardarDiagramaCOMP("Prueba2-DiagramaPrincipal.xml");
-	diagramaHijo->guardarDiagramaCOMP("Prueba2-DiagramaHijo.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba2-DiagramaPrincipal.xml");
+	diagramaHijo->guardarDiagramaXmlCOMP("Prueba2-DiagramaHijo.xml");
+
+	std::cout << "OK" << std::endl;
 
 	delete proyecto;
 	GeneradorCodigo::destruir();

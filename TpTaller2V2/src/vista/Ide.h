@@ -14,7 +14,7 @@
 #include "../controlador/ControladorPanelHerramientas.h"
 using namespace std;
 
-#define DEBUG 1
+//#define DEBUG 1
 
 class Ide : public Gtk::Window {
 private:

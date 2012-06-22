@@ -11,7 +11,7 @@ Proyecto::Proyecto() {
 
 }
 
-Proyecto::Proyecto(std::string nombre)
+Proyecto::Proyecto(const std::string& nombre)
 	: nombre (nombre) {
 
 }
@@ -20,11 +20,11 @@ Proyecto::~Proyecto() {
 	delete this->diagramaPrincipal;
 }
 
-std::string Proyecto::getNombre(){
+std::string Proyecto::getNombre() const{
 	return this->nombre;
 }
 
-void Proyecto::setNombre(std::string nombre){
+void Proyecto::setNombre(const std::string& nombre){
 	this->nombre = nombre;
 }
 

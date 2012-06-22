@@ -18,7 +18,7 @@ std::string Relacion::getTipo() const {
 	return this->tipo;
 }
 
-void Relacion::setTipo(const std::string tipo) {
+void Relacion::setTipo(const std::string& tipo) {
 	this->tipo = tipo;
 }
 

@@ -158,12 +158,12 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 	localidad->agregarRelacion(sL);
 
 	EntidadRelacion* erSeccionSala = new EntidadRelacion();
-	erSeccionSala->setEntidad(seccionSala);
+	erSeccionSala->setCodigoEntidad(seccionSala->getCodigo());
 	erSeccionSala->setCardinalidadMaxima("n");
 	sL->agregarEntidadRelacion(erSeccionSala);
 
 	EntidadRelacion* erLocalidad = new EntidadRelacion();
-	erLocalidad->setEntidad(localidad);
+	erLocalidad->setCodigoEntidad(localidad->getCodigo());
 	sL->agregarEntidadRelacion(erLocalidad);
 
 	// Busco el atributo nroButaca de Localidad para crear el identificador que le falta
@@ -194,13 +194,13 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	obra->agregarRelacion(vtaLoc);
 
 	EntidadRelacion* erLocalidad = new EntidadRelacion();
-	erLocalidad->setEntidad(localidad);
+	erLocalidad->setCodigoEntidad(localidad->getCodigo());
 	erLocalidad->setCardinalidadMinima("0");
 	erLocalidad->setCardinalidadMaxima("n");
 	vtaLoc->agregarEntidadRelacion(erLocalidad);
 
 	EntidadRelacion* erObra = new EntidadRelacion();
-	erObra->setEntidad(obra);
+	erObra->setCodigoEntidad(obra->getCodigo());
 	erObra->setCardinalidadMinima("0");
 	erObra->setCardinalidadMaxima("n");
 	vtaLoc->agregarEntidadRelacion(erObra);
@@ -270,13 +270,13 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	funcion->agregarRelacion(fO);
 
 	EntidadRelacion* erObra = new EntidadRelacion();
-	erObra->setEntidad(obra);
+	erObra->setCodigoEntidad(obra->getCodigo());
 	erObra->setCardinalidadMinima("0");
 	erObra->setCardinalidadMaxima("n");
 	fO->agregarEntidadRelacion(erObra);
 
 	EntidadRelacion* erFuncion = new EntidadRelacion();
-	erFuncion->setEntidad(funcion);
+	erFuncion->setCodigoEntidad(funcion->getCodigo());
 	fO->agregarEntidadRelacion(erFuncion);
 
 	// Busco los atributos de Funcion para crear los identificadores que le faltan.
@@ -309,7 +309,7 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	return fO;
 }
 
-int main2(int argc, char* argv[]){
+int main5(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
@@ -342,7 +342,7 @@ int main2(int argc, char* argv[]){
 	// std::cout << XSI << std::endl;
 
 	// prueba persistencia
-	diagramaPrincipal->guardarDiagramaCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
 
 	std::cout << "Generacion del xml OK" << std::endl;
 
