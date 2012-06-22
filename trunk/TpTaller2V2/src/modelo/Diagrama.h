@@ -44,8 +44,7 @@ private:
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
-	void obtenerRelacionesYJerarquiasXmlCOMP(XmlNodo*);
-	void obtenerRestoDeComponentesXmlCOMP(XmlNodo*);
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
 	void agregarNodoDiagramaAncestroXmlCOMP(XmlNodo*);
 

@@ -12,13 +12,11 @@
 class GeneradorCodigo {
 
 private:
-
 	GeneradorCodigo();
 	static GeneradorCodigo* instance;
 	int codigo;
 
 public:
-
 	static GeneradorCodigo* getInstance();
 	static void destruir();
 	void setCodigo(int);

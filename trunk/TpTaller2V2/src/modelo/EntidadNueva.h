@@ -13,24 +13,16 @@
 #include "Identificador.h"
 #include "Jerarquia.h"
 
-// Persistencia
-#include "persistencia/Persistencia.h"
-
-class Jerarquia;
-
 class EntidadNueva : public Entidad {
 
 private:
-
 	std::string tipo;
 	std::vector<Atributo*> atributos;
-	std::vector<Jerarquia*> jerarquias;
+	std::vector<int> codigoJerarquias;
 	std::vector<Identificador*> identificadores;
 
 	void borrarAtributos();
 	void borrarIdentificadores();
-	void borrarJerarquias();
-	void borrarRelaciones();
 
 	// PERSITENCIA COMP
 	void obtenerComponentesXmlCOMP(XmlNodo*);
@@ -51,7 +43,6 @@ protected:
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
-
 	EntidadNueva();
 	virtual ~EntidadNueva();
 
@@ -61,8 +52,8 @@ public:
 	void agregarAtributo(Atributo*);
 	void quitarAtributo(Atributo*);
 
-	void agregarJerarquia(Jerarquia*);
-	void quitarJerarquia(Jerarquia*);
+	void agregarCodigoJerarquia(int);
+	void quitarCodigoJerarquia(int);
 
 	void agregarIdentificador(Identificador*);
 	void quitarIdentificador(Identificador*);
@@ -70,8 +61,8 @@ public:
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
 
-	std::vector<Jerarquia*>::iterator jerarquiasBegin();
-	std::vector<Jerarquia*>::iterator jerarquiasEnd();
+	std::vector<int>::iterator codigoJerarquiasBegin();
+	std::vector<int>::iterator codigoJerarquiasEnd();
 
 	std::vector<Identificador*>::iterator identificadoresBegin();
 	std::vector<Identificador*>::iterator identificadoresEnd();
@@ -79,7 +70,7 @@ public:
 	Atributo* getAtributoByCodigo(int);
 
 	// PERSISTENCIA COMP
-	//EntidadNueva(XmlNodo*, const std::vector<Jerarquia*>&);
+	EntidadNueva(XmlNodo*);
 	XmlNodo guardarXmlCOMP();
 };
 

@@ -13,36 +13,24 @@ Entidad::~Entidad() {
 
 }
 
-void Entidad::agregarRelacion(Relacion* relacion){
-	this->relaciones.push_back(relacion);
+void Entidad::agregarCodigoRelacion(int codigoRelacion){
+	this->codigoRelaciones.push_back(codigoRelacion);
 }
 
-void Entidad::quitarRelacion(Relacion* relacion){
-	std::vector<Relacion*>::iterator e;
-	e = find(this->relaciones.begin(), this->relaciones.end(), relacion);
-	if (*e == relacion){
-		this->relaciones.erase(e);
+void Entidad::quitarCodigoRelacion(int codigoRelacion){
+	std::vector<int>::iterator e;
+	e = find(this->codigoRelaciones.begin(), this->codigoRelaciones.end(), codigoRelacion);
+	if (*e == codigoRelacion){
+		this->codigoRelaciones.erase(e);
 	}
 }
 
-std::vector<Relacion*>::iterator Entidad::relacionesBegin(){
-	return this->relaciones.begin();
+std::vector<int>::iterator Entidad::codigoRelacionesBegin(){
+	return this->codigoRelaciones.begin();
 }
 
-std::vector<Relacion*>::iterator Entidad::relacionesEnd(){
-	return this->relaciones.end();
-}
-
-Relacion* Entidad::getRelacionByCodigo(int codigo){
-	Relacion* relacion = NULL;
-	std::vector<Relacion*>::iterator it = this->relaciones.begin();
-	while (it != this->relaciones.end()) {
-		if ((*it)->getCodigo() == codigo){
-			relacion = *it;
-		}
-		it++;
-	}
-	return relacion;
+std::vector<int>::iterator Entidad::codigoRelacionesEnd(){
+	return this->codigoRelaciones.end();
 }
 
 void Entidad::setEsDebil(bool esDebil){
@@ -50,24 +38,13 @@ void Entidad::setEsDebil(bool esDebil){
 }
 
 // PERSISTENCIA COMP
-Relacion* Entidad::obtenerRelacion(int codigo) {
-	Relacion* relacion = NULL;
-	std::vector<Relacion*>::iterator it = this->relaciones.begin();
-	while (it != this->relaciones.end()) {
-		if ((*it)->getCodigo() == codigo){
-			relacion = *it;
-		}
-		it++;
-	}
-	return relacion;
-}
 
 void Entidad::guardarRelacionesXmlCOMP(XmlNodo *nodo) {
-	std::vector<Relacion*>::iterator i;
+	std::vector<int>::iterator i;
 
-	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i) {
+	for(i = this->codigoRelaciones.begin(); i != this->codigoRelaciones.end(); ++i) {
 		XmlNodo nodoRelacion("relacion");
-		nodoRelacion.setContenido((*i)->getCodigo());
+		nodoRelacion.setContenido(*i);
 		nodo->agregarHijo(nodoRelacion);
 	}
 }

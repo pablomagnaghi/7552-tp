@@ -319,30 +319,14 @@ void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz) {
 	this->obtenerPropiedadesXmlCOMP(nodoRaiz);
 
 	XmlNodo nodo = nodoRaiz->getHijo();
-	this->obtenerRelacionesYJerarquiasXmlCOMP(&nodo);
-	nodo = nodoRaiz->getHijo();
-	this->obtenerRestoDeComponentesXmlCOMP(&nodo);
+	this->obtenerComponentesXmlCOMP(&nodo);
 }
 
 void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->nombre = nodo->getPropiedad("nombre");
 }
 
-void Diagrama::obtenerRelacionesYJerarquiasXmlCOMP(XmlNodo* nodo) {
-	while (nodo->esValido()) {
-		if (nodo->getNombre() == "relacion") {
-			Relacion *relacion = new Relacion (nodo);
-			this->agregarRelacion(relacion);
-		}
-		if ( nodo->getNombre() == "jerarquia" )	{
-			Jerarquia *jerarquia = new Jerarquia (nodo);
-			this->agregarJerarquia(jerarquia);
-		}
-		*nodo = nodo->getHermano();
-	}
-}
-
-void Diagrama::obtenerRestoDeComponentesXmlCOMP(XmlNodo* nodo) {
+void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "diagrama_ancestro") {
 			Diagrama *diagramaAncestro = new Diagrama();
@@ -350,12 +334,20 @@ void Diagrama::obtenerRestoDeComponentesXmlCOMP(XmlNodo* nodo) {
 	  		this->diagramaAncestro = diagramaAncestro;
 		}
 		if (nodo->getNombre() == "entidad_nueva") {
-	  		//EntidadNueva *entidadNueva = new EntidadNueva(nodo, this->relaciones, this->jerarquias);
-			//this->agregarEntidadNueva(entidadNueva);
+	  		EntidadNueva *entidadNueva = new EntidadNueva(nodo);
+			this->agregarEntidadNueva(entidadNueva);
 		}
 		if (nodo->getNombre() == "entidad_global") {
-	  		//EntidadGlobal *entidadGlobal = new EntidadGlobal(nodo, this->relaciones);
-			//this->agregarEntidadGlobal(entidadGlobal);
+	  		EntidadGlobal *entidadGlobal = new EntidadGlobal(nodo);
+			this->agregarEntidadGlobal(entidadGlobal);
+		}
+		if (nodo->getNombre() == "relacion") {
+			Relacion *relacion = new Relacion (nodo);
+			this->agregarRelacion(relacion);
+		}
+		if ( nodo->getNombre() == "jerarquia" )	{
+			Jerarquia *jerarquia = new Jerarquia (nodo);
+			this->agregarJerarquia(jerarquia);
 		}
 		*nodo = nodo->getHermano();
 	}
@@ -420,13 +412,11 @@ XmlNodo Diagrama::guardarXmlCOMP() {
 }
 
 // Devuelve true si se logró abrir y cargar el documento.
-
 bool Diagrama::isOpenXmlCOMP() const {
 	return this->diagramaValidoCOMP;
 }
 
 // Guarda el Diagrama
-
 void Diagrama::guardarDiagramaXmlCOMP(const std::string& path) {
 	Xml docXml;
 	docXml.nuevoDoc();

@@ -9,16 +9,13 @@
 #include <string>
 #include "Atributo.h"
 
-class Relacion;
-
 class Identificador {
 
 private:
 	std::vector<Atributo*> atributos;
-	std::vector<Relacion*> relaciones;
+	std::vector<int> codigoRelaciones;
 
 	void borrarAtributos();
-	void borrarRelaciones();
 
 	// PERSITENCIA COMP
 	void guardarAtributosXmlCOMP(XmlNodo*);
@@ -32,14 +29,14 @@ public:
 	void agregarAtributo(Atributo*);
 	void quitarAtributo(Atributo*);
 
-	void agregarRelacion(Relacion*);
-	void quitarRelacion(Relacion*);
+	void agregarCodigoRelacion(int);
+	void quitarCodigoRelacion(int);
 
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
 
-	std::vector<Relacion*>::iterator relacionesBegin();
-	std::vector<Relacion*>::iterator relacionesEnd();
+	std::vector<int>::iterator codigoRelacionesBegin();
+	std::vector<int>::iterator codigoRelacionesEnd();
 
 	// PERSISTENCIA DER
 	XmlNodo guardarXmlCOMP();

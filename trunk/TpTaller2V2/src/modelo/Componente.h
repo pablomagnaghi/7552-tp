@@ -13,7 +13,6 @@
 class Componente {
 
 protected:
-
 	int codigo;
 	std::string nombre;
 
@@ -23,7 +22,6 @@ protected:
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
-
 	virtual ~Componente();
 
 	int getCodigo() const;

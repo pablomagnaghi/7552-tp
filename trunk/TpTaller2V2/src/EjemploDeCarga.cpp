@@ -8,7 +8,7 @@
 #include "modelo/Modelo.h"
 #include <iostream>
 
-int main2(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
@@ -16,9 +16,19 @@ int main2(int argc, char* argv[]){
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	// prueba persistencia
-	diagramaPrincipal->abrirXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->abrirXmlCOMP("Prueba2-DiagramaPrincipal.xml");
 
-	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaDeCarga.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga2-DiagramaPrincipal.xml");
+
+	Diagrama* diagramaHijo = new Diagrama("Hijo");
+
+	diagramaHijo->abrirXmlCOMP("Prueba2-DiagramaHijo.xml");
+
+	diagramaHijo->guardarDiagramaXmlCOMP("PruebaCarga2-DiagramaHijo.xml");
+
+	diagramaPrincipal->agregarDiagramaHijo(diagramaHijo);
+
+	delete proyecto;
 
 	std::cout << "Apertura del xml OK" << std::endl;
 

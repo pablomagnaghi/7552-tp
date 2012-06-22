@@ -4,15 +4,13 @@
  */
 
 #include "Identificador.h"
-#include "Relacion.h"
 
 Identificador::Identificador() {
 
 }
 
 Identificador::~Identificador() {
-	this->borrarAtributos();
-	this->borrarRelaciones();
+
 }
 
 void Identificador::agregarAtributo(Atributo* atributo){
@@ -27,15 +25,15 @@ void Identificador::quitarAtributo(Atributo* atributo){
 	}
 }
 
-void Identificador::agregarRelacion(Relacion* relacion){
-	this->relaciones.push_back(relacion);
+void Identificador::agregarCodigoRelacion(int codigoRelacion){
+	this->codigoRelaciones.push_back(codigoRelacion);
 }
 
-void Identificador::quitarRelacion(Relacion* relacion){
-	std::vector<Relacion*>::iterator e;
-	e = find(this->relaciones.begin(), this->relaciones.end(), relacion);
-	if (*e == relacion){
-		this->relaciones.erase(e);
+void Identificador::quitarCodigoRelacion(int codigoRelacion){
+	std::vector<int>::iterator e;
+	e = find(this->codigoRelaciones.begin(), this->codigoRelaciones.end(), codigoRelacion);
+	if (*e == codigoRelacion){
+		this->codigoRelaciones.erase(e);
 	}
 }
 
@@ -47,12 +45,12 @@ std::vector<Atributo*>::iterator Identificador::atributosEnd(){
 	return this->atributos.end();
 }
 
-std::vector<Relacion*>::iterator Identificador::relacionesBegin(){
-	return this->relaciones.begin();
+std::vector<int>::iterator Identificador::codigoRelacionesBegin(){
+	return this->codigoRelaciones.begin();
 }
 
-std::vector<Relacion*>::iterator Identificador::relacionesEnd(){
-	return this->relaciones.end();
+std::vector<int>::iterator Identificador::codigoRelacionesEnd(){
+	return this->codigoRelaciones.end();
 }
 
 
@@ -63,15 +61,6 @@ void Identificador::borrarAtributos() {
 		it++;
 	}
 	this->atributos.clear();
-}
-
-void Identificador::borrarRelaciones() {
-	std::vector<Relacion*>::iterator it = this->relaciones.begin();
-	while ( it != this->relaciones.end() ) {
-		delete (*it);
-		it++;
-	}
-	this->relaciones.clear();
 }
 
 // PERSISTENCIA COMP
@@ -86,11 +75,11 @@ void Identificador::guardarAtributosXmlCOMP(XmlNodo *nodo) {
 }
 
 void Identificador::guardarRelacionesXmlCOMP(XmlNodo *nodo) {
-	std::vector<Relacion*>::iterator i;
+	std::vector<int>::iterator i;
 
-	for(i = this->relaciones.begin(); i != this->relaciones.end(); ++i) {
+	for(i = this->codigoRelaciones.begin(); i != this->codigoRelaciones.end(); ++i) {
 		XmlNodo nodoRelacion("relacion");
-		nodoRelacion.setContenido((*i)->getCodigo());
+		nodoRelacion.setContenido(*i);
 		nodo->agregarHijo(nodoRelacion);
 	}
 }
