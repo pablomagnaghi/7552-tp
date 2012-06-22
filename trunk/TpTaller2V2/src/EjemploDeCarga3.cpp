@@ -1,14 +1,14 @@
 /*
- * EjemploDeCarga.cpp
+ * EjemploDeCarga3.cpp
  *
- *  Created on: 18/06/2012
+ *  Created on: 22/06/2012
  *      Author: pablo
  */
 
 #include "modelo/Modelo.h"
 #include <iostream>
 
-int main5(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
@@ -16,9 +16,9 @@ int main5(int argc, char* argv[]){
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	// prueba persistencia
-	diagramaPrincipal->abrirXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->abrirXmlCOMP("Prueba3-EjemploCreacion.xml");
 
-	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga3-EjemploCreacion.xml");
 
 	delete proyecto;
 
