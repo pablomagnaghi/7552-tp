@@ -20,7 +20,7 @@ EntidadNueva* crearEntidadNuevaPapa(){
 	entidadNuevaPapa->agregarAtributo(idPapa);
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(idPapa);
+	id->agregarCodigoAtributo(idPapa->getCodigo());
 	entidadNuevaPapa->agregarIdentificador(id);
 
 	return entidadNuevaPapa;
@@ -39,7 +39,7 @@ EntidadNueva* crearEntidadNuevaA(){
 	entidadNuevaA->agregarAtributo(idA);
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(idA);
+	id->agregarCodigoAtributo(idA->getCodigo());
 	entidadNuevaA->agregarIdentificador(id);
 
 	return entidadNuevaA;
@@ -58,7 +58,7 @@ EntidadNueva* crearEntidadNuevaB(){
 	entidadNuevaB->agregarAtributo(idB);
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(idB);
+	id->agregarCodigoAtributo(idB->getCodigo());
 	entidadNuevaB->agregarIdentificador(id);
 
 	return entidadNuevaB;
@@ -103,7 +103,7 @@ EntidadNueva* crearEntidadNuevaC(){
 	entidadNuevaC->agregarAtributo(idC);
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(idC);
+	id->agregarCodigoAtributo(idC->getCodigo());
 	entidadNuevaC->agregarIdentificador(id);
 
 	return entidadNuevaC;

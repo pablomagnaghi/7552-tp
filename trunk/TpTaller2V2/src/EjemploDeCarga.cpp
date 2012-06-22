@@ -8,7 +8,7 @@
 #include "modelo/Modelo.h"
 #include <iostream>
 
-int main(int argc, char* argv[]){
+int main5(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 

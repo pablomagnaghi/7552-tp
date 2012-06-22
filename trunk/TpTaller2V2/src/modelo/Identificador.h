@@ -12,34 +12,24 @@
 class Identificador {
 
 private:
-	std::vector<Atributo*> atributos;
+	std::vector<int> codigoAtributos;
 	std::vector<int> codigoRelaciones;
 
-	void borrarAtributos();
-
-	// PERSITENCIA COMP
-	void guardarAtributosXmlCOMP(XmlNodo*);
-	void guardarRelacionesXmlCOMP(XmlNodo*);
-
 public:
-
 	Identificador();
 	virtual ~Identificador();
 
-	void agregarAtributo(Atributo*);
-	void quitarAtributo(Atributo*);
+	void agregarCodigoAtributo(int);
+	void quitarCodigoAtributo(int);
 
 	void agregarCodigoRelacion(int);
 	void quitarCodigoRelacion(int);
 
-	std::vector<Atributo*>::iterator atributosBegin();
-	std::vector<Atributo*>::iterator atributosEnd();
+	std::vector<int>::iterator codigoAtributosBegin();
+	std::vector<int>::iterator codigoAtributosEnd();
 
 	std::vector<int>::iterator codigoRelacionesBegin();
 	std::vector<int>::iterator codigoRelacionesEnd();
-
-	// PERSISTENCIA DER
-	XmlNodo guardarXmlCOMP();
 };
 
 #endif /* IDENTIFICADOR_H_ */

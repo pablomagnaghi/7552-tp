@@ -80,7 +80,6 @@ void Atributo::borrarAtributosDerivables() {
 Atributo::Atributo(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
 	XmlNodo nodoAux = nodo->getHijo();
-
 	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
 

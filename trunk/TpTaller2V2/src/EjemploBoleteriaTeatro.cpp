@@ -26,11 +26,11 @@ EntidadNueva* crearSeccionSala(){
 	seccionSala->agregarAtributo(nomSecc);
 
 	Identificador* idNroSecc = new Identificador();
-	idNroSecc->agregarAtributo(nroSecc);
+	idNroSecc->agregarCodigoAtributo(nroSecc->getCodigo());
 	seccionSala->agregarIdentificador(idNroSecc);
 
 	Identificador* idNomSecc = new Identificador();
-	idNomSecc->agregarAtributo(nomSecc);
+	idNomSecc->agregarCodigoAtributo(nomSecc->getCodigo());
 	seccionSala->agregarIdentificador(idNomSecc);
 
 	return seccionSala;
@@ -55,8 +55,8 @@ EntidadNueva* crearLocalidad(){
 	localidad->agregarAtributo(nroButaca);
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(fila);
-	id->agregarAtributo(nroButaca);
+	id->agregarCodigoAtributo(fila->getCodigo());
+	id->agregarCodigoAtributo(nroButaca->getCodigo());
 	localidad->agregarIdentificador(id);
 
 	// Le falta un identificador que se agrega despues, cuando se crea la relacion SL.
@@ -109,11 +109,11 @@ EntidadNueva* crearObra(){
 	obra->agregarAtributo(nroProxFunc);
 
 	Identificador* idIdObra = new Identificador();
-	idIdObra->agregarAtributo(idObra);
+	idIdObra->agregarCodigoAtributo(idObra->getCodigo());
 	obra->agregarIdentificador(idIdObra);
 
 	Identificador* idTitulo = new Identificador();
-	idTitulo->agregarAtributo(titulo);
+	idTitulo->agregarCodigoAtributo(titulo->getCodigo());
 	obra->agregarIdentificador(idTitulo);
 
 	return obra;
@@ -177,7 +177,7 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 	}
 
 	Identificador* id = new Identificador();
-	id->agregarAtributo(nroButaca);
+	id->agregarCodigoAtributo(nroButaca->getCodigo());
 	id->agregarCodigoRelacion(sL->getCodigo());
 	localidad->agregarIdentificador(id);
 
@@ -296,20 +296,20 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	}
 
 	Identificador* id1 = new Identificador();
-	id1->agregarAtributo(nroFunc);
+	id1->agregarCodigoAtributo(nroFunc->getCodigo());
 	id1->agregarCodigoRelacion(fO->getCodigo());
 	funcion->agregarIdentificador(id1);
 
 	Identificador* id2 = new Identificador();
-	id2->agregarAtributo(fecha);
-	id2->agregarAtributo(hora);
+	id2->agregarCodigoAtributo(fecha->getCodigo());
+	id2->agregarCodigoAtributo(hora->getCodigo());
 	id2->agregarCodigoRelacion(fO->getCodigo());
 	funcion->agregarIdentificador(id2);
 
 	return fO;
 }
 
-int main2(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
