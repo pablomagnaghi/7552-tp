@@ -73,9 +73,9 @@ Jerarquia* crearJerarquia(EntidadNueva* entidadNuevaPapa, EntidadNueva* entidadN
 	jerarquia->setCobertura(TIPO_COBERTURA_TOTAL);
 	jerarquia->setInterseccion(TIPO_INTERSECCION_EXCLUSIVA);
 
-	entidadNuevaPapa->agregarJerarquia(jerarquia);
-	entidadNuevaA->agregarJerarquia(jerarquia);
-	entidadNuevaB->agregarJerarquia(jerarquia);
+	entidadNuevaPapa->agregarCodigoJerarquia(jerarquia->getCodigo());
+	entidadNuevaA->agregarCodigoJerarquia(jerarquia->getCodigo());
+	entidadNuevaB->agregarCodigoJerarquia(jerarquia->getCodigo());
 
 	return jerarquia;
 }
@@ -115,8 +115,8 @@ Relacion* crearRelacion1(EntidadGlobal* entidadGlobalA, EntidadNueva* entidadNue
 	relacion1->setCodigo(GeneradorCodigo::siguienteCodigo());
 	relacion1->setTipo(TIPO_RELACION_ASOCIACION);
 
-	entidadGlobalA->agregarRelacion(relacion1);
-	entidadNuevaC->agregarRelacion(relacion1);
+	entidadGlobalA->agregarCodigoRelacion(relacion1->getCodigo());
+	entidadNuevaC->agregarCodigoRelacion(relacion1->getCodigo());
 
 	EntidadRelacion* erEntidadGlobalA = new EntidadRelacion();
 	erEntidadGlobalA->setCodigoEntidad(entidadGlobalA->getCodigo());
@@ -136,7 +136,7 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 	relacion2->setCodigo(GeneradorCodigo::siguienteCodigo());
 	relacion2->setTipo(TIPO_RELACION_COMPOSICION);
 
-	entidadNuevaC->agregarRelacion(relacion2);
+	entidadNuevaC->agregarCodigoRelacion(relacion2->getCodigo());
 
 	EntidadRelacion* erEntidadNuevaC1 = new EntidadRelacion();
 	erEntidadNuevaC1->setCodigoEntidad(entidadNuevaC->getCodigo());
@@ -152,7 +152,7 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 	return relacion2;
 }
 
-int main(int argc, char* argv[]){
+int main3(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("Proyecto");
 

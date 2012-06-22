@@ -154,8 +154,8 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 	sL->setCodigo(GeneradorCodigo::siguienteCodigo());
 	sL->setTipo(TIPO_RELACION_ASOCIACION);
 
-	seccionSala->agregarRelacion(sL);
-	localidad->agregarRelacion(sL);
+	seccionSala->agregarCodigoRelacion(sL->getCodigo());
+	localidad->agregarCodigoRelacion(sL->getCodigo());
 
 	EntidadRelacion* erSeccionSala = new EntidadRelacion();
 	erSeccionSala->setCodigoEntidad(seccionSala->getCodigo());
@@ -178,7 +178,7 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 
 	Identificador* id = new Identificador();
 	id->agregarAtributo(nroButaca);
-	id->agregarRelacion(sL);
+	id->agregarCodigoRelacion(sL->getCodigo());
 	localidad->agregarIdentificador(id);
 
 	return sL;
@@ -190,8 +190,8 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	vtaLoc->setCodigo(GeneradorCodigo::siguienteCodigo());
 	vtaLoc->setTipo(TIPO_RELACION_ASOCIACION);
 
-	localidad->agregarRelacion(vtaLoc);
-	obra->agregarRelacion(vtaLoc);
+	localidad->agregarCodigoRelacion(vtaLoc->getCodigo());
+	obra->agregarCodigoRelacion(vtaLoc->getCodigo());
 
 	EntidadRelacion* erLocalidad = new EntidadRelacion();
 	erLocalidad->setCodigoEntidad(localidad->getCodigo());
@@ -266,8 +266,8 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	fO->setCodigo(GeneradorCodigo::siguienteCodigo());
 	fO->setTipo(TIPO_RELACION_ASOCIACION);
 
-	obra->agregarRelacion(fO);
-	funcion->agregarRelacion(fO);
+	obra->agregarCodigoRelacion(fO->getCodigo());
+	funcion->agregarCodigoRelacion(fO->getCodigo());
 
 	EntidadRelacion* erObra = new EntidadRelacion();
 	erObra->setCodigoEntidad(obra->getCodigo());
@@ -297,19 +297,19 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 
 	Identificador* id1 = new Identificador();
 	id1->agregarAtributo(nroFunc);
-	id1->agregarRelacion(fO);
+	id1->agregarCodigoRelacion(fO->getCodigo());
 	funcion->agregarIdentificador(id1);
 
 	Identificador* id2 = new Identificador();
 	id2->agregarAtributo(fecha);
 	id2->agregarAtributo(hora);
-	id2->agregarRelacion(fO);
+	id2->agregarCodigoRelacion(fO->getCodigo());
 	funcion->agregarIdentificador(id2);
 
 	return fO;
 }
 
-int main5(int argc, char* argv[]){
+int main2(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 

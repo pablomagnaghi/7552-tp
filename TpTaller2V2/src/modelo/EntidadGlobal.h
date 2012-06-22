@@ -10,13 +10,9 @@
 #include <string>
 #include "Entidad.h"
 
-// Persistencia
-#include "persistencia/Persistencia.h"
-
 class EntidadGlobal : public Entidad {
 
 private:
-
 	std::string diagramaAncestro;
 	int codigoEntidadNueva; // Codigo de la EntidadNueva en el diagrama ancestro.
 
@@ -30,7 +26,6 @@ protected:
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
-
 	EntidadGlobal();
 
 	virtual ~EntidadGlobal();
@@ -42,7 +37,7 @@ public:
 	int getCodigoEntidadNueva() const;
 
 	// PERSISTENCIA COMP
-	//EntidadGlobal(XmlNodo*, const std::vector<Relacion*>&);
+	EntidadGlobal(XmlNodo*);
 	XmlNodo guardarXmlCOMP();
 };
 

@@ -16,7 +16,6 @@
 class Atributo : public Componente {
 
 private:
-
 	std::string tipo;
 	std::string expresion;
 	std::string cardinalidadMinima;

@@ -31,15 +31,15 @@ int EntidadGlobal::getCodigoEntidadNueva() const {
 }
 
 // PERSISTENCIA COMP
-/*
-EntidadGlobal::EntidadGlobal(XmlNodo* nodo, const std::vector<Relacion*>&) {
+
+EntidadGlobal::EntidadGlobal(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
 
 	XmlNodo nodoAux = nodo->getHijo();
 
 	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
-*/
+
 void EntidadGlobal::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	Componente::obtenerPropiedadesXmlCOMP(nodo);
 	this->diagramaAncestro = nodo->getPropiedad("diagrama_ancestro");
@@ -49,7 +49,7 @@ void EntidadGlobal::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 void EntidadGlobal::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "relacion")	{
-			this->agregarRelacion(obtenerRelacion(nodo->getContenidoInt()));
+			this->agregarCodigoRelacion(nodo->getContenidoInt());
 		}
 		*nodo = nodo->getHermano();
 	}

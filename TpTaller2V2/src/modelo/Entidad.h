@@ -9,34 +9,25 @@
 #include <algorithm>
 #include "Componente.h"
 #include "Atributo.h"
-#include "Relacion.h"
-
-// Persistencia
-#include "persistencia/Persistencia.h"
-
-class Relacion;
 
 class Entidad : public Componente {
 
 protected:
 	bool esDebil;
-	std::vector<Relacion*> relaciones;
+	std::vector<int> codigoRelaciones;
 
 	// PERSISTENCIA COMP
 	void guardarRelacionesXmlCOMP(XmlNodo*);
-	Relacion* obtenerRelacion(int);
 
 public:
 	Entidad();
 	virtual ~Entidad();
 
-	void agregarRelacion(Relacion*);
-	void quitarRelacion(Relacion*);
+	void agregarCodigoRelacion(int);
+	void quitarCodigoRelacion(int);
 
-	std::vector<Relacion*>::iterator relacionesBegin();
-	std::vector<Relacion*>::iterator relacionesEnd();
-
-	Relacion* getRelacionByCodigo(int);
+	std::vector<int>::iterator codigoRelacionesBegin();
+	std::vector<int>::iterator codigoRelacionesEnd();
 
 	void setEsDebil(bool);
 

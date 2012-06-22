@@ -8,10 +8,6 @@
 #define ENTIDADRELACION_H_
 
 #include "Entidad.h"
-#include "ConstantesModelo.h"
-
-// Persistencia
-#include "persistencia/Persistencia.h"
 
 // Clase usada dentro de una Relacion para vincular
 // una Entidad a su cardinalidad y a su rol.
@@ -27,7 +23,6 @@ private:
 	bool entidadGuardada;
 
 public:
-
 	EntidadRelacion();
 	virtual ~EntidadRelacion();
 

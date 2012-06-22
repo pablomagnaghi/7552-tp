@@ -55,7 +55,7 @@ void cargarIdentificadoresEntidadA(EntidadNueva* entidadA, Diagrama* diagrama){
 
 	Identificador* id = new Identificador();
 	id->agregarAtributo(atributoA);
-	id->agregarRelacion(relacion);
+	id->agregarCodigoRelacion(relacion->getCodigo());
 	entidadA->agregarIdentificador(id);
 }
 
@@ -69,12 +69,12 @@ void cargarIdentificadoresEntidadB(EntidadNueva* entidadB){
 
 void agregarRelacionAEntidadA(EntidadNueva* entidadA, Diagrama* diagrama){
 	Relacion* relacion = diagrama->getRelacionByCodigo(5);
-	entidadA->agregarRelacion(relacion);
+	entidadA->agregarCodigoRelacion(relacion->getCodigo());
 }
 
 void agregarRelacionAEntidadB(EntidadNueva* entidadB, Diagrama* diagrama){
 	Relacion* relacion = diagrama->getRelacionByCodigo(5);
-	entidadB->agregarRelacion(relacion);
+	entidadB->agregarCodigoRelacion(relacion->getCodigo());
 }
 
 void agregarEntidadesARelacion(Relacion* relacion, Diagrama* diagrama){
@@ -119,9 +119,7 @@ int main4(int argc, char* argv[]){
 
 	diagrama->guardarDiagramaXmlCOMP("PruebaCompleta");
 	std::cout << "Archivo CREADO" << std::endl;
-	delete entidadA;
-	delete entidadB;
-	delete relacion;
+
 	GeneradorCodigo::destruir();
 
 	std::cout << "Archivo CREADO" << std::endl;
