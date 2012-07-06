@@ -115,7 +115,7 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo){
 
 // PERSISTENCIA COMP
 
-
+/*
 // PERSISTENCIA COMP
 EntidadNueva::EntidadNueva(XmlNodo* nodo) {
 
@@ -233,3 +233,4 @@ XmlNodo EntidadNueva::guardarXmlCOMP() {
 
 	return nodo;
 }
+*/

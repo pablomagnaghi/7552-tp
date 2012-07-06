@@ -76,7 +76,7 @@ void Atributo::borrarAtributosDerivables() {
 }
 
 // PERSISTENCIA COMP
-
+/*
 Atributo::Atributo(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
 	XmlNodo nodoAux = nodo->getHijo();
@@ -131,3 +131,4 @@ XmlNodo Atributo::guardarXmlCOMP() {
 
 	return nodo;
 }
+*/

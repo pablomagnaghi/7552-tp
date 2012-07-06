@@ -25,15 +25,18 @@ private:
 	void borrarAtributosDerivables();
 
 	// PERSISTENCIA COMP
+	/*
 	void obtenerComponentesXmlCOMP(XmlNodo*);
 	void guardarAtributosDerivablesXmlCOMP(XmlNodo*);
+	*/
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
+	/*
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
-
+	*/
 public:
 	Atributo();
 	virtual ~Atributo();
@@ -57,8 +60,10 @@ public:
 	std::vector<Atributo*>::iterator atributosDerivablesEnd();
 
 	// PERSISTENCIA COMP
+	/*
 	Atributo(XmlNodo*);
 	virtual XmlNodo guardarXmlCOMP();
+	*/
 };
 
 #endif /* ATRIBUTO_H_ */

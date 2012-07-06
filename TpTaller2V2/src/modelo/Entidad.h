@@ -17,7 +17,9 @@ protected:
 	std::vector<int> codigoRelaciones;
 
 	// PERSISTENCIA COMP
+	/*
 	void guardarRelacionesXmlCOMP(XmlNodo*);
+	*/
 
 public:
 	Entidad();

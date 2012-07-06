@@ -39,8 +39,10 @@ public:
 	void setRol(const std::string&);
 
 	// PERSISTENCIA COMP
+	/*
 	EntidadRelacion(XmlNodo*);
 	virtual XmlNodo guardarXmlCOMP();
+	*/
 };
 
 #endif /* ENTIDADRELACION_H_ */

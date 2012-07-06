@@ -25,6 +25,7 @@ private:
 	void borrarIdentificadores();
 
 	// PERSITENCIA COMP
+	/*
 	void obtenerComponentesXmlCOMP(XmlNodo*);
 
 	void guardarAtributosXmlCOMP(XmlNodo*);
@@ -39,12 +40,15 @@ private:
 	// atributos y relaciones del identificador
 	void obtenerComponentesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
 	Atributo* obtenerAtributo(int codigo);
+	*/
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
+	/*
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
+	*/
 
 public:
 	EntidadNueva();
@@ -74,8 +78,10 @@ public:
 	Atributo* getAtributoByCodigo(int);
 
 	// PERSISTENCIA COMP
+	/*
 	EntidadNueva(XmlNodo*);
 	XmlNodo guardarXmlCOMP();
+	*/
 };
 
 #endif /* ENTIDADNUEVA_H_ */

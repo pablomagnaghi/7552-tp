@@ -49,7 +49,7 @@ void EntidadRelacion::setRol(const std::string& rol) {
 }
 
 // PERSISTENCIA COMP
-
+/*
 EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
 	this->codigoEntidad = nodo->getPropiedadInt("entidad");
 	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_minima");
@@ -68,3 +68,4 @@ XmlNodo EntidadRelacion::guardarXmlCOMP() {
 
 	return nodo;
 }
+*/
