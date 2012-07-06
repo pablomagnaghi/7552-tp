@@ -62,7 +62,7 @@ void Jerarquia::borrarEntidadesEspecializadas() {
 }
 
 // PERSISTENCIA COMP
-
+/*
 Jerarquia::Jerarquia(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
 
@@ -120,3 +120,4 @@ XmlNodo Jerarquia::guardarXmlCOMP() {
 
 	return nodo;
 }
+*/

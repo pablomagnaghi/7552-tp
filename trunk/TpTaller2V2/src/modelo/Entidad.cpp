@@ -38,7 +38,7 @@ void Entidad::setEsDebil(bool esDebil){
 }
 
 // PERSISTENCIA COMP
-
+/*
 void Entidad::guardarRelacionesXmlCOMP(XmlNodo *nodo) {
 	std::vector<int>::iterator i;
 
@@ -48,3 +48,4 @@ void Entidad::guardarRelacionesXmlCOMP(XmlNodo *nodo) {
 		nodo->agregarHijo(nodoRelacion);
 	}
 }
+*/

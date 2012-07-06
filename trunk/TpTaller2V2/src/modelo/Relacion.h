@@ -14,9 +14,6 @@
 // Persistencia
 #include "persistencia/Persistencia.h"
 
-class Entidad;
-class EntidadRelacion;
-
 class Relacion : public Componente {
 
 private:
@@ -29,15 +26,19 @@ private:
 	void borrarEntidadesRelacion();
 
 	// PERSISTENCIA COMP
+	/*
 	void obtenerComponentesXmlCOMP(XmlNodo*);
 	void guardarEntidadesRelacionesXmlCOMP(XmlNodo*);
 	void guardarAtributosXmlCOMP(XmlNodo*);
+	*/
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
+	/*
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
+	*/
 
 public:
 
@@ -60,8 +61,10 @@ public:
 	std::vector<Atributo*>::iterator atributosEnd();
 
 	// PERSISTENCIA COMP
+	/*
 	Relacion(XmlNodo*);
 	virtual XmlNodo guardarXmlCOMP();
+	*/
 };
 
 #endif /* RELACION_H_ */

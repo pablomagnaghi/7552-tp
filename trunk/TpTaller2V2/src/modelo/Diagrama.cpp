@@ -292,7 +292,7 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 }
 
 // PERSISTENCIA COMP
-
+/*
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
 void Diagrama::abrirXmlCOMP(const std::string& path) {
 	try {
@@ -428,3 +428,4 @@ void Diagrama::guardarDiagramaXmlCOMP(const std::string& path) {
 	docXml.setNodoRaiz(nodoDoc);
 	docXml.guardar(path);
 }
+*/

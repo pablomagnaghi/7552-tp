@@ -117,7 +117,7 @@ int main4(int argc, char* argv[]){
 	// Agrego las entidades a la relacion
 	agregarEntidadesARelacion(relacion, diagrama);
 
-	diagrama->guardarDiagramaXmlCOMP("Prueba3-EjemploCreacion.xml");
+	//diagrama->guardarDiagramaXmlCOMP("Prueba3-EjemploCreacion.xml");
 	std::cout << "Archivo CREADO" << std::endl;
 
 	GeneradorCodigo::destruir();

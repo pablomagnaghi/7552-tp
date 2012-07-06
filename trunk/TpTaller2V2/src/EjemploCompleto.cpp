@@ -187,8 +187,8 @@ int main3(int argc, char* argv[]){
 	Relacion* relacion2 = crearRelacion2(entidadNuevaC);
 	diagramaHijo->agregarRelacion(relacion2);
 
-	diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba2-DiagramaPrincipal.xml");
-	diagramaHijo->guardarDiagramaXmlCOMP("Prueba2-DiagramaHijo.xml");
+	//diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba2-DiagramaPrincipal.xml");
+	//diagramaHijo->guardarDiagramaXmlCOMP("Prueba2-DiagramaHijo.xml");
 
 	std::cout << "OK" << std::endl;
 

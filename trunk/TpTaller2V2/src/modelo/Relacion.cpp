@@ -82,7 +82,7 @@ void Relacion::borrarEntidadesRelacion(){
 
 
 // PERSISTENCIA COMP
-
+/*
 Relacion::Relacion(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
 
@@ -141,3 +141,4 @@ XmlNodo Relacion::guardarXmlCOMP() {
 
 	return nodo;
 }
+*/

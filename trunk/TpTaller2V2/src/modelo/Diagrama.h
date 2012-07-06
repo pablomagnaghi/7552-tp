@@ -41,6 +41,7 @@ private:
 	void borrarRelaciones();
 
 	// PERSISTENCIA COMP
+	/*
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
@@ -55,7 +56,7 @@ private:
 
 	void cargarXmlCOMP(XmlNodo*);
 	XmlNodo guardarXmlCOMP();
-
+	*/
 
 protected:
 	// Persistencia REP
@@ -118,9 +119,11 @@ public:
 
 
 	// PERSITENCIA COMP
+	/*
 	void abrirXmlCOMP(const std::string&);
 	bool isOpenXmlCOMP() const;
 	void guardarDiagramaXmlCOMP(const std::string&);
+	*/
 };
 
 #endif /* DIAGRAMA_H_ */

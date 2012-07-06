@@ -31,7 +31,7 @@ int EntidadGlobal::getCodigoEntidadNueva() const {
 }
 
 // PERSISTENCIA COMP
-
+/*
 EntidadGlobal::EntidadGlobal(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
 
@@ -69,3 +69,4 @@ XmlNodo EntidadGlobal::guardarXmlCOMP() {
 
 	return nodo;
 }
+*/
