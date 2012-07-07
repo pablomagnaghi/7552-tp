@@ -47,19 +47,19 @@ VistaDiagrama::~VistaDiagrama() {
 
 void VistaDiagrama::test_cargar_componentes_visuales() {
 	//VistaComponente * componenteNuevo;
-	VistaEntidad * entidadDebil;
-	VistaEntidad * entidad;
+	VistaEntidadNueva * entidadDebil;
+	VistaEntidadNueva * entidad;
 	VistaRelacion * relacion;
 	VistaAtributo * atributo;
 	VistaUnion * vUnion;
 
-	entidad = new VistaEntidad();
+	entidad = new VistaEntidadNueva(new Entidad());
 	entidad->setNombre("Alumno");
 	entidad->setposini(10, 10);
 	entidad->setposfin(60, 50);
 	this->componentes.push_back(entidad);
 
-	entidadDebil = new VistaEntidad();
+	entidadDebil = new VistaEntidadNueva(new Entidad());
 	entidadDebil->setNombre("Entidad Debil");
 	entidadDebil->setposini(180, 10);
 	entidadDebil->setposfin(60, 50);

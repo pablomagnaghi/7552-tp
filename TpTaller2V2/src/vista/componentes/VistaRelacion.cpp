@@ -42,7 +42,7 @@ void VistaRelacion::dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(2); // Ancho de linea arbitrario
 
 	if (this->ajustarTamanioPorTexto) {
-		cr->get_text_extents(this->nombre, textExtents);
+		cr->get_text_extents(this->relacion->getNombre(), textExtents);
 		this->calcularDimensionesAPartirDeTexto(&textExtents);
 		this->ajustarTamanioPorTexto = false;
 	}
@@ -50,7 +50,7 @@ void VistaRelacion::dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr) {
 	mitad_x = (this->pos_fin_x + this->pos_ini_x) / 2;
 	mitad_y = (this->pos_fin_y + this->pos_ini_y) / 2;
 
-	this->dibujarNombreCentrado(cr, this->nombre);
+	this->dibujarNombreCentrado(cr, this->relacion->getNombre());
 
 	cr->move_to(mitad_x, this->pos_ini_y);
 	cr->line_to(this->pos_fin_x, mitad_y);
@@ -289,4 +289,9 @@ void VistaRelacion::redimensionar(double x, double y) {
 			break;
 		}
 	}
+}
+
+
+void VistaRelacion::setNombre(const std::string & nombre){
+
 }

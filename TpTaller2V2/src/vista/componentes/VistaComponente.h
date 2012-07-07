@@ -25,7 +25,7 @@ using namespace std;
 #define RADIO_CIRCULOS_REDIMENSION 3
 
 
-class VistaComponente /*: public Componente*/ {
+class VistaComponente  {
 protected:
 	double pos_ini_x;
 	double pos_ini_y;

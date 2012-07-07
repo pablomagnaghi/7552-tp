@@ -1,25 +1,23 @@
-/* Relacion.h
- *  Created on: 30/04/2012
- *      Author: Gonzalo Ferrero 89657
- */
 #ifndef RELACION_H_
 #define RELACION_H_
 
 #include <vector>
 #include <string>
-#include "EntidadRelacion.h"
+#include "UnionEntidadRelacion.h"
 #include "Atributo.h"
 #include "Componente.h"
 
 // Persistencia
 #include "persistencia/Persistencia.h"
 
+class UnionEntidadRelacion;
+
 class Relacion : public Componente {
 
 private:
 
 	std::string tipo;
-	std::vector<EntidadRelacion*> entidadesRelacion;
+	std::vector<UnionEntidadRelacion*> entidadesRelacion;
 	std::vector<Atributo*> atributos;
 
 	void borrarAtributos();
@@ -48,14 +46,14 @@ public:
 	std::string getTipo() const;
 	void setTipo(const std::string&);
 
-	void agregarEntidadRelacion(EntidadRelacion*);
-	void quitarEntidadRelacion(EntidadRelacion*);
+	void agregarEntidadRelacion(UnionEntidadRelacion*);
+	void quitarEntidadRelacion(UnionEntidadRelacion*);
 
 	void agregarAtributo(Atributo*);
 	void quitarAtributo(Atributo*);
 
-	std::vector<EntidadRelacion*>::iterator entidadesRelacionBegin();
-	std::vector<EntidadRelacion*>::iterator entidadesRelacionEnd();
+	std::vector<UnionEntidadRelacion*>::iterator entidadesRelacionBegin();
+	std::vector<UnionEntidadRelacion*>::iterator entidadesRelacionEnd();
 
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();

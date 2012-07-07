@@ -22,12 +22,12 @@ void Relacion::setTipo(const std::string& tipo) {
 	this->tipo = tipo;
 }
 
-void Relacion::agregarEntidadRelacion(EntidadRelacion* entidadRelacion){
+void Relacion::agregarEntidadRelacion(UnionEntidadRelacion* entidadRelacion){
 	this->entidadesRelacion.push_back(entidadRelacion);
 }
 
-void Relacion::quitarEntidadRelacion(EntidadRelacion* entidadRelacion){
-	std::vector<EntidadRelacion*>::iterator e;
+void Relacion::quitarEntidadRelacion(UnionEntidadRelacion* entidadRelacion){
+	std::vector<UnionEntidadRelacion*>::iterator e;
 	e = find(this->entidadesRelacion.begin(), this->entidadesRelacion.end(), entidadRelacion);
 	if (*e == entidadRelacion){
 		this->entidadesRelacion.erase(e);
@@ -46,11 +46,11 @@ void Relacion::quitarAtributo(Atributo* atributo){
 	}
 }
 
-std::vector<EntidadRelacion*>::iterator Relacion::entidadesRelacionBegin(){
+std::vector<UnionEntidadRelacion*>::iterator Relacion::entidadesRelacionBegin(){
 	return this->entidadesRelacion.begin();
 }
 
-std::vector<EntidadRelacion*>::iterator Relacion::entidadesRelacionEnd(){
+std::vector<UnionEntidadRelacion*>::iterator Relacion::entidadesRelacionEnd(){
 	return this->entidadesRelacion.end();
 }
 
@@ -72,7 +72,7 @@ void Relacion::borrarAtributos(){
 }
 
 void Relacion::borrarEntidadesRelacion(){
-	std::vector<EntidadRelacion*>::iterator it = this->entidadesRelacion.begin();
+	std::vector<UnionEntidadRelacion*>::iterator it = this->entidadesRelacion.begin();
 	while (it != this->entidadesRelacion.end()){
 		delete (*it);
 		it++;

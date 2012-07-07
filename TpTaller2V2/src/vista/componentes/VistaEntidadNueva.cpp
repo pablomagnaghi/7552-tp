@@ -1,11 +1,13 @@
-#include "VistaEntidad.h"
+#include "VistaEntidadNueva.h"
 
 #include <iostream>
 using namespace std;
 
-VistaEntidad::VistaEntidad() {
+VistaEntidadNueva::VistaEntidadNueva(Entidad * entidadDelModelo) {
 	// TODO Auto-generated constructor stub
-	this->esDebil = false;
+
+	this->entidad = entidadDelModelo;
+
 	this->mouseArribaDePuntoDeRedimension = 0;
 	this->pos_ini_x = 0;
 	this->pos_fin_x = 0;
@@ -13,11 +15,11 @@ VistaEntidad::VistaEntidad() {
 	this->pos_fin_y = 0;
 }
 
-VistaEntidad::~VistaEntidad() {
+VistaEntidadNueva::~VistaEntidadNueva() {
 	// TODO Auto-generated destructor stub
 }
 
-bool VistaEntidad::lanzarProp() {
+bool VistaEntidadNueva::lanzarProp() {
 	AsistenteEntidad* nuevaProp;
 	int result;
 
@@ -36,7 +38,7 @@ bool VistaEntidad::lanzarProp() {
 	return result==1;
 }
 
-void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
+void VistaEntidadNueva::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	if (!this->seleccionado) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
 				colorNegro.get_blue_p());
@@ -52,7 +54,7 @@ void VistaEntidad::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	}
 }
 
-void VistaEntidad::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr) {
+void VistaEntidadNueva::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(2);
 	Cairo::TextExtents textExtents;
 
@@ -65,17 +67,17 @@ void VistaEntidad::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr) {
 	}
 
 	if (this->ajustarTamanioPorTexto) {
-		cr->get_text_extents(this->nombre, textExtents);
+		cr->get_text_extents(this->entidad->getNombre(), textExtents);
 		this->calcularDimensionesAPartirDeTexto(&textExtents);
 		this->ajustarTamanioPorTexto = false;
 	}
 
-	this->dibujarNombreCentrado(cr, this->nombre);
+	this->dibujarNombreCentrado(cr, this->entidad->getNombre());
 
 	cr->rectangle(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x
 			- this->pos_ini_x, this->pos_fin_y - this->pos_ini_y);
 
-	if (this->esDebil) {
+	if (this->entidad->getEsDebil()) {
 		cr->set_line_width(1);
 		cr->rectangle(this->pos_ini_x + 4, this->pos_ini_y + 4, this->pos_fin_x
 				- this->pos_ini_x - 8, this->pos_fin_y - this->pos_ini_y - 8);
@@ -83,7 +85,7 @@ void VistaEntidad::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->stroke();
 }
 
-void VistaEntidad::dibujarCirculosDeRedimension(
+void VistaEntidadNueva::dibujarCirculosDeRedimension(
 		Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(2);
 	//  Dibujo los circulos en las puntas
@@ -140,15 +142,15 @@ void VistaEntidad::dibujarCirculosDeRedimension(
 	}
 }
 
-bool VistaEntidad::esSeleccionado(double x, double y) {
+bool VistaEntidadNueva::esSeleccionado(double x, double y) {
 	return false;
 }
 
-void VistaEntidad::finSeleccionado(double x, double y) {
+void VistaEntidadNueva::finSeleccionado(double x, double y) {
 
 }
 
-bool VistaEntidad::contieneAEstePunto(double x, double y) {
+bool VistaEntidadNueva::contieneAEstePunto(double x, double y) {
 	double limiteX1, limiteX4;
 	double limiteY1, limiteY4;
 	if (this->seleccionado) {
@@ -167,14 +169,14 @@ bool VistaEntidad::contieneAEstePunto(double x, double y) {
 			this->pos_ini_y, this->pos_fin_x, this->pos_fin_y);
 }
 
-void VistaEntidad::calcularDimensionesAPartirDeTexto(
+void VistaEntidadNueva::calcularDimensionesAPartirDeTexto(
 		Cairo::TextExtents * textExtents) {
 
 	double alto, ancho;
 	ancho = textExtents->width;
 	alto = textExtents->height;
 
-	if (!this->esDebil) {
+	if (!this->entidad->getEsDebil()) {
 		this->pos_fin_x = this->pos_ini_x + ancho + 3
 				* ESPACIO_ENTRE_TEXTO_Y_BORDE;
 		this->pos_fin_y = this->pos_ini_y + alto + 3
@@ -188,7 +190,7 @@ void VistaEntidad::calcularDimensionesAPartirDeTexto(
 
 }
 
-bool VistaEntidad::esPuntoDeRedimension(double x, double y) {
+bool VistaEntidadNueva::esPuntoDeRedimension(double x, double y) {
 	// Considero los circulos de las puntas como cuadrados para que sea mas facil la comparacion
 	double limiteX1, limiteX2, limiteX3, limiteX4;
 	double limiteY1, limiteY2, limiteY3, limiteY4;
@@ -233,7 +235,7 @@ bool VistaEntidad::esPuntoDeRedimension(double x, double y) {
 	return false;
 }
 
-void VistaEntidad::setMouseArriba(double x, double y) {
+void VistaEntidadNueva::setMouseArriba(double x, double y) {
 	double limiteX1, limiteX2, limiteX3, limiteX4;
 	double limiteY1, limiteY2, limiteY3, limiteY4;
 	limiteX1 = this->pos_ini_x - RADIO_CIRCULOS_REDIMENSION
@@ -291,7 +293,7 @@ void VistaEntidad::setMouseArriba(double x, double y) {
 #endif
 }
 
-void VistaEntidad::redimensionar(double x, double y) {
+void VistaEntidadNueva::redimensionar(double x, double y) {
 	if (this->seleccionado) {
 		cout << "Elemento Redimensionado "
 				<< this->mouseArribaDePuntoDeRedimension << endl;
@@ -322,4 +324,12 @@ void VistaEntidad::redimensionar(double x, double y) {
 			break;
 		}
 	}
+}
+
+void VistaEntidadNueva::setNombre(const std::string & nombre){
+	this->entidad->setNombre(nombre);
+}
+
+void VistaEntidadNueva::setEsDebil(bool debil){
+	this->entidad->setEsDebil(debil);
 }

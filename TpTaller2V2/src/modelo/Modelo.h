@@ -16,7 +16,7 @@
 #include "Jerarquia.h"
 #include "Atributo.h"
 #include "Identificador.h"
-#include "EntidadRelacion.h"
+#include "UnionEntidadRelacion.h"
 #include "GeneradorCodigo.h"
 #include "ConstantesModelo.h"
 
