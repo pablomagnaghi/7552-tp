@@ -1,9 +1,3 @@
-/*
- * EntidadNueva.h
- *
- *  Created on: 25/05/2012
- */
-
 #ifndef ENTIDADNUEVA_H_
 #define ENTIDADNUEVA_H_
 
@@ -11,7 +5,7 @@
 #include "Entidad.h"
 #include "Atributo.h"
 #include "Identificador.h"
-#include "Jerarquia.h"
+#include "UnionEntidadRelacion.h"
 
 class EntidadNueva : public Entidad {
 
@@ -76,6 +70,8 @@ public:
 	std::vector<Identificador*>::iterator identificadoresEnd();
 
 	Atributo* getAtributoByCodigo(int);
+
+
 
 	// PERSISTENCIA COMP
 	/*

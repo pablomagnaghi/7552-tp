@@ -30,7 +30,7 @@ public:
 	void setCodigo(int);
 
 	std::string getNombre() const;
-	void setNombre(const std::string&);
+	void setNombre(const std::string &);
 };
 
 #endif /* COMPONENTE_H_ */

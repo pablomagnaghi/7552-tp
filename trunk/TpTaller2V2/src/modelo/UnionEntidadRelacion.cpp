@@ -4,47 +4,47 @@
  *  Created on: 20/05/2012
  */
 
-#include "EntidadRelacion.h"
+#include "UnionEntidadRelacion.h"
 
-EntidadRelacion::EntidadRelacion() :
+UnionEntidadRelacion::UnionEntidadRelacion() :
 	cardinalidadMinima ("1"),
 	cardinalidadMaxima ("1"){
 
 }
 
-EntidadRelacion::~EntidadRelacion() {
+UnionEntidadRelacion::~UnionEntidadRelacion() {
 
 }
 
-int EntidadRelacion::getCodigoEntidad() const {
+int UnionEntidadRelacion::getCodigoEntidad() const {
 	return this->codigoEntidad;
 }
 
-void EntidadRelacion::setCodigoEntidad(int codigoEntidad) {
+void UnionEntidadRelacion::setCodigoEntidad(int codigoEntidad) {
 	this->codigoEntidad = codigoEntidad;
 }
 
-std::string EntidadRelacion::getCardinalidadMinima() const {
+std::string UnionEntidadRelacion::getCardinalidadMinima() const {
 	return this->cardinalidadMinima;
 }
 
-void EntidadRelacion::setCardinalidadMinima(const std::string& cardinalidadMinima) {
+void UnionEntidadRelacion::setCardinalidadMinima(const std::string& cardinalidadMinima) {
 	this->cardinalidadMinima = cardinalidadMinima;
 }
 
-std::string EntidadRelacion::getCardinalidadMaxima() const {
+std::string UnionEntidadRelacion::getCardinalidadMaxima() const {
 	return this->cardinalidadMaxima;
 }
 
-void EntidadRelacion::setCardinalidadMaxima(const std::string& cardinalidadMaxima) {
+void UnionEntidadRelacion::setCardinalidadMaxima(const std::string& cardinalidadMaxima) {
 	this->cardinalidadMaxima = cardinalidadMaxima;
 }
 
-std::string EntidadRelacion::getRol() const {
+std::string UnionEntidadRelacion::getRol() const {
 	return this->rol;
 }
 
-void EntidadRelacion::setRol(const std::string& rol) {
+void UnionEntidadRelacion::setRol(const std::string& rol) {
 	this->rol = rol;
 }
 

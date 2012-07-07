@@ -118,11 +118,11 @@ Relacion* crearRelacion1(EntidadGlobal* entidadGlobalA, EntidadNueva* entidadNue
 	entidadGlobalA->agregarCodigoRelacion(relacion1->getCodigo());
 	entidadNuevaC->agregarCodigoRelacion(relacion1->getCodigo());
 
-	EntidadRelacion* erEntidadGlobalA = new EntidadRelacion();
+	UnionEntidadRelacion* erEntidadGlobalA = new UnionEntidadRelacion();
 	erEntidadGlobalA->setCodigoEntidad(entidadGlobalA->getCodigo());
 	relacion1->agregarEntidadRelacion(erEntidadGlobalA);
 
-	EntidadRelacion* erEntidadNuevaC = new EntidadRelacion();
+	UnionEntidadRelacion* erEntidadNuevaC = new UnionEntidadRelacion();
 	erEntidadNuevaC->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC->setCardinalidadMaxima("N");
 	relacion1->agregarEntidadRelacion(erEntidadNuevaC);
@@ -138,12 +138,12 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 
 	entidadNuevaC->agregarCodigoRelacion(relacion2->getCodigo());
 
-	EntidadRelacion* erEntidadNuevaC1 = new EntidadRelacion();
+	UnionEntidadRelacion* erEntidadNuevaC1 = new UnionEntidadRelacion();
 	erEntidadNuevaC1->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC1->setCardinalidadMinima("0");
 	relacion2->agregarEntidadRelacion(erEntidadNuevaC1);
 
-	EntidadRelacion* erEntidadNuevaC2 = new EntidadRelacion();
+	UnionEntidadRelacion* erEntidadNuevaC2 = new UnionEntidadRelacion();
 	erEntidadNuevaC2->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC2->setCardinalidadMinima("0");
 	erEntidadNuevaC2->setCardinalidadMaxima("N");

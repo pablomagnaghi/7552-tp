@@ -37,6 +37,10 @@ void Entidad::setEsDebil(bool esDebil){
 	this->esDebil = esDebil;
 }
 
+bool Entidad::getEsDebil(){
+	return this->esDebil;
+}
+
 // PERSISTENCIA COMP
 /*
 void Entidad::guardarRelacionesXmlCOMP(XmlNodo *nodo) {

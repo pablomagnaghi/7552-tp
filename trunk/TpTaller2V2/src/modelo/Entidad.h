@@ -32,6 +32,7 @@ public:
 	std::vector<int>::iterator codigoRelacionesEnd();
 
 	void setEsDebil(bool);
+	bool getEsDebil();
 
 	void agregarAtributo(Atributo*);
 	void quitarAtributo(Atributo*);

@@ -8,16 +8,16 @@
 #ifndef ASISTENTEENTIDAD_H_
 #define ASISTENTEENTIDAD_H_
 #include <gtkmm.h>
-#include "../vista/componentes/VistaEntidad.h"
+#include "../vista/componentes/VistaEntidadNueva.h"
 
-class VistaEntidad;
+class VistaEntidadNueva;
 
 // SINGLETON
 
 class AsistenteEntidad: public Gtk::Dialog {
 private:
 	friend class Gtk::Builder;
-	VistaEntidad * entidad;
+	VistaEntidadNueva * entidad;
 	Glib::RefPtr<Gtk::Builder> m_builder;
 	Gtk::Entry * entryNombreEntidad;
 
@@ -58,7 +58,7 @@ private:
 public:
 	static AsistenteEntidad * getInstance(const Glib::RefPtr<Gtk::Builder>& builder);
 	static AsistenteEntidad * getInstance();
-	void setEntidad(VistaEntidad* ent);
+	void setEntidad(VistaEntidadNueva* ent);
 };
 
 #endif /* ASISTENTEENTIDAD_H_ */

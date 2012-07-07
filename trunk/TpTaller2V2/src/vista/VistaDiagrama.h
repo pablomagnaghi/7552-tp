@@ -16,7 +16,7 @@
 #include "VistaConstantes.h"
 #include "./componentes/VistaComponente.h"
 #include "./componentes/VistaAtributo.h"
-#include "./componentes/VistaEntidad.h"
+#include "./componentes/VistaEntidadNueva.h"
 #include "./componentes/VistaRelacion.h"
 #include "./componentes/VistaUnion.h"
 #include "gtkmm.h"

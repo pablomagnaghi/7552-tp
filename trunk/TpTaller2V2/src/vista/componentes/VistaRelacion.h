@@ -8,8 +8,11 @@
 #include "../../modelo/Relacion.h"
 #include "VistaComponente.h"
 
-class VistaRelacion: public VistaComponente, public Relacion {
+class VistaRelacion: public VistaComponente{
 private:
+
+	Relacion * relacion;
+
 	void dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr);
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 public:
@@ -40,6 +43,8 @@ public:
 	virtual void setMouseArriba(double x, double y);
 
 	virtual void redimensionar(double x, double y);
+
+	void setNombre(const std::string & nombre);
 };
 
 #endif /* VISTARELACION_H_ */

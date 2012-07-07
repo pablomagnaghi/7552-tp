@@ -157,12 +157,12 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 	seccionSala->agregarCodigoRelacion(sL->getCodigo());
 	localidad->agregarCodigoRelacion(sL->getCodigo());
 
-	EntidadRelacion* erSeccionSala = new EntidadRelacion();
+	UnionEntidadRelacion* erSeccionSala = new UnionEntidadRelacion();
 	erSeccionSala->setCodigoEntidad(seccionSala->getCodigo());
 	erSeccionSala->setCardinalidadMaxima("n");
 	sL->agregarEntidadRelacion(erSeccionSala);
 
-	EntidadRelacion* erLocalidad = new EntidadRelacion();
+	UnionEntidadRelacion* erLocalidad = new UnionEntidadRelacion();
 	erLocalidad->setCodigoEntidad(localidad->getCodigo());
 	sL->agregarEntidadRelacion(erLocalidad);
 
@@ -193,13 +193,13 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	localidad->agregarCodigoRelacion(vtaLoc->getCodigo());
 	obra->agregarCodigoRelacion(vtaLoc->getCodigo());
 
-	EntidadRelacion* erLocalidad = new EntidadRelacion();
+	UnionEntidadRelacion* erLocalidad = new UnionEntidadRelacion();
 	erLocalidad->setCodigoEntidad(localidad->getCodigo());
 	erLocalidad->setCardinalidadMinima("0");
 	erLocalidad->setCardinalidadMaxima("n");
 	vtaLoc->agregarEntidadRelacion(erLocalidad);
 
-	EntidadRelacion* erObra = new EntidadRelacion();
+	UnionEntidadRelacion* erObra = new UnionEntidadRelacion();
 	erObra->setCodigoEntidad(obra->getCodigo());
 	erObra->setCardinalidadMinima("0");
 	erObra->setCardinalidadMaxima("n");
@@ -269,13 +269,13 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	obra->agregarCodigoRelacion(fO->getCodigo());
 	funcion->agregarCodigoRelacion(fO->getCodigo());
 
-	EntidadRelacion* erObra = new EntidadRelacion();
+	UnionEntidadRelacion* erObra = new UnionEntidadRelacion();
 	erObra->setCodigoEntidad(obra->getCodigo());
 	erObra->setCardinalidadMinima("0");
 	erObra->setCardinalidadMaxima("n");
 	fO->agregarEntidadRelacion(erObra);
 
-	EntidadRelacion* erFuncion = new EntidadRelacion();
+	UnionEntidadRelacion* erFuncion = new UnionEntidadRelacion();
 	erFuncion->setCodigoEntidad(funcion->getCodigo());
 	fO->agregarEntidadRelacion(erFuncion);
 

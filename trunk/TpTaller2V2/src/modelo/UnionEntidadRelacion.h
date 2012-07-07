@@ -1,21 +1,23 @@
-/*
- * EntidadRelacion.h
- *
- *  Created on: 20/05/2012
- */
-
 #ifndef ENTIDADRELACION_H_
 #define ENTIDADRELACION_H_
 
 #include "Entidad.h"
+#include "Relacion.h"
 
+#include <vector>
 // Clase usada dentro de una Relacion para vincular
 // una Entidad a su cardinalidad y a su rol.
 // En el xsd aparece como "tipo_entidad_cardinalidad"
 
-class EntidadRelacion {
+class Relacion;
+class Entidad;
+
+class UnionEntidadRelacion {
 
 private:
+	std::vector<Entidad *> entidades;
+	Relacion * relacion;
+
 	int codigoEntidad;
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
@@ -23,8 +25,8 @@ private:
 	bool entidadGuardada;
 
 public:
-	EntidadRelacion();
-	virtual ~EntidadRelacion();
+	UnionEntidadRelacion();
+	virtual ~UnionEntidadRelacion();
 
 	int getCodigoEntidad() const;
 	void setCodigoEntidad(int);

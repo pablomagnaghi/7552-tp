@@ -21,7 +21,7 @@ AsistenteEntidad::~AsistenteEntidad() {
 
 }
 
-void AsistenteEntidad::setEntidad(VistaEntidad* ent) {
+void AsistenteEntidad::setEntidad(VistaEntidadNueva* ent) {
 
 	// TODO CARGAR DATOS DE ENTIDAD NUEVA
 	this->inicializarDialogo();

@@ -78,12 +78,12 @@ void agregarRelacionAEntidadB(EntidadNueva* entidadB, Diagrama* diagrama){
 }
 
 void agregarEntidadesARelacion(Relacion* relacion, Diagrama* diagrama){
-	EntidadRelacion* erEntidadA = new EntidadRelacion();
+	UnionEntidadRelacion* erEntidadA = new UnionEntidadRelacion();
 	erEntidadA->setCodigoEntidad(diagrama->getEntidadByCodigo(1)->getCodigo()); // Carga la entidadA
 	erEntidadA->setCardinalidadMaxima("n");
 	relacion->agregarEntidadRelacion(erEntidadA);
 
-	EntidadRelacion* erEntidadB = new EntidadRelacion();
+	UnionEntidadRelacion* erEntidadB = new UnionEntidadRelacion();
 	erEntidadB->setCodigoEntidad(diagrama->getEntidadByCodigo(3)->getCodigo()); // Carga la entidadB
 	relacion->agregarEntidadRelacion(erEntidadB);
 }

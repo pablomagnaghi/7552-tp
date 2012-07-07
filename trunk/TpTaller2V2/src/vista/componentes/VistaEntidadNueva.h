@@ -1,19 +1,22 @@
-#ifndef VISTAENTIDAD_H_
-#define VISTAENTIDAD_H_
+#ifndef VISTAENTIDADNUEVA_H_
+#define VISTAENTIDADNUEVA_H_
 #include "VistaComponente.h"
 #include "../../controlador/AsistenteEntidad.h"
 #include "../../modelo/Entidad.h"
 #include <list>
 
-class VistaEntidad: public VistaComponente, public Entidad {
+class VistaEntidadNueva: public VistaComponente{
 private:
 	friend class AsistenteEntidad;
+
+	Entidad * entidad;
+
 	void calcular_ancho_a_partir_del_nombre();
 	void dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr);
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 public:
-	VistaEntidad();
-	virtual ~VistaEntidad();
+	VistaEntidadNueva(Entidad *);
+	virtual ~VistaEntidadNueva();
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
@@ -38,6 +41,10 @@ public:
 	virtual void setMouseArriba(double x, double y);
 
 	virtual void redimensionar(double x, double y);
+
+	void setNombre(const std::string & nombre);
+
+	void setEsDebil(bool);
 };
 
-#endif /* VISTAENTIDAD_H_ */
+#endif /* VISTAENTIDADNUEVA_H_ */

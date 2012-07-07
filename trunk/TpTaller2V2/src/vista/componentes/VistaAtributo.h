@@ -11,7 +11,7 @@
 #include "../../modelo/Atributo.h"
 #include <list>
 
-class VistaAtributo: public VistaComponente, public Atributo {
+class VistaAtributo: public VistaComponente {
 private:
 	list<VistaAtributo*> l_atrib_deri;
 public:
