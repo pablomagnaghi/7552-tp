@@ -28,13 +28,13 @@ bool TreePanel::regenerar() {
 
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = principal->getNombre();
-	row[this->m_Columnas.m_col_Diag_Pointer] = principal;
+	row[this->m_Columnas.m_col_Diag_Pointer] = principal->getDiagrama();
 	row[this->m_Columnas.m_col_esDiag] = true;
-	this->regenerarRecur(principal, &row);
+	this->regenerarRecur(principal->getDiagrama(), &row);
 	return true;
 }
 
-void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
+void TreePanel::regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row) {
 	//primero cargo los componentes de ese diag y luego los diag hijos
 	vector<Componente*>::iterator itComp = diag->componentesBegin();
 	vector<Componente*>::iterator compEnd = diag->componentesEnd();
@@ -56,7 +56,7 @@ void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
 		rowSec[this->m_Columnas.m_col_Nombre] = (*itHijos)->getNombre();
 		rowSec[this->m_Columnas.m_col_Diag_Pointer] = (*itHijos);
 		rowSec[this->m_Columnas.m_col_esDiag] = true;
-		this->regenerarRecur((VistaDiagrama*) (*itHijos), &rowSec);
+		this->regenerarRecur((Diagrama*) (*itHijos), &rowSec);
 		itHijos++;
 	}
 

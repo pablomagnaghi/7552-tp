@@ -21,8 +21,8 @@
 class Diagrama {
 
 private:
+	// Modelo
 	std::string nombre;
-	bool diagramaValidoCOMP; // para persistencia
 	Diagrama* diagramaAncestro;
 	std::vector<Diagrama*> diagramasHijos;
 	std::vector<EntidadNueva*> entidadesNuevas;
@@ -30,6 +30,9 @@ private:
 	std::vector<Relacion*> relaciones;
 	std::vector<Jerarquia*> jerarquias;
 	std::vector<Componente*> componentes; // No se persiste, es solo para iterarla desde afuera.
+
+	// Persistencia
+	bool diagramaValidoCOMP;
 
 	void agregarComponente(Componente*);
 	void quitarComponente(Componente*);
@@ -39,6 +42,7 @@ private:
 	void borrarEntidadesGlobales();
 	void borrarJerarquias();
 	void borrarRelaciones();
+
 
 	// PERSISTENCIA COMP
 	/*
@@ -58,10 +62,6 @@ private:
 	XmlNodo guardarXmlCOMP();
 	*/
 
-protected:
-	// Persistencia REP
-	std::string estado;
-
 public:
 
 	Diagrama();
@@ -70,9 +70,6 @@ public:
 
 	void setNombre(const std::string);
 	std::string getNombre() const;
-
-	void setEstado(const std::string);
-	std::string getEstado() const;
 
 	void setDiagramaAncestro(Diagrama*);
 	Diagrama* getDiagramaAncestro() const;

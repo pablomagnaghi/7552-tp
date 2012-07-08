@@ -1,7 +1,3 @@
-/* ControladorPanelHerramientas.cpp
- *  Created on: 10/06/2012
- *      Author: Gonzalo Ferrero 89657
- */
 
 #include "ControladorPanelHerramientas.h"
 

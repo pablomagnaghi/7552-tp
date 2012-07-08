@@ -1,10 +1,3 @@
-/*
- * Atributo.h
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
- */
-
 #ifndef ATRIBUTO_H_
 #define ATRIBUTO_H_
 
@@ -16,13 +9,17 @@
 class Atributo : public Componente {
 
 private:
+	// Modelo
 	std::string tipo;
-	std::string expresion;
+	std::string nombre;
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
-	std::vector<Atributo*> atributosDerivables;
 
-	void borrarAtributosDerivables();
+	// Supongo que es para atributos si se es un atributo compuesto
+	// lo saco xq creé la clase Atributo Compuesto
+	//std::vector<Atributo*> atributosDerivables;
+
+
 
 	// PERSISTENCIA COMP
 	/*
@@ -44,20 +41,14 @@ public:
 	std::string getTipo() const;
 	void setTipo(const std::string&);
 
-	std::string getExpresion() const;
-	void setExpresion(const std::string&);
+	std::string getNombre() const;
+	void setNombre(const std::string&);
 
 	std::string getCardinalidadMinima() const;
 	void setCardinalidadMinima(const std::string&);
 
 	std::string getCardinalidadMaxima() const;
 	void setCardinalidadMaxima(const std::string&);
-
-	void agregarAtributoDerivable(Atributo*);
-	void quitarAtributoDerivable(Atributo*);
-
-	std::vector<Atributo*>::iterator atributosDerivablesBegin();
-	std::vector<Atributo*>::iterator atributosDerivablesEnd();
 
 	// PERSISTENCIA COMP
 	/*

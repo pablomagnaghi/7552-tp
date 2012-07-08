@@ -43,7 +43,7 @@ private:
 	Glib::RefPtr<Gtk::TreeStore> refTreeModel;
 	VistaProyecto* vproyecto;
 	void enlazarWidgets();
-	void regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row);
+	void regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row);
 	virtual bool on_button_press_event(GdkEventButton* event);
 	bool hayProyecto();
 public:

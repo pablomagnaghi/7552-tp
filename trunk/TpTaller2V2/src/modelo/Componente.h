@@ -26,6 +26,7 @@ protected:
 public:
 	virtual ~Componente();
 
+	// Interfaz Heredada
 	int getCodigo() const;
 	void setCodigo(int);
 

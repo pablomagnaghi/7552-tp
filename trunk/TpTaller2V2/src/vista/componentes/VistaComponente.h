@@ -63,7 +63,8 @@ public:
 	void getposini(double &x, double&y) const;
 	void setposini(double x, double y);
 	void getposfin(double&x, double&y) const;
-	virtual void setposfin(double x, double y);
+	void setposfin(double x, double y);
+
 	void setDibujable(bool d);
 	bool getDibujable();
 
@@ -100,6 +101,8 @@ public:
 	virtual bool esPuntoDeRedimension(double x, double y) = 0;
 
 	void ajustarTamanioAlTexto();
+
+	virtual std::string getNombre() const = 0;
 
 	// PERSISTENCIA REP
 	VistaComponente(XmlNodo*);

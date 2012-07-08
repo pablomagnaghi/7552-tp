@@ -1,8 +1,3 @@
-/* Diagrama.cpp
- *  Created on: 30/04/2012
- *      Author: Gonzalo Ferrero 89657
- */
-
 #include "Diagrama.h"
 
 Diagrama::Diagrama(){
@@ -11,8 +6,7 @@ Diagrama::Diagrama(){
 }
 
 Diagrama::Diagrama(const std::string nombre):
-	nombre (nombre),
-	estado (DIAGRAMA_SIN_VALIDAR){
+	nombre (nombre){
 	this->diagramaAncestro = NULL;
 }
 
@@ -32,14 +26,6 @@ void Diagrama::setNombre(const std::string nombre){
 
 std::string Diagrama::getNombre() const{
 	return this->nombre;
-}
-
-void Diagrama::setEstado(const std::string estado){
-	this->estado = estado;
-}
-
-std::string Diagrama::getEstado() const{
-	return this->estado;
 }
 
 void Diagrama::setDiagramaAncestro(Diagrama* diagramaAncestro){

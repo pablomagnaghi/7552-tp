@@ -54,7 +54,7 @@ void Ide::guardar_proyecto() {
 //TODO nuevo Proyecto
 void Ide::nuevoProyecto() {
 	if (this->vproyecto == NULL) {
-		this->vproyecto = new VistaProyecto();
+		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama()));
 		this->treePanel.regenerar();
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();

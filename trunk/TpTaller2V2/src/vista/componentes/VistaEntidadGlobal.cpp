@@ -13,3 +13,7 @@ VistaEntidadGlobal::VistaEntidadGlobal() {
 VistaEntidadGlobal::~VistaEntidadGlobal() {
 	// TODO Auto-generated destructor stub
 }
+
+std::string VistaEntidadGlobal::getNombre() const{
+	return this->entidad->getNombre();
+}

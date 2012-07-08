@@ -3,7 +3,7 @@
  *
  *  Created on: 26/05/2012
  */
-
+/*
 #include "modelo/Modelo.h"
 #include <iostream>
 
@@ -154,17 +154,17 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 	sL->setCodigo(GeneradorCodigo::siguienteCodigo());
 	sL->setTipo(TIPO_RELACION_ASOCIACION);
 
-	seccionSala->agregarCodigoRelacion(sL->getCodigo());
-	localidad->agregarCodigoRelacion(sL->getCodigo());
+	//seccionSala->agregarCodigoRelacion(sL->getCodigo());
+	//localidad->agregarCodigoRelacion(sL->getCodigo());
 
 	UnionEntidadRelacion* erSeccionSala = new UnionEntidadRelacion();
-	erSeccionSala->setCodigoEntidad(seccionSala->getCodigo());
+	//erSeccionSala->setCodigoEntidad(seccionSala->getCodigo());
 	erSeccionSala->setCardinalidadMaxima("n");
-	sL->agregarEntidadRelacion(erSeccionSala);
+	sL->agregarUnionAEntidad(erSeccionSala);
 
 	UnionEntidadRelacion* erLocalidad = new UnionEntidadRelacion();
-	erLocalidad->setCodigoEntidad(localidad->getCodigo());
-	sL->agregarEntidadRelacion(erLocalidad);
+	//erLocalidad->setCodigoEntidad(localidad->getCodigo());
+	sL->agregarUnionAEntidad(erLocalidad);
 
 	// Busco el atributo nroButaca de Localidad para crear el identificador que le falta
 	Atributo* nroButaca;
@@ -194,16 +194,16 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	obra->agregarCodigoRelacion(vtaLoc->getCodigo());
 
 	UnionEntidadRelacion* erLocalidad = new UnionEntidadRelacion();
-	erLocalidad->setCodigoEntidad(localidad->getCodigo());
+	//erLocalidad->setCodigoEntidad(localidad->getCodigo());
 	erLocalidad->setCardinalidadMinima("0");
 	erLocalidad->setCardinalidadMaxima("n");
-	vtaLoc->agregarEntidadRelacion(erLocalidad);
+	vtaLoc->agregarUnionAEntidad(erLocalidad);
 
 	UnionEntidadRelacion* erObra = new UnionEntidadRelacion();
-	erObra->setCodigoEntidad(obra->getCodigo());
+	//erObra->setCodigoEntidad(obra->getCodigo());
 	erObra->setCardinalidadMinima("0");
 	erObra->setCardinalidadMaxima("n");
-	vtaLoc->agregarEntidadRelacion(erObra);
+	vtaLoc->agregarUnionAEntidad(erObra);
 
 	Atributo* tarj = new Atributo();
 	tarj->setNombre("tarj");
@@ -270,14 +270,14 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	funcion->agregarCodigoRelacion(fO->getCodigo());
 
 	UnionEntidadRelacion* erObra = new UnionEntidadRelacion();
-	erObra->setCodigoEntidad(obra->getCodigo());
+	//erObra->setCodigoEntidad(obra->getCodigo());
 	erObra->setCardinalidadMinima("0");
 	erObra->setCardinalidadMaxima("n");
-	fO->agregarEntidadRelacion(erObra);
+	fO->agregarUnionAEntidad(erObra);
 
 	UnionEntidadRelacion* erFuncion = new UnionEntidadRelacion();
-	erFuncion->setCodigoEntidad(funcion->getCodigo());
-	fO->agregarEntidadRelacion(erFuncion);
+	//erFuncion->setCodigoEntidad(funcion->getCodigo());
+	fO->agregarUnionAEntidad(erFuncion);
 
 	// Busco los atributos de Funcion para crear los identificadores que le faltan.
 	Atributo *nroFunc, *fecha, *hora;
@@ -350,4 +350,4 @@ int main2(int argc, char* argv[]){
 	GeneradorCodigo::destruir();
 
 	return 0;
-}
+}*/

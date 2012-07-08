@@ -3,7 +3,7 @@
  *
  *  Created on: 20/06/2012
  */
-
+/*
 #include "modelo/Modelo.h"
 #include <iostream>
 
@@ -79,13 +79,13 @@ void agregarRelacionAEntidadB(EntidadNueva* entidadB, Diagrama* diagrama){
 
 void agregarEntidadesARelacion(Relacion* relacion, Diagrama* diagrama){
 	UnionEntidadRelacion* erEntidadA = new UnionEntidadRelacion();
-	erEntidadA->setCodigoEntidad(diagrama->getEntidadByCodigo(1)->getCodigo()); // Carga la entidadA
+	//erEntidadA->setCodigoEntidad(diagrama->getEntidadByCodigo(1)->getCodigo()); // Carga la entidadA
 	erEntidadA->setCardinalidadMaxima("n");
-	relacion->agregarEntidadRelacion(erEntidadA);
+	relacion->agregarUnionAEntidad(erEntidadA);
 
 	UnionEntidadRelacion* erEntidadB = new UnionEntidadRelacion();
-	erEntidadB->setCodigoEntidad(diagrama->getEntidadByCodigo(3)->getCodigo()); // Carga la entidadB
-	relacion->agregarEntidadRelacion(erEntidadB);
+	//erEntidadB->setCodigoEntidad(diagrama->getEntidadByCodigo(3)->getCodigo()); // Carga la entidadB
+	relacion->agregarUnionAEntidad(erEntidadB);
 }
 
 int main4(int argc, char* argv[]){
@@ -128,3 +128,4 @@ int main4(int argc, char* argv[]){
 
 	return 0;
 }
+*/

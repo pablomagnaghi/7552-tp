@@ -333,3 +333,7 @@ void VistaEntidadNueva::setNombre(const std::string & nombre){
 void VistaEntidadNueva::setEsDebil(bool debil){
 	this->entidad->setEsDebil(debil);
 }
+
+std::string VistaEntidadNueva::getNombre() const{
+	return this->entidad->getNombre();
+}

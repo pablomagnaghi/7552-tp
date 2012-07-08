@@ -10,8 +10,9 @@
 #include <iostream>
 using namespace std;
 
-VistaDiagrama::VistaDiagrama(string nom) :
-	Diagrama(nom) {
+VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo)  {
+
+	this->diagrama = diagramaModelo;
 	this->zoom = ZOOM_DEFECTO;
 	this->ancho = A4_ANCHO * zoom;
 	this->alto = A4_ALTO * zoom;
@@ -66,21 +67,21 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	entidadDebil->setEsDebil(true);
 	this->componentes.push_back(entidadDebil);
 
-	relacion = new VistaRelacion();
+	relacion = new VistaRelacion(new Relacion());
 	relacion->setNombre("Cursa");
 	relacion->setposini(70, 10);
 	relacion->setposfin(120, 60);
 	this->componentes.push_back(relacion);
 
-	atributo = new VistaAtributo();
+	atributo = new VistaAtributo(new Atributo());
 	atributo->setposini(130, 20);
 	atributo->setposfin(138, 28);
 	this->componentes.push_back(atributo);
 
-	vUnion = new VistaUnion();
+	/*vUnion = new VistaUnion(new Union());
 	vUnion->setposini(150, 20);
 	vUnion->setposfin(170, 30);
-	this->componentes.push_back(vUnion);
+	this->componentes.push_back(vUnion);*/
 
 }
 
@@ -185,8 +186,10 @@ int VistaDiagrama::getAncho() {
 }
 
 VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre) {
-	VistaDiagrama* diagramaHijo = new VistaDiagrama(nombre);
-	this->agregarDiagramaHijo(diagramaHijo);
+	Diagrama * nuevoDiagrama = new Diagrama();
+	nuevoDiagrama->setNombre(nombre);
+	this->diagrama->agregarDiagramaHijo(nuevoDiagrama);
+	VistaDiagrama* diagramaHijo = new VistaDiagrama(nuevoDiagrama);
 	return diagramaHijo;
 }
 
@@ -345,7 +348,7 @@ void VistaDiagrama::agregarComponente(VistaComponente * componente){
 }
 
 // PERSISTENCIA REP
-
+/*
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
 void VistaDiagrama::abrirREP(const std::string& path) {
 
@@ -376,8 +379,8 @@ void VistaDiagrama::abrirREP(const std::string& path) {
 		delete ex;
 		throw new DiagramaInvalidoExc( path );
 	}
-}
-
+}*/
+/*
 void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
 	this->estado = nodo->getPropiedad("estado");
 }
@@ -420,13 +423,30 @@ XmlNodo VistaDiagrama::guardarXmlREP() {
 bool VistaDiagrama::isOpenREP() const {
 	return this->diagramaValidoREP;
 }
-
+*/
 // Guarda el Diagrama
-
+/*
 void VistaDiagrama::guardarDiagramaREP(const std::string& path) {
 	Xml docXml;
 	docXml.nuevoDoc();
 	XmlNodo nodoDoc = this->guardarXmlREP();
 	docXml.setNodoRaiz(nodoDoc);
 	docXml.guardar(path);
+}
+*/
+std::string VistaDiagrama::getNombre() const{
+	return this->diagrama->getNombre();
+}
+
+std::vector<VistaComponente*>::iterator VistaDiagrama::componentesBegin(){
+	return this->componentes.begin();
+}
+
+std::vector<VistaComponente*>::iterator VistaDiagrama::componentesEnd(){
+	return this->componentes.end();
+}
+
+
+Diagrama * VistaDiagrama::getDiagrama(){
+	return this->diagrama;
 }
