@@ -41,6 +41,10 @@ private:
 	bool estaRedimensionandoElemento; // Para que no se haga el drag
 	bool estaAgregandoElemento;
 
+	// Para controlar el menu de pop up
+	bool menu_popup_activo;
+	VistaComponente * componenteMenuActivo;
+
 	// Redefinicion del metodo de Gtk::DrawingArea q se llama cada vez q debe dibujarse la hoja.
 	bool on_expose_event(GdkEventExpose* e);
 
