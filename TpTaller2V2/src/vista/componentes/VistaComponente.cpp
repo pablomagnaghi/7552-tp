@@ -17,7 +17,6 @@ VistaComponente::VistaComponente() {
 	this->setposini(0, 0);
 	this->pos_selec_x = 0;
 	this->pos_selec_y = 0;
-	this->m_pMenuPopup = 0;
 
 	VistaComponente::colorNegro.set_rgb_p(0, 0, 0);
 	//this->colorDeSeleccion.set_rgb(135,225,255);
@@ -27,6 +26,8 @@ VistaComponente::VistaComponente() {
 	this->seleccionado = false;
 	this->ajustarTamanioPorTexto = true;
 	//this->estaMouseArriba = false;
+
+
 }
 
 VistaComponente::~VistaComponente() {
@@ -139,7 +140,7 @@ void VistaComponente::dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
 	cr->stroke();
 }
 
-void VistaComponente::ajustarTamanioAlTexto(){
+void VistaComponente::ajustarTamanioAlTexto() {
 	this->ajustarTamanioPorTexto = true;
 }
 
@@ -158,20 +159,20 @@ void VistaComponente::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
 	//this->codigo = nodo->getPropiedadInt("codigo");
 }
 
-void VistaComponente::obtenerComponentesXmlREP (XmlNodo* nodo) {
+void VistaComponente::obtenerComponentesXmlREP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "posicion_incial") {
-	  		this->pos_ini_x = nodo->getPropiedadInt("x");
-	  		this->pos_ini_y = nodo->getPropiedadInt("y");
+			this->pos_ini_x = nodo->getPropiedadInt("x");
+			this->pos_ini_y = nodo->getPropiedadInt("y");
 		}
 		if (nodo->getNombre() == "posicion_final") {
-	  		this->pos_fin_x = nodo->getPropiedadInt("x");
-	  		this->pos_fin_y = nodo->getPropiedadInt("y");
+			this->pos_fin_x = nodo->getPropiedadInt("x");
+			this->pos_fin_y = nodo->getPropiedadInt("y");
 		}
 		if (nodo->getNombre() == "color") {
-	  		this->colorR = nodo->getPropiedadInt("r");
-	  		this->colorG = nodo->getPropiedadInt("g");
-	  		this->colorB = nodo->getPropiedadInt("b");
+			this->colorR = nodo->getPropiedadInt("r");
+			this->colorG = nodo->getPropiedadInt("g");
+			this->colorB = nodo->getPropiedadInt("b");
 		}
 		*nodo = nodo->getHermano();
 	}
@@ -187,20 +188,68 @@ XmlNodo VistaComponente::guardarXmlREP() {
 	this->agregarPropiedadesXmlREP(&nodo);
 
 	XmlNodo nodoPosicionInicial("posicion_incial");
-	nodoPosicionInicial.setPropiedad("x",this->pos_ini_x);
-	nodoPosicionInicial.setPropiedad("y",this->pos_ini_y);
+	nodoPosicionInicial.setPropiedad("x", this->pos_ini_x);
+	nodoPosicionInicial.setPropiedad("y", this->pos_ini_y);
 	nodo.agregarHijo(nodoPosicionInicial);
 
 	XmlNodo nodoPosicionFinal("posicion_final");
-	nodoPosicionFinal.setPropiedad("x",this->pos_fin_x);
-	nodoPosicionFinal.setPropiedad("y",this->pos_fin_y);
+	nodoPosicionFinal.setPropiedad("x", this->pos_fin_x);
+	nodoPosicionFinal.setPropiedad("y", this->pos_fin_y);
 	nodo.agregarHijo(nodoPosicionFinal);
 
 	XmlNodo nodoColor("color");
-	nodoColor.setPropiedad("r",this->colorR);
-	nodoColor.setPropiedad("g",this->colorG);
-	nodoColor.setPropiedad("b",this->colorB);
+	nodoColor.setPropiedad("r", this->colorR);
+	nodoColor.setPropiedad("g", this->colorG);
+	nodoColor.setPropiedad("b", this->colorB);
 	nodo.agregarHijo(nodoColor);
 
 	return nodo;
 }
+
+void VistaComponente::crear_menu(Glib::RefPtr<Gtk::UIManager> & manager) {
+	Glib::RefPtr<Gtk::ActionGroup> actionGroup;
+
+	actionGroup = Gtk::ActionGroup::create();
+
+	actionGroup->add(Gtk::Action::create("ContextMenu", "Context Menu"));
+
+	actionGroup->add(Gtk::Action::create("ContextPropiedades", "Propiedades"),
+			sigc::mem_fun(*this, &VistaComponente::on_popup_boton_propiedades));
+
+	manager = Gtk::UIManager::create();
+	manager->insert_action_group(actionGroup);
+
+	//Layout the actions in a menubar and toolbar:
+	Glib::ustring ui_info = "<ui>"
+		"  <popup name='PopupMenu'>"
+		"    <menuitem action='ContextPropiedades'/>"
+		"  </popup>"
+		"</ui>";
+	try {
+		manager->add_ui_from_string(ui_info);
+
+	} catch (const Glib::Error& ex) {
+		std::cerr << "building menus failed: " << ex.what();
+	}
+}
+
+void VistaComponente::lanzarMenuPopUp(GdkEventButton* event) {
+	// Creo el menú Pop Up, Tendría que ser un singleton
+	Gtk::Menu* m_pMenuPopup;
+	Glib::RefPtr<Gtk::UIManager> userInterfaceManager;
+
+	this->crear_menu(userInterfaceManager);
+
+	m_pMenuPopup = dynamic_cast<Gtk::Menu*> (userInterfaceManager->get_widget(
+			"/PopupMenu"));
+	if (!m_pMenuPopup)
+		g_warning("menu not found");
+	else
+		m_pMenuPopup->popup(event->button, event->time);
+}
+
+void VistaComponente::on_popup_boton_propiedades() {
+	std::cout << "Se pulsó el botón Propiedades" << std::endl;
+	this->lanzarProp();
+}
+
