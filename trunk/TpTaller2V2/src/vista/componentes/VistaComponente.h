@@ -24,8 +24,7 @@ using namespace std;
 #define LONGITUD_LINEAS_REDIMENSION 2
 #define RADIO_CIRCULOS_REDIMENSION 3
 
-
-class VistaComponente  {
+class VistaComponente {
 protected:
 	double pos_ini_x;
 	double pos_ini_y;
@@ -37,7 +36,10 @@ protected:
 	double colorG;
 	double colorB;
 	bool dibujable;
-	Gtk::Menu* m_pMenuPopup;
+
+	// Menu Pop Up
+	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager );
+	void on_popup_boton_propiedades();
 
 	bool seleccionado;
 	//bool estaMouseArriba;
@@ -48,13 +50,14 @@ protected:
 	int mouseArribaDePuntoDeRedimension;
 	bool ajustarTamanioPorTexto;
 
-	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
+	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
+			const std::string nombre);
 
 	// PERSISTENCIA REP
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 
-	void obtenerComponentesXmlREP (XmlNodo* nodo);
+	void obtenerComponentesXmlREP(XmlNodo* nodo);
 
 public:
 	VistaComponente();
@@ -80,6 +83,9 @@ public:
 	// Lanza el asistente de prpiedades del objeto en cuestion.
 	virtual bool lanzarProp() = 0;
 
+	// lanza el menú al hacer click derecho
+	virtual void lanzarMenuPopUp(GdkEventButton* event);
+
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y) = 0;
 
@@ -95,7 +101,8 @@ public:
 	virtual void redimensionar(double x, double y)=0;
 
 	// Calcula las dimensiones del componente a partir de las dimensiones del nombre
-	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents)=0;
+	virtual void calcularDimensionesAPartirDeTexto(
+			Cairo::TextExtents * textExtents)=0;
 
 	// Verifica si el punto cae dentro de un punto para redimensionar el elemento
 	virtual bool esPuntoDeRedimension(double x, double y) = 0;

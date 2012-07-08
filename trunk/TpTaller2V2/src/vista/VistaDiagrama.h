@@ -55,6 +55,9 @@ private:
 	friend class TreePanel;
 	friend class VistaProyecto;
 
+	VistaComponente * obtenerComponenteEnPos(gdouble x, gdouble y);
+
+
 	void configurar_drag_and_drop();
 
 	// Señales para Drag and Drop

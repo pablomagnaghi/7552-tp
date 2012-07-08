@@ -10,7 +10,7 @@
 #include <iostream>
 using namespace std;
 
-VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo)  {
+VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo) {
 
 	this->diagrama = diagramaModelo;
 	this->zoom = ZOOM_DEFECTO;
@@ -39,7 +39,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo)  {
 
 VistaDiagrama::~VistaDiagrama() {
 	std::vector<VistaComponente*>::iterator it = this->componentes.begin();
-	while ( it != this->componentes.end() ) {
+	while (it != this->componentes.end()) {
 		delete (*it);
 		it++;
 	}
@@ -79,9 +79,9 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	this->componentes.push_back(atributo);
 
 	/*vUnion = new VistaUnion(new Union());
-	vUnion->setposini(150, 20);
-	vUnion->setposfin(170, 30);
-	this->componentes.push_back(vUnion);*/
+	 vUnion->setposini(150, 20);
+	 vUnion->setposfin(170, 30);
+	 this->componentes.push_back(vUnion);*/
 
 }
 
@@ -109,17 +109,26 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 }
 
 bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
-
+	VistaComponente * componente;
 	cout << "X= " << event->x << " Y=" << event->y << endl;
+	cout << "Event button: " << event->button << endl;
 
-	seleccionar_componente_clickeado(event->x, event->y);
-
-	if (this->componentes_seleccionados.size() == 1
-			&& this->componentes_seleccionados[0]->esPuntoDeRedimension(
-					event->x, event->y)) {
-		this->estaRedimensionandoElemento = true;
+	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3)) {
+		componente=obtenerComponenteEnPos(event->x,event->y);
+		if(componente != NULL){
+			componente->lanzarMenuPopUp(event);
+		}
+		return true; //It has been handled.
 	} else {
-		this->estaRedimensionandoElemento = false;
+		seleccionar_componente_clickeado(event->x, event->y);
+
+		if (this->componentes_seleccionados.size() == 1
+				&& this->componentes_seleccionados[0]->esPuntoDeRedimension(
+						event->x, event->y)) {
+			this->estaRedimensionandoElemento = true;
+		} else {
+			this->estaRedimensionandoElemento = false;
+		}
 	}
 
 	this->x_button_press = event->x;
@@ -340,8 +349,8 @@ void VistaDiagrama::drag_data_received(
 	cout << "DRAG_DATA_RECEIVED " << endl;
 }
 
-void VistaDiagrama::agregarComponente(VistaComponente * componente){
-	if(componente!=NULL){
+void VistaDiagrama::agregarComponente(VistaComponente * componente) {
+	if (componente != NULL) {
 		this->componentes.push_back(componente);
 		this->queue_draw();
 	}
@@ -349,104 +358,114 @@ void VistaDiagrama::agregarComponente(VistaComponente * componente){
 
 // PERSISTENCIA REP
 /*
-// Abre un archivo xml, y carga un diagrama con la informacion que contenga.
-void VistaDiagrama::abrirREP(const std::string& path) {
+ // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
+ void VistaDiagrama::abrirREP(const std::string& path) {
 
-	this->diagramaValidoREP = false;
+ this->diagramaValidoREP = false;
 
-	try {
-		// Abro el archivo
-		Xml docXml(path);
-		this->diagramaValidoREP = true;
+ try {
+ // Abro el archivo
+ Xml docXml(path);
+ this->diagramaValidoREP = true;
 
-		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
+ XmlNodo* nodoRaiz = docXml.getNodoRaiz();
 
-		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
+ XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
 
-		// archivo listo para cargar el diagrama
-		// se cargan los componentes del doc.
-		this->obtenerPropiedadesXmlREP(nodoRaiz);
+ // archivo listo para cargar el diagrama
+ // se cargan los componentes del doc.
+ this->obtenerPropiedadesXmlREP(nodoRaiz);
 
-		XmlNodo nodo = nodoRaiz->getHijo();
+ XmlNodo nodo = nodoRaiz->getHijo();
 
-		this->obtenerComponentesXmlREP(&nodo);
-	}
-	catch ( XmlArchivoInexistenteExc* ex ) {
-		delete ex;
-		throw new DiagramaArchivoInexistenteExc( path );
-	}
-	catch ( XmlArchivoInvalidoExc* ex ) {
-		delete ex;
-		throw new DiagramaInvalidoExc( path );
-	}
-}*/
+ this->obtenerComponentesXmlREP(&nodo);
+ }
+ catch ( XmlArchivoInexistenteExc* ex ) {
+ delete ex;
+ throw new DiagramaArchivoInexistenteExc( path );
+ }
+ catch ( XmlArchivoInvalidoExc* ex ) {
+ delete ex;
+ throw new DiagramaInvalidoExc( path );
+ }
+ }*/
 /*
-void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
-	this->estado = nodo->getPropiedad("estado");
-}
+ void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
+ this->estado = nodo->getPropiedad("estado");
+ }
 
-void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
-	while (nodo->esValido()) {
-		if (nodo->getNombre() == "componente") {
-			//VistaComponente *vistaComponente = new VistaComponente(nodo);
-	  		//this->agregarComponente(vistaComponente);
-		}
-		*nodo = nodo->getHermano();
-	}
-}
+ void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
+ while (nodo->esValido()) {
+ if (nodo->getNombre() == "componente") {
+ //VistaComponente *vistaComponente = new VistaComponente(nodo);
+ //this->agregarComponente(vistaComponente);
+ }
+ *nodo = nodo->getHermano();
+ }
+ }
 
-void VistaDiagrama::agregarPropiedadesXmlREP(XmlNodo* nodo) {
-	nodo->setPropiedad(XMLNS, INSTANCE);
-	nodo->setPropiedad(XSI, COMPOSICION);
-	nodo->setPropiedad("estado",this->estado);
-}
+ void VistaDiagrama::agregarPropiedadesXmlREP(XmlNodo* nodo) {
+ nodo->setPropiedad(XMLNS, INSTANCE);
+ nodo->setPropiedad(XSI, COMPOSICION);
+ nodo->setPropiedad("estado",this->estado);
+ }
 
-void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
-	std::vector<VistaComponente*>::iterator i;
+ void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
+ std::vector<VistaComponente*>::iterator i;
 
-	for(i = this->componentes.begin(); i != this->componentes.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlREP());
-}
+ for(i = this->componentes.begin(); i != this->componentes.end(); ++i)
+ nodo->agregarHijo((*i)->guardarXmlREP());
+ }
 
-XmlNodo VistaDiagrama::guardarXmlREP() {
-	XmlNodo nodo("diagrama");
+ XmlNodo VistaDiagrama::guardarXmlREP() {
+ XmlNodo nodo("diagrama");
 
-	this->agregarPropiedadesXmlREP(&nodo);
+ this->agregarPropiedadesXmlREP(&nodo);
 
-	this->guardarComponentesXmlREP(&nodo);
+ this->guardarComponentesXmlREP(&nodo);
 
-	return nodo;
-}
+ return nodo;
+ }
 
-// Devuelve true si se logró abrir y cargar el documento.
+ // Devuelve true si se logró abrir y cargar el documento.
 
-bool VistaDiagrama::isOpenREP() const {
-	return this->diagramaValidoREP;
-}
-*/
+ bool VistaDiagrama::isOpenREP() const {
+ return this->diagramaValidoREP;
+ }
+ */
 // Guarda el Diagrama
 /*
-void VistaDiagrama::guardarDiagramaREP(const std::string& path) {
-	Xml docXml;
-	docXml.nuevoDoc();
-	XmlNodo nodoDoc = this->guardarXmlREP();
-	docXml.setNodoRaiz(nodoDoc);
-	docXml.guardar(path);
-}
-*/
-std::string VistaDiagrama::getNombre() const{
+ void VistaDiagrama::guardarDiagramaREP(const std::string& path) {
+ Xml docXml;
+ docXml.nuevoDoc();
+ XmlNodo nodoDoc = this->guardarXmlREP();
+ docXml.setNodoRaiz(nodoDoc);
+ docXml.guardar(path);
+ }
+ */
+std::string VistaDiagrama::getNombre() const {
 	return this->diagrama->getNombre();
 }
 
-std::vector<VistaComponente*>::iterator VistaDiagrama::componentesBegin(){
+std::vector<VistaComponente*>::iterator VistaDiagrama::componentesBegin() {
 	return this->componentes.begin();
 }
 
-std::vector<VistaComponente*>::iterator VistaDiagrama::componentesEnd(){
+std::vector<VistaComponente*>::iterator VistaDiagrama::componentesEnd() {
 	return this->componentes.end();
 }
 
+VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y){
+	std::vector<VistaComponente *>::iterator i;
 
-Diagrama * VistaDiagrama::getDiagrama(){
+	for(i=this->componentes.begin();i!=this->componentes.end();i++){
+		if((*i)->contieneAEstePunto(x,y)){
+			return *i;
+		}
+	}
+	return NULL;
+}
+
+Diagrama * VistaDiagrama::getDiagrama() {
 	return this->diagrama;
 }
