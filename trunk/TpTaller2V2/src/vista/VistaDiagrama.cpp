@@ -118,7 +118,6 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 		if(componente != NULL){
 			componente->lanzarMenuPopUp(event);
 		}
-		return true; //It has been handled.
 	} else {
 		seleccionar_componente_clickeado(event->x, event->y);
 

@@ -37,10 +37,6 @@ protected:
 	double colorB;
 	bool dibujable;
 
-	// Menu Pop Up
-	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager );
-	void on_popup_boton_propiedades();
-
 	bool seleccionado;
 	//bool estaMouseArriba;
 	static Gdk::Color colorNegro;
@@ -52,6 +48,8 @@ protected:
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
 			const std::string nombre);
+
+	void on_popup_boton_propiedades();
 
 	// PERSISTENCIA REP
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
@@ -110,6 +108,9 @@ public:
 	void ajustarTamanioAlTexto();
 
 	virtual std::string getNombre() const = 0;
+
+	// Menu Pop Up
+	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager );
 
 	// PERSISTENCIA REP
 	VistaComponente(XmlNodo*);
