@@ -23,11 +23,13 @@
 
 using namespace std;
 
-class VistaDiagrama: public Gtk::DrawingArea, public Diagrama {
+class VistaDiagrama: public Gtk::DrawingArea{
 private:
 	double zoom;
 	int ancho;
 	int alto;
+
+	Diagrama * diagrama;
 
 	std::vector<VistaComponente *> componentes;
 	std::vector<VistaComponente *> componentes_seleccionados;
@@ -49,8 +51,6 @@ private:
 	bool on_button_release_event(GdkEventButton* event);
 
 	bool on_mouse_motion_event(GdkEventMotion * event);
-
-
 
 	friend class TreePanel;
 	friend class VistaProyecto;
@@ -99,7 +99,7 @@ private:
 
 public:
 
-	VistaDiagrama(string nom);
+	VistaDiagrama(Diagrama * diagramaModelo);
 	virtual ~VistaDiagrama();
 
 	void setZoom(double z);
@@ -109,6 +109,13 @@ public:
 	int getAncho();
 
 	void agregarComponente(VistaComponente * componente);
+
+	std::string getNombre() const;
+
+	std::vector<VistaComponente*>::iterator componentesBegin();
+	std::vector<VistaComponente*>::iterator componentesEnd();
+
+	Diagrama * getDiagrama();
 
 	// Persistencia REP
 	void abrirREP(const std::string& path);

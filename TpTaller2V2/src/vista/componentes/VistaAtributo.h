@@ -15,10 +15,10 @@ class VistaAtributo: public VistaComponente {
 private:
 	list<VistaAtributo*> l_atrib_deri;
 public:
-	VistaAtributo();
+	VistaAtributo(Atributo * atributoModelo);
 	virtual ~VistaAtributo();
 
-
+	Atributo * atributo;
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
@@ -43,6 +43,8 @@ public:
 	virtual void setMouseArriba(double x, double y);
 
 	virtual void redimensionar(double x, double y);
+
+	virtual 	std::string getNombre() const;
 };
 
 #endif /* VISTAATRIBUTO_H_ */

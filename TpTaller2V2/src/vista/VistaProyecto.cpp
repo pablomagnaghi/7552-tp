@@ -8,9 +8,10 @@
 #include "VistaProyecto.h"
 #include "TreePanel.h"
 
-VistaProyecto::VistaProyecto()  {
+VistaProyecto::VistaProyecto(Proyecto * proyectoModelo)  {
 	//Prueba
-	this->diagramaPrincipal = new VistaDiagrama("Principal");
+	this->proyecto = proyectoModelo;
+	this->diagramaPrincipal = new VistaDiagrama(proyectoModelo->getDiagramaPrincipal());
 	//this->testCargarDiagramas();
 }
 
@@ -19,17 +20,17 @@ VistaProyecto::~VistaProyecto() {
 }
 
 void VistaProyecto::testCargarDiagramas(){
-	VistaDiagrama* diagrama = new VistaDiagrama("Sub Diag Prueba1");
-	this->getDiagramaPrincipal()->agregarDiagramaHijo(diagrama);
+	VistaDiagrama* diagrama = new VistaDiagrama(new Diagrama("Sub Diag Prueba1"));
+	this->getDiagramaPrincipal()->getDiagrama()->agregarDiagramaHijo(diagrama->getDiagrama());
 
-	diagrama = new VistaDiagrama("SUB SUB DIAG 1");
-	(*(this->getDiagramaPrincipal()->diagramasHijosBegin()))->agregarDiagramaHijo(diagrama);
+	diagrama = new VistaDiagrama(new Diagrama("SUB SUB DIAG 1"));
+	(*(this->getDiagramaPrincipal()->getDiagrama()->diagramasHijosBegin()))->agregarDiagramaHijo(diagrama->getDiagrama());
 
-	diagrama = new VistaDiagrama("Sub Diag Prueba2 0.75");
+	diagrama = new VistaDiagrama(new Diagrama("Sub Diag Prueba2 0.75"));
 	diagrama->setZoom(0.75);
-	this->getDiagramaPrincipal()->agregarDiagramaHijo(diagrama);
+	this->getDiagramaPrincipal()->getDiagrama()->agregarDiagramaHijo(diagrama->getDiagrama());
 }
 
 VistaDiagrama* VistaProyecto::getDiagramaPrincipal(){
-	return (VistaDiagrama*)Proyecto::getDiagramaPrincipal();
+	return this->diagramaPrincipal;
 }

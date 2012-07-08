@@ -15,20 +15,24 @@
 class Proyecto {
 
 protected:
-
+	// Modelo
 	std::string nombre;
-	Diagrama* diagramaPrincipal;
+	Diagrama * diagramaPrincipal;
+
+	// Este tendría que tener todos los diagramas, por más que estén los hijos en cada diagrama
+	// Sería el administrador de diagramas
+	std::vector<Diagrama * > diagramas;
 
 public:
 
-	Proyecto();
+	Proyecto(Diagrama * diagrama);
 	Proyecto(const std::string&);
 	virtual ~Proyecto();
 
 	std::string getNombre() const;
 	void setNombre(const std::string&);
 
-	virtual Diagrama* getDiagramaPrincipal();
+	Diagrama* getDiagramaPrincipal();
 	virtual void setDiagramaPrincipal(Diagrama*);
 
 };

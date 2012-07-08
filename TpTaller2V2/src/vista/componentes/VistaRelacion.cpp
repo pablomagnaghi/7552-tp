@@ -1,13 +1,9 @@
-/* VistaRelacion.cpp
- *  Created on: 24/05/2012
- *      Author: Gonzalo Ferrero 89657
- */
-
 #include "VistaRelacion.h"
 #include <iostream>
 using namespace std;
 
-VistaRelacion::VistaRelacion() {
+VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
+	this->relacion = relacionModelo;
 	// TODO Auto-generated constructor stub
 
 }
@@ -148,7 +144,7 @@ bool VistaRelacion::contieneAEstePunto(double x, double y) {
 }
 
 void VistaRelacion::calcularDimensionesAPartirDeTexto(
-		Cairo::TextExtents * textExtents) {
+			Cairo::TextExtents * textExtents){
 	double alto, ancho;
 	ancho = textExtents->width;
 	alto = textExtents->height;
@@ -291,7 +287,10 @@ void VistaRelacion::redimensionar(double x, double y) {
 	}
 }
 
+std::string VistaRelacion::getNombre() const{
+	return this->relacion->getNombre();
+}
 
 void VistaRelacion::setNombre(const std::string & nombre){
-
+	this->relacion->setNombre(nombre);
 }

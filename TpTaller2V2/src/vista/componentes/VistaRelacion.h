@@ -1,8 +1,3 @@
-/* VistaRelacion.h
- *  Created on: 24/05/2012
- *      Author: Gonzalo Ferrero 89657
- */
-
 #ifndef VISTARELACION_H_
 #define VISTARELACION_H_
 #include "../../modelo/Relacion.h"
@@ -15,8 +10,9 @@ private:
 
 	void dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr);
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
+
 public:
-	VistaRelacion();
+	VistaRelacion(Relacion * relacionModelo);
 	virtual ~VistaRelacion();
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
@@ -45,6 +41,8 @@ public:
 	virtual void redimensionar(double x, double y);
 
 	void setNombre(const std::string & nombre);
+
+	virtual std::string getNombre() const;
 };
 
 #endif /* VISTARELACION_H_ */

@@ -16,8 +16,9 @@ class Relacion : public Componente {
 
 private:
 
-	std::string tipo;
-	std::vector<UnionEntidadRelacion*> entidadesRelacion;
+	// Modelo
+	std::string tipo; // ?????
+	std::vector<UnionEntidadRelacion*> unionAEntidades;
 	std::vector<Atributo*> atributos;
 
 	void borrarAtributos();
@@ -46,11 +47,15 @@ public:
 	std::string getTipo() const;
 	void setTipo(const std::string&);
 
-	void agregarEntidadRelacion(UnionEntidadRelacion*);
-	void quitarEntidadRelacion(UnionEntidadRelacion*);
 
-	void agregarAtributo(Atributo*);
-	void quitarAtributo(Atributo*);
+	// Modelo
+	void agregarUnionAEntidad(UnionEntidadRelacion*);
+	void quitarUnionAEntidad(UnionEntidadRelacion*);
+
+	void agregarAtributo(Atributo *);
+	void quitarAtributo(Atributo *);
+
+
 
 	std::vector<UnionEntidadRelacion*>::iterator entidadesRelacionBegin();
 	std::vector<UnionEntidadRelacion*>::iterator entidadesRelacionEnd();

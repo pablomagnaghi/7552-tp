@@ -1,8 +1,3 @@
-/* Jerarquia.cpp
- *  Created on: 30/04/2012
- *      Author: Gonzalo Ferrero 89657
- */
-
 #include "Jerarquia.h"
 
 Jerarquia::Jerarquia() {
@@ -13,25 +8,6 @@ Jerarquia::~Jerarquia() {
 
 }
 
-int Jerarquia::getCodigoEntidadGeneral() const {
-	return this->codigoEntidadGeneral;
-}
-
-void Jerarquia::setCodigoEntidadGeneral(int codigoEntidadGeneral) {
-	this->codigoEntidadGeneral = codigoEntidadGeneral;
-}
-
-void Jerarquia::agregarCodigoEntidadEspecializada(int codigoEntidadEspecializada){
-	this->codigosEntidadesEspecializadas.push_back(codigoEntidadEspecializada);
-}
-
-void Jerarquia::quitarCodigoEntidadEspecializada(int codigoEntidadEspecializada){
-	std::vector<int>::iterator e;
-	e = find(this->codigosEntidadesEspecializadas.begin(), this->codigosEntidadesEspecializadas.end(), codigoEntidadEspecializada);
-	if (*e == codigoEntidadEspecializada){
-		this->codigosEntidadesEspecializadas.erase(e);
-	}
-}
 
 std::string Jerarquia::getCobertura() const {
 	return this->cobertura;
@@ -49,17 +25,35 @@ void Jerarquia::setInterseccion(const std::string& interseccion) {
 	this->interseccion = interseccion;
 }
 
-std::vector<int>::iterator Jerarquia::codigosEntidadesEspecializadasBegin(){
-	return this->codigosEntidadesEspecializadas.begin();
+
+
+void Jerarquia::setEntidadGeneral(EntidadNueva * entidadPadre){
+	this->padre = entidadPadre;
 }
 
-std::vector<int>::iterator Jerarquia::codigosEntidadesEspecializadasEnd(){
-	return this->codigosEntidadesEspecializadas.end();
+EntidadNueva * Jerarquia::getEntidadGeneral() const{
+	return this->padre;
 }
 
-void Jerarquia::borrarEntidadesEspecializadas() {
-	this->codigosEntidadesEspecializadas.clear();
+void Jerarquia::agregarEspecializada(EntidadNueva * entidadHija){
+	this->hijos.push_back(entidadHija);
 }
+
+std::vector<EntidadNueva *>::iterator Jerarquia::obtenerEntidadesEspecializadas(){
+	return this->hijos.begin();
+}
+
+void Jerarquia::quitarEspecializada(EntidadNueva * entidad){
+	std::vector<EntidadNueva *>::iterator i;
+
+	for(i = this->hijos.begin();i!=this->hijos.end();i++){
+		if(*i == entidad){
+			this->hijos.erase(i);
+			break;
+		}
+	}
+}
+
 
 // PERSISTENCIA COMP
 /*

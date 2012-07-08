@@ -35,17 +35,6 @@ void EntidadNueva::quitarAtributo(Atributo* atributo) {
 	}
 }
 
-void EntidadNueva::agregarCodigoJerarquia(int codigoJerarquia) {
-	this->codigoJerarquias.push_back(codigoJerarquia);
-}
-
-void EntidadNueva::quitarCodigoJerarquia(int codigoJerarquia) {
-	std::vector<int>::iterator e;
-	e = find(this->codigoJerarquias.begin(), this->codigoJerarquias.end(), codigoJerarquia);
-	if (*e == codigoJerarquia){
-		this->codigoJerarquias.erase(e);
-	}
-}
 
 void EntidadNueva::agregarIdentificador(Identificador *identificador) {
 	this->identificadores.push_back(identificador);
@@ -67,13 +56,7 @@ std::vector<Atributo*>::iterator EntidadNueva::atributosEnd() {
 	return this->atributos.end();
 }
 
-std::vector<int>::iterator EntidadNueva::codigoJerarquiasBegin() {
-	return this->codigoJerarquias.begin();
-}
 
-std::vector<int>::iterator EntidadNueva::codigoJerarquiasEnd() {
-	return this->codigoJerarquias.end();
-}
 
 std::vector<Identificador*>::iterator EntidadNueva::identificadoresBegin() {
 	return this->identificadores.begin();

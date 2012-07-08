@@ -6,7 +6,7 @@
 
 #include "modelo/Modelo.h"
 #include <iostream>
-
+/*
 EntidadNueva* crearEntidadNuevaPapa(){
 	EntidadNueva* entidadNuevaPapa = new EntidadNueva();
 	entidadNuevaPapa->setNombre("EntidadNuevaPapa");
@@ -67,15 +67,15 @@ EntidadNueva* crearEntidadNuevaB(){
 Jerarquia* crearJerarquia(EntidadNueva* entidadNuevaPapa, EntidadNueva* entidadNuevaA, EntidadNueva* entidadNuevaB){
 	Jerarquia* jerarquia = new Jerarquia();
 	jerarquia->setCodigo(GeneradorCodigo::siguienteCodigo());
-	jerarquia->setCodigoEntidadGeneral(entidadNuevaPapa->getCodigo());
-	jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaA->getCodigo());
-	jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaB->getCodigo());
+	//jerarquia->setCodigoEntidadGeneral(entidadNuevaPapa->getCodigo());
+	//jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaA->getCodigo());
+	//jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaB->getCodigo());
 	jerarquia->setCobertura(TIPO_COBERTURA_TOTAL);
 	jerarquia->setInterseccion(TIPO_INTERSECCION_EXCLUSIVA);
 
-	entidadNuevaPapa->agregarCodigoJerarquia(jerarquia->getCodigo());
-	entidadNuevaA->agregarCodigoJerarquia(jerarquia->getCodigo());
-	entidadNuevaB->agregarCodigoJerarquia(jerarquia->getCodigo());
+	//entidadNuevaPapa->agregarCodigoJerarquia(jerarquia->getCodigo());
+	//entidadNuevaA->agregarCodigoJerarquia(jerarquia->getCodigo());
+	//entidadNuevaB->agregarCodigoJerarquia(jerarquia->getCodigo());
 
 	return jerarquia;
 }
@@ -119,13 +119,13 @@ Relacion* crearRelacion1(EntidadGlobal* entidadGlobalA, EntidadNueva* entidadNue
 	entidadNuevaC->agregarCodigoRelacion(relacion1->getCodigo());
 
 	UnionEntidadRelacion* erEntidadGlobalA = new UnionEntidadRelacion();
-	erEntidadGlobalA->setCodigoEntidad(entidadGlobalA->getCodigo());
-	relacion1->agregarEntidadRelacion(erEntidadGlobalA);
+	//erEntidadGlobalA->setCodigoEntidad(entidadGlobalA->getCodigo());
+	//relacion1->agregarUnionAEntidad(erEntidadGlobalA);
 
 	UnionEntidadRelacion* erEntidadNuevaC = new UnionEntidadRelacion();
-	erEntidadNuevaC->setCodigoEntidad(entidadNuevaC->getCodigo());
+	//erEntidadNuevaC->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC->setCardinalidadMaxima("N");
-	relacion1->agregarEntidadRelacion(erEntidadNuevaC);
+	relacion1->agregarUnionAEntidad(erEntidadNuevaC);
 
 	return relacion1;
 }
@@ -139,15 +139,15 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 	entidadNuevaC->agregarCodigoRelacion(relacion2->getCodigo());
 
 	UnionEntidadRelacion* erEntidadNuevaC1 = new UnionEntidadRelacion();
-	erEntidadNuevaC1->setCodigoEntidad(entidadNuevaC->getCodigo());
+	//erEntidadNuevaC1->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC1->setCardinalidadMinima("0");
-	relacion2->agregarEntidadRelacion(erEntidadNuevaC1);
+	relacion2->agregarUnionAEntidad(erEntidadNuevaC1);
 
 	UnionEntidadRelacion* erEntidadNuevaC2 = new UnionEntidadRelacion();
-	erEntidadNuevaC2->setCodigoEntidad(entidadNuevaC->getCodigo());
+	//erEntidadNuevaC2->setCodigoEntidad(entidadNuevaC->getCodigo());
 	erEntidadNuevaC2->setCardinalidadMinima("0");
 	erEntidadNuevaC2->setCardinalidadMaxima("N");
-	relacion2->agregarEntidadRelacion(erEntidadNuevaC2);
+	relacion2->agregarUnionAEntidad(erEntidadNuevaC2);
 
 	return relacion2;
 }
@@ -197,3 +197,4 @@ int main3(int argc, char* argv[]){
 
 	return 0;
 }
+*/

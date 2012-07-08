@@ -1,14 +1,7 @@
-/*
- * Proyecto.cpp
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
- */
-
 #include "Proyecto.h"
 
-Proyecto::Proyecto() {
-
+Proyecto::Proyecto(Diagrama * diagrama) {
+	this->diagramaPrincipal = diagrama;
 }
 
 Proyecto::Proyecto(const std::string& nombre)

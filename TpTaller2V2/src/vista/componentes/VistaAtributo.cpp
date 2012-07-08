@@ -10,8 +10,9 @@
 #include <iostream>
 using namespace std;
 
-VistaAtributo::VistaAtributo() {
+VistaAtributo::VistaAtributo(Atributo * atributoModelo) {
 	// TODO Auto-generated constructor stub
+	this->atributo = atributoModelo;
 
 }
 
@@ -80,4 +81,8 @@ void VistaAtributo::setMouseArriba(double x, double y){
 
 void VistaAtributo::redimensionar(double x, double y) {
 
+}
+
+std::string VistaAtributo::getNombre() const{
+	return this->atributo->getNombre();
 }

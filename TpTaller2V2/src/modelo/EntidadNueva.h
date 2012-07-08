@@ -6,14 +6,20 @@
 #include "Atributo.h"
 #include "Identificador.h"
 #include "UnionEntidadRelacion.h"
+#include "Jerarquia.h"
+
+class Jerarquia;
 
 class EntidadNueva : public Entidad {
 
 private:
-	std::string tipo;
+	// Modelo
+	std::string tipo; // ?????
 	std::vector<Atributo*> atributos;
-	std::vector<int> codigoJerarquias;
 	std::vector<Identificador*> identificadores;
+	std::vector<Jerarquia *> hijos;
+	std::vector<Jerarquia *> padres;
+	std::vector<UnionEntidadRelacion *> unionesARelaciones;
 
 	void borrarAtributos();
 	void borrarIdentificadores();
@@ -62,9 +68,6 @@ public:
 
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
-
-	std::vector<int>::iterator codigoJerarquiasBegin();
-	std::vector<int>::iterator codigoJerarquiasEnd();
 
 	std::vector<Identificador*>::iterator identificadoresBegin();
 	std::vector<Identificador*>::iterator identificadoresEnd();

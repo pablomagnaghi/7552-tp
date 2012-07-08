@@ -1,15 +1,14 @@
-/* VistaUnionEntidadRelacion.cpp
- *  Created on: 07/07/2012
- *      Author: Gonzalo Ferrero 89657
- */
-
 #include "VistaUnionEntidadRelacion.h"
 
-VistaUnionEntidadRelacion::VistaUnionEntidadRelacion() {
+VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(UnionEntidadRelacion * unionModelo) {
 	// TODO Auto-generated constructor stub
 
 }
 
 VistaUnionEntidadRelacion::~VistaUnionEntidadRelacion() {
 	// TODO Auto-generated destructor stub
+}
+
+std::string VistaUnionEntidadRelacion::getNombre() const{
+	return this->unionModelo->getNombre();
 }

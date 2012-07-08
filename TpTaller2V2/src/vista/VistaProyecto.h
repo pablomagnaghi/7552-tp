@@ -15,16 +15,19 @@
 #include "../modelo/Proyecto.h"
 using namespace std;
 
-class VistaProyecto : public Proyecto {
+class VistaProyecto  {
 private:
+
+	VistaDiagrama * diagramaPrincipal;
+	Proyecto * proyecto;
 
 	void testCargarDiagramas();
 
 public:
-	VistaProyecto();
+	VistaProyecto(Proyecto * proyectoModelo);
 	virtual ~VistaProyecto();
 
-	virtual VistaDiagrama* getDiagramaPrincipal();
+	 VistaDiagrama* getDiagramaPrincipal();
 };
 
 #endif /* VISTAPROYECTO_H_ */
