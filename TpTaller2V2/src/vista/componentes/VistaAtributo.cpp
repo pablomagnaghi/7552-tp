@@ -86,3 +86,7 @@ void VistaAtributo::redimensionar(double x, double y) {
 std::string VistaAtributo::getNombre() const{
 	return this->atributo->getNombre();
 }
+
+bool VistaAtributo::contieneEsteComponente(Componente * c){
+	return this->atributo == c;
+}

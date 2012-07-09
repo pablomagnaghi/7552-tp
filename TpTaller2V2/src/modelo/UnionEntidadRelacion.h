@@ -18,17 +18,16 @@ class UnionEntidadRelacion: public Componente {
 
 private:
 	// Modelo
-	Entidad * entidades;
+	Entidad * entidad;
 	Relacion * relacion;
 	std::string cardinalidadMinima;
 	std::string  cardinalidadMaxima;
-
 
 	// Persistencia
 	bool entidadGuardada;
 
 public:
-	UnionEntidadRelacion();
+	UnionEntidadRelacion(Entidad *, Relacion *);
 	virtual ~UnionEntidadRelacion();
 
 	int getCodigoEntidad() const;
@@ -39,6 +38,9 @@ public:
 
 	const std::string  getCardinalidadMaxima() const;
 	void setCardinalidadMaxima(const std::string &);
+
+	Entidad * getEntidad();
+	Relacion * getRelacion();
 
 
 	// PERSISTENCIA COMP

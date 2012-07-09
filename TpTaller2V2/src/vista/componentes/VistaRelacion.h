@@ -43,6 +43,10 @@ public:
 	void setNombre(const std::string & nombre);
 
 	virtual std::string getNombre() const;
+
+	virtual bool contieneEsteComponente(Componente *);
+
+	std::vector<UnionEntidadRelacion *> getUniones();
 };
 
 #endif /* VISTARELACION_H_ */

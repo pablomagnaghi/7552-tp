@@ -29,6 +29,8 @@ void VistaProyecto::testCargarDiagramas(){
 	diagrama = new VistaDiagrama(new Diagrama("Sub Diag Prueba2 0.75"));
 	diagrama->setZoom(0.75);
 	this->getDiagramaPrincipal()->getDiagrama()->agregarDiagramaHijo(diagrama->getDiagrama());
+
+	this->diagramaPrincipal->test_cargar_componentes_visuales();
 }
 
 VistaDiagrama* VistaProyecto::getDiagramaPrincipal(){

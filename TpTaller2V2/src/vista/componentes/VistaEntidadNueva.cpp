@@ -337,3 +337,7 @@ void VistaEntidadNueva::setEsDebil(bool debil){
 std::string VistaEntidadNueva::getNombre() const{
 	return this->entidad->getNombre();
 }
+
+bool VistaEntidadNueva::contieneEsteComponente(Componente * c){
+	return this->entidad == c;
+}

@@ -20,7 +20,7 @@ Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 	this->show();
 
 	//TODO ESTO ES PARA PROBAR
-	//this->nuevoProyecto();
+	this->nuevoProyecto();
 }
 
 Ide::~Ide() {
@@ -54,7 +54,8 @@ void Ide::guardar_proyecto() {
 //TODO nuevo Proyecto
 void Ide::nuevoProyecto() {
 	if (this->vproyecto == NULL) {
-		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama()));
+		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Diagrama Principal")));
+		this->vproyecto->testCargarDiagramas();
 		this->treePanel.regenerar();
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();

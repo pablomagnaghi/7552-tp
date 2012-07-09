@@ -112,6 +112,8 @@ public:
 	// Menu Pop Up
 	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager );
 
+	virtual bool contieneEsteComponente(Componente *)=0;
+
 	// PERSISTENCIA REP
 	VistaComponente(XmlNodo*);
 	XmlNodo guardarXmlREP();

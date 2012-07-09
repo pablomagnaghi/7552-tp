@@ -1,10 +1,3 @@
-/*
- * Diagrama.h
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
- */
-
 #ifndef VISTADIAGRAMA_H_
 #define VISTADIAGRAMA_H_
 
@@ -18,12 +11,12 @@
 #include "./componentes/VistaAtributo.h"
 #include "./componentes/VistaEntidadNueva.h"
 #include "./componentes/VistaRelacion.h"
-#include "./componentes/VistaUnion.h"
+#include "./componentes/VistaUnionEntidadRelacion.h"
 #include "gtkmm.h"
 
 using namespace std;
 
-class VistaDiagrama: public Gtk::DrawingArea{
+class VistaDiagrama: public Gtk::DrawingArea {
 private:
 	double zoom;
 	int ancho;
@@ -56,11 +49,14 @@ private:
 
 	bool on_mouse_motion_event(GdkEventMotion * event);
 
-	friend class TreePanel;
-	friend class VistaProyecto;
+	//friend class TreePanel;
+	//friend class VistaProyecto;
 
 	VistaComponente * obtenerComponenteEnPos(gdouble x, gdouble y);
 
+	void
+	obtenerVistaAPartirDeRelacion(VistaRelacion *, std::vector<
+			VistaEntidadNueva *>&, std::vector<UnionEntidadRelacion *>&);
 
 	void configurar_drag_and_drop();
 
@@ -75,8 +71,8 @@ private:
 	void drag_data_get(const Glib::RefPtr<Gdk::DragContext>&,
 			Gtk::SelectionData& selection_data, guint, guint);
 	// Cuando ya se soltó el objeto y se pasaron los datos al destino
-	bool drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, gint x, gint y,
-			guint time);
+	bool drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, gint x,
+			gint y, guint time);
 	// Cuando finaliza el arrastre
 	void drag_end(const Glib::RefPtr<Gdk::DragContext>&);
 	// Cuando se debe eliminar los datos al MOVER
@@ -84,21 +80,21 @@ private:
 	// Cuando el objeto arrastrado se suelta en un objeto que no es destino
 	bool drag_failed(const Glib::RefPtr<Gdk::DragContext>&, Gtk::DragResult);
 	// Cuando el arrastre sale del objeto donde comenzo
-	void drag_leave(const Glib::RefPtr<Gdk::DragContext>&,guint);
+	void drag_leave(const Glib::RefPtr<Gdk::DragContext>&, guint);
 
 	// Destino
 	// Cuando el destino recibe los datos del objeto arrastrado
-	void drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context, gint,
-			int, const Gtk::SelectionData& selection_data, guint, guint time);
+	void drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+			gint, int, const Gtk::SelectionData& selection_data, guint,
+			guint time);
 
-	void test_cargar_componentes_visuales();
 	void seleccionar_componente_clickeado(gdouble x, gdouble y);
 
 	// Persistencia
 	bool diagramaValidoREP;
 
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
-	void obtenerComponentesXmlREP (XmlNodo* nodo);
+	void obtenerComponentesXmlREP(XmlNodo* nodo);
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
 	void guardarComponentesXmlREP(XmlNodo *nodo);
 
@@ -123,7 +119,7 @@ public:
 	std::vector<VistaComponente*>::iterator componentesEnd();
 
 	Diagrama * getDiagrama();
-
+	void test_cargar_componentes_visuales();
 	// Persistencia REP
 	void abrirREP(const std::string& path);
 	bool isOpenREP() const;

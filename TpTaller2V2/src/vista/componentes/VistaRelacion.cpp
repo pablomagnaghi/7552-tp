@@ -294,3 +294,18 @@ std::string VistaRelacion::getNombre() const{
 void VistaRelacion::setNombre(const std::string & nombre){
 	this->relacion->setNombre(nombre);
 }
+
+std::vector<UnionEntidadRelacion *> VistaRelacion::getUniones(){
+	std::vector<UnionEntidadRelacion *> uniones;
+	std::vector<UnionEntidadRelacion *>::iterator i;
+
+	for(i = this->relacion->unionesBegin();i!=this->relacion->unionesEnd();i++){
+		uniones.push_back(*i);
+	}
+
+	return uniones;
+}
+
+bool VistaRelacion::contieneEsteComponente(Componente * c){
+	return this->relacion == c;
+}

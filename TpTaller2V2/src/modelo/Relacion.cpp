@@ -44,11 +44,11 @@ void Relacion::quitarAtributo(Atributo* atributo) {
 	}
 }
 
-std::vector<UnionEntidadRelacion*>::iterator Relacion::entidadesRelacionBegin() {
+std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesBegin() {
 	return this->unionAEntidades.begin();
 }
 
-std::vector<UnionEntidadRelacion*>::iterator Relacion::entidadesRelacionEnd() {
+std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesEnd() {
 	return this->unionAEntidades.end();
 }
 

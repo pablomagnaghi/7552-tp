@@ -19,7 +19,6 @@ private:
 	std::vector<Identificador*> identificadores;
 	std::vector<Jerarquia *> hijos;
 	std::vector<Jerarquia *> padres;
-	std::vector<UnionEntidadRelacion *> unionesARelaciones;
 
 	void borrarAtributos();
 	void borrarIdentificadores();

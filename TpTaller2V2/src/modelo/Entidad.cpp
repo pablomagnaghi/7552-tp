@@ -1,7 +1,7 @@
 #include "Entidad.h"
 
 Entidad::Entidad() {
-
+	this->esDebil=false;
 }
 
 Entidad::~Entidad() {
@@ -15,6 +15,17 @@ void Entidad::setEsDebil(bool esDebil){
 
 bool Entidad::getEsDebil(){
 	return this->esDebil;
+}
+
+void Entidad::agregarUnion(UnionEntidadRelacion *u){
+	this->unionesARelaciones.push_back(u);
+}
+void Entidad::removerUnion(UnionEntidadRelacion *u){
+	// TODO REMOVER LA UNION
+}
+
+std::vector<UnionEntidadRelacion *> Entidad::getUniones(){
+	 return this->unionesARelaciones;
 }
 
 // PERSISTENCIA COMP

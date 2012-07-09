@@ -17,3 +17,7 @@ VistaEntidadGlobal::~VistaEntidadGlobal() {
 std::string VistaEntidadGlobal::getNombre() const{
 	return this->entidad->getNombre();
 }
+
+bool VistaEntidadGlobal::contieneEsteComponente(Componente * c){
+	return this->entidad == c;
+}
