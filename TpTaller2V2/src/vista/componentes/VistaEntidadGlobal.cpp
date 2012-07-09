@@ -21,3 +21,13 @@ std::string VistaEntidadGlobal::getNombre() const{
 bool VistaEntidadGlobal::contieneEsteComponente(Componente * c){
 	return this->entidad == c;
 }
+bool VistaEntidadGlobal::obtenerInterseccionColLinea(double pos_ini_x,
+			double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
+			double & y){
+
+
+
+
+
+	return false;
+}

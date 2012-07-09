@@ -101,7 +101,6 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	obtenerVistaAPartirDeRelacion(relacion, vistasEntidaes, uniones);
 
 	for (unsigned int i = 0; i < vistasEntidaes.size(); i++) {
-		cout << "B" << endl;
 		vUnion = new VistaUnionEntidadRelacion(uniones[i], vistasEntidaes[i],
 				relacion);
 		this->componentes.push_back(vUnion);
