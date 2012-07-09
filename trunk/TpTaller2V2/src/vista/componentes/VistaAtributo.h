@@ -44,6 +44,8 @@ public:
 
 	virtual void redimensionar(double x, double y);
 
+	virtual bool contieneEsteComponente(Componente *);
+
 	virtual 	std::string getNombre() const;
 };
 

@@ -21,12 +21,12 @@ private:
 	VistaDiagrama * diagramaPrincipal;
 	Proyecto * proyecto;
 
-	void testCargarDiagramas();
+
 
 public:
 	VistaProyecto(Proyecto * proyectoModelo);
 	virtual ~VistaProyecto();
-
+	void testCargarDiagramas();
 	 VistaDiagrama* getDiagramaPrincipal();
 };
 

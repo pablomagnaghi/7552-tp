@@ -11,6 +11,8 @@ public:
 	VistaEntidadGlobal();
 	virtual ~VistaEntidadGlobal();
 
+	virtual bool contieneEsteComponente(Componente *);
+
 	virtual std::string getNombre() const;
 };
 

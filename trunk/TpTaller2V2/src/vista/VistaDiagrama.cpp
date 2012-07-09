@@ -48,41 +48,94 @@ VistaDiagrama::~VistaDiagrama() {
 
 void VistaDiagrama::test_cargar_componentes_visuales() {
 	//VistaComponente * componenteNuevo;
+	Entidad * a;
+	Entidad * b;
+	Relacion * c;
+	Atributo * d;
+	AtributoCompuesto * e;
+	UnionEntidadRelacion * f;
+	UnionEntidadRelacion * g;
+
 	VistaEntidadNueva * entidadDebil;
 	VistaEntidadNueva * entidad;
 	VistaRelacion * relacion;
 	VistaAtributo * atributo;
-	VistaUnion * vUnion;
+	VistaUnionEntidadRelacion * vUnion;
 
-	entidad = new VistaEntidadNueva(new Entidad());
+	// Creo el modelo
+	a = new Entidad();
+	b = new Entidad();
+	c = new Relacion();
+	d = new Atributo();
+	e = new AtributoCompuesto();
+	f = new UnionEntidadRelacion(a, c);
+	g = new UnionEntidadRelacion(b, c);
+
+	entidad = new VistaEntidadNueva(a);
 	entidad->setNombre("Alumno");
 	entidad->setposini(10, 10);
 	entidad->setposfin(60, 50);
 	this->componentes.push_back(entidad);
 
-	entidadDebil = new VistaEntidadNueva(new Entidad());
+	entidadDebil = new VistaEntidadNueva(b);
 	entidadDebil->setNombre("Entidad Debil");
 	entidadDebil->setposini(180, 10);
 	entidadDebil->setposfin(60, 50);
 	entidadDebil->setEsDebil(true);
 	this->componentes.push_back(entidadDebil);
 
-	relacion = new VistaRelacion(new Relacion());
+	relacion = new VistaRelacion(c);
 	relacion->setNombre("Cursa");
 	relacion->setposini(70, 10);
 	relacion->setposfin(120, 60);
 	this->componentes.push_back(relacion);
 
-	atributo = new VistaAtributo(new Atributo());
+	atributo = new VistaAtributo(d);
 	atributo->setposini(130, 20);
 	atributo->setposfin(138, 28);
 	this->componentes.push_back(atributo);
+
+	// Obtengo la vista Entidad a partir de la Vista Relacion
+	std::vector<VistaEntidadNueva *> vistasEntidaes;
+	std::vector<UnionEntidadRelacion *> uniones;
+	obtenerVistaAPartirDeRelacion(relacion, vistasEntidaes, uniones);
+
+	for (unsigned int i = 0; i < vistasEntidaes.size(); i++) {
+		cout << "B" << endl;
+		vUnion = new VistaUnionEntidadRelacion(uniones[i], vistasEntidaes[i],
+				relacion);
+		this->componentes.push_back(vUnion);
+	}
 
 	/*vUnion = new VistaUnion(new Union());
 	 vUnion->setposini(150, 20);
 	 vUnion->setposfin(170, 30);
 	 this->componentes.push_back(vUnion);*/
 
+}
+
+void VistaDiagrama::obtenerVistaAPartirDeRelacion(VistaRelacion * vRelacion,
+		std::vector<VistaEntidadNueva *> &vistasEntidadesACrear, std::vector<
+				UnionEntidadRelacion *> &unionesACrear) {
+	vistasEntidadesACrear.clear();
+	unionesACrear.clear();
+
+	std::vector<UnionEntidadRelacion *> uniones = vRelacion->getUniones();
+	std::vector<UnionEntidadRelacion *>::iterator i;
+	std::vector<VistaComponente *>::iterator j;
+	Componente * componente;
+	for (i = uniones.begin(); i != uniones.end(); i++) {
+		componente = (*i)->getEntidad();
+		for (j = this->componentes.begin(); j != this->componentes.end(); j++) {
+			if ((*j)->contieneEsteComponente(componente)) {
+				vistasEntidadesACrear.push_back(
+						dynamic_cast<VistaEntidadNueva *> (*j));
+				unionesACrear.push_back(*i);
+				cout << "A" << endl;
+				break;
+			}
+		}
+	}
 }
 
 bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
@@ -114,8 +167,8 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 	cout << "Event button: " << event->button << endl;
 
 	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3)) {
-		componente=obtenerComponenteEnPos(event->x,event->y);
-		if(componente != NULL){
+		componente = obtenerComponenteEnPos(event->x, event->y);
+		if (componente != NULL) {
 			componente->lanzarMenuPopUp(event);
 		}
 	} else {
@@ -454,11 +507,11 @@ std::vector<VistaComponente*>::iterator VistaDiagrama::componentesEnd() {
 	return this->componentes.end();
 }
 
-VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y){
+VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
 	std::vector<VistaComponente *>::iterator i;
 
-	for(i=this->componentes.begin();i!=this->componentes.end();i++){
-		if((*i)->contieneAEstePunto(x,y)){
+	for (i = this->componentes.begin(); i != this->componentes.end(); i++) {
+		if ((*i)->contieneAEstePunto(x, y)) {
 			return *i;
 		}
 	}

@@ -57,8 +57,8 @@ public:
 
 
 
-	std::vector<UnionEntidadRelacion*>::iterator entidadesRelacionBegin();
-	std::vector<UnionEntidadRelacion*>::iterator entidadesRelacionEnd();
+	std::vector<UnionEntidadRelacion*>::iterator unionesBegin();
+	std::vector<UnionEntidadRelacion*>::iterator unionesEnd();
 
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();

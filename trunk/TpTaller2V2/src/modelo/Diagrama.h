@@ -14,6 +14,7 @@
 #include "Jerarquia.h"
 #include "Componente.h"
 #include "ConstantesModelo.h"
+#include "AtributoCompuesto.h"
 
 //Persistencia
 #include "persistencia/Persistencia.h"
