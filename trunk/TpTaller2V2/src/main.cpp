@@ -22,7 +22,7 @@ int aplicacion_principal(int argc, char *argv[]) {
 	try {
 		builder->add_from_file(ARCH_GLADE_IDE);
 #ifdef DEBUG
-	cout << "Archivo Glade Cargado" << endl;
+		cout << "Archivo Glade Cargado" << endl;
 #endif
 	} catch (const Glib::FileError& ex) {
 		std::cerr << "FileError: " << ex.what() << std::endl;
@@ -52,10 +52,37 @@ int aplicacion_principal(int argc, char *argv[]) {
 	return 0;
 }
 
+void verificar(bool a, bool b) {
+	if (a == b) {
+		cout << "OK" << endl;
+	} else {
+		cout << "ERROR" << endl;
+	}
+}
+
 int main(int argc, char *argv[]) {
 	//test_modelo();
 	aplicacion_principal(argc, argv);
+
+	/*double x, y;
+	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 10, 0, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}
+	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 100, 0, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}
+	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 100, 90, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}
+	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 45, 45, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}
+	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 45, 55, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}
+	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 10, 0, 100, 90, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}*/
 	return 0;
 }
-
 

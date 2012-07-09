@@ -1,8 +1,7 @@
 #include "VistaUnionEntidadRelacion.h"
 
-VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(
-		UnionEntidadRelacion * unionModelo, VistaEntidadNueva * vEntidad,
-		VistaRelacion * vRelacion) {
+VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(UnionEntidadRelacion * unionModelo,
+		VistaEntidadNueva * vEntidad, VistaRelacion * vRelacion) {
 
 	this->unionModelo = unionModelo;
 	this->entidad = vEntidad;
@@ -29,8 +28,8 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
 				colorNegro.get_blue_p());
 	} else {
-		cr->set_source_rgb(colorDeSeleccion.get_red_p(),
-				colorDeSeleccion.get_green_p(), colorDeSeleccion.get_blue_p());
+		cr->set_source_rgb(colorDeSeleccion.get_red_p(), colorDeSeleccion.get_green_p(),
+				colorDeSeleccion.get_blue_p());
 	}
 	double x0, x1, x2, x3, y0, y1, y2, y3;
 	this->entidad->getposini(x0, y0);
@@ -43,11 +42,14 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	this->pos_ini_y = (y0 + y1) / 2;
 	this->pos_fin_y = (y2 + y3) / 2;
 
+	this->entidad->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+			this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
+	this->relacion->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+				this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
+
 	cr->move_to(this->pos_ini_x, this->pos_ini_y);
 	cr->line_to(this->pos_fin_x, this->pos_fin_y);
 
-	//cr->rectangle(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x
-	//	- this->pos_ini_x, this->pos_fin_y - this->pos_ini_y);
 	cr->stroke();
 }
 
@@ -63,8 +65,7 @@ bool VistaUnionEntidadRelacion::contieneAEstePunto(double x, double y) {
 	return false;
 }
 
-void VistaUnionEntidadRelacion::calcularDimensionesAPartirDeTexto(
-		Cairo::TextExtents * textExtents) {
+void VistaUnionEntidadRelacion::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents) {
 
 }
 
@@ -81,5 +82,10 @@ void VistaUnionEntidadRelacion::redimensionar(double x, double y) {
 }
 
 bool VistaUnionEntidadRelacion::contieneEsteComponente(Componente *) {
+	return false;
+}
+
+bool VistaUnionEntidadRelacion::obtenerInterseccionColLinea(double pos_ini_x, double pos_ini_y,
+		double pos_fin_x, double pos_fin_y, double & x, double & y) {
 	return false;
 }

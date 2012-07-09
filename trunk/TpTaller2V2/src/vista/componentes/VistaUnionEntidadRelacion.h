@@ -40,6 +40,10 @@ public:
 
 	virtual bool contieneEsteComponente(Componente *);
 
+	virtual bool obtenerInterseccionColLinea(double pos_ini_x,
+					double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
+					double & y);
+
 	virtual void redimensionar(double x, double y);
 	virtual std::string getNombre() const;
 };

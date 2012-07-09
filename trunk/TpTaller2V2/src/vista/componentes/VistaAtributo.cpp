@@ -90,3 +90,9 @@ std::string VistaAtributo::getNombre() const{
 bool VistaAtributo::contieneEsteComponente(Componente * c){
 	return this->atributo == c;
 }
+
+bool VistaAtributo::obtenerInterseccionColLinea(double pos_ini_x,
+			double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
+			double & y){
+	return false;
+}

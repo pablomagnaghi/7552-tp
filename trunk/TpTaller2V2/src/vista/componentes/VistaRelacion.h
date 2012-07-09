@@ -3,7 +3,7 @@
 #include "../../modelo/Relacion.h"
 #include "VistaComponente.h"
 
-class VistaRelacion: public VistaComponente{
+class VistaRelacion: public VistaComponente {
 private:
 
 	Relacion * relacion;
@@ -45,6 +45,10 @@ public:
 	virtual std::string getNombre() const;
 
 	virtual bool contieneEsteComponente(Componente *);
+
+	virtual bool obtenerInterseccionColLinea(double pos_ini_x,
+			double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
+			double & y);
 
 	std::vector<UnionEntidadRelacion *> getUniones();
 };
