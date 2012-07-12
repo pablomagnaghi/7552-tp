@@ -41,16 +41,30 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	this->pos_fin_x = (x2 + x3) / 2;
 	this->pos_ini_y = (y0 + y1) / 2;
 	this->pos_fin_y = (y2 + y3) / 2;
-
 	this->entidad->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
 			this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
 	this->relacion->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-				this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
+			this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
-	cr->move_to(this->pos_ini_x, this->pos_ini_y);
-	cr->line_to(this->pos_fin_x, this->pos_fin_y);
+	if (!this->entidad->esDebil()) {
 
-	cr->stroke();
+		cr->move_to(this->pos_ini_x, this->pos_ini_y);
+		cr->line_to(this->pos_fin_x, this->pos_fin_y);
+
+		cr->stroke();
+	} else {
+
+		// TODO
+		cr->move_to(this->pos_ini_x, this->pos_ini_y + 1.5);
+		cr->line_to(this->pos_fin_x, this->pos_fin_y + 1.5);
+
+		cr->stroke();
+
+		cr->move_to(this->pos_ini_x, this->pos_ini_y - 1.5);
+		cr->line_to(this->pos_fin_x, this->pos_fin_y - 1.5);
+
+		cr->stroke();
+	}
 }
 
 bool VistaUnionEntidadRelacion::esSeleccionado(double x, double y) {
