@@ -323,3 +323,7 @@ bool VistaEntidadNueva::obtenerInterseccionColLinea(double pos_ini_x, double pos
 
 	return false;
 }
+
+bool VistaEntidadNueva::esDebil(){
+	return this->entidad->getEsDebil();
+}

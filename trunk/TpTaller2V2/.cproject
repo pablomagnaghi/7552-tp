@@ -20,7 +20,12 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.exe.debug.806401022." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.1115603836" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug.755822930" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
-							<builder buildPath="${workspace_loc:/TPtaller2/Debug}" id="cdt.managedbuild.target.gnu.builder.exe.debug.326739407" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>
+							<builder buildPath="${workspace_loc:/TPtaller2/Debug}" id="cdt.managedbuild.target.gnu.builder.exe.debug.326739407" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug">
+								<outputEntries>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Release"/>
+								</outputEntries>
+							</builder>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1935393324" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool command="g++ `pkg-config --cflags gtkmm-2.4 libxml-2.0`" id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.257982226" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.1048778587" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
@@ -37,6 +42,12 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.2130996361" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.1603845237" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.debug.option.debugging.level.589306050" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.1768777446" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/gtkmm-2.4"/>
+									<listOptionValue builtIn="false" value="/usr/include/cairomm-1.0"/>
+									<listOptionValue builtIn="false" value="/usr/include/gdkmm-2.4"/>
+									<listOptionValue builtIn="false" value="/usr/include/libxml2"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1308827025" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.135079150" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
@@ -48,12 +59,18 @@
 								</inputType>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.696965712" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">
+								<option id="gnu.both.asm.option.include.paths.1901421185" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/gtkmm-2.4"/>
+									<listOptionValue builtIn="false" value="/usr/include/cairomm-1.0"/>
+									<listOptionValue builtIn="false" value="/usr/include/gdkmm-2.4"/>
+									<listOptionValue builtIn="false" value="/usr/include/libxml2"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1503906288" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/vista/componentes/XmlNodo.h|src/vista/componentes/XmlNodo.cpp|src/vista/componentes/XmlNodeSet.h|src/vista/componentes/XmlNodeSet.cpp|src/vista/componentes/Xml.h|src/vista/componentes/Xml.cpp|src/vista/componentes/Exceptions.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/vista/componentes/XmlNodo.h|src/vista/componentes/Exceptions.h|src/vista/componentes/Xml.cpp|src/vista/componentes/XmlNodeSet.cpp|src/vista/componentes/Xml.h|Interfaces|src/vista/componentes/XmlNodeSet.h|src/vista/componentes/XmlNodo.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -683,7 +700,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/vista/componentes/XmlNodo.h|src/vista/componentes/XmlNodo.cpp|src/vista/componentes/XmlNodeSet.h|src/vista/componentes/XmlNodeSet.cpp|src/vista/componentes/Xml.h|src/vista/componentes/Xml.cpp|src/vista/componentes/Exceptions.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/vista/Interfaces"/>
+						<entry excluding="src/vista/Interfaces|Interfaces|src/vista/componentes/XmlNodo.h|src/vista/componentes/XmlNodo.cpp|src/vista/componentes/XmlNodeSet.h|src/vista/componentes/XmlNodeSet.cpp|src/vista/componentes/Xml.h|src/vista/componentes/Xml.cpp|src/vista/componentes/Exceptions.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

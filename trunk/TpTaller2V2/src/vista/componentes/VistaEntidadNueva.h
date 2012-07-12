@@ -52,6 +52,8 @@ public:
 				double & y);
 
 	void setEsDebil(bool);
+
+	bool esDebil();
 };
 
 #endif /* VISTAENTIDADNUEVA_H_ */
