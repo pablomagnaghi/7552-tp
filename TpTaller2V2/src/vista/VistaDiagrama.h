@@ -12,6 +12,7 @@
 #include "./componentes/VistaEntidadNueva.h"
 #include "./componentes/VistaRelacion.h"
 #include "./componentes/VistaUnionEntidadRelacion.h"
+#include "./componentes/VistaLinea.h"
 #include "gtkmm.h"
 
 using namespace std;

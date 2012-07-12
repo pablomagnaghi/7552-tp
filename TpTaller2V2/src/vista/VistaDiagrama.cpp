@@ -56,11 +56,13 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	UnionEntidadRelacion * f;
 	UnionEntidadRelacion * g;
 
+
 	VistaEntidadNueva * entidadDebil;
 	VistaEntidadNueva * entidad;
 	VistaRelacion * relacion;
 	VistaAtributo * atributo;
 	VistaUnionEntidadRelacion * vUnion;
+	VistaLinea * lineaEntidadAtributo;
 
 	// Creo el modelo
 	a = new Entidad();
@@ -70,6 +72,7 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	e = new AtributoCompuesto();
 	f = new UnionEntidadRelacion(a, c);
 	g = new UnionEntidadRelacion(b, c);
+
 
 	entidad = new VistaEntidadNueva(a);
 	entidad->setNombre("Alumno");
@@ -105,6 +108,11 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 				relacion);
 		this->componentes.push_back(vUnion);
 	}
+
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(entidad);
+	lineaEntidadAtributo->setComponenteHasta(atributo);
+	this->componentes.push_back(lineaEntidadAtributo);
 
 	/*vUnion = new VistaUnion(new Union());
 	 vUnion->setposini(150, 20);

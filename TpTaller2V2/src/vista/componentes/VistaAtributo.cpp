@@ -32,8 +32,8 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
 				colorNegro.get_blue_p());
 	} else {
-		cr->set_source_rgb(colorDeSeleccion.get_red_p(),
-				colorDeSeleccion.get_green_p(), colorDeSeleccion.get_blue_p());
+		cr->set_source_rgb(colorDeSeleccion.get_red_p(), colorDeSeleccion.get_green_p(),
+				colorDeSeleccion.get_blue_p());
 	}
 
 	double centro_x, centro_y, radio;
@@ -67,15 +67,15 @@ bool VistaAtributo::contieneAEstePunto(double x, double y) {
 	return false;
 }
 
-void VistaAtributo::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents){
+void VistaAtributo::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents) {
 
 }
 
-bool VistaAtributo::esPuntoDeRedimension(double x, double y){
+bool VistaAtributo::esPuntoDeRedimension(double x, double y) {
 	return false;
 }
 
-void VistaAtributo::setMouseArriba(double x, double y){
+void VistaAtributo::setMouseArriba(double x, double y) {
 
 }
 
@@ -83,16 +83,30 @@ void VistaAtributo::redimensionar(double x, double y) {
 
 }
 
-std::string VistaAtributo::getNombre() const{
+std::string VistaAtributo::getNombre() const {
 	return this->atributo->getNombre();
 }
 
-bool VistaAtributo::contieneEsteComponente(Componente * c){
+bool VistaAtributo::contieneEsteComponente(Componente * c) {
 	return this->atributo == c;
 }
 
-bool VistaAtributo::obtenerInterseccionColLinea(double pos_ini_x,
-			double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
-			double & y){
+bool VistaAtributo::obtenerInterseccionColLinea(double pos_ini_x, double pos_ini_y,
+		double pos_fin_x, double pos_fin_y, double & x, double & y) {
+	double xInterseccion, yInterseccion;
+	double centro_x, centro_y, radio;
+
+	centro_x = (this->pos_fin_x + this->pos_ini_x) / 2;
+	centro_y = (this->pos_fin_y + this->pos_ini_y) / 2;
+
+	radio = this->pos_fin_x - centro_x;
+
+	if (Geometria::hayInterseccionDeLineaConCirculo(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
+			centro_x, centro_y, radio, xInterseccion, yInterseccion)) {
+		x = xInterseccion;
+		y = yInterseccion;
+		return true;
+	}
+
 	return false;
 }
