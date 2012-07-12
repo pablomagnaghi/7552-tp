@@ -22,6 +22,9 @@ public:
 			double x_final, double y_final);
 	static bool hayInterseccionDeLineas(double x0, double y0, double x1, double y1, double x2,
 			double y2, double x3, double y3, double & x, double & y);
+	static bool
+	hayInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1, double xc,
+			double yc, double r, double & x, double & y);
 };
 
 #endif /* GEOMETRIA_H_ */

@@ -1,10 +1,3 @@
-/*
- * Componente.h
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
- */
-
 #ifndef VISTACOMPONENTE_H_
 #define VISTACOMPONENTE_H_
 #include <gtkmm.h>

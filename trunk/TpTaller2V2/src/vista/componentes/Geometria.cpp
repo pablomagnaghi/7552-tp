@@ -154,3 +154,60 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 	//}
 	return false;
 }
+
+bool Geometria::hayInterseccionDeLineaConCirculo( double x0,
+		double y0, double x1, double y1, double xc, double yc, double r, double & x, double & y) {
+	double m = NAN; // MACRO DE MATH NOT A NUMBER
+	double angulo;
+	double delta_x, delta_y;
+
+	double delta;
+	delta = 0.00001;
+
+	// ACOTO en X y busco los Y
+	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
+		m = (y1 - y0) / (x1 - x0);
+	}
+	cout << "Linea1: (" << x0 << ";" << y0 << ") (" << x1 << ";" << y1 << ")" << std::endl;
+	cout << "Circulo: (" << xc << ";" << yc << ")  radio= " << r << endl;
+	if (x0 < xc + r && x0 > xc - r && y0 < yc + r && y0 > yc - r) {
+		if (isnan(m)) {
+			x = xc;
+			if (y1 <= yc) {
+				y = yc - r;
+			} else {
+				y = yc + r;
+			}
+		} else {
+			angulo = atan2(y1 - yc, x1 - xc);
+			delta_x = cos(angulo);
+			delta_y = sin(angulo);
+			x = xc + delta_x * r;
+			y = yc + delta_y * r;
+			cout << "y1 - yc = " << y1 - yc << endl;
+		}
+	} else if (x1 < xc + r && x1 > xc - r && y1 < yc + r && y1 > yc - r) {
+		if (isnan(m)) {
+			x = xc;
+			if (y0 <= yc) {
+				y = yc - r;
+			} else {
+				y = yc + r;
+			}
+		} else {
+			angulo = atan2(y0 - yc, x0 - xc);
+			delta_x = cos(angulo);
+			delta_y = sin(angulo);
+			x = xc + delta_x * r;
+			y = yc + delta_y * r;
+			cout << "y0 - yc = " << y0 - yc << endl;
+		}
+
+	} else {
+		return false;
+	}
+
+	cout << "m= " << m << endl;
+
+	return true;
+}
