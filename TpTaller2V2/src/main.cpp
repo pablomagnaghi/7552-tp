@@ -64,8 +64,8 @@ int main(int argc, char *argv[]) {
 	//test_modelo();
 	aplicacion_principal(argc, argv);
 
-	/*double x, y;
-	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 10, 0, x, y)) {
+	double x, y;
+	/*if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 10, 0, x, y)) {
 		cout << "x= " << x << " y= " << y << endl;
 	}
 	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 100, 0, x, y)) {
@@ -83,6 +83,16 @@ int main(int argc, char *argv[]) {
 	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 10, 0, 100, 90, x, y)) {
 		cout << "x= " << x << " y= " << y << endl;
 	}*/
+	/*if (Geometria::hayInterseccionDeLineas(94, 245.5, 298, 100.5, 68,234, 120, 234, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}
+	if (Geometria::hayInterseccionDeLineas(94, 245.5, 312,206.5, 120,234, 120, 257, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}
+	if (Geometria::hayInterseccionDeLineas(94, 245.5, 312,252.5, 68,234, 68, 257, x, y)) {
+		cout << "x= " << x << " y= " << y << endl;
+	}*/
+
 	return 0;
 }
 
