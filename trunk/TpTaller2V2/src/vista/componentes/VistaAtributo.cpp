@@ -38,10 +38,13 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 	double centro_x, centro_y, radio;
 
-	centro_x = (this->pos_fin_x + this->pos_ini_x) / 2;
-	centro_y = (this->pos_fin_y + this->pos_ini_y) / 2;
+	radio = 3;
 
-	radio = this->pos_fin_x - centro_x;
+	centro_x = this->pos_ini_x + radio;
+	centro_y = this->pos_ini_y + radio;
+
+	this->pos_fin_x = centro_x + radio;
+	this->pos_fin_y = centro_y + radio;
 
 	//cr->move_to(centro_x, this->pos_ini_y);
 	cr->arc(centro_x, centro_y, radio, 0, 2 * M_PI);

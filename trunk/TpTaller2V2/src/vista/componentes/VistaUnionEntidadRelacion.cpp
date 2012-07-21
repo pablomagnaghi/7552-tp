@@ -41,12 +41,13 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	this->pos_fin_x = (x2 + x3) / 2;
 	this->pos_ini_y = (y0 + y1) / 2;
 	this->pos_fin_y = (y2 + y3) / 2;
-	this->entidad->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-			this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
-	this->relacion->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-			this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
 	if (!this->entidad->esDebil()) {
+
+		this->entidad->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y,
+				this->pos_fin_x, this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
+		this->relacion->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y,
+				this->pos_fin_x, this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
 		cr->move_to(this->pos_ini_x, this->pos_ini_y);
 		cr->line_to(this->pos_fin_x, this->pos_fin_y);
@@ -54,16 +55,22 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		cr->stroke();
 	} else {
 
-		// TODO
-		cr->move_to(this->pos_ini_x, this->pos_ini_y + 1.5);
-		cr->line_to(this->pos_fin_x, this->pos_fin_y + 1.5);
+		Geometria::obtenerLineasParalelas(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+				this->pos_fin_y, 1.6, x0, y0, x1, y1, x2, y2, x3, y3);
 
+		this->entidad->obtenerInterseccionColLinea(x0, y0, x1, y1, x0, y0);
+		this->relacion->obtenerInterseccionColLinea(x0, y0, x1, y1, x1, y1);
+		this->entidad->obtenerInterseccionColLinea(x2, y2, x3, y3, x2, y2);
+		this->relacion->obtenerInterseccionColLinea(x2, y2, x3, y3, x3, y3);
+
+		cr->move_to(x0, y0);
+		cr->line_to(x1, y1);
 		cr->stroke();
 
-		cr->move_to(this->pos_ini_x, this->pos_ini_y - 1.5);
-		cr->line_to(this->pos_fin_x, this->pos_fin_y - 1.5);
-
+		cr->move_to(x2, y2);
+		cr->line_to(x3, y3);
 		cr->stroke();
+
 	}
 }
 
