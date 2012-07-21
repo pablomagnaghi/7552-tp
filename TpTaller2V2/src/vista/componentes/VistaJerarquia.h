@@ -1,19 +1,23 @@
-#ifndef VISTARELACION_H_
-#define VISTARELACION_H_
-#include "../../modelo/Relacion.h"
-#include "VistaComponente.h"
+#ifndef VISTAJERARQUIA_H_
+#define VISTAJERARQUIA_H_
 
-class VistaRelacion: public VistaComponente {
+#include "VistaComponente.h"
+#include "VistaEntidadNueva.h"
+
+#include "../../modelo/Jerarquia.h"
+
+#include <vector>
+
+class VistaJerarquia: public VistaComponente {
 private:
 
-	Relacion * relacion;
-
-	void dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr);
-	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
+	Jerarquia * jerarquia;
+	VistaEntidad * padre;
+	std::vector<VistaEntidadNueva *> hijos;
 
 public:
-	VistaRelacion(Relacion * relacionModelo);
-	virtual ~VistaRelacion();
+	VistaJerarquia(Jerarquia * jerarquiaModelo);
+	virtual ~VistaJerarquia();
 
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
 	virtual bool esSeleccionado(double x, double y);
@@ -30,8 +34,14 @@ public:
 	virtual bool obtenerInterseccionColLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
 
-	std::vector<UnionEntidadRelacion *> getUniones();
+	// Interfaz para modificar la Jerarquia
+	void agregarEntidadEspecializada(VistaEntidadNueva *);
+	void removerEntidadEspecializada(VistaEntidadNueva *);
+	std::vector<VistaEntidadNueva *>::iterator entidadesEspecializadasBegin();
+	std::vector<VistaEntidadNueva *>::iterator entidadesEspecializadasEnd();
+	void setEntidadPadre(VistaEntidad *);
+	VistaEntidad * getEntidadPadre();
 
 };
 
-#endif /* VISTARELACION_H_ */
+#endif /* VISTAJERARQUIA_H_ */

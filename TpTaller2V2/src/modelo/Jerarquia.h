@@ -19,12 +19,12 @@ class Jerarquia : public Componente {
 
 private:
 	// Modelo
-	EntidadNueva * padre;
+	Entidad * padre;
 	std::vector<EntidadNueva *> hijos;
 
-	// ?????
-	std::string cobertura;
-	std::string interseccion;
+
+	std::string cobertura; // Esta en el enunciado
+	std::string interseccion; // Esta en el enunciado
 
 	// PERSISTENCIA COMP
 	/*
@@ -46,8 +46,8 @@ public:
 	virtual ~Jerarquia();
 
 	// Hay que ver si van los gets y sets o se pone en el constructor
-	void setEntidadGeneral(EntidadNueva *);
-	EntidadNueva * getEntidadGeneral() const;
+	void setEntidadGeneral(Entidad *);
+	Entidad * getEntidadGeneral() const;
 
 	void agregarEspecializada(EntidadNueva *);
 	std::vector<EntidadNueva *>::iterator obtenerEntidadesEspecializadas();

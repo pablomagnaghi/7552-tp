@@ -1,11 +1,11 @@
 #ifndef VISTAENTIDADNUEVA_H_
 #define VISTAENTIDADNUEVA_H_
-#include "VistaComponente.h"
+#include "VistaEntidad.h"
 #include "../../controlador/AsistenteEntidad.h"
 #include "../../modelo/Entidad.h"
 #include <list>
 
-class VistaEntidadNueva: public VistaComponente{
+class VistaEntidadNueva: public VistaEntidad{
 private:
 	friend class AsistenteEntidad;
 

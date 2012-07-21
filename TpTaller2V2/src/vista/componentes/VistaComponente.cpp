@@ -48,6 +48,11 @@ void VistaComponente::setposfin(double x, double y) {
 	this->pos_fin_y = y;
 }
 
+void VistaComponente::getposcentro(double &x, double&y) const{
+	x = (this->pos_ini_x + this->pos_fin_x)/2;
+	y = (this->pos_ini_y + this->pos_fin_y)/2;
+}
+
 void VistaComponente::setDibujable(bool d) {
 	this->dibujable = d;
 }
