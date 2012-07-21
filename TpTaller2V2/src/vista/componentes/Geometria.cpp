@@ -265,3 +265,40 @@ void Geometria::obtenerPuntosDeTriangulo(double x0, double y0, double x1, double
 	}
 
 }
+
+void Geometria::obtenerLineasParalelas( double x0, double y0,
+		double x1, double y1, double distancia, double & x2, double & y2, double & x3, double & y3,
+		double & x4, double & y4, double & x5, double & y5) {
+
+	double angulo;
+	double delta_x, delta_y;
+
+	double delta;
+	delta = 0.00001;
+
+	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
+		angulo = atan2(y1 - y0, x1 - x0) + 0.5 * M_PI;
+	} else {
+		angulo = M_PI;
+	}
+	delta_x = cos(angulo) * distancia;
+	delta_y = sin(angulo) * distancia;
+
+	x2 = x0 + delta_x;
+	y2 = y0 + delta_y;
+	x3 = x1 + delta_x;
+	y3 = y1 + delta_y;
+
+
+	x4 = x0 - delta_x;
+	y4 = y0 - delta_y;
+	x5 = x1 - delta_x;
+	y5 = y1 - delta_y;
+
+#if DEBUG_GEOMETRIA==1
+	cout << "delta x= " << delta_x << endl;
+	cout << "delta y= " << delta_y << endl;
+	cout << "distancia" << distancia << endl;
+#endif
+}
+

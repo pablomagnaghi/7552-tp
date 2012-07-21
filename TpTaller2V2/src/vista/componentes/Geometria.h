@@ -25,8 +25,11 @@ public:
 	static bool
 	hayInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1, double xc,
 			double yc, double r, double & x, double & y);
-	static void obtenerPuntosDeTriangulo(double x0, double y0, double x1, double y1,
-				double altura, double base, double & x2, double & y2,double & x3, double & y3);
+	static void obtenerPuntosDeTriangulo(double x0, double y0, double x1, double y1, double altura,
+			double base, double & x2, double & y2, double & x3, double & y3);
+	static void obtenerLineasParalelas(double x0, double y0, double x1, double y1,
+			double distancia, double & x2, double & y2, double & x3, double & y3, double & x4,
+			double & y4, double & x5, double & y5);
 };
 
 #endif /* GEOMETRIA_H_ */
