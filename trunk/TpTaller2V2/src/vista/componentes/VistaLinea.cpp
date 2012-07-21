@@ -35,9 +35,9 @@ void VistaLinea::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	this->pos_ini_y = (y0 + y1) / 2;
 	this->pos_fin_y = (y2 + y3) / 2;
 
-	this->desde->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+	this->desde->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
 			this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
-	this->hasta->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+	this->hasta->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
 			this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
 	cr->move_to(this->pos_ini_x, this->pos_ini_y);
@@ -98,7 +98,7 @@ bool VistaLinea::contieneEsteComponente(Componente *) {
 	return false;
 }
 
-bool VistaLinea::obtenerInterseccionColLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
+bool VistaLinea::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 		double pos_fin_y, double & x, double & y) {
 	return false;
 }

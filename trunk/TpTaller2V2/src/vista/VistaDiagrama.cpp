@@ -69,7 +69,7 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	j = new Jerarquia();
 
 	entidad = new VistaEntidadNueva(a);
-	entidad->setNombre("Alumno");
+	entidad->setNombre("Alumno A");
 	entidad->setposini(60, 200);
 	entidad->setposfin(110, 260);
 	this->componentes.push_back(entidad);
@@ -116,15 +116,21 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	jerarquia = new VistaJerarquia(j);
 	jerarquia->agregarEntidadEspecializada(entidad);
 	jerarquia->setEntidadPadre(entidadPadre);
-	this->componentes.push_back(jerarquia);
 
 	entidad = new VistaEntidadNueva(new EntidadNueva());
 	entidad->setNombre("Alumno B");
 	entidad->setposini(140, 200);
 	entidad->setposfin(190, 260);
 	this->componentes.push_back(entidad);
-
 	jerarquia->agregarEntidadEspecializada(entidad);
+
+	entidad = new VistaEntidadNueva(new EntidadNueva());
+	entidad->setNombre("Alumno C");
+	entidad->setposini(220, 190);
+	entidad->setposfin(270, 260);
+	this->componentes.push_back(entidad);
+	jerarquia->agregarEntidadEspecializada(entidad);
+
 	this->componentes.push_back(jerarquia);
 
 	/*vUnion = new VistaUnion(new Union());

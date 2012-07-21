@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#define DEBUG_VISTA_JERARQUIA 0
+#define DEBUG_VISTA_JERARQUIA 1
 
 VistaJerarquia::VistaJerarquia(Jerarquia * jerarquiaModelo) {
 	this->jerarquia = jerarquiaModelo;
@@ -43,7 +43,7 @@ void VistaJerarquia::dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double 
 	cr->line_to(this->pos_fin_x, this->pos_ini_y);
 	cr->stroke();
 	this->padre->getposcentro(x0, y0);
-	this->padre->obtenerInterseccionColLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
+	this->padre->obtenerInterseccionConLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
 	cr->move_to(x0, this->pos_ini_y);
 	cr->line_to(x1, y1);
 	cr->stroke();
@@ -72,9 +72,9 @@ void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		this->pos_ini_x = (x0 + x1) / 2;
 		this->pos_ini_y = (y0 + y1) / 2;
 
-		this->hijos[0]->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y,
+		this->hijos[0]->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
 				this->pos_fin_x, this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
-		this->padre->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+		this->padre->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
 				this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
 		Geometria::obtenerPuntosDeTriangulo(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
@@ -116,13 +116,14 @@ void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 		dibujarLineaMedia(cr, ymin, ymax);
 
-		for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
-			(*i)->getposcentro(x0, y0);
-			(*i)->obtenerInterseccionColLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
-			cr->move_to(x0, this->pos_ini_y);
-			cr->line_to(x1, y1);
-			cr->stroke();
-		}
+
+		 for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
+		 (*i)->getposcentro(x0, y0);
+		 (*i)->obtenerInterseccionConLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
+		 cr->move_to(x0, this->pos_ini_y);
+		 cr->line_to(x1, y1);
+		 cr->stroke();
+		 }
 	}
 
 }
@@ -176,7 +177,7 @@ bool VistaJerarquia::contieneEsteComponente(Componente * comp) {
 	return false;
 }
 
-bool VistaJerarquia::obtenerInterseccionColLinea(double pos_ini_x, double pos_ini_y,
+bool VistaJerarquia::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y,
 		double pos_fin_x, double pos_fin_y, double & x, double & y) {
 	return false;
 }

@@ -44,9 +44,9 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 	if (!this->entidad->esDebil()) {
 
-		this->entidad->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y,
+		this->entidad->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
 				this->pos_fin_x, this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
-		this->relacion->obtenerInterseccionColLinea(this->pos_ini_x, this->pos_ini_y,
+		this->relacion->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
 				this->pos_fin_x, this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
 		cr->move_to(this->pos_ini_x, this->pos_ini_y);
@@ -58,10 +58,10 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		Geometria::obtenerLineasParalelas(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
 				this->pos_fin_y, 1.6, x0, y0, x1, y1, x2, y2, x3, y3);
 
-		this->entidad->obtenerInterseccionColLinea(x0, y0, x1, y1, x0, y0);
-		this->relacion->obtenerInterseccionColLinea(x0, y0, x1, y1, x1, y1);
-		this->entidad->obtenerInterseccionColLinea(x2, y2, x3, y3, x2, y2);
-		this->relacion->obtenerInterseccionColLinea(x2, y2, x3, y3, x3, y3);
+		this->entidad->obtenerInterseccionConLinea(x0, y0, x1, y1, x0, y0);
+		this->relacion->obtenerInterseccionConLinea(x0, y0, x1, y1, x1, y1);
+		this->entidad->obtenerInterseccionConLinea(x2, y2, x3, y3, x2, y2);
+		this->relacion->obtenerInterseccionConLinea(x2, y2, x3, y3, x3, y3);
 
 		cr->move_to(x0, y0);
 		cr->line_to(x1, y1);
@@ -106,7 +106,7 @@ bool VistaUnionEntidadRelacion::contieneEsteComponente(Componente *) {
 	return false;
 }
 
-bool VistaUnionEntidadRelacion::obtenerInterseccionColLinea(double pos_ini_x, double pos_ini_y,
+bool VistaUnionEntidadRelacion::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y,
 		double pos_fin_x, double pos_fin_y, double & x, double & y) {
 	return false;
 }
