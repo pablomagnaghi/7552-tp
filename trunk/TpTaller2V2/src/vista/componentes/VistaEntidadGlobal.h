@@ -2,7 +2,7 @@
 #define VISTAENTIDADGLOBAL_H_
 
 #include "VistaEntidad.h"
-#include "../../modelo/EntidadGlobal.h"
+#include "../../modelo/componentes/EntidadGlobal.h"
 
 class VistaEntidadGlobal : public VistaEntidad{
 private:

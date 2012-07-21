@@ -5,7 +5,7 @@
 #include <string>
 #include "../VistaConstantes.h"
 #include <gtkmm/targetentry.h>
-#include "../../modelo/Componente.h"
+#include "../../modelo/componentes/Componente.h"
 #include "Geometria.h"
 
 // Persistencia

@@ -12,6 +12,8 @@
 #include <gtkmm.h>
 #include <iostream>
 #include "../controlador/ControladorPanelHerramientas.h"
+#include "../excepciones/NullPointer.h"
+#include "../excepciones/ArgumentoInvalido.h"
 using namespace std;
 
 //#define DEBUG 1

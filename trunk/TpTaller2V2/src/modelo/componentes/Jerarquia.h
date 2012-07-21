@@ -7,11 +7,13 @@
 
 #include <vector>
 #include <string>
+#include "Entidad.h"
 #include "EntidadNueva.h"
 #include "Componente.h"
+#include "../../excepciones/NullPointer.h"
 
 // Persistencia
-#include "persistencia/Persistencia.h"
+#include "../persistencia/Persistencia.h"
 
 class EntidadNueva;
 
@@ -21,7 +23,6 @@ private:
 	// Modelo
 	Entidad * padre;
 	std::vector<EntidadNueva *> hijos;
-
 
 	std::string cobertura; // Esta en el enunciado
 	std::string interseccion; // Esta en el enunciado
@@ -46,12 +47,13 @@ public:
 	virtual ~Jerarquia();
 
 	// Hay que ver si van los gets y sets o se pone en el constructor
-	void setEntidadGeneral(Entidad *);
+	void setEntidadGeneral(Entidad *)throw (NullPointer);
 	Entidad * getEntidadGeneral() const;
 
-	void agregarEspecializada(EntidadNueva *);
-	std::vector<EntidadNueva *>::iterator obtenerEntidadesEspecializadas();
-	void quitarEspecializada(EntidadNueva *);
+	void agregarEspecializada(EntidadNueva *)throw (NullPointer);
+	void quitarEspecializada(EntidadNueva *)throw (NullPointer);
+	std::vector<EntidadNueva *>::iterator entidadesEspecializadasBegin();
+	std::vector<EntidadNueva *>::iterator entidadesEspecializadasEnd();
 
 	std::string getCobertura() const;
 	void setCobertura(const std::string&);

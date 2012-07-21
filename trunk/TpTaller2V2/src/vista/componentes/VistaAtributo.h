@@ -8,7 +8,7 @@
 #ifndef VISTAATRIBUTO_H_
 #define VISTAATRIBUTO_H_
 #include "VistaComponente.h"
-#include "../../modelo/Atributo.h"
+#include "../../modelo/componentes/Atributo.h"
 #include <list>
 
 class VistaAtributo: public VistaComponente {

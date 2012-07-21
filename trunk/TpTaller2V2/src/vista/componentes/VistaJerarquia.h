@@ -4,7 +4,7 @@
 #include "VistaComponente.h"
 #include "VistaEntidadNueva.h"
 
-#include "../../modelo/Jerarquia.h"
+#include "../../modelo/componentes/Jerarquia.h"
 
 #include <vector>
 

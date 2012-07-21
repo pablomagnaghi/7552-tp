@@ -2,20 +2,20 @@
 #define VISTAENTIDADNUEVA_H_
 #include "VistaEntidad.h"
 #include "../../controlador/AsistenteEntidad.h"
-#include "../../modelo/Entidad.h"
+#include "../../modelo/componentes/EntidadNueva.h"
 #include <list>
 
 class VistaEntidadNueva: public VistaEntidad{
 private:
 	friend class AsistenteEntidad;
 
-	Entidad * entidad;
+	EntidadNueva * entidad;
 
 	void calcular_ancho_a_partir_del_nombre();
 	void dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr);
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 public:
-	VistaEntidadNueva(Entidad *);
+	VistaEntidadNueva(EntidadNueva *);
 	virtual ~VistaEntidadNueva();
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.

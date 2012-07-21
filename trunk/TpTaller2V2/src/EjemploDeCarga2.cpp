@@ -5,7 +5,7 @@
  *      Author: pablo
  */
 
-#include "modelo/Modelo.h"
+#include "modelo/HeadersModelo.h"
 #include <iostream>
 
 int main6(int argc, char* argv[]){

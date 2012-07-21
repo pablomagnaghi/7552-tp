@@ -1,6 +1,6 @@
 #ifndef VISTARELACION_H_
 #define VISTARELACION_H_
-#include "../../modelo/Relacion.h"
+#include "../../modelo/componentes/Relacion.h"
 #include "VistaComponente.h"
 
 class VistaRelacion: public VistaComponente {

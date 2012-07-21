@@ -1,19 +1,19 @@
-/* Componente.h
- *  Created on: 30/04/2012
- *      Author: gonzalo
- */
 #ifndef COMPONENTE_H_
 #define COMPONENTE_H_
 
 #include <string>
 
+#include "../../excepciones/ArgumentoInvalido.h"
+
 // Persistencia
-#include "persistencia/Persistencia.h"
+#include "../persistencia/Persistencia.h"
 
 class Componente {
 
 protected:
+	// Codigo para la persistencia
 	int codigo;
+	// Nombre es común a todos los componentes
 	std::string nombre;
 
 	// PERSITENCIA COMP
@@ -22,11 +22,13 @@ protected:
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 	*/
+	Componente(const Componente &);
 
 public:
+	// CONSTRUCTOR PARA QUE SE LE PUEDA AGREGAR EL NOMBRE O CODIGO AL CONSTRUIRLO
+	Componente(int codigo = -1, const std::string & nombre = "");
 	virtual ~Componente();
 
-	// Interfaz Heredada
 	int getCodigo() const;
 	void setCodigo(int);
 

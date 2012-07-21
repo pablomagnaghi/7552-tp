@@ -11,8 +11,8 @@
 // una Entidad a su cardinalidad y a su rol.
 // En el xsd aparece como "tipo_entidad_cardinalidad"
 
-class Relacion;
 class Entidad;
+class Relacion;
 
 class UnionEntidadRelacion: public Componente {
 

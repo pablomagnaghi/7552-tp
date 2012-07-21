@@ -36,7 +36,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #endif
 
 	if (this->diagramaActual != NULL) {
-		VistaEntidadNueva * nuevaEntidad = new VistaEntidadNueva(new Entidad());
+		VistaEntidadNueva * nuevaEntidad = new VistaEntidadNueva(new EntidadNueva());
 
 		if (nuevaEntidad->lanzarProp()) {
 			this->diagramaActual->agregarComponente(nuevaEntidad);

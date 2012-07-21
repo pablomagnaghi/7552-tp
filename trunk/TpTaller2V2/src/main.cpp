@@ -1,16 +1,10 @@
-/*
- * main.cpp
- *
- *  Created on: 22/10/2010
- *      Author: metal
- */
 
 #include "vista/Ide.h"
 #include "controlador/ControladorMenu.h"
 #include "vista/VistaConstantes.h"
 #include <iostream>
 
-#include "modelo/Modelo.h"
+#include "modelo/HeadersModelo.h"
 
 int aplicacion_principal(int argc, char *argv[]) {
 	Gtk::Main kit(argc, argv);
@@ -52,46 +46,23 @@ int aplicacion_principal(int argc, char *argv[]) {
 	return 0;
 }
 
-void verificar(bool a, bool b) {
-	if (a == b) {
-		cout << "OK" << endl;
-	} else {
-		cout << "ERROR" << endl;
-	}
-}
-
 int main(int argc, char *argv[]) {
 	//test_modelo();
+
+	try {
+		throw ArgumentoInvalido("El codigo no puede ser negativo");
+	} catch (const ArgumentoInvalido& ex) {
+		std::cerr << ex.what() << std::endl;
+	}
+	try {
+		throw NullPointer("Puntero a nulo en Agregar Entidad");
+	} catch (const NullPointer& ex) {
+		std::cerr << ex.what() << std::endl;
+		//return 1;
+	}
 	aplicacion_principal(argc, argv);
 
 	double x, y;
-	/*if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 10, 0, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}
-	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 100, 0, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}
-	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 100, 90, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}
-	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 45, 45, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}
-	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 0, 100, 45, 55, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}
-	if (Geometria::hayInterseccionDeLineas(0, 0, 100, 100, 10, 0, 100, 90, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}*/
-	/*if (Geometria::hayInterseccionDeLineas(94, 245.5, 298, 100.5, 68,234, 120, 234, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}
-	if (Geometria::hayInterseccionDeLineas(94, 245.5, 312,206.5, 120,234, 120, 257, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}
-	if (Geometria::hayInterseccionDeLineas(94, 245.5, 312,252.5, 68,234, 68, 257, x, y)) {
-		cout << "x= " << x << " y= " << y << endl;
-	}*/
 
 	return 0;
 }
