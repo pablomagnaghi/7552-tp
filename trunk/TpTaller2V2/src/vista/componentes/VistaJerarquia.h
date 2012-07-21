@@ -15,6 +15,7 @@ private:
 	VistaEntidad * padre;
 	std::vector<VistaEntidadNueva *> hijos;
 
+	void dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double ymin, double ymax);
 public:
 	VistaJerarquia(Jerarquia * jerarquiaModelo);
 	virtual ~VistaJerarquia();

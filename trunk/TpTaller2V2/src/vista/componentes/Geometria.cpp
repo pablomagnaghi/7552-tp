@@ -7,6 +7,8 @@ using namespace std;
 #define MAX(X,Y) ((X) > (Y) ? (X):(Y))
 #define MIN(X,Y) ((X) < (Y) ? (X):(Y))
 
+#define DEBUG_GEOMETRIA 0
+
 Geometria::Geometria() {
 }
 
@@ -71,10 +73,10 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 	}
 	cotaInicialInterseccion.y = MAX(MIN(y0, y1), MIN(y2, y3));
 	cotaFinalInterseccion.y = MIN(MAX(y0, y1), MAX(y2, y3));
-
+#if DEBUG_GEOMETRIA==1
 	cout << "Cota: (" << cotaInicialInterseccion.x << ";" << cotaInicialInterseccion.y << ") ("
 			<< cotaFinalInterseccion.x << ";" << cotaFinalInterseccion.y << ")" << std::endl;
-
+#endif
 	// ACOTO en X y busco los Y
 	acotarX(x0, x1, y0, y1, m0, posInicialLinea1, posFinalLinea1, cotaInicialInterseccion,
 			cotaFinalInterseccion);
@@ -111,11 +113,12 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 		} else if (!isnan(m1)) {
 			y = y2 + m1 * (x - x2);
 		}
-
+#if DEBUG_GEOMETRIA==1
 		cout << "Linea1: (" << x0 << ";" << y0 << ") (" << x1 << ";" << y1 << ")" << std::endl;
 		cout << "Linea2: (" << x2 << ";" << y2 << ") (" << x3 << ";" << y3 << ")" << std::endl;
 		std::cout << "m0 = " << m0 << std::endl;
 		std::cout << "m1 = " << m1 << std::endl;
+#endif
 		return true;
 	} else if (posInicialLinea1.y >= posInicialLinea2.y && posFinalLinea1.y <= posFinalLinea2.y) {
 		if (isnan(m0)) {
@@ -132,10 +135,12 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 		} else if (!isnan(m1)) {
 			y = y2 + m1 * (x - x2);
 		}
+#if DEBUG_GEOMETRIA==1
 		cout << "Linea1: (" << x0 << ";" << y0 << ") (" << x1 << ";" << y1 << ")" << std::endl;
 		cout << "Linea2: (" << x2 << ";" << y2 << ") (" << x3 << ";" << y3 << ")" << std::endl;
 		std::cout << "m0 = " << m0 << std::endl;
 		std::cout << "m1 = " << m1 << std::endl;
+#endif
 		return true;
 	}
 
@@ -168,8 +173,10 @@ bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1
 	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
 		m = (y1 - y0) / (x1 - x0);
 	}
+#if DEBUG_GEOMETRIA==1
 	cout << "Linea1: (" << x0 << ";" << y0 << ") (" << x1 << ";" << y1 << ")" << std::endl;
 	cout << "Circulo: (" << xc << ";" << yc << ")  radio= " << r << endl;
+#endif
 	if (x0 < xc + r && x0 > xc - r && y0 < yc + r && y0 > yc - r) {
 		if (isnan(m)) {
 			x = xc;
@@ -184,7 +191,9 @@ bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1
 			delta_y = sin(angulo);
 			x = xc + delta_x * r;
 			y = yc + delta_y * r;
+#if DEBUG_GEOMETRIA==1
 			cout << "y1 - yc = " << y1 - yc << endl;
+#endif
 		}
 	} else if (x1 < xc + r && x1 > xc - r && y1 < yc + r && y1 > yc - r) {
 		if (isnan(m)) {
@@ -200,15 +209,17 @@ bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1
 			delta_y = sin(angulo);
 			x = xc + delta_x * r;
 			y = yc + delta_y * r;
+#if DEBUG_GEOMETRIA==1
 			cout << "y0 - yc = " << y0 - yc << endl;
+#endif
 		}
 
 	} else {
 		return false;
 	}
-
+#if DEBUG_GEOMETRIA==1
 	cout << "m= " << m << endl;
-
+#endif
 	return true;
 }
 
