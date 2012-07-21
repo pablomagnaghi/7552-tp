@@ -8,7 +8,6 @@ Jerarquia::~Jerarquia() {
 
 }
 
-
 std::string Jerarquia::getCobertura() const {
 	return this->cobertura;
 }
@@ -25,13 +24,11 @@ void Jerarquia::setInterseccion(const std::string& interseccion) {
 	this->interseccion = interseccion;
 }
 
-
-
-void Jerarquia::setEntidadGeneral(EntidadNueva * entidadPadre){
+void Jerarquia::setEntidadGeneral(Entidad * entidadPadre){
 	this->padre = entidadPadre;
 }
 
-EntidadNueva * Jerarquia::getEntidadGeneral() const{
+Entidad * Jerarquia::getEntidadGeneral() const{
 	return this->padre;
 }
 

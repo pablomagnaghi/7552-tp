@@ -7,12 +7,7 @@
 #include <list>
 #include <vector>
 #include "VistaConstantes.h"
-#include "./componentes/VistaComponente.h"
-#include "./componentes/VistaAtributo.h"
-#include "./componentes/VistaEntidadNueva.h"
-#include "./componentes/VistaRelacion.h"
-#include "./componentes/VistaUnionEntidadRelacion.h"
-#include "./componentes/VistaLinea.h"
+#include "./componentes/VistasDeComponentes.h"
 #include "gtkmm.h"
 
 using namespace std;

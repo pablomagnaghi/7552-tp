@@ -155,8 +155,8 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 	return false;
 }
 
-bool Geometria::hayInterseccionDeLineaConCirculo( double x0,
-		double y0, double x1, double y1, double xc, double yc, double r, double & x, double & y) {
+bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1,
+		double xc, double yc, double r, double & x, double & y) {
 	double m = NAN; // MACRO DE MATH NOT A NUMBER
 	double angulo;
 	double delta_x, delta_y;
@@ -210,4 +210,47 @@ bool Geometria::hayInterseccionDeLineaConCirculo( double x0,
 	cout << "m= " << m << endl;
 
 	return true;
+}
+
+void Geometria::obtenerPuntosDeTriangulo(double x0, double y0, double x1, double y1, double altura,
+		double base, double & x2, double & y2, double & x3, double & y3) {
+	double m = NAN; // MACRO DE MATH NOT A NUMBER
+	double angulo;
+	double angulo2;
+	double delta_x, delta_y;
+	double xc, yc;
+	double mitad_base;
+	double delta;
+
+	delta = 0.00001;
+	mitad_base = base / 2;
+
+	angulo2 = atan2(mitad_base, altura);
+
+	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
+		angulo = atan2(y1 - y0, x1 - x0);
+		delta_x = cos(angulo) * altura;
+		delta_y = sin(angulo) * altura;
+		/*xc = x1 - delta_x;
+		 yc = y1 - delta_y;*/
+
+		// QUEDO COMO SI FUERA UN CIRCULO, PERO ES IMPORTANTE
+		y2 = y1 - sin(angulo + angulo2) * altura;
+		y3 = y1 - sin(angulo - angulo2) * altura;
+		x2 = x1 - cos(angulo + angulo2) * altura;
+		x3 = x1 - cos(angulo - angulo2) * altura;
+
+	} else {
+		xc = x1;
+		if (y1 > y0) {
+			yc = y1 - altura;
+		} else {
+			yc = y1 + altura;
+		}
+		y2 = yc;
+		y3 = yc;
+		x2 = xc - mitad_base;
+		x3 = xc + mitad_base;
+	}
+
 }

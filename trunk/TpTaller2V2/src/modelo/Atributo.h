@@ -15,9 +15,7 @@ private:
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
 
-	// Supongo que es para atributos si se es un atributo compuesto
-	// lo saco xq creé la clase Atributo Compuesto
-	//std::vector<Atributo*> atributosDerivables;
+	std::vector<Atributo*> atributosDerivables;
 
 
 

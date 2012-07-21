@@ -58,6 +58,7 @@ public:
 	void setposini(double x, double y);
 	void getposfin(double&x, double&y) const;
 	void setposfin(double x, double y);
+	void getposcentro(double &x, double&y) const;
 
 	void setDibujable(bool d);
 	bool getDibujable();

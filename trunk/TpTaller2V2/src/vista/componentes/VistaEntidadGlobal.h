@@ -1,10 +1,10 @@
 #ifndef VISTAENTIDADGLOBAL_H_
 #define VISTAENTIDADGLOBAL_H_
 
-#include "VistaComponente.h"
+#include "VistaEntidad.h"
 #include "../../modelo/EntidadGlobal.h"
 
-class VistaEntidadGlobal : public VistaComponente{
+class VistaEntidadGlobal : public VistaEntidad{
 private:
 	EntidadGlobal * entidad;
 public:
