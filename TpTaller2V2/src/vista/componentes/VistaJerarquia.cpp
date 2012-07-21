@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#define DEBUG_VISTA_JERARQUIA 0
+
 VistaJerarquia::VistaJerarquia(Jerarquia * jerarquiaModelo) {
 	this->jerarquia = jerarquiaModelo;
 }
@@ -9,7 +11,50 @@ VistaJerarquia::VistaJerarquia(Jerarquia * jerarquiaModelo) {
 VistaJerarquia::~VistaJerarquia() {
 }
 
-//Dibuja el objeto en el contexto cairo pasado como parametro.
+void VistaJerarquia::dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double ymin, double ymax) {
+	double x0, y0, x1, y1, x2, y2, x3, y3;
+
+	this->padre->getposini(x0, y0);
+	this->padre->getposfin(x1, y1);
+
+	if (y1 < ymin) {
+		this->pos_ini_y = (y1 + ymin) / 2;
+		if (this->pos_ini_y < y1 + 18) {
+			this->pos_ini_y = y0 - 18;
+		}
+	} else if (y0 > ymax) {
+		this->pos_ini_y = (y0 + ymax) / 2;
+		if (this->pos_ini_y > y0 - 18) {
+			this->pos_ini_y = y1 + 18;
+		}
+	} else if (ymin < y1 && y0 < ymax) {
+		this->pos_ini_y = MIN(ymin, y0) - 18;
+	} else if (ymin < y0 && y1 < ymax) {
+		this->pos_ini_y = MIN(ymin, y0) - 18;
+	}
+#if DEBUG_VISTA_JERARQUIA==1
+	cout << "ymin=" << ymin << endl;
+	cout << "ymax=" << ymax << endl;
+	cout << "y0=" << y0 << endl;
+	cout << "y1=" << y1 << endl;
+	cout << "Pos Linea Media=" << this->pos_ini_y << endl;
+#endif
+	cr->move_to(this->pos_ini_x, this->pos_ini_y);
+	cr->line_to(this->pos_fin_x, this->pos_ini_y);
+	cr->stroke();
+	this->padre->getposcentro(x0, y0);
+	this->padre->obtenerInterseccionColLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
+	cr->move_to(x0, this->pos_ini_y);
+	cr->line_to(x1, y1);
+	cr->stroke();
+	Geometria::obtenerPuntosDeTriangulo(x0, this->pos_ini_y, x1, y1, 13, 5, x2, y2, x3, y3);
+	cr->line_to(x2, y2);
+	cr->line_to(x3, y3);
+	cr->line_to(x1, y1);
+	cr->fill();
+}
+
+// TODO REFACTORIZAR
 void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	double x0, x1, x2, x3, y0, y1, y2, y3;
 	double xmin, xmax, ymin, ymax;
@@ -51,6 +96,8 @@ void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		ymax = -1;
 		for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
 			(*i)->getposcentro(x2, y2);
+			(*i)->getposini(x0, y2);
+			(*i)->getposfin(x0, y3);
 			if (x2 < xmin) {
 				xmin = x2;
 			}
@@ -60,31 +107,15 @@ void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 			if (x2 > xmax) {
 				xmax = x2;
 			}
-			if (y2 > ymax) {
-				ymax = y2;
+			if (y3 > ymax) {
+				ymax = y3;
 			}
 		}
 		this->pos_ini_x = xmin;
 		this->pos_fin_x = xmax;
 
-		if (y1 < ymin) {
-			this->pos_ini_y = (y1 + ymin) / 2;
-		} else if (y0 > ymax) {
-			this->pos_ini_y = (y0 + ymax) / 2;
-		}
-		cr->move_to(this->pos_ini_x, this->pos_ini_y);
-		cr->line_to(this->pos_fin_x, this->pos_ini_y);
-		cr->stroke();
-		this->padre->getposcentro(x0, y0);
-		this->padre->obtenerInterseccionColLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
-		cr->move_to(x0, this->pos_ini_y);
-		cr->line_to(x1, y1);
-		cr->stroke();
-		Geometria::obtenerPuntosDeTriangulo(x0, this->pos_ini_y, x1, y1, 13, 5, x2, y2, x3, y3);
-		cr->line_to(x2, y2);
-		cr->line_to(x3, y3);
-		cr->line_to(x1, y1);
-		cr->fill();
+		dibujarLineaMedia(cr, ymin, ymax);
+
 		for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
 			(*i)->getposcentro(x0, y0);
 			(*i)->obtenerInterseccionColLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
