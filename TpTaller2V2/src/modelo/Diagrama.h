@@ -1,19 +1,9 @@
-/* Diagrama.h
- *  Created on: 30/04/2012
- *      Author: Gonzalo Ferrero 89657
- */
-
 #ifndef DIAGRAMA_H_
 #define DIAGRAMA_H_
 
 #include <vector>
 #include <string>
-#include "EntidadNueva.h"
-#include "EntidadGlobal.h"
-#include "Relacion.h"
-#include "Jerarquia.h"
-#include "Componente.h"
-#include "ConstantesModelo.h"
+#include "./componentes/HeadersComponentes.h"
 
 //Persistencia
 #include "persistencia/Persistencia.h"

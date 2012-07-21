@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-VistaEntidadNueva::VistaEntidadNueva(Entidad * entidadDelModelo) {
+VistaEntidadNueva::VistaEntidadNueva(EntidadNueva * entidadDelModelo) {
 	// TODO Auto-generated constructor stub
 
 	this->entidad = entidadDelModelo;

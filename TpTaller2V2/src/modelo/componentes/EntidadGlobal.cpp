@@ -1,9 +1,3 @@
-/*
- * EntidadGlobal.cpp
- *
- *  Created on: 14/05/2012
- */
-
 #include "EntidadGlobal.h"
 
 EntidadGlobal::EntidadGlobal() {
@@ -22,12 +16,19 @@ std::string EntidadGlobal::getDiagramaAncestro() const{
 	return this->diagramaAncestro;
 }
 
-void EntidadGlobal::setCodigoEntidadNueva(int codigoEntidadNueva) {
-	this->codigoEntidadNueva = codigoEntidadNueva;
+void EntidadGlobal::setEntidadNueva(EntidadNueva * entidadNueva)throw (NullPointer){
+	if(entidadNueva==NULL){
+		throw NullPointer("setEntidadNueva en EntidadGlobal");
+	}
+	this->entidadNueva = entidadNueva;
 }
 
-int EntidadGlobal::getCodigoEntidadNueva() const {
-	return this->codigoEntidadNueva;
+EntidadNueva * EntidadGlobal::getEntidadNueva() const{
+	return this->entidadNueva;
+}
+
+bool EntidadGlobal::getEsDebil(){
+	return this->entidadNueva->getEsDebil();
 }
 
 // PERSISTENCIA COMP

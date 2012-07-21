@@ -6,9 +6,10 @@
 #include "UnionEntidadRelacion.h"
 #include "Atributo.h"
 #include "Componente.h"
+#include "../../excepciones/NullPointer.h"
 
 // Persistencia
-#include "persistencia/Persistencia.h"
+#include "../persistencia/Persistencia.h"
 
 class UnionEntidadRelacion;
 
@@ -47,19 +48,13 @@ public:
 	std::string getTipo() const;
 	void setTipo(const std::string&);
 
-
-	// Modelo
-	void agregarUnionAEntidad(UnionEntidadRelacion*);
-	void quitarUnionAEntidad(UnionEntidadRelacion*);
-
-	void agregarAtributo(Atributo *);
-	void quitarAtributo(Atributo *);
-
-
-
+	void agregarUnionAEntidad(UnionEntidadRelacion*)throw (NullPointer);
+	void quitarUnionAEntidad(UnionEntidadRelacion*)throw (NullPointer);
 	std::vector<UnionEntidadRelacion*>::iterator unionesBegin();
 	std::vector<UnionEntidadRelacion*>::iterator unionesEnd();
 
+	void agregarAtributo(Atributo *)throw (NullPointer);
+	void quitarAtributo(Atributo *)throw (NullPointer);
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
 

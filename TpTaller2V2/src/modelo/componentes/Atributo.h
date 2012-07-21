@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "Componente.h"
-#include "ConstantesModelo.h"
+#include "../ConstantesModelo.h"
 
 class Atributo : public Componente {
 

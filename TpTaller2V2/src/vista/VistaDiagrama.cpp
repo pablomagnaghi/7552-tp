@@ -41,8 +41,8 @@ VistaDiagrama::~VistaDiagrama() {
 
 void VistaDiagrama::test_cargar_componentes_visuales() {
 	//VistaComponente * componenteNuevo;
-	Entidad * a;
-	Entidad * b;
+	EntidadNueva * a;
+	EntidadNueva * b;
 	Relacion * c;
 	Atributo * d;
 	UnionEntidadRelacion * f;
@@ -60,8 +60,8 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	VistaEntidadGlobal * entidadGlobal;
 
 	// Creo el modelo
-	a = new Entidad();
-	b = new Entidad();
+	a = new EntidadNueva();
+	b = new EntidadNueva();
 	c = new Relacion();
 	d = new Atributo();
 	f = new UnionEntidadRelacion(a, c);

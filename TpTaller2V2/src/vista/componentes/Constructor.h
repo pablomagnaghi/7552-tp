@@ -1,8 +1,8 @@
 #ifndef CONSTRUCTOR_H_
 #define CONSTRUCTOR_H_
 
-#include "../../modelo/Modelo.h"
-#include "VistasDeComponentes.h"
+//#include "../../modelo/HeadersModelo.h"
+//#include "VistasDeComponentes.h"
 
 class Constructor {
 private:

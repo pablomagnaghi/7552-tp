@@ -8,7 +8,7 @@
 #include <vector>
 #include "VistaConstantes.h"
 #include "./componentes/VistasDeComponentes.h"
-#include "gtkmm.h"
+
 
 using namespace std;
 

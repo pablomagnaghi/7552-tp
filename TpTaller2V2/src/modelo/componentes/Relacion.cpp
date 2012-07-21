@@ -1,5 +1,7 @@
 #include "Relacion.h"
 
+#include <algorithm>
+
 Relacion::Relacion() {
 
 }
@@ -17,31 +19,32 @@ void Relacion::setTipo(const std::string& tipo) {
 	this->tipo = tipo;
 }
 
-void Relacion::agregarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) {
+void Relacion::agregarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) throw (NullPointer) {
+	if (entidadRelacion == NULL) {
+		throw NullPointer("agregarUnionAEntidad en Relacion");
+	}
 	this->unionAEntidades.push_back(entidadRelacion);
 }
 
-void Relacion::quitarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) {
-	std::vector<UnionEntidadRelacion*>::iterator e;
-	//e = find(this->unionAEntidades.begin(), this->unionAEntidades.end(), unionAEntidades);
-	for (e = this->unionAEntidades.begin(); e != this->unionAEntidades.end(); e++) {
-		if (*e == entidadRelacion) {
-			this->unionAEntidades.erase(e);
-			break;
-		}
+void Relacion::quitarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) throw (NullPointer) {
+	if (entidadRelacion == NULL) {
+		throw NullPointer("quitarUnionAEntidad en Relacion");
 	}
+	remove(this->unionAEntidades.begin(), this->unionAEntidades.end(), entidadRelacion);
 }
 
-void Relacion::agregarAtributo(Atributo* atributo) {
+void Relacion::agregarAtributo(Atributo* atributo) throw (NullPointer) {
+	if (atributo == NULL) {
+		throw NullPointer("agregarAtributo en Relacion");
+	}
 	this->atributos.push_back(atributo);
 }
 
-void Relacion::quitarAtributo(Atributo* atributo) {
-	std::vector<Atributo*>::iterator e;
-	e = find(this->atributos.begin(), this->atributos.end(), atributo);
-	if (*e == atributo) {
-		this->atributos.erase(e);
+void Relacion::quitarAtributo(Atributo* atributo) throw (NullPointer) {
+	if (atributo == NULL) {
+		throw NullPointer("quitarAtributo en Relacion");
 	}
+	remove(this->atributos.begin(), this->atributos.end(), atributo);
 }
 
 std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesBegin() {
@@ -70,8 +73,7 @@ void Relacion::borrarAtributos() {
 }
 
 void Relacion::borrarEntidadesRelacion() {
-	std::vector<UnionEntidadRelacion*>::iterator it =
-			this->unionAEntidades.begin();
+	std::vector<UnionEntidadRelacion*>::iterator it = this->unionAEntidades.begin();
 	while (it != this->unionAEntidades.end()) {
 		delete (*it);
 		it++;

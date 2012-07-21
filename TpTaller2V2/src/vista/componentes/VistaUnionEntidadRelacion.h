@@ -4,7 +4,7 @@
 #include "VistaComponente.h"
 #include "VistaEntidadNueva.h"
 #include "VistaRelacion.h"
-#include "../../modelo/UnionEntidadRelacion.h"
+#include "../../modelo/componentes/UnionEntidadRelacion.h"
 
 class VistaUnionEntidadRelacion: public VistaComponente {
 private:
