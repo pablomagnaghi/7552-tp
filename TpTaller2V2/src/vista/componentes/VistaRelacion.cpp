@@ -252,7 +252,7 @@ std::vector<UnionEntidadRelacion *> VistaRelacion::getUniones() {
 	std::vector<UnionEntidadRelacion *> uniones;
 	std::vector<UnionEntidadRelacion *>::iterator i;
 
-	for (i = this->relacion->unionesBegin(); i != this->relacion->unionesEnd(); i++) {
+	for (i = this->relacion->unionesAEntidadBegin(); i != this->relacion->unionesAEntidadEnd(); i++) {
 		uniones.push_back(*i);
 	}
 
