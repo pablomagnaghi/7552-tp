@@ -6,7 +6,7 @@ Atributo::Atributo() :
 }
 
 Atributo::~Atributo() {
-
+	this->borrarAtributos();
 }
 
 std::string Atributo::getTipo() const {
@@ -17,12 +17,12 @@ void Atributo::setTipo(const std::string& tipo) {
 	this->tipo = tipo;
 }
 
-std::string Atributo::getNombre() const {
-	return this->nombre;
+std::string Atributo::getExpresion() const {
+	return this->expresion;
 }
 
-void Atributo::setNombre(const std::string& expresion) {
-	this->nombre = expresion;
+void Atributo::setExpresion(const std::string& expresion) {
+	this->expresion = expresion;
 }
 
 std::string Atributo::getCardinalidadMinima() const {
@@ -41,7 +41,36 @@ void Atributo::setCardinalidadMaxima(const std::string& cardinalidadMaxima) {
 	this->cardinalidadMaxima = cardinalidadMaxima;
 }
 
+void Atributo::agregarAtributo(Atributo* atributo) throw (NullPointer) {
+	if (atributo == NULL) {
+		throw NullPointer("Puntero nulo en agregarAtributo en Atributo");
+	}
+	this->atributos.push_back(atributo);
+}
 
+void Atributo::quitarAtributo(Atributo* atributo) throw (NullPointer) {
+	if (atributo == NULL) {
+		throw NullPointer("Puntero nulo en quitarAtributo en Atributo");
+	}
+	remove(this->atributos.begin(), this->atributos.end(), atributo);
+}
+
+std::vector<Atributo*>::iterator Atributo::atributosBegin() {
+	return this->atributos.begin();
+}
+
+std::vector<Atributo*>::iterator Atributo::atributosEnd() {
+	return this->atributos.end();
+}
+
+void Atributo::borrarAtributos() {
+	std::vector<Atributo*>::iterator it = this->atributos.begin();
+	while ( it != this->atributos.end() ) {
+		delete (*it);
+		it++;
+	}
+	this->atributos.clear();
+}
 
 // PERSISTENCIA COMP
 /*

@@ -21,11 +21,10 @@ class Jerarquia : public Componente {
 
 private:
 	// Modelo
-	Entidad * padre;
-	std::vector<EntidadNueva *> hijos;
-
-	std::string cobertura; // Esta en el enunciado
-	std::string interseccion; // Esta en el enunciado
+	Entidad * entidadGeneral;
+	std::vector<EntidadNueva *> entidadesEspecializadas;
+	std::string cobertura; // Esta en el enunciado: total, parcial.
+	std::string interseccion; // Esta en el enunciado: exclusiva, superpuesta.
 
 	// PERSISTENCIA COMP
 	/*
@@ -47,11 +46,11 @@ public:
 	virtual ~Jerarquia();
 
 	// Hay que ver si van los gets y sets o se pone en el constructor
-	void setEntidadGeneral(Entidad *)throw (NullPointer);
+	void setEntidadGeneral(Entidad *) throw (NullPointer);
 	Entidad * getEntidadGeneral() const;
 
-	void agregarEspecializada(EntidadNueva *)throw (NullPointer);
-	void quitarEspecializada(EntidadNueva *)throw (NullPointer);
+	void agregarEntidadEspecializada(EntidadNueva *) throw (NullPointer);
+	void quitarEntidadEspecializada(EntidadNueva *) throw (NullPointer);
 	std::vector<EntidadNueva *>::iterator entidadesEspecializadasBegin();
 	std::vector<EntidadNueva *>::iterator entidadesEspecializadasEnd();
 

@@ -1,7 +1,7 @@
 #include "Jerarquia.h"
 
 Jerarquia::Jerarquia() {
-	this->padre = NULL;
+	this->entidadGeneral = NULL;
 }
 
 Jerarquia::~Jerarquia() {
@@ -24,39 +24,37 @@ void Jerarquia::setInterseccion(const std::string& interseccion) {
 	this->interseccion = interseccion;
 }
 
-void Jerarquia::setEntidadGeneral(Entidad * entidadPadre) throw (NullPointer) {
-	if (entidadPadre == NULL) {
-		throw NullPointer("agregarEspecializada en Jerarquia");
+void Jerarquia::setEntidadGeneral(Entidad * entidadGeneral) throw (NullPointer) {
+	if (entidadGeneral == NULL) {
+		throw NullPointer("Puntero nulo en setEntidadGeneral en Jerarquia");
 	}
-	this->padre = entidadPadre;
+	this->entidadGeneral = entidadGeneral;
 }
 
 Entidad * Jerarquia::getEntidadGeneral() const {
-	return this->padre;
+	return this->entidadGeneral;
 }
 
-void Jerarquia::agregarEspecializada(EntidadNueva * entidadHija) throw (NullPointer) {
-	if (entidadHija == NULL) {
-		throw NullPointer("agregarEspecializada en Jerarquia");
+void Jerarquia::agregarEntidadEspecializada(EntidadNueva * entidadEspecializada) throw (NullPointer) {
+	if (entidadEspecializada == NULL) {
+		throw NullPointer("Puntero nulo en agregarEntidadEspecializada en Jerarquia");
 	}
-	this->hijos.push_back(entidadHija);
+	this->entidadesEspecializadas.push_back(entidadEspecializada);
 }
 
 std::vector<EntidadNueva *>::iterator Jerarquia::entidadesEspecializadasBegin() {
-	return this->hijos.begin();
+	return this->entidadesEspecializadas.begin();
 }
 
 std::vector<EntidadNueva *>::iterator Jerarquia::entidadesEspecializadasEnd() {
-	return this->hijos.end();
+	return this->entidadesEspecializadas.end();
 }
 
-void Jerarquia::quitarEspecializada(EntidadNueva * entidad) throw (NullPointer) {
-
-	if (entidad == NULL) {
-		throw NullPointer("quitarEspecializada en Jerarquia");
+void Jerarquia::quitarEntidadEspecializada(EntidadNueva * entidadEspecializada) throw (NullPointer) {
+	if (entidadEspecializada == NULL) {
+		throw NullPointer("Puntero nulo en quitarEntidadEspecializada en Jerarquia");
 	}
-	remove(this->hijos.begin(), this->hijos.end(), entidad);
-
+	remove(this->entidadesEspecializadas.begin(), this->entidadesEspecializadas.end(), entidadEspecializada);
 }
 
 // PERSISTENCIA COMP

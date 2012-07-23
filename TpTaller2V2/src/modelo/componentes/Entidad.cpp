@@ -9,26 +9,26 @@ Entidad::~Entidad() {
 
 }
 
-void Entidad::agregarUnion(UnionEntidadRelacion *u) throw (NullPointer) {
+void Entidad::agregarUnionARelacion(UnionEntidadRelacion *u) throw (NullPointer) {
 	if (u == NULL) {
-		throw NullPointer("Puntero nulo en agregarUnion de Entidad");
+		throw NullPointer("Puntero nulo en agregarUnionARelacion de Entidad");
 	}
-	this->unionesARelaciones.push_back(u);
+	this->unionesARelacion.push_back(u);
 }
 
-void Entidad::removerUnion(UnionEntidadRelacion *u) throw (NullPointer) {
+void Entidad::removerUnionARelacion(UnionEntidadRelacion *u) throw (NullPointer) {
 	if (u == NULL) {
-		throw NullPointer("Puntero nulo en agregarUnion de Entidad");
+		throw NullPointer("Puntero nulo en removerUnionARelacion de Entidad");
 	}
-	remove(this->unionesARelaciones.begin(), this->unionesARelaciones.end(), u);
+	remove(this->unionesARelacion.begin(), this->unionesARelacion.end(), u);
 }
 
-std::vector<UnionEntidadRelacion *>::iterator Entidad::unionesBegin() {
-	return this->unionesARelaciones.begin();
+std::vector<UnionEntidadRelacion *>::iterator Entidad::unionesARelacionBegin() {
+	return this->unionesARelacion.begin();
 }
 
-std::vector<UnionEntidadRelacion *>::iterator Entidad::unionesEnd() {
-	return this->unionesARelaciones.end();
+std::vector<UnionEntidadRelacion *>::iterator Entidad::unionesARelacionEnd() {
+	return this->unionesARelacion.end();
 }
 
 void Entidad::setJerarquiaHija(Jerarquia * jHija) throw (NullPointer) {

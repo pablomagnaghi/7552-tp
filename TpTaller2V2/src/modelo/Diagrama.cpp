@@ -1,18 +1,21 @@
 #include "Diagrama.h"
 
-Diagrama::Diagrama(){
-	this->diagramaAncestro = NULL;
-	this->diagramaValidoCOMP = false;
+Diagrama::Diagrama():
+	estado (DIAGRAMA_SIN_VALIDAR),
+	diagramaAncestro (NULL),
+	diagramaValidoCOMP (false) {
+
 }
 
 Diagrama::Diagrama(const std::string nombre):
-	nombre (nombre){
-	this->diagramaAncestro = NULL;
+	nombre (nombre),
+	estado (DIAGRAMA_SIN_VALIDAR),
+	diagramaAncestro (NULL),
+	diagramaValidoCOMP (false) {
+
 }
 
 Diagrama::~Diagrama() {
-	if (this->diagramaAncestro)
-		delete this->diagramaAncestro;
 	this->borrarDiagramasHijos();
 	this->borrarEntidadesNuevas();
 	this->borrarEntidadesGlobales();
@@ -26,6 +29,14 @@ void Diagrama::setNombre(const std::string nombre){
 
 std::string Diagrama::getNombre() const{
 	return this->nombre;
+}
+
+void Diagrama::setEstado(const std::string estado){
+	this->estado = estado;
+}
+
+std::string Diagrama::getEstado() const{
+	return this->estado;
 }
 
 void Diagrama::setDiagramaAncestro(Diagrama* diagramaAncestro){

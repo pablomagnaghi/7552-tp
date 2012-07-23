@@ -17,12 +17,7 @@ private:
 	std::vector<Atributo*> atributos;
 	std::vector<Identificador*> identificadores;
 	std::vector<Jerarquia *> jerarquiasPadre;
-
-	// Esta en el enunciado
-	std::string tipo; //  CARACTERIZACION, DERIVADO
-	std::string cardinalidadMinima; //
-	std::string cardinalidadMaxima; //
-	std::string composicion; // SIMPLE, COMPUESTO
+	std::string tipo; // Esta en el enunciado: cosa, historica, dominio, programada
 
 	void borrarAtributos();
 	void borrarIdentificadores();
@@ -68,8 +63,8 @@ public:
 	void agregarAtributo(Atributo*) throw (NullPointer);
 	void quitarAtributo(Atributo*) throw (NullPointer);
 
-	void agregarJerarquia(Jerarquia *) throw (NullPointer);
-	void quitarJerarquia(Jerarquia *) throw (NullPointer);
+	void agregarJerarquiaPadre(Jerarquia *) throw (NullPointer);
+	void quitarJerarquiaPadre(Jerarquia *) throw (NullPointer);
 
 	void agregarIdentificador(Identificador*) throw (NullPointer);
 	void quitarIdentificador(Identificador*) throw (NullPointer);

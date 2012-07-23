@@ -18,7 +18,7 @@ std::string EntidadGlobal::getDiagramaAncestro() const{
 
 void EntidadGlobal::setEntidadNueva(EntidadNueva * entidadNueva)throw (NullPointer){
 	if(entidadNueva==NULL){
-		throw NullPointer("setEntidadNueva en EntidadGlobal");
+		throw NullPointer("Puntero nulo en setEntidadNueva en EntidadGlobal");
 	}
 	this->entidadNueva = entidadNueva;
 }

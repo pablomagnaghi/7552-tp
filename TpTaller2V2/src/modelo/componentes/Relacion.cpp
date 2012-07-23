@@ -8,7 +8,7 @@ Relacion::Relacion() {
 
 Relacion::~Relacion() {
 	this->borrarAtributos();
-	this->borrarEntidadesRelacion();
+	this->borrarUnionesAEntidad();
 }
 
 std::string Relacion::getTipo() const {
@@ -21,38 +21,38 @@ void Relacion::setTipo(const std::string& tipo) {
 
 void Relacion::agregarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) throw (NullPointer) {
 	if (entidadRelacion == NULL) {
-		throw NullPointer("agregarUnionAEntidad en Relacion");
+		throw NullPointer("Puntero nulo en agregarUnionAEntidad en Relacion");
 	}
-	this->unionAEntidades.push_back(entidadRelacion);
+	this->unionesAEntidad.push_back(entidadRelacion);
 }
 
 void Relacion::quitarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) throw (NullPointer) {
 	if (entidadRelacion == NULL) {
-		throw NullPointer("quitarUnionAEntidad en Relacion");
+		throw NullPointer("Puntero nulo en quitarUnionAEntidad en Relacion");
 	}
-	remove(this->unionAEntidades.begin(), this->unionAEntidades.end(), entidadRelacion);
+	remove(this->unionesAEntidad.begin(), this->unionesAEntidad.end(), entidadRelacion);
 }
 
 void Relacion::agregarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
-		throw NullPointer("agregarAtributo en Relacion");
+		throw NullPointer("Puntero nulo en agregarAtributo en Relacion");
 	}
 	this->atributos.push_back(atributo);
 }
 
 void Relacion::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
-		throw NullPointer("quitarAtributo en Relacion");
+		throw NullPointer("Puntero nulo en quitarAtributo en Relacion");
 	}
 	remove(this->atributos.begin(), this->atributos.end(), atributo);
 }
 
-std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesBegin() {
-	return this->unionAEntidades.begin();
+std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesAEntidadBegin() {
+	return this->unionesAEntidad.begin();
 }
 
-std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesEnd() {
-	return this->unionAEntidades.end();
+std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesAEntidadEnd() {
+	return this->unionesAEntidad.end();
 }
 
 std::vector<Atributo*>::iterator Relacion::atributosBegin() {
@@ -72,13 +72,13 @@ void Relacion::borrarAtributos() {
 	this->atributos.clear();
 }
 
-void Relacion::borrarEntidadesRelacion() {
-	std::vector<UnionEntidadRelacion*>::iterator it = this->unionAEntidades.begin();
-	while (it != this->unionAEntidades.end()) {
+void Relacion::borrarUnionesAEntidad() {
+	std::vector<UnionEntidadRelacion*>::iterator it = this->unionesAEntidad.begin();
+	while (it != this->unionesAEntidad.end()) {
 		delete (*it);
 		it++;
 	}
-	this->unionAEntidades.clear();
+	this->unionesAEntidad.clear();
 }
 
 // PERSISTENCIA COMP
