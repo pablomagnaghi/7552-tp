@@ -1,10 +1,12 @@
 #include "UnionEntidadRelacion.h"
 
-UnionEntidadRelacion::UnionEntidadRelacion(Entidad * e, Relacion * r) {
-	this->entidad = e;
-	this->relacion = r;
+UnionEntidadRelacion::UnionEntidadRelacion(Entidad * e, Relacion * r):
+	entidad (e),
+	relacion (r),
+	cardinalidadMinima ("1"),
+	cardinalidadMaxima ("1") {
 
-	e->agregarUnion(this);
+	e->agregarUnionARelacion(this);
 	r->agregarUnionAEntidad(this);
 }
 
@@ -16,8 +18,7 @@ const std::string UnionEntidadRelacion::getCardinalidadMinima() const {
 	return this->cardinalidadMinima;
 }
 
-void UnionEntidadRelacion::setCardinalidadMinima(
-		const std::string & cardinalidad) {
+void UnionEntidadRelacion::setCardinalidadMinima(const std::string & cardinalidad) {
 	this->cardinalidadMinima = cardinalidad;
 }
 
@@ -25,9 +26,16 @@ const std::string UnionEntidadRelacion::getCardinalidadMaxima() const {
 	return this->cardinalidadMaxima;
 }
 
-void UnionEntidadRelacion::setCardinalidadMaxima(
-		const std::string & cardinalidad) {
+void UnionEntidadRelacion::setCardinalidadMaxima(const std::string & cardinalidad) {
 	this->cardinalidadMaxima = cardinalidad;
+}
+
+const std::string UnionEntidadRelacion::getRol() const {
+	return this->rol;
+}
+
+void UnionEntidadRelacion::setRol(const std::string & rol) {
+	this->rol = rol;
 }
 
 Entidad * UnionEntidadRelacion::getEntidad(){

@@ -13,6 +13,7 @@ class Diagrama {
 private:
 	// Modelo
 	std::string nombre;
+	std::string estado;
 	Diagrama* diagramaAncestro;
 	std::vector<Diagrama*> diagramasHijos;
 	std::vector<EntidadNueva*> entidadesNuevas;
@@ -60,6 +61,9 @@ public:
 
 	void setNombre(const std::string);
 	std::string getNombre() const;
+
+	void setEstado(const std::string);
+	std::string getEstado() const;
 
 	void setDiagramaAncestro(Diagrama*);
 	Diagrama* getDiagramaAncestro() const;

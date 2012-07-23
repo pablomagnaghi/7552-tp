@@ -5,19 +5,19 @@
 #include <algorithm>
 #include "Componente.h"
 #include "../ConstantesModelo.h"
+#include "../../excepciones/NullPointer.h"
 
 class Atributo : public Componente {
 
 private:
 	// Modelo
 	std::string tipo;
-	std::string nombre;
+	std::string expresion;
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
+	std::vector<Atributo*> atributos;
 
-	std::vector<Atributo*> atributosDerivables;
-
-
+	void borrarAtributos();
 
 	// PERSISTENCIA COMP
 	/*
@@ -39,14 +39,20 @@ public:
 	std::string getTipo() const;
 	void setTipo(const std::string&);
 
-	std::string getNombre() const;
-	void setNombre(const std::string&);
+	std::string getExpresion() const;
+	void setExpresion(const std::string&);
 
 	std::string getCardinalidadMinima() const;
 	void setCardinalidadMinima(const std::string&);
 
 	std::string getCardinalidadMaxima() const;
 	void setCardinalidadMaxima(const std::string&);
+
+	void agregarAtributo(Atributo*) throw (NullPointer);
+	void quitarAtributo(Atributo*) throw (NullPointer);
+
+	std::vector<Atributo*>::iterator atributosBegin();
+	std::vector<Atributo*>::iterator atributosEnd();
 
 	// PERSISTENCIA COMP
 	/*

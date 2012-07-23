@@ -19,43 +19,43 @@ bool EntidadNueva::getEsDebil() {
 
 void EntidadNueva::agregarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
-		throw NullPointer("agregarAtributo en EntidadNueva");
+		throw NullPointer("Puntero nulo en agregarAtributo en EntidadNueva");
 	}
 	this->atributos.push_back(atributo);
 }
 
 void EntidadNueva::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
-		throw NullPointer("quitarAtributo en EntidadNueva");
+		throw NullPointer("Puntero nulo en quitarAtributo en EntidadNueva");
 	}
 	remove(this->atributos.begin(), this->atributos.end(), atributo);
 }
 
 
-void EntidadNueva::agregarJerarquia(Jerarquia *j) throw (NullPointer) {
+void EntidadNueva::agregarJerarquiaPadre(Jerarquia *j) throw (NullPointer) {
 	if (j == NULL) {
-		throw NullPointer("agregarJerarquia en EntidadNueva");
+		throw NullPointer("Puntero nulo en agregarJerarquiaPadre en EntidadNueva");
 	}
 	this->jerarquiasPadre.push_back(j);
 }
 
-void EntidadNueva::quitarJerarquia(Jerarquia *j) throw (NullPointer) {
+void EntidadNueva::quitarJerarquiaPadre(Jerarquia *j) throw (NullPointer) {
 	if (j == NULL) {
-		throw NullPointer("quitarJerarquia en EntidadNueva");
+		throw NullPointer("Puntero nulo en quitarJerarquiaPadre en EntidadNueva");
 	}
 	remove(this->jerarquiasPadre.begin(), this->jerarquiasPadre.end(), j);
 }
 
 void EntidadNueva::agregarIdentificador(Identificador *identificador) throw (NullPointer) {
 	if (identificador == NULL) {
-		throw NullPointer("agregarIdentificador en EntidadNueva");
+		throw NullPointer("Puntero nulo en agregarIdentificador en EntidadNueva");
 	}
 	this->identificadores.push_back(identificador);
 }
 
 void EntidadNueva::quitarIdentificador(Identificador *identificador) throw (NullPointer) {
 	if (identificador == NULL) {
-		throw NullPointer("quitarIdentificador en EntidadNueva");
+		throw NullPointer("Puntero nulo en quitarIdentificador en EntidadNueva");
 	}
 	remove(this->identificadores.begin(), this->identificadores.end(), identificador);
 }

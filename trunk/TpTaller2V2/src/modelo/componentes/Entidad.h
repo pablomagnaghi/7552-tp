@@ -15,7 +15,7 @@ class UnionEntidadRelacion;
 class Entidad: public Componente {
 
 protected:
-	std::vector<UnionEntidadRelacion *> unionesARelaciones;
+	std::vector<UnionEntidadRelacion *> unionesARelacion;
 	Jerarquia * jerarquiaHija;
 
 	// PERSISTENCIA COMP
@@ -27,18 +27,18 @@ public:
 	Entidad();
 	virtual ~Entidad();
 
-	void agregarUnion(UnionEntidadRelacion *) throw (NullPointer);
-	void removerUnion(UnionEntidadRelacion *) throw (NullPointer);
+	void agregarUnionARelacion(UnionEntidadRelacion *) throw (NullPointer);
+	void removerUnionARelacion(UnionEntidadRelacion *) throw (NullPointer);
 
-	std::vector<UnionEntidadRelacion *>::iterator unionesBegin();
-	std::vector<UnionEntidadRelacion *>::iterator unionesEnd();
+	std::vector<UnionEntidadRelacion *>::iterator unionesARelacionBegin();
+	std::vector<UnionEntidadRelacion *>::iterator unionesARelacionEnd();
 
 	// Nueva y Global pueden saber si es debil,
 	// en caso de Global pregunta a la EntidadNueva que hace referencia
 	virtual bool getEsDebil()= 0;
 
 	// Todas las entidades pueden ser padres
-	void setJerarquiaHija(Jerarquia * jHija) throw (NullPointer);
+	void setJerarquiaHija(Jerarquia *) throw (NullPointer);
 	Jerarquia * getJerarquiaHija()const;
 
 };

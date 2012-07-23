@@ -18,12 +18,12 @@ class Relacion : public Componente {
 private:
 
 	// Modelo
-	std::string tipo; // ?????
-	std::vector<UnionEntidadRelacion*> unionAEntidades;
+	std::string tipo; // Asociacion, composición.
+	std::vector<UnionEntidadRelacion*> unionesAEntidad;
 	std::vector<Atributo*> atributos;
 
 	void borrarAtributos();
-	void borrarEntidadesRelacion();
+	void borrarUnionesAEntidad();
 
 	// PERSISTENCIA COMP
 	/*
@@ -50,8 +50,8 @@ public:
 
 	void agregarUnionAEntidad(UnionEntidadRelacion*)throw (NullPointer);
 	void quitarUnionAEntidad(UnionEntidadRelacion*)throw (NullPointer);
-	std::vector<UnionEntidadRelacion*>::iterator unionesBegin();
-	std::vector<UnionEntidadRelacion*>::iterator unionesEnd();
+	std::vector<UnionEntidadRelacion*>::iterator unionesAEntidadBegin();
+	std::vector<UnionEntidadRelacion*>::iterator unionesAEntidadEnd();
 
 	void agregarAtributo(Atributo *)throw (NullPointer);
 	void quitarAtributo(Atributo *)throw (NullPointer);
