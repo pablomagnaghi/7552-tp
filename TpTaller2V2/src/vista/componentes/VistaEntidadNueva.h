@@ -3,20 +3,32 @@
 #include "VistaEntidad.h"
 #include "../../controlador/AsistenteEntidad.h"
 #include "../../modelo/componentes/EntidadNueva.h"
-#include <list>
+#include "../VistaConstantes.h"
+#include <vector>
+#include "VistaAtributo.h"
 
 class VistaEntidadNueva: public VistaEntidad{
 private:
 	friend class AsistenteEntidad;
 
 	EntidadNueva * entidad;
-
+	std::vector<VistaAtributo*> vistaAtributos;
 	void calcular_ancho_a_partir_del_nombre();
 	void dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr);
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
+	bool prop_lanzada;
 public:
 	VistaEntidadNueva(EntidadNueva *);
 	virtual ~VistaEntidadNueva();
+
+	std::vector<VistaAtributo*>::iterator atributosBegin();
+	std::vector<VistaAtributo*>::iterator atributosEnd();
+
+	void resetearLanzarProp();
+
+	// Solo se puede agregar y sacar atributos a la entidad nueva
+	bool agregarAtributo(VistaAtributo* atrib);
+	bool quitarAtributo(VistaAtributo* atrib);
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
@@ -54,6 +66,8 @@ public:
 	void setEsDebil(bool);
 
 	bool esDebil();
+
+	virtual EntidadNueva * getEntidad();
 };
 
 #endif /* VISTAENTIDADNUEVA_H_ */

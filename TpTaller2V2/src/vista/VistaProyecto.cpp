@@ -6,7 +6,6 @@
  */
 
 #include "VistaProyecto.h"
-#include "TreePanel.h"
 
 VistaProyecto::VistaProyecto(Proyecto * proyectoModelo)  {
 	//Prueba

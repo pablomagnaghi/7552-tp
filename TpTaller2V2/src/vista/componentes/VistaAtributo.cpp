@@ -13,6 +13,7 @@ using namespace std;
 VistaAtributo::VistaAtributo(Atributo * atributoModelo) {
 	// TODO Auto-generated constructor stub
 	this->atributo = atributoModelo;
+	this->prop_lanzada = false;
 
 }
 
@@ -21,6 +22,16 @@ VistaAtributo::~VistaAtributo() {
 }
 
 bool VistaAtributo::lanzarProp() {
+	if (!this->prop_lanzada) {
+		AsistenteAtributo* nuevaProp;
+		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(
+				ARCH_GLADE_ATRIB);
+		nHbuilder->get_widget_derived("PropAtributo", nuevaProp);
+		nuevaProp->setAtributo(this);
+		this->prop_lanzada = true;
+		nuevaProp->show();
+		return true;
+	}
 	return false;
 }
 
@@ -112,4 +123,35 @@ bool VistaAtributo::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 	}
 
 	return false;
+}
+
+bool VistaAtributo		::agregarAtributo(VistaAtributo* atributo) {
+	if (atributo == NULL) {
+		return false;
+	}
+	this->vistaAtributos.push_back(atributo);
+	return true;
+}
+
+bool VistaAtributo::quitarAtributo(VistaAtributo* atributo) {
+	if (atributo == NULL) {
+		return false;
+	}
+	remove(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
+}
+
+std::vector<VistaAtributo*>::iterator VistaAtributo::atributosBegin() {
+	return this->vistaAtributos.begin();
+}
+
+std::vector<VistaAtributo*>::iterator VistaAtributo::atributosEnd() {
+	return this->vistaAtributos.end();
+}
+
+Atributo* VistaAtributo::getAtributo(){
+	return this->atributo;
+}
+
+void VistaAtributo::resetearLanzarProp(){
+	this->prop_lanzada = false;
 }

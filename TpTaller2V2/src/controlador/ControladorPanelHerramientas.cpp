@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 #endif
+#include "../vista/Ide.h"
 
 ControladorPanelHerramientas::ControladorPanelHerramientas(const Glib::RefPtr<
 		Gtk::Builder> & builder, Gtk::Window * ventana) :
@@ -14,11 +15,11 @@ ControladorPanelHerramientas::ControladorPanelHerramientas(const Glib::RefPtr<
 	cout << "Creando ControladorPanelHerramientas" << endl;
 #endif
 
-	AsistenteEntidad::getInstance(builder);
+	//AsistenteEntidad::getInstance(builder);
+
+	//AsistenteAtributo::getInstance(builder);
 
 	this->ventanaPrincipal = ventana;
-
-	this->diagramaActual = NULL;
 
 	this->enlazar_botones_de_menu(builder);
 
@@ -34,15 +35,14 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #ifdef DEBUG
 	cout << "Agregar Entidad" << endl;
 #endif
+	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this->ide->getDiagActual());
+#ifdef DEBUG
+	cout << "Vuelve" << endl;
+#endif
+	if (nuevaEntidad->lanzarProp()) {
 
-	if (this->diagramaActual != NULL) {
-		VistaEntidadNueva * nuevaEntidad = new VistaEntidadNueva(new EntidadNueva());
-
-		if (nuevaEntidad->lanzarProp()) {
-			this->diagramaActual->agregarComponente(nuevaEntidad);
-		} else {
-			delete nuevaEntidad;
-		}
+	} else {
+		delete nuevaEntidad;
 	}
 }
 
@@ -89,10 +89,10 @@ void ControladorPanelHerramientas::enlazar_botones_de_menu(const Glib::RefPtr<
 			&ControladorPanelHerramientas::on_boton_Agregar_Comentario_click));
 }
 
-void ControladorPanelHerramientas::setDiagrama(VistaDiagrama * diagrama) {
-	if (diagrama != NULL) {
-		this->diagramaActual = diagrama;
-	}
+void ControladorPanelHerramientas::setIde(Ide * id) {
+
+	this->ide = id;
+
 }
 
 void ControladorPanelHerramientas::activarBotones() {

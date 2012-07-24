@@ -6,6 +6,8 @@
 #include "VistaRelacion.h"
 #include "../../modelo/componentes/UnionEntidadRelacion.h"
 
+class VistaEntidadNueva;
+
 class VistaUnionEntidadRelacion: public VistaComponente {
 private:
 	UnionEntidadRelacion * unionModelo;

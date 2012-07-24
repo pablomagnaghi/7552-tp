@@ -9,16 +9,29 @@
 #define VISTAATRIBUTO_H_
 #include "VistaComponente.h"
 #include "../../modelo/componentes/Atributo.h"
+#include "../../controlador/AsistenteAtributo.h"
 #include <list>
+#include "../VistaConstantes.h"
 
 class VistaAtributo: public VistaComponente {
 private:
-	list<VistaAtributo*> l_atrib_deri;
+	std::vector<VistaAtributo*> vistaAtributos;
+	Atributo * atributo;
+	bool prop_lanzada;
 public:
 	VistaAtributo(Atributo * atributoModelo);
 	virtual ~VistaAtributo();
 
-	Atributo * atributo;
+	std::vector<VistaAtributo*>::iterator atributosBegin();
+	std::vector<VistaAtributo*>::iterator atributosEnd();
+
+	void resetearLanzarProp();
+
+	Atributo* getAtributo();
+
+	// Solo se puede agregar y sacar atributos a la entidad nueva
+	bool agregarAtributo(VistaAtributo* atrib);
+	bool quitarAtributo(VistaAtributo* atrib);
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);

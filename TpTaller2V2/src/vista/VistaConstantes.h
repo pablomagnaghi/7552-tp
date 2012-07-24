@@ -9,8 +9,8 @@
 #define VISTACONSTANTES_H_
 
 //#define ARCH_GLADE_IDE "./Tp Taller 2/src/vista/IDE.glade"
-#define ARCH_GLADE_IDE "./src/vista/IDE.glade"
-#define ARCH_GLADE_APENTIDAD "./src/vista/PropEntidad.glade"
+#define ARCH_GLADE_IDE "./src/vista/glade/IDE.glade"
+#define ARCH_GLADE_ATRIB "./src/vista/glade/PropAtrib.glade"
 
 #define A4_ANCHO 794
 #define A4_ALTO 1123

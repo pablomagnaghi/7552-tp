@@ -7,25 +7,30 @@
 
 #ifndef IDE_H_
 #define IDE_H_
-#include "TreePanel.h"
+
+
+#include "../controlador/ControladorPanelHerramientas.h"
+#include "../controlador/ComponentsBuilder.h"
+#include "VistaDiagrama.h"
 #include "VistaProyecto.h"
 #include <gtkmm.h>
 #include <iostream>
-#include "../controlador/ControladorPanelHerramientas.h"
 #include "../excepciones/NullPointer.h"
 #include "../excepciones/ArgumentoInvalido.h"
+#include "TreePanel.h"
 using namespace std;
 
 //#define DEBUG 1
 
 class Ide : public Gtk::Window {
+
 private:
 
 	Glib::RefPtr<Gtk::Builder> m_builder;
 	//Posse un proyecto por vez
 	VistaProyecto* vproyecto;
 
-	VistaDiagrama *diag_actual;
+	VistaDiagrama *diagactual;
 
 	//Posse un treePanel
 	TreePanel treePanel;
@@ -53,7 +58,7 @@ public:
 	void guardar_proyecto();
 	void cargarDiagrama(VistaDiagrama* diagrama);
 	inline VistaProyecto* getProyecto(){return this->vproyecto;}
-	inline VistaDiagrama* getDiagActual(){return this->diag_actual;}
+	VistaDiagrama* getDiagActual();
 };
 
 #endif /* IDE_H_ */

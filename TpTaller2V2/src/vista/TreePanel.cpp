@@ -4,9 +4,9 @@
  *  Created on: 02/04/2012
  *      Author: Guagnini Enzo 88325
  */
-
-#include "TreePanel.h"
 #include "Ide.h"
+#include "TreePanel.h"
+
 
 TreePanel::TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i) :
 	ide(i), Ide_builder(Ide_b) {
