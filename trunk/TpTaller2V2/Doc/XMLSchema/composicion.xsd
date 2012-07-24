@@ -15,12 +15,10 @@
 		<xsd:attribute name="nombre" type="xsd:string" use="required" />
 	</xsd:complexType>
 
-
 	<xsd:complexType name="tipo_componente" abstract="true">
 		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
 		<xsd:attribute name="nombre" type="xsd:string" />
 	</xsd:complexType> 
-
 
 	<xsd:complexType name="tipo_entidad_nueva">
 		<xsd:complexContent>
@@ -28,8 +26,6 @@
 				<xsd:sequence>
 					<xsd:element name="atributo" type="tipo_atributo" minOccurs="1" maxOccurs="unbounded" />
 					<xsd:element name="identificador" type="tipo_identificador" minOccurs="1" maxOccurs="unbounded" />
-					<xsd:element name="relacion" type="xsd:integer" minOccurs="0" maxOccurs="unbounded" /> 
-					<xsd:element name="jerarquia" type="xsd:integer" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 				<xsd:attribute name="tipo" type="tipo_tipo_entidad" />
 			</xsd:extension>
@@ -39,9 +35,6 @@
 	<xsd:complexType name="tipo_entidad_global">
 		<xsd:complexContent>
 			<xsd:extension base="tipo_componente">
-				<xsd:sequence>
-					<xsd:element name="relacion" type="xsd:integer" minOccurs="0" maxOccurs="unbounded" /> 
-				</xsd:sequence>
 				<xsd:attribute name="diagrama_ancestro" type="xsd:string" use="required" />
 				<xsd:attribute name="codigo_entidad_nueva" type="xsd:integer" use="required" />
 			</xsd:extension>
@@ -57,7 +50,6 @@
 		</xsd:restriction>
 	</xsd:simpleType>
 
-	
 	<xsd:complexType name="tipo_atributo">
 		<xsd:complexContent>
 			<xsd:extension base="tipo_componente">
@@ -80,7 +72,6 @@
 		</xsd:restriction>
 	</xsd:simpleType>
 	
-
 	<xsd:complexType name="tipo_identificador">
 		<xsd:sequence>
 			<xsd:element name="atributo" type="xsd:integer" minOccurs="1" maxOccurs="unbounded" />
@@ -88,12 +79,11 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	
-	
 	<xsd:complexType name="tipo_relacion">
 		<xsd:complexContent>
 			<xsd:extension base="tipo_componente">
 				<xsd:sequence>
-					<xsd:element name="entidad_relacion" type="tipo_entidad_relacion" minOccurs="2" maxOccurs="unbounded" />
+					<xsd:element name="union_entidad_relacion" type="tipo_union_entidad_relacion" minOccurs="2" maxOccurs="unbounded" />
 					<xsd:element name="atributo" type="tipo_atributo" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 				<xsd:attribute name="tipo" type="tipo_tipo_relacion" />
@@ -101,11 +91,15 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	
-	<xsd:complexType name="tipo_entidad_relacion">
-		<xsd:attribute name="entidad" type="xsd:integer" use="required" />
-		<xsd:attribute name="cardinalidad_minima" type="xsd:string" />
-		<xsd:attribute name="cardinalidad_maxima" type="xsd:string" />
-		<xsd:attribute name="rol" type="xsd:string" />
+	<xsd:complexType name="tipo_union_entidad_relacion">
+		<xsd:complexContent>
+			<xsd:extension base="tipo_componente">
+				<xsd:attribute name="entidad" type="xsd:integer" use="required" />
+				<xsd:attribute name="cardinalidad_minima" type="xsd:string" />
+				<xsd:attribute name="cardinalidad_maxima" type="xsd:string" />
+				<xsd:attribute name="rol" type="xsd:string" />
+			</xsd:extension>
+		</xsd:complexContent>
 	</xsd:complexType>
 	
 	<xsd:simpleType name="tipo_tipo_relacion">
@@ -115,7 +109,6 @@
 		</xsd:restriction>
 	</xsd:simpleType>
 	
-
 	<xsd:complexType name="tipo_jerarquia">
 		<xsd:complexContent>
 			<xsd:extension base="tipo_componente">
@@ -144,4 +137,3 @@
 	</xsd:simpleType>
 	
 </xsd:schema>
-

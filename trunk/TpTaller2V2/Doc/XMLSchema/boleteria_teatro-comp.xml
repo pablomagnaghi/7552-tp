@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:noNamespaceSchemaLocation="composicion.xsd"
-	nombre="boleteria teatro">
-		
-	<entidad_nueva codigo="1" nombre="SeccionSala" tipo="cosa" >
+<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="composicion.xsd" nombre="boleteria teatro">
+
+	<entidad_nueva codigo="1" nombre="SeccionSala" tipo="cosa">
 		<atributo codigo="2" nombre="nroSecc" tipo="caracterizacion" />
 		<atributo codigo="3" nombre="nomSecc" tipo="caracterizacion" />
 		<identificador>
@@ -12,9 +10,8 @@
 		<identificador>
 			<atributo>3</atributo>
 		</identificador>
-		<relacion>18</relacion>
 	</entidad_nueva>
-	
+
 	<entidad_nueva codigo="4" nombre="Localidad" tipo="cosa">
 		<atributo codigo="5" nombre="fila" tipo="caracterizacion" />
 		<atributo codigo="6" nombre="nroButaca" tipo="caracterizacion" />
@@ -23,67 +20,62 @@
 			<atributo>6</atributo>
 			<relacion>18</relacion>
 		</identificador>
-		<relacion>18</relacion>
-		<relacion>21</relacion>
 	</entidad_nueva>
-	
+
 	<entidad_nueva codigo="7" nombre="Obra" tipo="cosa">
 		<atributo codigo="8" nombre="idObra" tipo="caracterizacion" />
 		<atributo codigo="9" nombre="titulo" tipo="caracterizacion" />
 		<atributo codigo="10" nombre="autor" tipo="caracterizacion" cardinalidad_minima="1" cardinalidad_maxima="n" />
 		<atributo codigo="11" nombre="director" tipo="caracterizacion" cardinalidad_minima="1" cardinalidad_maxima="n" />
-		<atributo codigo="12" nombre="genero" tipo="caracterizacion"  />
-		<atributo codigo="13" nombre="nroProxFunc" tipo="caracterizacion"  />
+		<atributo codigo="12" nombre="genero" tipo="caracterizacion" />
+		<atributo codigo="13" nombre="nroProxFunc" tipo="caracterizacion" />
 		<identificador>
 			<atributo>8</atributo>
 		</identificador>
 		<identificador>
 			<atributo>9</atributo>
-		</identificador>  
-		<relacion>21</relacion>
-		<relacion>30</relacion>
+		</identificador>
 	</entidad_nueva>
-	
+
 	<entidad_nueva codigo="14" nombre="Funcion" tipo="cosa">
 		<atributo codigo="15" nombre="nroFunc" tipo="caracterizacion" />
 		<atributo codigo="16" nombre="fecha" tipo="caracterizacion" />
-		<atributo codigo="17" nombre="hora" tipo="caracterizacion"/>
+		<atributo codigo="17" nombre="hora" tipo="caracterizacion" />
 		<identificador>
 			<atributo>15</atributo>
-			<relacion>30</relacion>
+			<relacion>32</relacion>
 		</identificador>
 		<identificador>
 			<atributo>16</atributo>
 			<atributo>17</atributo>
-			<relacion>30</relacion>
+			<relacion>32</relacion>
 		</identificador>
-		<relacion>30</relacion> 
 	</entidad_nueva>
-	
+
 	<relacion codigo="18" nombre="SL">
-		<entidad_relacion entidad="1" cardinalidad_minima="1" cardinalidad_maxima="n" />
-		<entidad_relacion entidad="4" cardinalidad_minima="1" cardinalidad_maxima="1" />
+		<union_entidad_relacion codigo="19" entidad="1" cardinalidad_minima="1" cardinalidad_maxima="n" />
+		<union_entidad_relacion codigo="20" entidad="4" cardinalidad_minima="1" cardinalidad_maxima="1" />
 	</relacion>
-	
+
 	<relacion codigo="21" nombre="VtaLoc">
-		<entidad_relacion entidad="4" cardinalidad_minima="0" cardinalidad_maxima="n" />
-		<entidad_relacion entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
-		<atributo codigo="22" nombre="tarj" tipo="caracterizacion" cardinalidad_minima="0" cardinalidad_maxima="1">
-			<atributo codigo="23" nombre="nomTarj" tipo="caracterizacion"  />
-			<atributo codigo="24" nombre="bco" tipo="caracterizacion"  />
-			<atributo codigo="25" nombre="nroTarj" tipo="caracterizacion"  />
-			<atributo codigo="26" nombre="nroAutoriz" tipo="caracterizacion"  />
-			<atributo codigo="27" nombre="cr" tipo="caracterizacion" cardinalidad_minima="0" cardinalidad_maxima="1" >
-				<atributo codigo="28" nombre="cuotas" tipo="caracterizacion"  />
-				<atributo codigo="29" nombre="int" tipo="calculado" expresion="cuotas*0.1" cardinalidad_minima="0" cardinalidad_maxima="1" />
+		<union_entidad_relacion codigo="22" entidad="4" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<union_entidad_relacion codigo="23" entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<atributo codigo="24" nombre="tarj" tipo="caracterizacion" cardinalidad_minima="0" cardinalidad_maxima="1">
+			<atributo codigo="25" nombre="nomTarj" tipo="caracterizacion" />
+			<atributo codigo="26" nombre="bco" tipo="caracterizacion" />
+			<atributo codigo="27" nombre="nroTarj" tipo="caracterizacion" />
+			<atributo codigo="28" nombre="nroAutoriz" tipo="caracterizacion" />
+			<atributo codigo="29" nombre="cr" tipo="caracterizacion" cardinalidad_minima="0" cardinalidad_maxima="1">
+				<atributo codigo="30" nombre="cuotas" tipo="caracterizacion" />
+				<atributo codigo="31" nombre="int" tipo="calculado" expresion="cuotas*0.1" cardinalidad_minima="0" cardinalidad_maxima="1" />
 			</atributo>
 		</atributo>
 	</relacion>
-	
-	<relacion codigo="30" nombre="FO">
-		<entidad_relacion entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
-		<entidad_relacion entidad="14" cardinalidad_minima="1" cardinalidad_maxima="1" />
+
+	<relacion codigo="32" nombre="FO">
+		<union_entidad_relacion codigo="33" entidad="7" cardinalidad_minima="0" cardinalidad_maxima="n" />
+		<union_entidad_relacion codigo="34" entidad="14" cardinalidad_minima="1" cardinalidad_maxima="1" />
 	</relacion>
-	
+
 </diagrama>
 
