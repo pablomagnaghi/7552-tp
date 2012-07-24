@@ -4,10 +4,14 @@
 #include <gtkmm.h>
 #include "../vista/VistaDiagrama.h"
 #include "../vista/VistaProyecto.h"
+#include "ComponentsBuilder.h"
+
+
+class Ide;
 
 class ControladorPanelHerramientas {
 private:
-	VistaDiagrama * diagramaActual;
+	Ide * ide;
 	Gtk::Window * ventanaPrincipal;
 	Glib::RefPtr<Gtk::Builder> m_builder;
 
@@ -27,9 +31,7 @@ private:
 public:
 	ControladorPanelHerramientas(const Glib::RefPtr<Gtk::Builder>& builder, Gtk::Window * ventana);
 	virtual ~ControladorPanelHerramientas();
-
-	void setDiagrama(VistaDiagrama * diagrama);
-
+	void setIde(Ide* ide);
 	void activarBotones();
 	void desactivarBotones();
 };

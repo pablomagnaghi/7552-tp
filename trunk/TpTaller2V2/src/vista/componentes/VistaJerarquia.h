@@ -8,6 +8,8 @@
 
 #include <vector>
 
+class VistaEntidadNueva;
+
 class VistaJerarquia: public VistaComponente {
 private:
 

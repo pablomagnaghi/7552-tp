@@ -15,6 +15,8 @@
 #include "../modelo/Proyecto.h"
 using namespace std;
 
+class VistaDiagrama;
+
 class VistaProyecto  {
 private:
 

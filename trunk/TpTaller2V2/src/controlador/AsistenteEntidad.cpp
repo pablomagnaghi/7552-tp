@@ -11,9 +11,8 @@ AsistenteEntidad * AsistenteEntidad::instancia = NULL;
 
 AsistenteEntidad::AsistenteEntidad(BaseObjectType* cobject, const Glib::RefPtr<
 		Gtk::Builder>& builder) :
-	Gtk::Dialog(cobject), m_builder(builder) {
-	//this->hide();
-	this->entidad = NULL;
+	Gtk::Window(cobject), m_builder(builder) {
+	this->ventidad = NULL;
 	this->enlazarWidgets();
 }
 
@@ -22,11 +21,14 @@ AsistenteEntidad::~AsistenteEntidad() {
 }
 
 void AsistenteEntidad::setEntidad(VistaEntidadNueva* ent) {
-
-	// TODO CARGAR DATOS DE ENTIDAD NUEVA
-	this->inicializarDialogo();
-	this->entidad = ent;
+	this->ventidad = ent;
+	this->inicializarAsistente();
 }
+
+/*
+void AsistenteEntidad::setDiagrama(VistaDiagrama* diag) {
+	this->vdiagrama = diag;
+}*/
 
 void AsistenteEntidad::enlazarWidgets() {
 	Gtk::Button* bAceptar = 0;
@@ -51,6 +53,8 @@ void AsistenteEntidad::enlazarWidgets() {
 			&AsistenteEntidad::on_botonModificarAtributo_click));
 	bEAtributo->signal_clicked().connect(sigc::mem_fun(*this,
 			&AsistenteEntidad::on_botonEliminarAtributo_click));
+	this->signal_hide().connect(sigc::mem_fun(*this,
+							&AsistenteEntidad::on_about_hide));
 
 	//Lista
 	this->m_builder->get_widget("scrollLista", scrollLista);
@@ -59,100 +63,85 @@ void AsistenteEntidad::enlazarWidgets() {
 
 	//Agrego modelo a treeview
 	this->treeView.set_model(this->refTreeModel);
-	this->treeView.append_column_editable("Nombre",
+	this->treeView.append_column("Nombre",
 			this->m_Columnas.m_col_Nombre);
-	this->treeView.append_column_editable("Visible",
-			this->m_Columnas.m_col_esVisible);
-	this->treeView.append_column_editable("Imprimible",
-			this->m_Columnas.m_col_esImprimible);
 	this->treeView.show();
 }
 
 void AsistenteEntidad::on_botonAceptar_click() {
-	//Gtk::Entry *entryPath = 0;
-	//this->m_builder->get_widget("entryPath", entryPath);
-	this->entidad->setNombre(this->entryNombreEntidad->get_text());
-	//this->entidad->setposini(20, 20);
-	//this->entidad->ajustarTamanioAlTexto();
-	/* 	if (entryPath->get_text() == "") {
-	 Gtk::MessageDialog mensaje(*this, "Error.", false, Gtk::MESSAGE_ERROR,
-	 Gtk::BUTTONS_OK);
-	 mensaje.set_secondary_text("No ingreso XPath de la lista.");
-	 mensaje.run();
-	 } else {
-	 this->lista->path = entryPath->get_text();
-	 typedef Gtk::TreeModel::Children type_children;
-	 type_children children = this->refTreeModel->children();
-	 type_children::iterator iter = children.begin();
-	 type_children::iterator iter1 = children.end();
-	 if (iter != iter1) {
-	 this->lista->vaciarLista();
-	 while (iter != iter1) {
-	 Gtk::TreeModel::Row row = *iter;
-	 string nombre = row[this->m_Columnas.m_col_Nombre];
-	 string datocalculo = row[this->m_Columnas.m_col_DatoCalculo];
-	 bool escalc = row[this->m_Columnas.m_col_esCalculable];
-	 this->lista->agregarColumna(nombre, datocalculo, escalc);
-	 iter++;
-	 }
-	 }
-	 this->lista->hoja->redibujar();
-	 this->hide_all();
-	 }*/
-	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
+	this->ventidad->setNombre(this->entryNombreEntidad->get_text());
+	//this->ventidad->setposini(20, 20);
+	this->ventidad->ajustarTamanioAlTexto();
+	this->ventidad->resetearLanzarProp();
 	this->hide();
 }
 
 void AsistenteEntidad::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
+	this->ventidad->resetearLanzarProp();
 	this->hide();
 }
 
 void AsistenteEntidad::on_botonAgregarAtributo_click() {
-	/*Gtk::TreeModel::Row row = *(this->refTreeModel->append());
-	 row[this->m_Columnas.m_col_Nombre] = "NuevaColumna";
-	 row[this->m_Columnas.m_col_esCalculable] = false;
-	 row[this->m_Columnas.m_col_DatoCalculo] = "Ingrese Dato";*/
+	//creo el nuevo atributo
+	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this->ventidad);
+	//Lo incormoramos en la lista
+	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
+	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();
+	row[this->m_Columnas.m_col_Atrib_Pointer] = atrib;
+	if (atrib->lanzarProp()) {
+	} else {
+		delete atrib;
+	}
 }
 
 void AsistenteEntidad::on_botonModificarAtributo_click() {
-	/*Gtk::TreeModel::Row row = *(this->refTreeModel->append());
-	 row[this->m_Columnas.m_col_Nombre] = "NuevaColumna";
-	 row[this->m_Columnas.m_col_esCalculable] = true;
-	 row[this->m_Columnas.m_col_DatoCalculo] = "Ingrese Calculo";*/
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
+			this->treeView.get_selection();
+	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
+	if (iter) //If anything is selected
+	{
+		Gtk::TreeModel::Row row = *iter;
+		VistaAtributo *atrib = row[this->m_Columnas.m_col_Atrib_Pointer];
+		atrib->lanzarProp();
+	}
+
+	this->inicializarAsistente();
 }
 
 void AsistenteEntidad::on_botonEliminarAtributo_click() {
 	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
 			this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
-
 	if (iter) //If anything is selected
 	{
-		//Gtk::TreeModel::Row row = *iter;
+		Gtk::TreeModel::Row row = *iter;
+		VistaAtributo *atrib = row[this->m_Columnas.m_col_Atrib_Pointer];
+		//TODO Borro el atributo Mediante El builder
 		this->refTreeModel->erase(iter);
 	}
 }
 
-void AsistenteEntidad::inicializarDialogo() {
-	this->entryNombreEntidad->set_text("");
+void AsistenteEntidad::inicializarAsistente() {
+	this->entryNombreEntidad->set_text(this->ventidad->getNombre());
+	//Cargo la lista;
+	limpiarLista();
+	std::vector<VistaAtributo*>::iterator it1 = this->ventidad->atributosBegin();
+	std::vector<VistaAtributo*>::iterator it2 = this->ventidad->atributosEnd();
+	while (it1 != it2) {
+		Gtk::TreeModel::Row row = *(this->refTreeModel->append());
+		row[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
+		row[this->m_Columnas.m_col_Atrib_Pointer] = *it1;
+		it1++;
+	}
 }
 
-AsistenteEntidad * AsistenteEntidad::getInstance(const Glib::RefPtr<
-		Gtk::Builder>& builder) {
-	if (AsistenteEntidad::instancia == NULL) {
-		builder->get_widget_derived("PropEntidad", AsistenteEntidad::instancia);
-	}
-	return AsistenteEntidad::instancia;
+void AsistenteEntidad::limpiarLista() {
+	this->refTreeModel->clear();
 }
 
-AsistenteEntidad * AsistenteEntidad::getInstance() {
-	if (AsistenteEntidad::instancia != NULL) {
-		return AsistenteEntidad::instancia;
-	} else {
-#ifdef DEBUG
-		cout << "Error Instancia No creada" << endl;
-#endif
-	}
-	return NULL;
+void AsistenteEntidad::on_about_hide()
+{
+	this->ventidad->resetearLanzarProp();
 }
+

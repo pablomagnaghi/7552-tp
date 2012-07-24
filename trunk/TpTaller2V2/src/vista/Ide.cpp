@@ -4,7 +4,7 @@
  *  Created on: 02/04/2012
  *      Author: metal
  */
-#include "VistaDiagrama.h"
+
 #include "Ide.h"
 
 Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
@@ -16,11 +16,13 @@ Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 	this->set_size_request(800, 600);
 	//this->maximize();
 	this->vproyecto = NULL;
-	this->diag_actual = NULL;
+	this->diagactual = NULL;
 	this->show();
 
 	//TODO ESTO ES PARA PROBAR
 	this->nuevoProyecto();
+	ComponentsBuilder* c = ComponentsBuilder::getInstance();
+	c->setIde(this);
 }
 
 Ide::~Ide() {
@@ -54,13 +56,12 @@ void Ide::guardar_proyecto() {
 //TODO nuevo Proyecto
 void Ide::nuevoProyecto() {
 	if (this->vproyecto == NULL) {
-		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Diagrama Principal")));
+		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("DiagramaPrincipal")));
 		this->vproyecto->testCargarDiagramas();
 		this->treePanel.regenerar();
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();
-		this->controladorPanelHerramientas.setDiagrama(
-				this->vproyecto->getDiagramaPrincipal());
+		this->controladorPanelHerramientas.setIde(this);
 	} else {
 		Gtk::MessageDialog mensaje(*this, "Error", false, Gtk::MESSAGE_ERROR,
 				Gtk::BUTTONS_OK);
@@ -75,8 +76,8 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 	this->m_builder->get_widget("contenedor_diag", contenedorDiag);
 
 	//Primero tengo que sacar el diag actual
-	if (this->diag_actual != NULL) {
-		contenedorDiag->remove(*(this->diag_actual));
+	if (this->diagactual != NULL) {
+		contenedorDiag->remove(*(this->diagactual));
 	}
 
 #ifdef DEBUG
@@ -86,8 +87,13 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 
 	contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
 	contenedorDiag->put(*diagrama, 0, 0);
-	this->diag_actual = diagrama;
+	this->diagactual = diagrama;
 
 	//diagrama->show();
 	contenedorDiag->show_all();
+}
+
+VistaDiagrama* Ide::getDiagActual(){
+	VistaDiagrama *d = this->diagactual;
+	return d;
 }

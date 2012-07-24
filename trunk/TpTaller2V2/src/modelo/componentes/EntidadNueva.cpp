@@ -1,6 +1,7 @@
 #include "EntidadNueva.h"
 
 EntidadNueva::EntidadNueva() {
+	this->nombre = "Entidad Nueva";
 
 }
 

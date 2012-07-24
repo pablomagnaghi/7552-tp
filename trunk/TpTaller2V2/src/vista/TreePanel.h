@@ -8,15 +8,20 @@
 #ifndef TREEPANEL_H_
 #define TREEPANEL_H_
 
-#include "VistaProyecto.h"
+
 #include <iostream>
+
 #include <gtkmm.h>
 #include "VistaConstantes.h"
+#include "VistaDiagrama.h"
+
+#include "../modelo/componentes/Componente.h"
+#include "../modelo/Diagrama.h"
 using namespace std;
 
-class Ide;
-
 typedef GtkRequisition Requisition;
+
+class Ide;
 
 class TreePanel : Gtk::TreeView{
 private:
@@ -41,7 +46,6 @@ private:
 
 	ModeloColumnas m_Columnas;
 	Glib::RefPtr<Gtk::TreeStore> refTreeModel;
-	VistaProyecto* vproyecto;
 	void enlazarWidgets();
 	void regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row);
 	virtual bool on_button_press_event(GdkEventButton* event);

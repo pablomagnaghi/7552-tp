@@ -13,6 +13,7 @@ VistaEntidadNueva::VistaEntidadNueva(EntidadNueva * entidadDelModelo) {
 	this->pos_fin_x = 0;
 	this->pos_ini_y = 0;
 	this->pos_fin_y = 0;
+	this->prop_lanzada = false;
 }
 
 VistaEntidadNueva::~VistaEntidadNueva() {
@@ -20,22 +21,17 @@ VistaEntidadNueva::~VistaEntidadNueva() {
 }
 
 bool VistaEntidadNueva::lanzarProp() {
-	AsistenteEntidad* nuevaProp;
-	int result;
-
-	nuevaProp = AsistenteEntidad::getInstance();
-	nuevaProp->setEntidad(this);
-	nuevaProp->show();
-	nuevaProp->set_modal(true);
-
-	// El N° de respuesta se define el glade, en el mismo boton
-	result = nuevaProp->run();
-
-#ifdef DEBUG
-	cout << "Resultado Dialogo: " << result << endl;
-#endif
-
-	return result == 1;
+	if (!this->prop_lanzada) {
+		AsistenteEntidad* nuevaProp;
+		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(
+				ARCH_GLADE_IDE);
+		nHbuilder->get_widget_derived("PropEntidad", nuevaProp);
+		nuevaProp->setEntidad(this);
+		this->prop_lanzada = true;
+		nuevaProp->show();
+		return true;
+	}
+	return false;
 }
 
 void VistaEntidadNueva::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
@@ -326,4 +322,35 @@ bool VistaEntidadNueva::obtenerInterseccionConLinea(double pos_ini_x, double pos
 
 bool VistaEntidadNueva::esDebil(){
 	return this->entidad->getEsDebil();
+}
+
+EntidadNueva * VistaEntidadNueva::getEntidad(){
+	return this->entidad;
+}
+
+bool VistaEntidadNueva::agregarAtributo(VistaAtributo* atributo) {
+	if (atributo == NULL) {
+		return false;
+	}
+	this->vistaAtributos.push_back(atributo);
+	return true;
+}
+
+bool VistaEntidadNueva::quitarAtributo(VistaAtributo* atributo) {
+	if (atributo == NULL) {
+		return false;
+	}
+	remove(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
+}
+
+std::vector<VistaAtributo*>::iterator VistaEntidadNueva::atributosBegin() {
+	return this->vistaAtributos.begin();
+}
+
+std::vector<VistaAtributo*>::iterator VistaEntidadNueva::atributosEnd() {
+	return this->vistaAtributos.end();
+}
+
+void VistaEntidadNueva::resetearLanzarProp(){
+	this->prop_lanzada = false;
 }

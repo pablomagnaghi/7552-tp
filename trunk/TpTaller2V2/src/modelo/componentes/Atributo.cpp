@@ -3,6 +3,7 @@
 Atributo::Atributo() :
 	cardinalidadMinima ("1"),
 	cardinalidadMaxima ("1") {
+	this->nombre = "Atributo";
 }
 
 Atributo::~Atributo() {
