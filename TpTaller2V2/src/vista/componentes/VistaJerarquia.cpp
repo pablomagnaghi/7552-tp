@@ -170,7 +170,7 @@ void setNombre(const std::string & nombre) {
 }
 
 std::string VistaJerarquia::getNombre() const {
-	return "";
+	return "VistaJerarquia";
 }
 
 bool VistaJerarquia::contieneEsteComponente(Componente * comp) {

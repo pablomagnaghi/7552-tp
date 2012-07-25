@@ -91,7 +91,7 @@ void VistaLinea::redimensionar(double x, double y) {
 }
 
 std::string VistaLinea::getNombre()const {
-	return "";
+	return "Linea";
 }
 
 bool VistaLinea::contieneEsteComponente(Componente *) {

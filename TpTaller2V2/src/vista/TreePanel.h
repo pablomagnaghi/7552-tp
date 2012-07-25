@@ -15,8 +15,8 @@
 #include "VistaConstantes.h"
 #include "VistaDiagrama.h"
 
-#include "../modelo/componentes/Componente.h"
-#include "../modelo/Diagrama.h"
+#include "./componentes/VistaComponente.h"
+#include "VistaDiagrama.h"
 using namespace std;
 
 typedef GtkRequisition Requisition;
@@ -33,21 +33,21 @@ private:
 
 		ModeloColumnas() {
 			add(m_col_Nombre);
-			add(m_col_Diag_Pointer);
-			add(m_col_Comp_Pointer);
+			add(m_col_vDiag_Pointer);
+			add(m_col_vComp_Pointer);
 			add(m_col_esDiag);
 		}
 
 		Gtk::TreeModelColumn<string> m_col_Nombre;
-		Gtk::TreeModelColumn<Diagrama*> m_col_Diag_Pointer;
-		Gtk::TreeModelColumn<Componente*> m_col_Comp_Pointer;
+		Gtk::TreeModelColumn<VistaDiagrama*> m_col_vDiag_Pointer;
+		Gtk::TreeModelColumn<VistaComponente*> m_col_vComp_Pointer;
 		Gtk::TreeModelColumn<bool> m_col_esDiag;
 	};
 
 	ModeloColumnas m_Columnas;
 	Glib::RefPtr<Gtk::TreeStore> refTreeModel;
 	void enlazarWidgets();
-	void regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row);
+	void regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row);
 	virtual bool on_button_press_event(GdkEventButton* event);
 	bool hayProyecto();
 public:

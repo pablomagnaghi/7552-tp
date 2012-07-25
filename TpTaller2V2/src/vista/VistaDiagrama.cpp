@@ -522,9 +522,16 @@ std::vector<VistaComponente*>::iterator VistaDiagrama::componentesEnd() {
 	return this->componentes.end();
 }
 
+std::vector<VistaDiagrama*>::iterator VistaDiagrama::vdiagramasBegin() {
+	return this->diagramas.begin();
+}
+
+std::vector<VistaDiagrama*>::iterator VistaDiagrama::vdiagramasEnd() {
+	return this->diagramas.end();
+}
+
 VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
 	std::vector<VistaComponente *>::iterator i;
-
 	for (i = this->componentes.begin(); i != this->componentes.end(); i++) {
 		if ((*i)->contieneAEstePunto(x, y)) {
 			return *i;
