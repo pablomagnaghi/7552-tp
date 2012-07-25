@@ -4,7 +4,7 @@
  *  Created on: 26/05/2012
  */
 /*
-#include "modelo/Modelo.h"
+#include "modelo/HeadersModelo.h"
 #include <iostream>
 
 EntidadNueva* crearSeccionSala(){
@@ -154,17 +154,12 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 	sL->setCodigo(GeneradorCodigo::siguienteCodigo());
 	sL->setTipo(TIPO_RELACION_ASOCIACION);
 
-	//seccionSala->agregarCodigoRelacion(sL->getCodigo());
-	//localidad->agregarCodigoRelacion(sL->getCodigo());
+	UnionEntidadRelacion* uerSeccionSala = new UnionEntidadRelacion(seccionSala, sL);
+	uerSeccionSala->setCodigo(GeneradorCodigo::siguienteCodigo());
+	uerSeccionSala->setCardinalidadMaxima("n");
 
-	UnionEntidadRelacion* erSeccionSala = new UnionEntidadRelacion();
-	//erSeccionSala->setCodigoEntidad(seccionSala->getCodigo());
-	erSeccionSala->setCardinalidadMaxima("n");
-	sL->agregarUnionAEntidad(erSeccionSala);
-
-	UnionEntidadRelacion* erLocalidad = new UnionEntidadRelacion();
-	//erLocalidad->setCodigoEntidad(localidad->getCodigo());
-	sL->agregarUnionAEntidad(erLocalidad);
+	UnionEntidadRelacion* uerLocalidad = new UnionEntidadRelacion(localidad, sL);
+	uerLocalidad->setCodigo(GeneradorCodigo::siguienteCodigo());
 
 	// Busco el atributo nroButaca de Localidad para crear el identificador que le falta
 	Atributo* nroButaca;
@@ -190,20 +185,15 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	vtaLoc->setCodigo(GeneradorCodigo::siguienteCodigo());
 	vtaLoc->setTipo(TIPO_RELACION_ASOCIACION);
 
-	localidad->agregarCodigoRelacion(vtaLoc->getCodigo());
-	obra->agregarCodigoRelacion(vtaLoc->getCodigo());
+	UnionEntidadRelacion* uerLocalidad = new UnionEntidadRelacion(localidad, vtaLoc);
+	uerLocalidad->setCodigo(GeneradorCodigo::siguienteCodigo());
+	uerLocalidad->setCardinalidadMinima("0");
+	uerLocalidad->setCardinalidadMaxima("n");
 
-	UnionEntidadRelacion* erLocalidad = new UnionEntidadRelacion();
-	//erLocalidad->setCodigoEntidad(localidad->getCodigo());
-	erLocalidad->setCardinalidadMinima("0");
-	erLocalidad->setCardinalidadMaxima("n");
-	vtaLoc->agregarUnionAEntidad(erLocalidad);
-
-	UnionEntidadRelacion* erObra = new UnionEntidadRelacion();
-	//erObra->setCodigoEntidad(obra->getCodigo());
-	erObra->setCardinalidadMinima("0");
-	erObra->setCardinalidadMaxima("n");
-	vtaLoc->agregarUnionAEntidad(erObra);
+	UnionEntidadRelacion* uerObra = new UnionEntidadRelacion(obra, vtaLoc);
+	uerObra->setCodigo(GeneradorCodigo::siguienteCodigo());
+	uerObra->setCardinalidadMinima("0");
+	uerObra->setCardinalidadMaxima("n");
 
 	Atributo* tarj = new Atributo();
 	tarj->setNombre("tarj");
@@ -216,38 +206,38 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	nomTarj->setNombre("nomTarj");
 	nomTarj->setCodigo(GeneradorCodigo::siguienteCodigo());
 	nomTarj->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
-	tarj->agregarAtributoDerivable(nomTarj);
+	tarj->agregarAtributo(nomTarj);
 
 	Atributo* bco = new Atributo();
 	bco->setNombre("bco");
 	bco->setCodigo(GeneradorCodigo::siguienteCodigo());
 	bco->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
-	tarj->agregarAtributoDerivable(bco);
+	tarj->agregarAtributo(bco);
 	
 	Atributo* nroTarj = new Atributo();
 	nroTarj->setNombre("nroTarj");
 	nroTarj->setCodigo(GeneradorCodigo::siguienteCodigo());
 	nroTarj->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
-	tarj->agregarAtributoDerivable(nroTarj);
+	tarj->agregarAtributo(nroTarj);
 
 	Atributo* nroAutoriz = new Atributo();
 	nroAutoriz->setNombre("nroAutoriz");
 	nroAutoriz->setCodigo(GeneradorCodigo::siguienteCodigo());
 	nroAutoriz->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
-	tarj->agregarAtributoDerivable(nroAutoriz);
+	tarj->agregarAtributo(nroAutoriz);
 
 	Atributo* cr = new Atributo();
 	cr->setNombre("cr");
 	cr->setCodigo(GeneradorCodigo::siguienteCodigo());
 	cr->setCardinalidadMinima("0");
 	cr->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
-	tarj->agregarAtributoDerivable(cr);
+	tarj->agregarAtributo(cr);
 
 	Atributo* cuotas = new Atributo();
 	cuotas->setNombre("cuotas");
 	cuotas->setCodigo(GeneradorCodigo::siguienteCodigo());
 	cuotas->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
-	cr->agregarAtributoDerivable(cuotas);
+	cr->agregarAtributo(cuotas);
 
 	Atributo* atrInt = new Atributo();
 	atrInt->setNombre("int");
@@ -255,7 +245,7 @@ Relacion* crearVtaLoc(EntidadNueva* localidad, EntidadNueva* obra){
 	atrInt->setCardinalidadMinima("0");
 	atrInt->setTipo(TIPO_ATRIBUTO_CALCULADO);
 	atrInt->setExpresion("cuotas*0.1");
-	cr->agregarAtributoDerivable(atrInt);
+	cr->agregarAtributo(atrInt);
 
 	return vtaLoc;
 }
@@ -266,18 +256,13 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	fO->setCodigo(GeneradorCodigo::siguienteCodigo());
 	fO->setTipo(TIPO_RELACION_ASOCIACION);
 
-	obra->agregarCodigoRelacion(fO->getCodigo());
-	funcion->agregarCodigoRelacion(fO->getCodigo());
+	UnionEntidadRelacion* uerObra = new UnionEntidadRelacion(obra, fO);
+	uerObra->setCodigo(GeneradorCodigo::siguienteCodigo());
+	uerObra->setCardinalidadMinima("0");
+	uerObra->setCardinalidadMaxima("n");
 
-	UnionEntidadRelacion* erObra = new UnionEntidadRelacion();
-	//erObra->setCodigoEntidad(obra->getCodigo());
-	erObra->setCardinalidadMinima("0");
-	erObra->setCardinalidadMaxima("n");
-	fO->agregarUnionAEntidad(erObra);
-
-	UnionEntidadRelacion* erFuncion = new UnionEntidadRelacion();
-	//erFuncion->setCodigoEntidad(funcion->getCodigo());
-	fO->agregarUnionAEntidad(erFuncion);
+	UnionEntidadRelacion* uerFuncion = new UnionEntidadRelacion(funcion, fO);
+	uerFuncion->setCodigo(GeneradorCodigo::siguienteCodigo());
 
 	// Busco los atributos de Funcion para crear los identificadores que le faltan.
 	Atributo *nroFunc, *fecha, *hora;
@@ -337,10 +322,6 @@ int main2(int argc, char* argv[]){
 	Relacion* fO = crearFO(obra, funcion);
 	diagramaPrincipal->agregarRelacion(fO);
 
-	// prueba de constantes
-	// std::cout << XMLNS << std::endl;
-	// std::cout << XSI << std::endl;
-
 	// prueba persistencia
 	//diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
 
@@ -350,4 +331,5 @@ int main2(int argc, char* argv[]){
 	GeneradorCodigo::destruir();
 
 	return 0;
-}*/
+}
+*/
