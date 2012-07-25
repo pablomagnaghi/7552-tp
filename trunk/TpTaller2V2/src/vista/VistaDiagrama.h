@@ -22,6 +22,7 @@ private:
 
 	std::vector<VistaComponente *> componentes;
 	std::vector<VistaComponente *> componentes_seleccionados;
+	std::vector<VistaDiagrama *> diagramas;
 
 	// Para controlar el drag and drop
 	bool mouse_apretado;
@@ -113,6 +114,8 @@ public:
 
 	std::vector<VistaComponente*>::iterator componentesBegin();
 	std::vector<VistaComponente*>::iterator componentesEnd();
+	std::vector<VistaDiagrama*>::iterator vdiagramasBegin();
+	std::vector<VistaDiagrama*>::iterator vdiagramasEnd();
 
 	Diagrama * getDiagrama();
 	void test_cargar_componentes_visuales();

@@ -10,15 +10,9 @@
 
 TreePanel::TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i) :
 	ide(i), Ide_builder(Ide_b) {
-
 	add_events(Gdk::ALL_EVENTS_MASK);
 	this->enlazarWidgets();
-
 	this->show();
-
-	// MAL EL IDE TODAVIA NO ESTA CONSTRUIDO
-	//this->regenerar();
-
 }
 
 bool TreePanel::regenerar() {
@@ -28,38 +22,37 @@ bool TreePanel::regenerar() {
 
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = principal->getNombre();
-	row[this->m_Columnas.m_col_Diag_Pointer] = principal->getDiagrama();
+	row[this->m_Columnas.m_col_vDiag_Pointer] = principal;
 	row[this->m_Columnas.m_col_esDiag] = true;
-	this->regenerarRecur(principal->getDiagrama(), &row);
+	this->regenerarRecur(principal, &row);
 	return true;
 }
 
-void TreePanel::regenerarRecur(Diagrama* diag, Gtk::TreeModel::Row *row) {
+void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
 	//primero cargo los componentes de ese diag y luego los diag hijos
-	vector<Componente*>::iterator itComp = diag->componentesBegin();
-	vector<Componente*>::iterator compEnd = diag->componentesEnd();
+	vector<VistaComponente*>::iterator itComp = diag->componentesBegin();
+	vector<VistaComponente*>::iterator compEnd = diag->componentesEnd();
 	while (itComp != compEnd) {
 		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
 				row->children()));
 		rowSec[this->m_Columnas.m_col_Nombre] = (*itComp)->getNombre();
-		rowSec[this->m_Columnas.m_col_Comp_Pointer] = *itComp;
+		rowSec[this->m_Columnas.m_col_vComp_Pointer] = *itComp;
 		rowSec[this->m_Columnas.m_col_esDiag] = false;
 		itComp++;
 	}
 
 	//cargo el sub diagrama y lurgo regenerar recur sobre ese
-	vector<Diagrama*>::iterator itHijos = diag->diagramasHijosBegin();
-	vector<Diagrama*>::iterator HijosEnd = diag->diagramasHijosEnd();
+	vector<VistaDiagrama*>::iterator itHijos = diag->vdiagramasBegin();
+	vector<VistaDiagrama*>::iterator HijosEnd = diag->vdiagramasEnd();
 	while (itHijos != HijosEnd) {
 		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
 				row->children()));
 		rowSec[this->m_Columnas.m_col_Nombre] = (*itHijos)->getNombre();
-		rowSec[this->m_Columnas.m_col_Diag_Pointer] = (*itHijos);
+		rowSec[this->m_Columnas.m_col_vDiag_Pointer] = (*itHijos);
 		rowSec[this->m_Columnas.m_col_esDiag] = true;
-		this->regenerarRecur((Diagrama*) (*itHijos), &rowSec);
+		this->regenerarRecur((VistaDiagrama*) (*itHijos), &rowSec);
 		itHijos++;
 	}
-
 }
 
 TreePanel::~TreePanel() {
@@ -89,16 +82,16 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 			//Hay que distinguir entre diagramas y componentes
 			bool esDiagrama = (*iter)[this->m_Columnas.m_col_esDiag];
 			if (esDiagrama) {
-				Diagrama *diagPointer =
-						(*iter)[this->m_Columnas.m_col_Diag_Pointer];
+				VistaDiagrama *diagPointer =
+						(*iter)[this->m_Columnas.m_col_vDiag_Pointer];
 				this->ide->cargarDiagrama((VistaDiagrama*) diagPointer);
 			} else {
 				Gtk::TreeModel::iterator parentIter;
 				parentIter = (*iter)->parent();
 				//Se supone que tiene que ser un diagrama
 				if (((*parentIter)[this->m_Columnas.m_col_esDiag]) == true) {
-					Diagrama *diagPointer =
-							(*parentIter)[this->m_Columnas.m_col_Diag_Pointer];
+					VistaDiagrama *diagPointer =
+							(*parentIter)[this->m_Columnas.m_col_vDiag_Pointer];
 					this->ide->cargarDiagrama((VistaDiagrama*) diagPointer);
 				}
 			}
