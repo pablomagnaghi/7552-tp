@@ -67,15 +67,15 @@ EntidadNueva* crearEntidadNuevaB(){
 Jerarquia* crearJerarquia(EntidadNueva* entidadNuevaPapa, EntidadNueva* entidadNuevaA, EntidadNueva* entidadNuevaB){
 	Jerarquia* jerarquia = new Jerarquia();
 	jerarquia->setCodigo(GeneradorCodigo::siguienteCodigo());
-	//jerarquia->setCodigoEntidadGeneral(entidadNuevaPapa->getCodigo());
-	//jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaA->getCodigo());
-	//jerarquia->agregarCodigoEntidadEspecializada(entidadNuevaB->getCodigo());
+	jerarquia->setEntidadGeneral(entidadNuevaPapa);
+	jerarquia->agregarEntidadEspecializada(entidadNuevaA);
+	jerarquia->agregarEntidadEspecializada(entidadNuevaB);
 	jerarquia->setCobertura(TIPO_COBERTURA_TOTAL);
 	jerarquia->setInterseccion(TIPO_INTERSECCION_EXCLUSIVA);
 
-	//entidadNuevaPapa->agregarCodigoJerarquia(jerarquia->getCodigo());
-	//entidadNuevaA->agregarCodigoJerarquia(jerarquia->getCodigo());
-	//entidadNuevaB->agregarCodigoJerarquia(jerarquia->getCodigo());
+	entidadNuevaPapa->setJerarquiaHija(jerarquia);
+	entidadNuevaA->agregarJerarquiaPadre(jerarquia);
+	entidadNuevaB->agregarJerarquiaPadre(jerarquia);
 
 	return jerarquia;
 }
@@ -85,7 +85,7 @@ EntidadGlobal* crearEntidadGlobalA(EntidadNueva* entidadNuevaA){
 	entidadGlobalA->setNombre("entidadGlobalA");
 	entidadGlobalA->setCodigo(GeneradorCodigo::siguienteCodigo());
 	entidadGlobalA->setDiagramaAncestro("diagramaPrincipal");
-	entidadGlobalA->setCodigoEntidadNueva(entidadNuevaA->getCodigo());
+	entidadGlobalA->setEntidadNueva(entidadNuevaA);
 
 	return entidadGlobalA;
 }
@@ -115,17 +115,12 @@ Relacion* crearRelacion1(EntidadGlobal* entidadGlobalA, EntidadNueva* entidadNue
 	relacion1->setCodigo(GeneradorCodigo::siguienteCodigo());
 	relacion1->setTipo(TIPO_RELACION_ASOCIACION);
 
-	entidadGlobalA->agregarCodigoRelacion(relacion1->getCodigo());
-	entidadNuevaC->agregarCodigoRelacion(relacion1->getCodigo());
+	UnionEntidadRelacion* uerEntidadGlobalA = new UnionEntidadRelacion(entidadGlobalA, relacion1);
+	uerEntidadGlobalA->setCodigo(GeneradorCodigo::siguienteCodigo());
 
-	UnionEntidadRelacion* erEntidadGlobalA = new UnionEntidadRelacion();
-	//erEntidadGlobalA->setCodigoEntidad(entidadGlobalA->getCodigo());
-	//relacion1->agregarUnionAEntidad(erEntidadGlobalA);
-
-	UnionEntidadRelacion* erEntidadNuevaC = new UnionEntidadRelacion();
-	//erEntidadNuevaC->setCodigoEntidad(entidadNuevaC->getCodigo());
-	erEntidadNuevaC->setCardinalidadMaxima("N");
-	relacion1->agregarUnionAEntidad(erEntidadNuevaC);
+	UnionEntidadRelacion* uerEntidadNuevaC = new UnionEntidadRelacion(entidadNuevaC, relacion1);
+	uerEntidadNuevaC->setCodigo(GeneradorCodigo::siguienteCodigo());
+	uerEntidadNuevaC->setCardinalidadMaxima("N");
 
 	return relacion1;
 }
@@ -136,18 +131,14 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 	relacion2->setCodigo(GeneradorCodigo::siguienteCodigo());
 	relacion2->setTipo(TIPO_RELACION_COMPOSICION);
 
-	entidadNuevaC->agregarCodigoRelacion(relacion2->getCodigo());
+	UnionEntidadRelacion* uerEntidadNuevaC1 = new UnionEntidadRelacion(entidadNuevaC, relacion2);
+	uerEntidadNuevaC1->setCodigo(GeneradorCodigo::siguienteCodigo());
+	uerEntidadNuevaC1->setCardinalidadMinima("0");
 
-	UnionEntidadRelacion* erEntidadNuevaC1 = new UnionEntidadRelacion();
-	//erEntidadNuevaC1->setCodigoEntidad(entidadNuevaC->getCodigo());
-	erEntidadNuevaC1->setCardinalidadMinima("0");
-	relacion2->agregarUnionAEntidad(erEntidadNuevaC1);
-
-	UnionEntidadRelacion* erEntidadNuevaC2 = new UnionEntidadRelacion();
-	//erEntidadNuevaC2->setCodigoEntidad(entidadNuevaC->getCodigo());
-	erEntidadNuevaC2->setCardinalidadMinima("0");
-	erEntidadNuevaC2->setCardinalidadMaxima("N");
-	relacion2->agregarUnionAEntidad(erEntidadNuevaC2);
+	UnionEntidadRelacion* uerEntidadNuevaC2 = new UnionEntidadRelacion(entidadNuevaC, relacion2);
+	uerEntidadNuevaC2->setCodigo(GeneradorCodigo::siguienteCodigo());
+	uerEntidadNuevaC2->setCardinalidadMinima("0");
+	uerEntidadNuevaC2->setCardinalidadMaxima("N");
 
 	return relacion2;
 }

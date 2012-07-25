@@ -3,10 +3,14 @@
  *
  *  Created on: 20/06/2012
  */
-/*
-#include "modelo/HeadersModelo"
-#include <iostream>
 
+#include "modelo/HeadersModelo.h"
+#include <iostream>
+/**
+ * Este ejemplo perdió sentido para como está el modelo ahora.
+ * Ahora no hace falta hacer 2 pasadas como se muestra acá.
+ */
+/*
 EntidadNueva* crearEntidadA(){
 	EntidadNueva* entidadA = new EntidadNueva();
 	entidadA->setNombre("EntidadA");

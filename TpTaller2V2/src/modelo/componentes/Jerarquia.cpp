@@ -1,7 +1,8 @@
 #include "Jerarquia.h"
 
-Jerarquia::Jerarquia() {
-	this->entidadGeneral = NULL;
+Jerarquia::Jerarquia() :
+	entidadGeneral (NULL) {
+
 }
 
 Jerarquia::~Jerarquia() {
