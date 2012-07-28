@@ -35,6 +35,10 @@ public:
 	Diagrama* getDiagramaPrincipal();
 	virtual void setDiagramaPrincipal(Diagrama*);
 
+	bool existeDiagrama(const std::string&);
+	bool existeEntidadNueva(const std::string&);
+	bool existeEntidadGlobal(const std::string&);
+
 };
 
 #endif /* PROYECTO_H_ */

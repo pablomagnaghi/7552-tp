@@ -73,6 +73,18 @@ void Atributo::borrarAtributos() {
 	this->atributos.clear();
 }
 
+bool Atributo::existeAtributo(const std::string& nombre){
+	std::string nombreMin = toLowerCase(nombre);
+	std::vector<Atributo*>::iterator it = this->atributos.begin();
+	while (it != this->atributos.end()) {
+		if (toLowerCase((*it)->getNombre()).compare(nombreMin) == 0) {
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+
 // PERSISTENCIA COMP
 /*
 Atributo::Atributo(XmlNodo* nodo) {
