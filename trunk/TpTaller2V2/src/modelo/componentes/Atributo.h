@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "Componente.h"
+#include "../../utils/Utils.h"
 #include "../ConstantesModelo.h"
 #include "../../excepciones/NullPointer.h"
 
@@ -53,6 +54,9 @@ public:
 
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
+
+	// Devuelve true si tiene un atributo componente con ese nombre.
+	bool existeAtributo(const std::string&);
 
 	// PERSISTENCIA COMP
 	/*

@@ -81,6 +81,12 @@ public:
 	std::vector<Identificador*>::iterator identificadoresBegin();
 	std::vector<Identificador*>::iterator identificadoresEnd();
 
+	/**
+	 * Devuelve true si la entidad tiene un atributo con ese nombre.
+	 * No tiene en cuenta los subatributos.
+	 */
+	bool existeAtributo(const std::string&);
+
 	// PERSISTENCIA COMP
 	/*
 	 EntidadNueva(XmlNodo*);

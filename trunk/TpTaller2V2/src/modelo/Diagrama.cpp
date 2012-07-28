@@ -288,6 +288,58 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 	return componente;
 }
 
+bool Diagrama::existeDiagrama(const std::string& nombre){
+	std::string nombreMin = toLowerCase(nombre);
+	std::vector<Diagrama*>::iterator it = this->diagramasHijos.begin();
+	while (it != this->diagramasHijos.end()) {
+		if ((toLowerCase((*it)->getNombre())).compare(nombreMin) == 0){
+			return true;
+		} else if ((*it)->existeDiagrama(nombre)){
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+
+bool Diagrama::existeEntidadNueva(const std::string& nombre){
+	std::string nombreMin = toLowerCase(nombre);
+	std::vector<EntidadNueva*>::iterator itE = this->entidadesNuevas.begin();
+	while (itE != this->entidadesNuevas.end()) {
+		if (toLowerCase((*itE)->getNombre()).compare(nombreMin) == 0){
+			return true;
+		}
+		itE++;
+	}
+	std::vector<Diagrama*>::iterator it = this->diagramasHijos.begin();
+	while (it != this->diagramasHijos.end()) {
+		if ((*it)->existeEntidadNueva(nombre)){
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+
+bool Diagrama::existeEntidadGlobal(const std::string& nombre){
+	std::string nombreMin = toLowerCase(nombre);
+	std::vector<EntidadGlobal*>::iterator itE = this->entidadesGlobales.begin();
+	while (itE != this->entidadesGlobales.end()) {
+		if (toLowerCase((*itE)->getNombre()).compare(nombreMin) == 0){
+			return true;
+		}
+		itE++;
+	}
+	std::vector<Diagrama*>::iterator it = this->diagramasHijos.begin();
+	while (it != this->diagramasHijos.end()) {
+		if ((*it)->existeEntidadGlobal(nombre)){
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+
 // PERSISTENCIA COMP
 /*
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.

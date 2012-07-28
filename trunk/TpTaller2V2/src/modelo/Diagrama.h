@@ -108,6 +108,9 @@ public:
 	Jerarquia* getJerarquiaByCodigo(int);
 	Componente* getComponenteByCodigo(int);
 
+	bool existeDiagrama(const std::string&);
+	bool existeEntidadNueva(const std::string&);
+	bool existeEntidadGlobal(const std::string&);
 
 	// PERSITENCIA COMP
 	/*
