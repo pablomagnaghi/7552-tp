@@ -44,8 +44,9 @@ public:
 	// PERSISTENCIA COMP
 	/*
 	 EntidadRelacion(XmlNodo*);
-	 virtual XmlNodo guardarXmlCOMP();
 	 */
+	// GUARDAR
+	virtual XmlNodo guardarXmlCOMP();
 };
 
 #endif /* ENTIDADRELACION_H_ */

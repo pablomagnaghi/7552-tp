@@ -112,6 +112,18 @@ void Atributo::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	}
 }
 
+*/
+
+// GUARDAR
+XmlNodo Atributo::guardarXmlCOMP() {
+	XmlNodo nodo("atributo");
+
+	this->agregarPropiedadesXmlCOMP(&nodo);
+	this->guardarAtributosDerivablesXmlCOMP(&nodo);
+
+	return nodo;
+}
+
 void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	Componente::agregarPropiedadesXmlCOMP(nodo);
 	nodo->setPropiedad("tipo",this->tipo);
@@ -126,19 +138,8 @@ void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 }
 
 void Atributo::guardarAtributosDerivablesXmlCOMP(XmlNodo* nodo) {
-
 	std::vector<Atributo*>::iterator i;
 
-	for(i = this->atributosDerivables.begin(); i != this->atributosDerivables.end(); ++i)
+	for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
-
-XmlNodo Atributo::guardarXmlCOMP() {
-	XmlNodo nodo("atributo");
-
-	this->agregarPropiedadesXmlCOMP(&nodo);
-	this->guardarAtributosDerivablesXmlCOMP(&nodo);
-
-	return nodo;
-}
-*/

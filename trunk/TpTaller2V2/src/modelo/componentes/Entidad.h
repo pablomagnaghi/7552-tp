@@ -18,11 +18,6 @@ protected:
 	std::vector<UnionEntidadRelacion *> unionesARelacion;
 	Jerarquia * jerarquiaHija;
 
-	// PERSISTENCIA COMP
-	/*
-	 void guardarRelacionesXmlCOMP(XmlNodo*);
-	 */
-
 public:
 	Entidad();
 	virtual ~Entidad();

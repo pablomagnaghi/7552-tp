@@ -21,9 +21,11 @@ protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
 	/*
-	 virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 	 virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 	 */
+
+	// GUARDAR
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 	EntidadGlobal();
@@ -41,8 +43,9 @@ public:
 	// PERSISTENCIA COMP
 	/*
 	 EntidadGlobal(XmlNodo*);
-	 XmlNodo guardarXmlCOMP();
 	 */
+	 // GUARDAR
+	XmlNodo guardarXmlCOMP();
 };
 
 #endif /* ENTIDADGLOBAL_H_ */

@@ -37,21 +37,21 @@ private:
 
 	// PERSISTENCIA COMP
 	/*
-	void agregarPropiedadesXmlCOMP(XmlNodo*);
+
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 	void obtenerComponentesXmlCOMP(XmlNodo*);
 
+	void cargarXmlCOMP(XmlNodo*);
+	*/
+	// GUARDAR
+	void agregarPropiedadesXmlCOMP(XmlNodo*);
 	void agregarNodoDiagramaAncestroXmlCOMP(XmlNodo*);
-
 	void guardarEntidadesNuevasXmlCOMP(XmlNodo*);
 	void guardarEntidadesGlobalesXmlCOMP(XmlNodo*);
 	void guardarRelacionesXmlCOMP(XmlNodo*);
 	void guardarJerarquiasXmlCOMP(XmlNodo*);
-
-	void cargarXmlCOMP(XmlNodo*);
 	XmlNodo guardarXmlCOMP();
-	*/
 
 public:
 
@@ -116,8 +116,10 @@ public:
 	/*
 	void abrirXmlCOMP(const std::string&);
 	bool isOpenXmlCOMP() const;
-	void guardarDiagramaXmlCOMP(const std::string&);
 	*/
+	// GUARDAR
+	void guardarDiagramaXmlCOMP(const std::string&);
+
 };
 
 #endif /* DIAGRAMA_H_ */
