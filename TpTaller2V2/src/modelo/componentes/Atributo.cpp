@@ -86,7 +86,7 @@ bool Atributo::existeAtributo(const std::string& nombre){
 }
 
 // PERSISTENCIA COMP
-/*
+// CARGAR
 Atributo::Atributo(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
 	XmlNodo nodoAux = nodo->getHijo();
@@ -106,13 +106,11 @@ void Atributo::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
 	  		Atributo *atributo = new Atributo (nodo);
-			this->agregarAtributoDerivable(atributo);
+			this->agregarAtributo(atributo);
 		}
 		*nodo = nodo->getHermano();
 	}
 }
-
-*/
 
 // GUARDAR
 XmlNodo Atributo::guardarXmlCOMP() {

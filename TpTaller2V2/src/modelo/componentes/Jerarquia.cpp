@@ -59,35 +59,30 @@ void Jerarquia::quitarEntidadEspecializada(EntidadNueva * entidadEspecializada) 
 }
 
 // PERSISTENCIA COMP
-/*
- Jerarquia::Jerarquia(XmlNodo* nodo) {
- this->obtenerPropiedadesXmlCOMP(nodo);
+// CARGAR
+Jerarquia::Jerarquia(XmlNodo* nodo) {
+	this->obtenerPropiedadesXmlCOMP(nodo);
+	XmlNodo nodoAux = nodo->getHijo();
+	this->obtenerComponentesXmlCOMP(&nodoAux);
+}
 
- XmlNodo nodoAux = nodo->getHijo();
+void Jerarquia::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlCOMP(nodo);
+	this->cobertura = nodo->getPropiedad("cobertura");
+	this->interseccion = nodo->getPropiedad("interseccion");
+}
 
- this->obtenerComponentesXmlCOMP(&nodoAux);
- }
-
- void Jerarquia::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
- Componente::obtenerPropiedadesXmlCOMP(nodo);
- this->cobertura = nodo->getPropiedad("cobertura");
- this->interseccion = nodo->getPropiedad("interseccion");
- }
-
- void Jerarquia::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
- while (nodo->esValido()) {
- if (nodo->getNombre() == "entidad_general") {
- this->codigoEntidadGeneral = nodo->getContenidoInt();
- }
- if (nodo->getNombre() == "entidad_especializada") {
- this->codigosEntidadesEspecializadas.push_back(nodo->getContenidoInt());
- }
- *nodo = nodo->getHermano();
- }
- }
-
-
- */
+void Jerarquia::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "entidad_general") {
+			this->codigoEntidadGeneral = nodo->getContenidoInt();
+		}
+		if (nodo->getNombre() == "entidad_especializada") {
+			this->codigosEntidadesEspecializadas.push_back(nodo->getContenidoInt());
+		}
+		*nodo = nodo->getHermano();
+	}
+}
 
 // GUARDAR
 XmlNodo Jerarquia::guardarXmlCOMP() {

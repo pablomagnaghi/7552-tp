@@ -34,16 +34,12 @@ private:
 	void borrarJerarquias();
 	void borrarRelaciones();
 
-
 	// PERSISTENCIA COMP
-	/*
-
+	// CARGAR
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
-
 	void obtenerComponentesXmlCOMP(XmlNodo*);
-
 	void cargarXmlCOMP(XmlNodo*);
-	*/
+
 	// GUARDAR
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
 	void agregarNodoDiagramaAncestroXmlCOMP(XmlNodo*);
@@ -113,10 +109,11 @@ public:
 	bool existeEntidadGlobal(const std::string&);
 
 	// PERSITENCIA COMP
-	/*
+
+	// CARGAR
 	void abrirXmlCOMP(const std::string&);
 	bool isOpenXmlCOMP() const;
-	*/
+
 	// GUARDAR
 	void guardarDiagramaXmlCOMP(const std::string&);
 

@@ -32,13 +32,10 @@ bool EntidadGlobal::getEsDebil(){
 }
 
 // PERSISTENCIA COMP
-/*
+
+// CARGAR
 EntidadGlobal::EntidadGlobal(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
-
-	XmlNodo nodoAux = nodo->getHijo();
-
-	this->obtenerComponentesXmlCOMP(&nodoAux);
 }
 
 void EntidadGlobal::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
@@ -47,23 +44,10 @@ void EntidadGlobal::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->codigoEntidadNueva = nodo->getPropiedadInt("codigo_entidad_nueva");
 }
 
-void EntidadGlobal::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
-	while (nodo->esValido()) {
-		if (nodo->getNombre() == "relacion")	{
-			this->agregarCodigoRelacion(nodo->getContenidoInt());
-		}
-		*nodo = nodo->getHermano();
-	}
-}
-
-*/
-
 // GUARDAR
 XmlNodo EntidadGlobal::guardarXmlCOMP() {
 	XmlNodo nodo("entidad_global");
-
 	this->agregarPropiedadesXmlCOMP(&nodo);
-
 	return nodo;
 }
 

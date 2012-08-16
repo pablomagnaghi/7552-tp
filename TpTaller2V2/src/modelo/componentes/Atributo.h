@@ -21,7 +21,9 @@ private:
 	void borrarAtributos();
 
 	// PERSISTENCIA COMP
-	// void obtenerComponentesXmlCOMP(XmlNodo*);
+
+	// CARGAR
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
 	// GUARDAR
 	void guardarAtributosDerivablesXmlCOMP(XmlNodo*);
@@ -29,7 +31,9 @@ private:
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	// virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
+
+	// CARGAR
+	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 	// GUARDAR
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
@@ -59,8 +63,9 @@ public:
 	bool existeAtributo(const std::string&);
 
 	// PERSISTENCIA COMP
-	/*
-	Atributo(XmlNodo*);*/
+
+	// CARGAR
+	Atributo(XmlNodo*);
 
 	// GUARDAR
 	virtual XmlNodo guardarXmlCOMP();

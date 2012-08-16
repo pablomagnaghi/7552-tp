@@ -28,13 +28,13 @@ void Componente::setNombre(const std::string& nombre) {
 }
 
 // PERSISTENCIA COMP
-/*
 
- void Componente::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
- this->codigo = nodo->getPropiedadInt("codigo");
- this->nombre = nodo->getPropiedad("nombre");
- }
- */
+// CARGAR
+
+void Componente::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
+	this->codigo = nodo->getPropiedadInt("codigo");
+	this->nombre = nodo->getPropiedad("nombre");
+}
 
 // GUARDAR
 void Componente::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {

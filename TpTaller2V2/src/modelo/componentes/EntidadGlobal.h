@@ -11,19 +11,14 @@ class EntidadGlobal: public Entidad {
 private:
 	std::string diagramaAncestro;
 	EntidadNueva * entidadNueva; // Codigo de la EntidadNueva en el diagrama ancestro.
-
-	// PERSITENCIA COMP
-	/*
-	 void obtenerComponentesXmlCOMP(XmlNodo*);
-	 */
+	int codigoEntidadNueva; // Para buscar la entidadNueva en el diagrama
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	/*
-	 virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
-	 */
 
+	// CARGAR
+	 virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 	// GUARDAR
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 
@@ -41,10 +36,10 @@ public:
 	virtual bool getEsDebil();
 
 	// PERSISTENCIA COMP
-	/*
-	 EntidadGlobal(XmlNodo*);
-	 */
-	 // GUARDAR
+	// CARGAR
+	EntidadGlobal(XmlNodo*);
+
+	// GUARDAR
 	XmlNodo guardarXmlCOMP();
 };
 

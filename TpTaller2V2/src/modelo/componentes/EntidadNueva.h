@@ -32,22 +32,23 @@ private:
 	void guardarRelacionesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
 	XmlNodo guardarIdentificadorXmlCOMP();
 
-	/*
-	 void obtenerComponentesXmlCOMP(XmlNodo*);
+	// CARGAR
+	void obtenerComponentesXmlCOMP(XmlNodo*);
 
-	 // Agrega los atributos y relaciones a los vectores de
-	 // atributos y relaciones del identificador
-	 void obtenerComponentesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
-	 Atributo* obtenerAtributo(int codigo);
-	 */
+	// Agrega los atributos y relaciones a los vectores de
+	// atributos y relaciones del identificador
+	void obtenerComponentesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
+	Atributo* obtenerAtributo(int codigo);
 
 protected:
-	// PERSISTENCIA COMP
-	// si hay que agregar más propiedades, se redefinen
+	 // PERSISTENCIA COMP
+	 // si hay que agregar más propiedades, se redefinen
 
-	// GUARDAR
+	 // GUARDAR
 	 virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
-	 //virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
+
+	 // CARGAR
+	 virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 	EntidadNueva();
@@ -82,14 +83,14 @@ public:
 	std::vector<Identificador*>::iterator identificadoresBegin();
 	std::vector<Identificador*>::iterator identificadoresEnd();
 
-	/**
-	 * Devuelve true si la entidad tiene un atributo con ese nombre.
-	 * No tiene en cuenta los subatributos.
-	 */
+	// Devuelve true si la entidad tiene un atributo con ese nombre.
+	// No tiene en cuenta los subatributos.
+
 	bool existeAtributo(const std::string&);
 
 	// PERSISTENCIA COMP
-	//EntidadNueva(XmlNodo*);
+	// CARGAR
+	EntidadNueva(XmlNodo*);
 	// GUARDAR
 	XmlNodo guardarXmlCOMP();
 
