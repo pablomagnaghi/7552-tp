@@ -9,9 +9,8 @@
 class Entidad;
 class Relacion;
 
-/**
- * Clase usada dentro de una Relacion para vincular una Entidad a su cardinalidad y a su rol.
- */
+// Clase usada dentro de una Relacion para vincular una Entidad a su cardinalidad y a su rol.
+
 class UnionEntidadRelacion: public Componente {
 
 private:
@@ -21,6 +20,7 @@ private:
 	std::string cardinalidadMinima;
 	std::string cardinalidadMaxima;
 	std::string rol;
+	int codigoEntidad; // // Para buscar la entidad en el diagrama
 
 	// Persistencia
 	bool entidadGuardada;
@@ -42,9 +42,9 @@ public:
 	Relacion * getRelacion();
 
 	// PERSISTENCIA COMP
-	/*
-	 EntidadRelacion(XmlNodo*);
-	 */
+	// CARGAR
+	 UnionEntidadRelacion(XmlNodo*);
+
 	// GUARDAR
 	virtual XmlNodo guardarXmlCOMP();
 };

@@ -139,61 +139,50 @@ bool EntidadNueva::existeAtributo(const std::string& nombre){
 
 // PERSISTENCIA COMP
 
-/*
- // PERSISTENCIA COMP
+//CARGAR
 
- //CARGAR
+EntidadNueva::EntidadNueva(XmlNodo* nodo) {
+	this->obtenerPropiedadesXmlCOMP(nodo);
 
- EntidadNueva::EntidadNueva(XmlNodo* nodo) {
+	XmlNodo nodoAux = nodo->getHijo();
 
- this->obtenerPropiedadesXmlCOMP(nodo);
+	this->obtenerComponentesXmlCOMP(&nodoAux);
+}
 
- XmlNodo nodoAux = nodo->getHijo();
+void EntidadNueva::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlCOMP(nodo);
+	this->tipo = nodo->getPropiedad("tipo");
+}
 
- this->obtenerComponentesXmlCOMP(&nodoAux);
- }
+void EntidadNueva::obtenerComponentesIdentificadorXmlCOMP(XmlNodo* nodo, Identificador* identificador) {
+	XmlNodo nodoAux = nodo->getHijo();
 
- void EntidadNueva::obtenerComponentesIdentificadorXmlCOMP(XmlNodo* nodo, Identificador* identificador) {
- XmlNodo nodoAux = nodo->getHijo();
+	while (nodoAux.esValido()) {
+		if (nodoAux.getNombre() == "atributo") {
+			identificador->agregarCodigoAtributo(nodoAux.getContenidoInt());
+		}
+		if (nodoAux.getNombre() == "relacion")	{
+			identificador->agregarCodigoRelacion(nodoAux.getContenidoInt());
+		}
+		nodoAux = nodoAux.getHermano();
+	}
+}
 
- while (nodoAux.esValido()) {
- if (nodoAux.getNombre() == "atributo") {
- identificador->agregarCodigoAtributo(nodoAux.getContenidoInt());
- }
- if (nodoAux.getNombre() == "relacion")	{
- identificador->agregarCodigoRelacion(nodoAux.getContenidoInt());
- }
- nodoAux = nodoAux.getHermano();
- }
- }
+void EntidadNueva::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "atributo") {
+			Atributo *atributo = new Atributo(nodo);
+			this->agregarAtributo(atributo);
+		}
 
- void EntidadNueva::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
- while (nodo->esValido()) {
- if (nodo->getNombre() == "atributo") {
- Atributo *atributo = new Atributo(nodo);
- this->agregarAtributo(atributo);
- }
- if (nodo->getNombre() == "identificador") {
- Identificador *identificador = new Identificador();
- this->obtenerComponentesIdentificadorXmlCOMP(nodo, identificador);
- this->agregarIdentificador(identificador);
- }
- if (nodo->getNombre() == "relacion")	{
- this->agregarCodigoRelacion(nodo->getContenidoInt());
- }
- if ( nodo->getNombre() == "jerarquia" )	{
- this->agregarCodigoJerarquia(nodo->getContenidoInt());
- }
- *nodo = nodo->getHermano();
- }
- }
-
- void EntidadNueva::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
- Componente::obtenerPropiedadesXmlCOMP(nodo);
- this->tipo = nodo->getPropiedad("tipo");
- }
-
-*/
+		if (nodo->getNombre() == "identificador") {
+			Identificador *identificador = new Identificador();
+			this->obtenerComponentesIdentificadorXmlCOMP(nodo, identificador);
+			this->agregarIdentificador(identificador);
+		}
+		*nodo = nodo->getHermano();
+	}
+}
 
 // GUARDAR
 

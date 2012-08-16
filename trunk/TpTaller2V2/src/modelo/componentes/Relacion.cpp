@@ -82,35 +82,32 @@ void Relacion::borrarUnionesAEntidad() {
 }
 
 // PERSISTENCIA COMP
-/*
- Relacion::Relacion(XmlNodo* nodo) {
- this->obtenerPropiedadesXmlCOMP(nodo);
 
- XmlNodo nodoAux = nodo->getHijo();
+// CARGAR
+Relacion::Relacion(XmlNodo* nodo) {
+	this->obtenerPropiedadesXmlCOMP(nodo);
+	XmlNodo nodoAux = nodo->getHijo();
+	this->obtenerComponentesXmlCOMP(&nodoAux);
+}
 
- this->obtenerComponentesXmlCOMP(&nodoAux);
- }
+void Relacion::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlCOMP(nodo);
+	this->tipo = nodo->getPropiedad("tipo");
+}
 
- void Relacion::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
- Componente::obtenerPropiedadesXmlCOMP(nodo);
- this->tipo = nodo->getPropiedad("tipo");
- }
-
- void Relacion::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
- while (nodo->esValido()) {
- if (nodo->getNombre() == "entidad_relacion") {
- EntidadRelacion *entidadRelacion = new EntidadRelacion(nodo);
- this->agregarEntidadRelacion(entidadRelacion);
- }
- if (nodo->getNombre() == "atributo") {
- Atributo *atributo = new Atributo(nodo);
- this->agregarAtributo(atributo);
- }
- *nodo = nodo->getHermano();
- }
- }
-
-*/
+void Relacion::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "union_entidad_relacion") {
+			UnionEntidadRelacion *unionEntidadRelacion = new UnionEntidadRelacion(nodo);
+			this->agregarUnionAEntidad(unionEntidadRelacion);
+		}
+		if (nodo->getNombre() == "atributo") {
+			Atributo *atributo = new Atributo(nodo);
+			this->agregarAtributo(atributo);
+		}
+		*nodo = nodo->getHermano();
+	}
+}
 
 // GUARDAR
 XmlNodo Relacion::guardarXmlCOMP() {

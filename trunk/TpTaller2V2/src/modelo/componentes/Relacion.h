@@ -26,9 +26,9 @@ private:
 	void borrarUnionesAEntidad();
 
 	// PERSISTENCIA COMP
-	/*
+	// CARGAR
 	void obtenerComponentesXmlCOMP(XmlNodo*);
-	*/
+
 	// GUARDAR
 	void guardarUnionEntidadRelacionXmlCOMP(XmlNodo*);
 	void guardarAtributosXmlCOMP(XmlNodo*);
@@ -36,9 +36,9 @@ private:
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	/*
+
+	// CARGAR
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
-	*/
 
 	// GUARDAR
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
@@ -62,9 +62,9 @@ public:
 	std::vector<Atributo*>::iterator atributosEnd();
 
 	// PERSISTENCIA COMP
-	/*
+	// CARGAR
 	Relacion(XmlNodo*);
-	*/
+
 	// GUARDAR
 	virtual XmlNodo guardarXmlCOMP();
 };

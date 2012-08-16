@@ -341,7 +341,9 @@ bool Diagrama::existeEntidadGlobal(const std::string& nombre){
 }
 
 // PERSISTENCIA COMP
-/*
+
+// CARGAR
+
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
 void Diagrama::abrirXmlCOMP(const std::string& path) {
 	try {
@@ -411,7 +413,6 @@ bool Diagrama::isOpenXmlCOMP() const {
 	return this->diagramaValidoCOMP;
 }
 
-*/
 // GUARDAR
 
 // Guarda el Diagrama

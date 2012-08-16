@@ -47,14 +47,13 @@ Relacion * UnionEntidadRelacion::getRelacion(){
 }
 
 // PERSISTENCIA COMP
-/*
- EntidadRelacion::EntidadRelacion(XmlNodo* nodo) {
- this->codigoEntidad = nodo->getPropiedadInt("entidad");
- this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_minima");
- this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
- this->rol = nodo->getPropiedad("rol");
- }
-*/
+// CARGAR
+UnionEntidadRelacion::UnionEntidadRelacion(XmlNodo* nodo) {
+	this->codigoEntidad = nodo->getPropiedadInt("entidad");
+	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_minima");
+	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
+	this->rol = nodo->getPropiedad("rol");
+}
 
 // GUARDAR
 XmlNodo UnionEntidadRelacion::guardarXmlCOMP() {

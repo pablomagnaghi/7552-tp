@@ -26,10 +26,12 @@ private:
 	std::string cobertura; // Esta en el enunciado: total, parcial.
 	std::string interseccion; // Esta en el enunciado: exclusiva, superpuesta.
 
+	int codigoEntidadGeneral;
+	std::vector<int> codigosEntidadesEspecializadas;
+
 	// PERSISTENCIA COMP
-	/*
+	// CARGAR
 	void obtenerComponentesXmlCOMP(XmlNodo*);
-	*/
 
 	// GUARDAR
 	void agregarCodigoEntidadGeneralXmlCOMP(XmlNodo*);
@@ -38,9 +40,9 @@ private:
 protected:
 	// PERSITENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	/*
+
+	// CARGAR
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
-	*/
 
 	// GUARDAR
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
@@ -65,9 +67,9 @@ public:
 	void setInterseccion(const std::string&);
 
 	// PERSISTENCIA COMP
-	/*
+	// CARGAR
 	Jerarquia(XmlNodo*);
-	*/
+
 	// GUARDAR
 	virtual XmlNodo guardarXmlCOMP();
 };
