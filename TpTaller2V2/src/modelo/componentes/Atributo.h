@@ -21,18 +21,18 @@ private:
 	void borrarAtributos();
 
 	// PERSISTENCIA COMP
-	/*
-	void obtenerComponentesXmlCOMP(XmlNodo*);
+	// void obtenerComponentesXmlCOMP(XmlNodo*);
+
+	// GUARDAR
 	void guardarAtributosDerivablesXmlCOMP(XmlNodo*);
-	*/
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	/*
+	// virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
+
+	// GUARDAR
 	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
-	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
-	*/
 public:
 	Atributo();
 	virtual ~Atributo();
@@ -60,9 +60,10 @@ public:
 
 	// PERSISTENCIA COMP
 	/*
-	Atributo(XmlNodo*);
+	Atributo(XmlNodo*);*/
+
+	// GUARDAR
 	virtual XmlNodo guardarXmlCOMP();
-	*/
 };
 
 #endif /* ATRIBUTO_H_ */

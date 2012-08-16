@@ -28,17 +28,20 @@ private:
 	// PERSISTENCIA COMP
 	/*
 	void obtenerComponentesXmlCOMP(XmlNodo*);
-	void guardarEntidadesRelacionesXmlCOMP(XmlNodo*);
-	void guardarAtributosXmlCOMP(XmlNodo*);
 	*/
+	// GUARDAR
+	void guardarUnionEntidadRelacionXmlCOMP(XmlNodo*);
+	void guardarAtributosXmlCOMP(XmlNodo*);
 
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
 	/*
-	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 	virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 	*/
+
+	// GUARDAR
+	virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 
@@ -61,8 +64,9 @@ public:
 	// PERSISTENCIA COMP
 	/*
 	Relacion(XmlNodo*);
-	virtual XmlNodo guardarXmlCOMP();
 	*/
+	// GUARDAR
+	virtual XmlNodo guardarXmlCOMP();
 };
 
 #endif /* RELACION_H_ */

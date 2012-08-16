@@ -3,7 +3,7 @@
  *
  *  Created on: 26/05/2012
  */
-/*
+
 #include "modelo/HeadersModelo.h"
 #include <iostream>
 
@@ -53,13 +53,6 @@ EntidadNueva* crearLocalidad(){
 	nroButaca->setCodigo(GeneradorCodigo::siguienteCodigo());
 	nroButaca->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
 	localidad->agregarAtributo(nroButaca);
-
-	Identificador* id = new Identificador();
-	id->agregarCodigoAtributo(fila->getCodigo());
-	id->agregarCodigoAtributo(nroButaca->getCodigo());
-	localidad->agregarIdentificador(id);
-
-	// Le falta un identificador que se agrega despues, cuando se crea la relacion SL.
 
 	return localidad;
 }
@@ -162,16 +155,20 @@ Relacion* crearSL(EntidadNueva* seccionSala, EntidadNueva* localidad){
 	uerLocalidad->setCodigo(GeneradorCodigo::siguienteCodigo());
 
 	// Busco el atributo nroButaca de Localidad para crear el identificador que le falta
-	Atributo* nroButaca;
+	Atributo* nroButaca, *fila;
 	std::vector<Atributo*>::iterator itAtributos = localidad->atributosBegin();
 	while (itAtributos != localidad->atributosEnd()){
 		if ((*itAtributos)->getNombre().compare("nroButaca") == 0){
 			nroButaca = *itAtributos;
 		}
+		if ((*itAtributos)->getNombre().compare("fila") == 0){
+			fila = *itAtributos;
+		}
 		itAtributos++;
 	}
 
 	Identificador* id = new Identificador();
+	id->agregarCodigoAtributo(fila->getCodigo());
 	id->agregarCodigoAtributo(nroButaca->getCodigo());
 	id->agregarCodigoRelacion(sL->getCodigo());
 	localidad->agregarIdentificador(id);
@@ -294,11 +291,11 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	return fO;
 }
 
-int main2(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
-	Diagrama* diagramaPrincipal = new Diagrama("Principal");
+	Diagrama* diagramaPrincipal = new Diagrama("boleteria teatro");
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	EntidadNueva* seccionSala = crearSeccionSala();
@@ -323,7 +320,7 @@ int main2(int argc, char* argv[]){
 	diagramaPrincipal->agregarRelacion(fO);
 
 	// prueba persistencia
-	//diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
 
 	std::cout << "Generacion del xml OK" << std::endl;
 
@@ -332,4 +329,4 @@ int main2(int argc, char* argv[]){
 
 	return 0;
 }
-*/
+

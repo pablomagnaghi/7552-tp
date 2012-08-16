@@ -110,35 +110,36 @@ void Relacion::borrarUnionesAEntidad() {
  }
  }
 
- void Relacion::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
- Componente::agregarPropiedadesXmlCOMP(nodo);
- if (this->tipo.size())
- nodo->setPropiedad("tipo",this->tipo);
+*/
 
- }
+// GUARDAR
+XmlNodo Relacion::guardarXmlCOMP() {
+	XmlNodo nodo("relacion");
 
- void Relacion::guardarEntidadesRelacionesXmlCOMP(XmlNodo *nodo) {
- std::vector<EntidadRelacion*>::iterator i;
+	this->agregarPropiedadesXmlCOMP(&nodo);
 
- for(i = this->entidadesRelacionBegin(); i != this->entidadesRelacionEnd(); ++i)
- nodo->agregarHijo((*i)->guardarXmlCOMP());
- }
+	this->guardarUnionEntidadRelacionXmlCOMP(&nodo);
+	this->guardarAtributosXmlCOMP(&nodo);
 
- void Relacion::guardarAtributosXmlCOMP(XmlNodo *nodo) {
- std::vector<Atributo*>::iterator i;
+	return nodo;
+}
 
- for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
- nodo->agregarHijo((*i)->guardarXmlCOMP());
- }
+void Relacion::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::agregarPropiedadesXmlCOMP(nodo);
+	if (this->tipo.size())
+		nodo->setPropiedad("tipo",this->tipo);
+}
 
- XmlNodo Relacion::guardarXmlCOMP() {
- XmlNodo nodo("relacion");
+void Relacion::guardarUnionEntidadRelacionXmlCOMP(XmlNodo *nodo) {
+	std::vector<UnionEntidadRelacion*>::iterator i;
 
- this->agregarPropiedadesXmlCOMP(&nodo);
+	for(i = this->unionesAEntidadBegin(); i != this->unionesAEntidadEnd(); ++i)
+		nodo->agregarHijo((*i)->guardarXmlCOMP());
+}
 
- this->guardarEntidadesRelacionesXmlCOMP(&nodo);
- this->guardarAtributosXmlCOMP(&nodo);
+void Relacion::guardarAtributosXmlCOMP(XmlNodo *nodo) {
+	std::vector<Atributo*>::iterator i;
 
- return nodo;
- }
- */
+	for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
+		nodo->agregarHijo((*i)->guardarXmlCOMP());
+}

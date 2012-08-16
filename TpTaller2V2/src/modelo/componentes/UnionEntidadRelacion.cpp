@@ -54,16 +54,20 @@ Relacion * UnionEntidadRelacion::getRelacion(){
  this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
  this->rol = nodo->getPropiedad("rol");
  }
+*/
 
- XmlNodo EntidadRelacion::guardarXmlCOMP() {
- XmlNodo nodo("entidad_relacion");
+// GUARDAR
+XmlNodo UnionEntidadRelacion::guardarXmlCOMP() {
+	XmlNodo nodo("union_entidad_relacion ");
 
- nodo.setPropiedad("entidad",this->codigoEntidad);
- nodo.setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
- nodo.setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
- if (this->rol.size())
- nodo.setPropiedad("rol",this->rol);
+	Componente::agregarPropiedadesXmlCOMP(&nodo);
 
- return nodo;
- }
- */
+	nodo.setPropiedad("entidad",this->entidad->getCodigo());
+	nodo.setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
+	nodo.setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
+	if (this->rol.size())
+		nodo.setPropiedad("rol",this->rol);
+
+	return nodo;
+}
+

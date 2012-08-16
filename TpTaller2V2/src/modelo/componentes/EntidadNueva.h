@@ -23,16 +23,17 @@ private:
 	void borrarIdentificadores();
 
 	// PERSITENCIA COMP
+
+	// GUARDAR
+	void guardarAtributosXmlCOMP(XmlNodo*);
+	void guardarIdentificadoresXmlCOMP(XmlNodo*);
+
+	void guardarAtributosIdentificadorXmlCOMP(XmlNodo*, Identificador*);
+	void guardarRelacionesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
+	XmlNodo guardarIdentificadorXmlCOMP();
+
 	/*
 	 void obtenerComponentesXmlCOMP(XmlNodo*);
-
-	 void guardarAtributosXmlCOMP(XmlNodo*);
-	 void guardarIdentificadoresXmlCOMP(XmlNodo*);
-	 void guardarJerarquiasXmlCOMP(XmlNodo*);
-
-	 void guardarAtributosIdentificadorXmlCOMP(XmlNodo*, Identificador*);
-	 void guardarRelacionesIdentificadorXmlCOMP(XmlNodo*, Identificador*);
-	 XmlNodo guardarIdentificadorXmlCOMP();
 
 	 // Agrega los atributos y relaciones a los vectores de
 	 // atributos y relaciones del identificador
@@ -43,10 +44,10 @@ private:
 protected:
 	// PERSISTENCIA COMP
 	// si hay que agregar más propiedades, se redefinen
-	/*
+
+	// GUARDAR
 	 virtual void agregarPropiedadesXmlCOMP(XmlNodo*);
-	 virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
-	 */
+	 //virtual void obtenerPropiedadesXmlCOMP(XmlNodo*);
 
 public:
 	EntidadNueva();
@@ -88,10 +89,10 @@ public:
 	bool existeAtributo(const std::string&);
 
 	// PERSISTENCIA COMP
-	/*
-	 EntidadNueva(XmlNodo*);
-	 XmlNodo guardarXmlCOMP();
-	 */
+	//EntidadNueva(XmlNodo*);
+	// GUARDAR
+	XmlNodo guardarXmlCOMP();
+
 };
 
 #endif /* ENTIDADNUEVA_H_ */

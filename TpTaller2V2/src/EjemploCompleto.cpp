@@ -6,7 +6,7 @@
 
 #include "modelo/HeadersModelo.h"
 #include <iostream>
-/*
+
 EntidadNueva* crearEntidadNuevaPapa(){
 	EntidadNueva* entidadNuevaPapa = new EntidadNueva();
 	entidadNuevaPapa->setNombre("EntidadNuevaPapa");
@@ -143,7 +143,7 @@ Relacion* crearRelacion2(EntidadNueva* entidadNuevaC){
 	return relacion2;
 }
 
-int main3(int argc, char* argv[]){
+int main2(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("Proyecto");
 
@@ -178,7 +178,7 @@ int main3(int argc, char* argv[]){
 	Relacion* relacion2 = crearRelacion2(entidadNuevaC);
 	diagramaHijo->agregarRelacion(relacion2);
 
-	//diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba2-DiagramaPrincipal.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba2-EjemploCompleto.xml");
 	//diagramaHijo->guardarDiagramaXmlCOMP("Prueba2-DiagramaHijo.xml");
 
 	std::cout << "OK" << std::endl;
@@ -188,4 +188,4 @@ int main3(int argc, char* argv[]){
 
 	return 0;
 }
-*/
+

@@ -406,6 +406,41 @@ void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	}
 }
 
+// Devuelve true si se logró abrir y cargar el documento.
+bool Diagrama::isOpenXmlCOMP() const {
+	return this->diagramaValidoCOMP;
+}
+
+*/
+// GUARDAR
+
+// Guarda el Diagrama
+void Diagrama::guardarDiagramaXmlCOMP(const std::string& path) {
+	Xml docXml;
+	docXml.nuevoDoc();
+	XmlNodo nodoDoc = this->guardarXmlCOMP();
+	docXml.setNodoRaiz(nodoDoc);
+	docXml.guardar(path);
+}
+
+XmlNodo Diagrama::guardarXmlCOMP() {
+	XmlNodo nodo("diagrama");
+
+	this->agregarPropiedadesXmlCOMP(&nodo);
+
+	// puede no tener diagrama ancestro
+	if (diagramaAncestro) {
+		this->agregarNodoDiagramaAncestroXmlCOMP(&nodo);
+	}
+
+	this->guardarEntidadesNuevasXmlCOMP(&nodo);
+	this->guardarEntidadesGlobalesXmlCOMP(&nodo);
+	this->guardarRelacionesXmlCOMP(&nodo);
+	this->guardarJerarquiasXmlCOMP(&nodo);
+
+	return nodo;
+}
+
 void Diagrama::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	nodo->setPropiedad(XMLNS, INSTANCE);
 	nodo->setPropiedad(XSI, COMPOSICION);
@@ -445,36 +480,3 @@ void Diagrama::guardarJerarquiasXmlCOMP(XmlNodo *nodo) {
 	for(i = this->jerarquias.begin(); i != this->jerarquias.end(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
-
-XmlNodo Diagrama::guardarXmlCOMP() {
-	XmlNodo nodo("diagrama");
-
-	this->agregarPropiedadesXmlCOMP(&nodo);
-
-	// puede no tener diagrama ancestro
-	if (diagramaAncestro) {
-		this->agregarNodoDiagramaAncestroXmlCOMP(&nodo);
-	}
-
-	this->guardarEntidadesNuevasXmlCOMP(&nodo);
-	this->guardarEntidadesGlobalesXmlCOMP(&nodo);
-	this->guardarRelacionesXmlCOMP(&nodo);
-	this->guardarJerarquiasXmlCOMP(&nodo);
-
-	return nodo;
-}
-
-// Devuelve true si se logró abrir y cargar el documento.
-bool Diagrama::isOpenXmlCOMP() const {
-	return this->diagramaValidoCOMP;
-}
-
-// Guarda el Diagrama
-void Diagrama::guardarDiagramaXmlCOMP(const std::string& path) {
-	Xml docXml;
-	docXml.nuevoDoc();
-	XmlNodo nodoDoc = this->guardarXmlCOMP();
-	docXml.setNodoRaiz(nodoDoc);
-	docXml.guardar(path);
-}
-*/

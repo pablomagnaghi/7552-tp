@@ -86,35 +86,38 @@ void Jerarquia::quitarEntidadEspecializada(EntidadNueva * entidadEspecializada) 
  }
  }
 
- void Jerarquia::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
- Componente::agregarPropiedadesXmlCOMP(nodo);
- nodo->setPropiedad("cobertura",this->cobertura);
- nodo->setPropiedad("interseccion",this->interseccion);
- }
 
- void Jerarquia::agregarCodigoEntidadGeneralXmlCOMP(XmlNodo* nodo) {
- XmlNodo nodoEntidadGeneral("entidad_general");
- nodoEntidadGeneral.setContenido(this->codigoEntidadGeneral);
- nodo->agregarHijo(nodoEntidadGeneral);
- }
-
- void Jerarquia::agregarCodigosEntidadEspecializadasXmlCOMP(XmlNodo* nodo) {
- std::vector<int>::iterator i;
-
- for(i = this->codigosEntidadesEspecializadas.begin(); i != this->codigosEntidadesEspecializadas.end(); ++i) {
- XmlNodo nodoEntidadEspecializada("entidad_especializada");
- nodoEntidadEspecializada.setContenido((*i));
- nodo->agregarHijo(nodoEntidadEspecializada);
- }
- }
-
- XmlNodo Jerarquia::guardarXmlCOMP() {
- XmlNodo nodo("jerarquia");
-
- this->agregarPropiedadesXmlCOMP(&nodo);
- this->agregarCodigoEntidadGeneralXmlCOMP(&nodo);
- this->agregarCodigosEntidadEspecializadasXmlCOMP(&nodo);
-
- return nodo;
- }
  */
+
+// GUARDAR
+XmlNodo Jerarquia::guardarXmlCOMP() {
+	XmlNodo nodo("jerarquia");
+
+	this->agregarPropiedadesXmlCOMP(&nodo);
+	this->agregarCodigoEntidadGeneralXmlCOMP(&nodo);
+	this->agregarCodigosEntidadEspecializadasXmlCOMP(&nodo);
+
+	return nodo;
+}
+
+void Jerarquia::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
+	Componente::agregarPropiedadesXmlCOMP(nodo);
+	nodo->setPropiedad("cobertura",this->cobertura);
+	nodo->setPropiedad("interseccion",this->interseccion);
+}
+
+void Jerarquia::agregarCodigoEntidadGeneralXmlCOMP(XmlNodo* nodo) {
+	XmlNodo nodoEntidadGeneral("entidad_general");
+	nodoEntidadGeneral.setContenido(this->entidadGeneral->getCodigo());
+	nodo->agregarHijo(nodoEntidadGeneral);
+}
+
+void Jerarquia::agregarCodigosEntidadEspecializadasXmlCOMP(XmlNodo* nodo) {
+	std::vector<EntidadNueva *>::iterator i;
+
+	for(i = this->entidadesEspecializadasBegin(); i != this->entidadesEspecializadasEnd(); ++i) {
+		XmlNodo nodoEntidadEspecializada("entidad_especializada");
+		nodoEntidadEspecializada.setContenido((*i)->getCodigo());
+		nodo->agregarHijo(nodoEntidadEspecializada);
+	}
+}
