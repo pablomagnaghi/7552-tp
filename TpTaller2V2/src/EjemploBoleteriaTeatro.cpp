@@ -320,7 +320,7 @@ int main1(int argc, char* argv[]){
 	diagramaPrincipal->agregarRelacion(fO);
 
 	// prueba persistencia
-	diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("boleteria teatro.xml");
 
 	std::cout << "Generacion del xml OK" << std::endl;
 

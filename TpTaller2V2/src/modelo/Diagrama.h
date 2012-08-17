@@ -21,7 +21,9 @@ private:
 	std::vector<Relacion*> relaciones;
 	std::vector<Jerarquia*> jerarquias;
 	std::vector<Componente*> componentes; // No se persiste, es solo para iterarla desde afuera.
-	std::vector<Entidad*> entidades;
+	std::vector<Entidad*> entidades; // No se persiste, es solo para iterarla desde afuera.
+	std::vector<std::string> nombreDiagramasHijos;
+	std::string nombreDiagramaAncestro;
 
 	// Persistencia
 	bool diagramaValidoCOMP;
@@ -46,11 +48,13 @@ private:
 	void cargarComponentes();
 	void cargarEntidadesGlobales();
 	void cargarUnionesEntidadRelacion();
-	void cargarEntidadesAJerarquias();
+	void cargarEntidadesYJerarquias();
+	void cargarDiagramasHijos();
 
 	// GUARDAR
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
 	void agregarNodoDiagramaAncestroXmlCOMP(XmlNodo*);
+	void guardarDiagramasHijosXmlCOMP(XmlNodo *nodo);
 	void guardarEntidadesNuevasXmlCOMP(XmlNodo*);
 	void guardarEntidadesGlobalesXmlCOMP(XmlNodo*);
 	void guardarRelacionesXmlCOMP(XmlNodo*);
@@ -68,6 +72,9 @@ public:
 
 	void setEstado(const std::string);
 	std::string getEstado() const;
+
+	void setNombreDiagramaAncestro(const std::string&);
+	std::string getNombreDiagramaAncestro() const;
 
 	void setDiagramaAncestro(Diagrama*);
 	Diagrama* getDiagramaAncestro() const;
@@ -107,6 +114,10 @@ public:
 
 	std::vector<Entidad*>::iterator entidadesBegin();
 	std::vector<Entidad*>::iterator entiadadesEnd();
+
+	std::vector<std::string>::iterator nombresDiagramasHijosBegin();
+
+	std::vector<std::string>::iterator nombresDiagramasHijosEnd();
 
 	Entidad* getEntidadByCodigo(int);
 	EntidadNueva* getEntidadNuevaByCodigo(int);
