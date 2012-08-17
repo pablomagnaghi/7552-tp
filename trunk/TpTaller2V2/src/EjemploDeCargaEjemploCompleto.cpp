@@ -16,17 +16,18 @@ int main(int argc, char* argv[]){
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	// prueba persistencia
-	diagramaPrincipal->abrirXmlCOMP("Prueba2-DiagramaPrincipal.xml");
+	diagramaPrincipal->abrirXmlCOMP("Principal.xml");
 
-	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga2-DiagramaPrincipal.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga2-Principal.xml");
 
-	// Diagrama* diagramaHijo = new Diagrama("Hijo");
+	std::vector<Diagrama*>::iterator it = diagramaPrincipal->diagramasHijosBegin();
 
-	//diagramaHijo->abrirXmlCOMP("Prueba2-DiagramaHijo.xml");
-
-	//diagramaHijo->guardarDiagramaXmlCOMP("PruebaCarga2-DiagramaHijo.xml");
-
-	// diagramaPrincipal->agregarDiagramaHijo(diagramaHijo);
+	while (it != diagramaPrincipal->diagramasHijosEnd()) {
+		std::string nombre = "PruebaCarga2-Hijo.xml";
+		(*it)->guardarDiagramaXmlCOMP(nombre);
+		it++;
+		nombre += "x";
+	}
 
 	delete proyecto;
 

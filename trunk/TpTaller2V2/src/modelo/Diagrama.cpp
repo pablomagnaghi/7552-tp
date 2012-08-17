@@ -47,6 +47,13 @@ Diagrama* Diagrama::getDiagramaAncestro() const{
 	return this->diagramaAncestro;
 }
 
+void Diagrama::setNombreDiagramaAncestro(const std::string& nombre) {
+	this->nombreDiagramaAncestro = nombre;
+}
+std::string Diagrama::getNombreDiagramaAncestro() const {
+	return this->nombreDiagramaAncestro;
+}
+
 void Diagrama::agregarDiagramaHijo(Diagrama* diagramaHijo){
 	this->diagramasHijos.push_back(diagramaHijo);
 }
@@ -198,6 +205,14 @@ std::vector<Entidad*>::iterator Diagrama::entidadesBegin(){
 
 std::vector<Entidad*>::iterator Diagrama::entiadadesEnd(){
 	return this->entidades.end();
+}
+
+std::vector<std::string>::iterator Diagrama::nombresDiagramasHijosBegin(){
+	return this->nombreDiagramasHijos.begin();
+}
+
+std::vector<std::string>::iterator Diagrama::nombresDiagramasHijosEnd(){
+	return this->nombreDiagramasHijos.end();
 }
 
 void Diagrama::borrarDiagramasHijos(){
@@ -398,6 +413,8 @@ void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz) {
 	this->obtenerComponentesXmlCOMP(&nodo);
 
 	this->cargarComponentes();
+
+	this->cargarDiagramasHijos();
 }
 
 void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
@@ -406,10 +423,9 @@ void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 
 void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
-		if (nodo->getNombre() == "diagrama_ancestro") {
-			Diagrama *diagramaAncestro = new Diagrama();
-	  		diagramaAncestro->setNombre(nodo->getContenido());
-	  		this->diagramaAncestro = diagramaAncestro;
+		if (nodo->getNombre() == "diagrama_hijo") {
+			std::string nombreDiagramaHijo = nodo->getContenido();
+			this->nombreDiagramasHijos.push_back(nombreDiagramaHijo);
 		}
 		if (nodo->getNombre() == "entidad_nueva") {
 	  		EntidadNueva *entidadNueva = new EntidadNueva(nodo);
@@ -437,12 +453,10 @@ void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	}
 }
 
-// todo
-
 void Diagrama::cargarComponentes() {
 	this->cargarEntidadesGlobales();
 	this->cargarUnionesEntidadRelacion();
-	this->cargarEntidadesAJerarquias();
+	this->cargarEntidadesYJerarquias();
 }
 
 void Diagrama::cargarEntidadesGlobales() {
@@ -474,27 +488,46 @@ void Diagrama::cargarUnionesEntidadRelacion() {
 			Entidad *entidad = this->getEntidadByCodigo((*itUnion)->getCodigoEntidad());
 			(*itUnion)->setEntidad(entidad);
 			(*itUnion)->setRelacion((*it));
+			// agregar a entidad la union entidad relacion
+			entidad->agregarUnionARelacion((*itUnion));
 			itUnion++;
 		}
 		it++;
 	}
 }
 
-// todo
-void Diagrama::cargarEntidadesAJerarquias() {
+void Diagrama::cargarEntidadesYJerarquias() {
 	std::vector<Jerarquia*>::iterator it = this->jerarquiasBegin();
 	while (it != this->jerarquiasEnd()) {
 		Entidad *entidad = this->getEntidadByCodigo((*it)->getCodigoEntidadGeneral());
 		(*it)->setEntidadGeneral(entidad);
+		// agrego la jerarquia a la entidad, o sea agrego la jerarquia hija
+		entidad->setJerarquiaHija((*it));
 
 		std::vector<int>::iterator itEntidadesNuevas = (*it)->codigosEntidadesEspecializadasBegin();
 		// Para cada jerarquia agrego la entidad nueva a traves de una busqueda por su codigo
 		while (itEntidadesNuevas != (*it)->codigosEntidadesEspecializadasEnd()) {
 			EntidadNueva *entidadNueva = this->getEntidadNuevaByCodigo((*itEntidadesNuevas));
 			(*it)->agregarEntidadEspecializada(entidadNueva);
+
+			// agrego la jerarquia a la entidad nueva, o sea agrego la jerarquia padre
+			entidadNueva->agregarJerarquiaPadre((*it));
 			itEntidadesNuevas++;
 		}
 		it++;
+	}
+}
+
+void Diagrama::cargarDiagramasHijos() {
+	std::vector<std::string>::iterator it = this->nombresDiagramasHijosBegin();
+	while (it != this->nombresDiagramasHijosEnd()) {
+		std::string nombre = (*it) + ".xml";
+		Diagrama *diagramaHijo = new Diagrama(nombre);
+		diagramaHijo->setDiagramaAncestro(this);
+		diagramaHijo->abrirXmlCOMP(nombre);
+		this->agregarDiagramaHijo(diagramaHijo);
+		it++;
+		nombre.clear();
 	}
 }
 
@@ -524,8 +557,11 @@ XmlNodo Diagrama::guardarXmlCOMP() {
 		this->agregarNodoDiagramaAncestroXmlCOMP(&nodo);
 	}
 
+	this->guardarDiagramasHijosXmlCOMP(&nodo);
 	this->guardarEntidadesNuevasXmlCOMP(&nodo);
+	// todo
 	this->guardarEntidadesGlobalesXmlCOMP(&nodo);
+
 	this->guardarRelacionesXmlCOMP(&nodo);
 	this->guardarJerarquiasXmlCOMP(&nodo);
 
@@ -544,6 +580,16 @@ void Diagrama::agregarNodoDiagramaAncestroXmlCOMP(XmlNodo *nodo) {
 	nodo->agregarHijo(nodoDiagramaAncestro);
 }
 
+void Diagrama::guardarDiagramasHijosXmlCOMP(XmlNodo *nodo) {
+	std::vector<Diagrama*>::iterator i;
+
+	for(i = this->diagramasHijosBegin(); i != this->diagramasHijosEnd(); ++i) {
+		XmlNodo nodoDiagramaHijo("diagrama_hijo");
+		nodoDiagramaHijo.setContenido((*i)->getNombre());
+		nodo->agregarHijo(nodoDiagramaHijo);
+	}
+}
+
 void Diagrama::guardarEntidadesNuevasXmlCOMP(XmlNodo *nodo) {
 	std::vector<EntidadNueva*>::iterator i;
 
@@ -553,9 +599,12 @@ void Diagrama::guardarEntidadesNuevasXmlCOMP(XmlNodo *nodo) {
 
 void Diagrama::guardarEntidadesGlobalesXmlCOMP(XmlNodo *nodo) {
 	std::vector<EntidadGlobal*>::iterator i;
-
-	for(i = this->entidadesGlobales.begin(); i != this->entidadesGlobales.end(); ++i)
+// todo
+	for(i = this->entidadesGlobales.begin(); i != this->entidadesGlobales.end(); ++i) {
+		std::cout << "CARGANDO DIAGRAMAS HIJOS" << std::endl;
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
+	}
+
 }
 
 void Diagrama::guardarRelacionesXmlCOMP(XmlNodo *nodo) {

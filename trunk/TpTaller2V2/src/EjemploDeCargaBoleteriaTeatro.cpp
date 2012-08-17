@@ -16,9 +16,9 @@ int main3(int argc, char* argv[]){
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	// prueba persistencia
-	diagramaPrincipal->abrirXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->abrirXmlCOMP("boleteria teatro.xml");
 
-	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga1-boleteria Teatro.xml");
 
 	delete proyecto;
 

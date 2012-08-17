@@ -84,7 +84,7 @@ EntidadGlobal* crearEntidadGlobalA(EntidadNueva* entidadNuevaA){
 	EntidadGlobal* entidadGlobalA = new EntidadGlobal();
 	entidadGlobalA->setNombre("entidadGlobalA");
 	entidadGlobalA->setCodigo(GeneradorCodigo::siguienteCodigo());
-	entidadGlobalA->setDiagramaAncestro("diagramaPrincipal");
+	entidadGlobalA->setDiagramaAncestro("Principal");
 	entidadGlobalA->setEntidadNueva(entidadNuevaA);
 
 	return entidadGlobalA;
@@ -178,8 +178,8 @@ int main2(int argc, char* argv[]){
 	Relacion* relacion2 = crearRelacion2(entidadNuevaC);
 	diagramaHijo->agregarRelacion(relacion2);
 
-	diagramaPrincipal->guardarDiagramaXmlCOMP("Prueba2-DiagramaPrincipal.xml");
-	//diagramaHijo->guardarDiagramaXmlCOMP("Prueba2-DiagramaHijo.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("Principal.xml");
+	diagramaHijo->guardarDiagramaXmlCOMP("Hijo.xml");
 
 	std::cout << "OK" << std::endl;
 
