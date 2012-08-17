@@ -60,11 +60,16 @@ public:
 	std::vector<EntidadNueva *>::iterator entidadesEspecializadasBegin();
 	std::vector<EntidadNueva *>::iterator entidadesEspecializadasEnd();
 
+	std::vector<int>::iterator codigosEntidadesEspecializadasBegin();
+	std::vector<int>::iterator codigosEntidadesEspecializadasEnd();
+
 	std::string getCobertura() const;
 	void setCobertura(const std::string&);
 
 	std::string getInterseccion() const;
 	void setInterseccion(const std::string&);
+
+	int getCodigoEntidadGeneral();
 
 	// PERSISTENCIA COMP
 	// CARGAR

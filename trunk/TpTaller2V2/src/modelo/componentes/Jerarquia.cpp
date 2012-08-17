@@ -36,6 +36,11 @@ Entidad * Jerarquia::getEntidadGeneral() const {
 	return this->entidadGeneral;
 }
 
+int Jerarquia::getCodigoEntidadGeneral() {
+	return this->codigoEntidadGeneral;
+}
+
+
 void Jerarquia::agregarEntidadEspecializada(EntidadNueva * entidadEspecializada) throw (NullPointer) {
 	if (entidadEspecializada == NULL) {
 		throw NullPointer("Puntero nulo en agregarEntidadEspecializada en Jerarquia");
@@ -49,6 +54,14 @@ std::vector<EntidadNueva *>::iterator Jerarquia::entidadesEspecializadasBegin() 
 
 std::vector<EntidadNueva *>::iterator Jerarquia::entidadesEspecializadasEnd() {
 	return this->entidadesEspecializadas.end();
+}
+
+std::vector<int>::iterator Jerarquia::codigosEntidadesEspecializadasBegin() {
+	return this->codigosEntidadesEspecializadas.begin();
+}
+
+std::vector<int>::iterator Jerarquia::codigosEntidadesEspecializadasEnd() {
+	return this->codigosEntidadesEspecializadas.end();
 }
 
 void Jerarquia::quitarEntidadEspecializada(EntidadNueva * entidadEspecializada) throw (NullPointer) {

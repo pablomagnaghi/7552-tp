@@ -142,7 +142,55 @@ void VistaComponente::ajustarTamanioAlTexto() {
 	this->ajustarTamanioPorTexto = true;
 }
 
+void VistaComponente::crear_menu(Glib::RefPtr<Gtk::UIManager> & manager) {
+	Glib::RefPtr<Gtk::ActionGroup> actionGroup;
+
+	actionGroup = Gtk::ActionGroup::create();
+
+	actionGroup->add(Gtk::Action::create("ContextMenu", "Context Menu"));
+
+	actionGroup->add(Gtk::Action::create("ContextPropiedades", "Propiedades"),
+			sigc::mem_fun(*this, &VistaComponente::on_popup_boton_propiedades));
+
+	manager = Gtk::UIManager::create();
+	manager->insert_action_group(actionGroup);
+
+	//Layout the actions in a menubar and toolbar:
+	Glib::ustring ui_info = "<ui>"
+		"  <popup name='PopupMenu'>"
+		"    <menuitem action='ContextPropiedades'/>"
+		"  </popup>"
+		"</ui>";
+	try {
+		manager->add_ui_from_string(ui_info);
+
+	} catch (const Glib::Error& ex) {
+		std::cerr << "building menus failed: " << ex.what();
+	}
+}
+
+void VistaComponente::lanzarMenuPopUp(GdkEventButton* event) {
+	// Creo el menú Pop Up, Tendría que ser un singleton
+	Gtk::Menu* m_pMenuPopup;
+	Glib::RefPtr<Gtk::UIManager> userInterfaceManager;
+
+	this->crear_menu(userInterfaceManager);
+
+	m_pMenuPopup = dynamic_cast<Gtk::Menu*> (userInterfaceManager->get_widget(
+			"/PopupMenu"));
+	if (!m_pMenuPopup)
+		g_warning("menu not found");
+	else
+		m_pMenuPopup->popup(event->button, event->time);
+}
+
+void VistaComponente::on_popup_boton_propiedades() {
+	std::cout << "Se pulsó el botón Propiedades" << std::endl;
+	this->lanzarProp();
+}
+
 // PERSISTENCIA REP
+// VER!!!! COSAS A CAMBIAR
 
 VistaComponente::VistaComponente(XmlNodo* nodo) {
 
@@ -203,51 +251,3 @@ XmlNodo VistaComponente::guardarXmlREP() {
 
 	return nodo;
 }
-
-void VistaComponente::crear_menu(Glib::RefPtr<Gtk::UIManager> & manager) {
-	Glib::RefPtr<Gtk::ActionGroup> actionGroup;
-
-	actionGroup = Gtk::ActionGroup::create();
-
-	actionGroup->add(Gtk::Action::create("ContextMenu", "Context Menu"));
-
-	actionGroup->add(Gtk::Action::create("ContextPropiedades", "Propiedades"),
-			sigc::mem_fun(*this, &VistaComponente::on_popup_boton_propiedades));
-
-	manager = Gtk::UIManager::create();
-	manager->insert_action_group(actionGroup);
-
-	//Layout the actions in a menubar and toolbar:
-	Glib::ustring ui_info = "<ui>"
-		"  <popup name='PopupMenu'>"
-		"    <menuitem action='ContextPropiedades'/>"
-		"  </popup>"
-		"</ui>";
-	try {
-		manager->add_ui_from_string(ui_info);
-
-	} catch (const Glib::Error& ex) {
-		std::cerr << "building menus failed: " << ex.what();
-	}
-}
-
-void VistaComponente::lanzarMenuPopUp(GdkEventButton* event) {
-	// Creo el menú Pop Up, Tendría que ser un singleton
-	Gtk::Menu* m_pMenuPopup;
-	Glib::RefPtr<Gtk::UIManager> userInterfaceManager;
-
-	this->crear_menu(userInterfaceManager);
-
-	m_pMenuPopup = dynamic_cast<Gtk::Menu*> (userInterfaceManager->get_widget(
-			"/PopupMenu"));
-	if (!m_pMenuPopup)
-		g_warning("menu not found");
-	else
-		m_pMenuPopup->popup(event->button, event->time);
-}
-
-void VistaComponente::on_popup_boton_propiedades() {
-	std::cout << "Se pulsó el botón Propiedades" << std::endl;
-	this->lanzarProp();
-}
-
