@@ -71,9 +71,23 @@ void Diagrama::quitarComponente(Componente* componente){
 	}
 }
 
+void Diagrama::agregarEntidad(Entidad* entidad) {
+	this->entidades.push_back(entidad);
+}
+
+
+void Diagrama::quitarEntidad(Entidad* entidad) {
+	std::vector<Entidad*>::iterator e;
+	e = find(this->entidades.begin(), this->entidades.end(), entidad);
+	if (*e == entidad){
+		this->entidades.erase(e);
+	}
+}
+
 void Diagrama::agregarEntidadNueva(EntidadNueva* entidadNueva){
 	this->entidadesNuevas.push_back(entidadNueva);
 	this->agregarComponente(entidadNueva);
+	this->agregarEntidad(entidadNueva);
 }
 
 void Diagrama::quitarEntidadNueva(EntidadNueva* entidadNueva){
@@ -83,11 +97,13 @@ void Diagrama::quitarEntidadNueva(EntidadNueva* entidadNueva){
 		this->entidadesNuevas.erase(e);
 	}
 	this->quitarComponente(entidadNueva);
+	this->quitarEntidad(entidadNueva);
 }
 
 void Diagrama::agregarEntidadGlobal(EntidadGlobal* entidadGlobal){
 	this->entidadesGlobales.push_back(entidadGlobal);
 	this->agregarComponente(entidadGlobal);
+	this->agregarEntidad(entidadGlobal);
 }
 
 void Diagrama::quitarEntidadGlobal(EntidadGlobal* entidadGlobal){
@@ -97,6 +113,7 @@ void Diagrama::quitarEntidadGlobal(EntidadGlobal* entidadGlobal){
 		this->entidadesGlobales.erase(e);
 	}
 	this->quitarComponente(entidadGlobal);
+	this->quitarEntidad(entidadGlobal);
 }
 
 void Diagrama::agregarRelacion(Relacion* relacion){
@@ -173,6 +190,14 @@ std::vector<Componente*>::iterator Diagrama::componentesBegin(){
 
 std::vector<Componente*>::iterator Diagrama::componentesEnd(){
 	return this->componentes.end();
+}
+
+std::vector<Entidad*>::iterator Diagrama::entidadesBegin(){
+	return this->entidades.begin();
+}
+
+std::vector<Entidad*>::iterator Diagrama::entiadadesEnd(){
+	return this->entidades.end();
 }
 
 void Diagrama::borrarDiagramasHijos(){
@@ -371,6 +396,8 @@ void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz) {
 
 	XmlNodo nodo = nodoRaiz->getHijo();
 	this->obtenerComponentesXmlCOMP(&nodo);
+
+	this->cargarComponentes();
 }
 
 void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
@@ -388,11 +415,13 @@ void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	  		EntidadNueva *entidadNueva = new EntidadNueva(nodo);
 			this->agregarEntidadNueva(entidadNueva);
 			this->agregarComponente(entidadNueva);
+			this->agregarEntidad(entidadNueva);
 		}
 		if (nodo->getNombre() == "entidad_global") {
 	  		EntidadGlobal *entidadGlobal = new EntidadGlobal(nodo);
 			this->agregarEntidadGlobal(entidadGlobal);
 			this->agregarComponente(entidadGlobal);
+			this->agregarEntidad(entidadGlobal);
 		}
 		if (nodo->getNombre() == "relacion") {
 			Relacion *relacion = new Relacion (nodo);
@@ -405,6 +434,49 @@ void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 			this->agregarComponente(jerarquia);
 		}
 		*nodo = nodo->getHermano();
+	}
+}
+
+// todo
+
+void Diagrama::cargarComponentes() {
+	this->cargarEntidadesGlobales();
+	this->cargarUnionesEntidadRelacion();
+}
+
+void Diagrama::cargarEntidadesGlobales() {
+	std::vector<EntidadGlobal*>::iterator it = this->entidadesGlobales.begin();
+	while (it != this->entidadesGlobales.end()) {
+		Diagrama *diagramaAux = this->diagramaAncestro;
+		bool salir = false;
+		while ((diagramaAux) && (!salir)) {
+			// busco el diagrama ancestro por el nombre para obtener la entidadNueva
+			if (diagramaAux->getNombre() == (*it)->getDiagramaAncestro()) {
+				// Agrego la entidadNueva a la entidadGlobal
+				EntidadNueva *entidadNueva = diagramaAux->getEntidadNuevaByCodigo((*it)->getCodigoEntidadNueva());
+				(*it)->setEntidadNueva(entidadNueva);
+				salir = true;
+			}
+			diagramaAux = diagramaAux->getDiagramaAncestro();
+		}
+		it++;
+	}
+}
+
+// todo
+void Diagrama::cargarUnionesEntidadRelacion() {
+	std::vector<Relacion*>::iterator it = this->relacionesBegin();
+	while (it != this->relacionesEnd()) {
+		std::vector<UnionEntidadRelacion*>::iterator itUnion = (*it)->unionesAEntidadBegin();
+		// Para cada union agrego la entidad a traves de una busqueda por su codigo
+		// Ademas agrego la relacion
+		while (itUnion != (*it)->unionesAEntidadEnd()) {
+			Entidad *entidad = this->getEntidadByCodigo((*itUnion)->getCodigoEntidad());
+			(*itUnion)->setEntidad(entidad);
+			(*itUnion)->setRelacion((*it));
+			itUnion++;
+		}
+		it++;
 	}
 }
 

@@ -43,38 +43,38 @@ VistaEntidadNueva * ComponentsBuilder::crearEntidadNuevaEnDiagrama(VistaDiagrama
 
 VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaEntidadNueva *ventidad){
 	if (this->ide != NULL){
-	//enlazar con la entidad crear union, poner en diagrama actual,etc.
-	Atributo *atrib = new Atributo();
-	VistaAtributo *vatrib = new VistaAtributo(atrib);
-	ventidad->getEntidad()->agregarAtributo(atrib);
-	ventidad->agregarAtributo(vatrib);
-	VistaLinea * lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(ventidad);
-	lineaEntidadAtributo->setComponenteHasta(vatrib);
+		//enlazar con la entidad crear union, poner en diagrama actual,etc.
+		Atributo *atrib = new Atributo();
+		VistaAtributo *vatrib = new VistaAtributo(atrib);
+		ventidad->getEntidad()->agregarAtributo(atrib);
+		ventidad->agregarAtributo(vatrib);
+		VistaLinea * lineaEntidadAtributo = new VistaLinea();
+		lineaEntidadAtributo->setComponenteDesde(ventidad);
+		lineaEntidadAtributo->setComponenteHasta(vatrib);
 
-	//Agrego vatributo y vlinea a el diag
-	this->ide->getDiagActual()->agregarComponente(vatrib);
-	this->ide->getDiagActual()->agregarComponente(lineaEntidadAtributo);
-	return vatrib;
-	}else return NULL;
+		//Agrego vatributo y vlinea a el diag
+		this->ide->getDiagActual()->agregarComponente(vatrib);
+		this->ide->getDiagActual()->agregarComponente(lineaEntidadAtributo);
+		return vatrib;
+	} else return NULL;
 }
 
 VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaAtributo *vatribPadre){
 	if (this->ide != NULL){
-	//enlazar con el atributo crear union, poner en diagrama actual,etc.
-	Atributo *atrib = new Atributo();
-	VistaAtributo *vatrib = new VistaAtributo(atrib);
-	vatribPadre->getAtributo()->agregarAtributo(atrib);
-	vatribPadre->agregarAtributo(vatrib);
-	VistaLinea * lineaAtributoAtributo = new VistaLinea();
-	lineaAtributoAtributo->setComponenteDesde(vatribPadre);
-	lineaAtributoAtributo->setComponenteHasta(vatrib);
+		//enlazar con el atributo crear union, poner en diagrama actual,etc.
+		Atributo *atrib = new Atributo();
+		VistaAtributo *vatrib = new VistaAtributo(atrib);
+		vatribPadre->getAtributo()->agregarAtributo(atrib);
+		vatribPadre->agregarAtributo(vatrib);
+		VistaLinea * lineaAtributoAtributo = new VistaLinea();
+		lineaAtributoAtributo->setComponenteDesde(vatribPadre);
+		lineaAtributoAtributo->setComponenteHasta(vatrib);
 
-	//Agrego vatributo y vlinea a el diag
-	this->ide->getDiagActual()->agregarComponente(vatrib);
-	this->ide->getDiagActual()->agregarComponente(lineaAtributoAtributo);
-	return vatrib;
-	}else return NULL;
+		//Agrego vatributo y vlinea a el diag
+		this->ide->getDiagActual()->agregarComponente(vatrib);
+		this->ide->getDiagActual()->agregarComponente(lineaAtributoAtributo);
+		return vatrib;
+	} else return NULL;
 }
 
 

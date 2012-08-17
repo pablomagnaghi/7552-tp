@@ -39,8 +39,11 @@ public:
 	void setRol(const std::string &);
 
 	Entidad * getEntidad();
+	void setEntidad(Entidad*);
 	Relacion * getRelacion();
+	void setRelacion(Relacion*);
 
+	int getCodigoEntidad();
 	// PERSISTENCIA COMP
 	// CARGAR
 	 UnionEntidadRelacion(XmlNodo*);

@@ -38,17 +38,31 @@ void UnionEntidadRelacion::setRol(const std::string & rol) {
 	this->rol = rol;
 }
 
-Entidad * UnionEntidadRelacion::getEntidad(){
+Entidad * UnionEntidadRelacion::getEntidad() {
 	return this->entidad;
 }
 
-Relacion * UnionEntidadRelacion::getRelacion(){
+void UnionEntidadRelacion::setEntidad(Entidad* entidad) {
+	this->entidad = entidad;
+}
+
+Relacion * UnionEntidadRelacion::getRelacion() {
 	return this->relacion;
 }
+
+void UnionEntidadRelacion::setRelacion(Relacion* relacion) {
+	this->relacion = relacion;
+}
+
+int UnionEntidadRelacion::getCodigoEntidad() {
+	return this->codigoEntidad;
+}
+
 
 // PERSISTENCIA COMP
 // CARGAR
 UnionEntidadRelacion::UnionEntidadRelacion(XmlNodo* nodo) {
+	Componente::obtenerPropiedadesXmlCOMP(nodo);
 	this->codigoEntidad = nodo->getPropiedadInt("entidad");
 	this->cardinalidadMinima = nodo->getPropiedad("cardinalidad_minima");
 	this->cardinalidadMaxima = nodo->getPropiedad("cardinalidad_maxima");
