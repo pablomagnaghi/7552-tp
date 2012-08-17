@@ -36,9 +36,9 @@ public:
 	virtual bool getEsDebil();
 
 	// PERSISTENCIA COMP
+	int getCodigoEntidadNueva();
 	// CARGAR
 	EntidadGlobal(XmlNodo*);
-
 	// GUARDAR
 	XmlNodo guardarXmlCOMP();
 };

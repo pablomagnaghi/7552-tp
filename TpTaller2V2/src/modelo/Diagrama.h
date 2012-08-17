@@ -21,12 +21,16 @@ private:
 	std::vector<Relacion*> relaciones;
 	std::vector<Jerarquia*> jerarquias;
 	std::vector<Componente*> componentes; // No se persiste, es solo para iterarla desde afuera.
+	std::vector<Entidad*> entidades;
 
 	// Persistencia
 	bool diagramaValidoCOMP;
 
 	void agregarComponente(Componente*);
 	void quitarComponente(Componente*);
+
+	void agregarEntidad(Entidad*);
+	void quitarEntidad(Entidad*);
 
 	void borrarDiagramasHijos();
 	void borrarEntidadesNuevas();
@@ -39,6 +43,9 @@ private:
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 	void obtenerComponentesXmlCOMP(XmlNodo*);
 	void cargarXmlCOMP(XmlNodo*);
+	void cargarComponentes();
+	void cargarEntidadesGlobales();
+	void cargarUnionesEntidadRelacion();
 
 	// GUARDAR
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
@@ -96,6 +103,9 @@ public:
 
 	std::vector<Componente*>::iterator componentesBegin();
 	std::vector<Componente*>::iterator componentesEnd();
+
+	std::vector<Entidad*>::iterator entidadesBegin();
+	std::vector<Entidad*>::iterator entiadadesEnd();
 
 	Entidad* getEntidadByCodigo(int);
 	EntidadNueva* getEntidadNuevaByCodigo(int);

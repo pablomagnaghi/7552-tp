@@ -8,7 +8,7 @@
 #include "modelo/HeadersModelo.h"
 #include <iostream>
 
-int main5(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
@@ -16,9 +16,9 @@ int main5(int argc, char* argv[]){
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	// prueba persistencia
-	//diagramaPrincipal->abrirXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->abrirXmlCOMP("Prueba1-EjemploBoleteriaTeatro.xml");
 
-	//diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga1-EjemploBoleteriaTeatro.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga1-EjemploBoleteriaTeatro.xml");
 
 	delete proyecto;
 

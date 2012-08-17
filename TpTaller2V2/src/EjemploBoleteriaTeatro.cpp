@@ -291,7 +291,7 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	return fO;
 }
 
-int main(int argc, char* argv[]){
+int main1(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
@@ -325,6 +325,7 @@ int main(int argc, char* argv[]){
 	std::cout << "Generacion del xml OK" << std::endl;
 
 	delete proyecto;
+
 	GeneradorCodigo::destruir();
 
 	return 0;

@@ -31,6 +31,10 @@ bool EntidadGlobal::getEsDebil(){
 	return this->entidadNueva->getEsDebil();
 }
 
+int EntidadGlobal::getCodigoEntidadNueva() {
+	return this->codigoEntidadNueva;
+}
+
 // PERSISTENCIA COMP
 
 // CARGAR
