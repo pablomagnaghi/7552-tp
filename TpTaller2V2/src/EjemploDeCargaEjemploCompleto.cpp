@@ -8,7 +8,7 @@
 #include "modelo/HeadersModelo.h"
 #include <iostream>
 
-int main6(int argc, char* argv[]){
+int main(int argc, char* argv[]){
 
 	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
 
@@ -16,17 +16,17 @@ int main6(int argc, char* argv[]){
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	// prueba persistencia
-	//diagramaPrincipal->abrirXmlCOMP("Prueba2-DiagramaPrincipal.xml");
+	diagramaPrincipal->abrirXmlCOMP("Prueba2-DiagramaPrincipal.xml");
 
-	//diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga2-DiagramaPrincipal.xml");
+	diagramaPrincipal->guardarDiagramaXmlCOMP("PruebaCarga2-DiagramaPrincipal.xml");
 
-	Diagrama* diagramaHijo = new Diagrama("Hijo");
+	// Diagrama* diagramaHijo = new Diagrama("Hijo");
 
 	//diagramaHijo->abrirXmlCOMP("Prueba2-DiagramaHijo.xml");
 
 	//diagramaHijo->guardarDiagramaXmlCOMP("PruebaCarga2-DiagramaHijo.xml");
 
-	diagramaPrincipal->agregarDiagramaHijo(diagramaHijo);
+	// diagramaPrincipal->agregarDiagramaHijo(diagramaHijo);
 
 	delete proyecto;
 

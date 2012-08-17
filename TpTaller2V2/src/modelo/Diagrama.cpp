@@ -442,6 +442,7 @@ void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 void Diagrama::cargarComponentes() {
 	this->cargarEntidadesGlobales();
 	this->cargarUnionesEntidadRelacion();
+	this->cargarEntidadesAJerarquias();
 }
 
 void Diagrama::cargarEntidadesGlobales() {
@@ -463,7 +464,6 @@ void Diagrama::cargarEntidadesGlobales() {
 	}
 }
 
-// todo
 void Diagrama::cargarUnionesEntidadRelacion() {
 	std::vector<Relacion*>::iterator it = this->relacionesBegin();
 	while (it != this->relacionesEnd()) {
@@ -475,6 +475,24 @@ void Diagrama::cargarUnionesEntidadRelacion() {
 			(*itUnion)->setEntidad(entidad);
 			(*itUnion)->setRelacion((*it));
 			itUnion++;
+		}
+		it++;
+	}
+}
+
+// todo
+void Diagrama::cargarEntidadesAJerarquias() {
+	std::vector<Jerarquia*>::iterator it = this->jerarquiasBegin();
+	while (it != this->jerarquiasEnd()) {
+		Entidad *entidad = this->getEntidadByCodigo((*it)->getCodigoEntidadGeneral());
+		(*it)->setEntidadGeneral(entidad);
+
+		std::vector<int>::iterator itEntidadesNuevas = (*it)->codigosEntidadesEspecializadasBegin();
+		// Para cada jerarquia agrego la entidad nueva a traves de una busqueda por su codigo
+		while (itEntidadesNuevas != (*it)->codigosEntidadesEspecializadasEnd()) {
+			EntidadNueva *entidadNueva = this->getEntidadNuevaByCodigo((*itEntidadesNuevas));
+			(*it)->agregarEntidadEspecializada(entidadNueva);
+			itEntidadesNuevas++;
 		}
 		it++;
 	}

@@ -46,6 +46,7 @@ private:
 	void cargarComponentes();
 	void cargarEntidadesGlobales();
 	void cargarUnionesEntidadRelacion();
+	void cargarEntidadesAJerarquias();
 
 	// GUARDAR
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
