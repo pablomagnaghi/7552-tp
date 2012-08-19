@@ -4,7 +4,7 @@
  *  Created on: 22/06/2012
  *      Author: pablo
  */
-
+/*
 #include "modelo/HeadersModelo.h"
 #include <iostream>
 
@@ -34,4 +34,4 @@ int main(int argc, char* argv[]){
 	std::cout << "Apertura del xml OK" << std::endl;
 
 	return 0;
-}
+}*/

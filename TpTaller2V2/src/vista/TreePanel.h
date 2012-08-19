@@ -19,6 +19,8 @@
 #include "VistaDiagrama.h"
 using namespace std;
 
+class VistaDiagrama;
+
 typedef GtkRequisition Requisition;
 
 class Ide;

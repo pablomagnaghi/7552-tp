@@ -16,6 +16,7 @@
 
 class VistaEntidadNueva;
 class VistaAtributo;
+class VistaDiagrama;
 
 class AsistenteEntidad: public Gtk::Window {
 private:
@@ -24,6 +25,7 @@ private:
 	//VistaDiagrama * vdiagrama;
 	Glib::RefPtr<Gtk::Builder> m_builder;
 	Gtk::Entry * entryNombreEntidad;
+	VistaDiagrama *diagramaActual;
 
 	static AsistenteEntidad * instancia;
 

@@ -22,6 +22,9 @@ using namespace std;
 
 //#define DEBUG 1
 
+class VistaProyecto;
+class VistaDiagrama;
+
 class Ide : public Gtk::Window {
 
 private:
@@ -30,12 +33,14 @@ private:
 	//Posse un proyecto por vez
 	VistaProyecto* vproyecto;
 
-	VistaDiagrama *diagactual;
+	 VistaDiagrama *diagactual;
 
 	//Posse un treePanel
 	TreePanel treePanel;
 
 	ControladorPanelHerramientas controladorPanelHerramientas;
+
+	static Ide *instancia;
 
 	//Posee un panel de acciones
 	//PanelAcciones panelAcciones;
@@ -50,6 +55,7 @@ private:
 
 public:
 	Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder);
+	static Ide * getInstance();
 	virtual ~Ide();
 
 	//Proyecto
@@ -59,6 +65,8 @@ public:
 	void cargarDiagrama(VistaDiagrama* diagrama);
 	inline VistaProyecto* getProyecto(){return this->vproyecto;}
 	VistaDiagrama* getDiagActual();
+
+
 };
 
 #endif /* IDE_H_ */

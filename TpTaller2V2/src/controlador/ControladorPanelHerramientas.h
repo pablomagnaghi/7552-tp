@@ -6,12 +6,8 @@
 #include "../vista/VistaProyecto.h"
 #include "ComponentsBuilder.h"
 
-
-class Ide;
-
 class ControladorPanelHerramientas {
 private:
-	Ide * ide;
 	Gtk::Window * ventanaPrincipal;
 	Glib::RefPtr<Gtk::Builder> m_builder;
 
@@ -31,7 +27,6 @@ private:
 public:
 	ControladorPanelHerramientas(const Glib::RefPtr<Gtk::Builder>& builder, Gtk::Window * ventana);
 	virtual ~ControladorPanelHerramientas();
-	void setIde(Ide* ide);
 	void activarBotones();
 	void desactivarBotones();
 };

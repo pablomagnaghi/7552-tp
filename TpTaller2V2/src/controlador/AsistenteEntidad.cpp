@@ -6,6 +6,7 @@
  */
 
 #include "AsistenteEntidad.h"
+#include "../vista/Ide.h"
 
 AsistenteEntidad * AsistenteEntidad::instancia = NULL;
 
@@ -14,6 +15,7 @@ AsistenteEntidad::AsistenteEntidad(BaseObjectType* cobject, const Glib::RefPtr<
 	Gtk::Window(cobject), m_builder(builder) {
 	this->ventidad = NULL;
 	this->enlazarWidgets();
+	this->diagramaActual = Ide::getInstance()->getDiagActual();
 }
 
 AsistenteEntidad::~AsistenteEntidad() {
@@ -84,7 +86,7 @@ void AsistenteEntidad::on_botonCancelar_click() {
 
 void AsistenteEntidad::on_botonAgregarAtributo_click() {
 	//creo el nuevo atributo
-	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this->ventidad);
+	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this->ventidad,this->diagramaActual,NULL);
 	//Lo incormoramos en la lista
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();

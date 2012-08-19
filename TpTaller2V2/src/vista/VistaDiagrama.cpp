@@ -273,6 +273,7 @@ VistaDiagrama* VistaDiagrama::crearDiagramaHijo(string nombre) {
 	nuevoDiagrama->setNombre(nombre);
 	this->diagrama->agregarDiagramaHijo(nuevoDiagrama);
 	VistaDiagrama* diagramaHijo = new VistaDiagrama(nuevoDiagrama);
+	this->diagramas.push_back(diagramaHijo);
 	return diagramaHijo;
 }
 
@@ -423,6 +424,12 @@ void VistaDiagrama::agregarComponente(VistaComponente * componente) {
 	}
 }
 
+void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven){
+	if (ven != NULL) {
+		this->vistaentidades.push_back(ven);
+	}
+}
+
 // PERSISTENCIA REP
 /*
  // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
@@ -528,6 +535,13 @@ std::vector<VistaDiagrama*>::iterator VistaDiagrama::vdiagramasBegin() {
 
 std::vector<VistaDiagrama*>::iterator VistaDiagrama::vdiagramasEnd() {
 	return this->diagramas.end();
+}
+
+std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesBegin(){
+	return this->vistaentidades.begin();
+}
+std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesEnd(){
+	return this->vistaentidades.end();
 }
 
 VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
