@@ -35,7 +35,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #ifdef DEBUG
 	cout << "Agregar Entidad" << endl;
 #endif
-	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this->ide->getDiagActual());
+	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(NULL,NULL);
 #ifdef DEBUG
 	cout << "Vuelve" << endl;
 #endif
@@ -56,6 +56,8 @@ void ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click() {
 #ifdef DEBUG
 	cout << "Agregar Jerarquia" << endl;
 #endif
+	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama();
+	nuevaJerarquia->lanzarProp();
 }
 
 void ControladorPanelHerramientas::on_boton_Agregar_Union_click() {
@@ -89,11 +91,6 @@ void ControladorPanelHerramientas::enlazar_botones_de_menu(const Glib::RefPtr<
 			&ControladorPanelHerramientas::on_boton_Agregar_Comentario_click));
 }
 
-void ControladorPanelHerramientas::setIde(Ide * id) {
-
-	this->ide = id;
-
-}
 
 void ControladorPanelHerramientas::activarBotones() {
 	botonAgregarEntidad->set_sensitive(true);

@@ -10,8 +10,6 @@
 #include "./componentes/VistasDeComponentes.h"
 
 
-using namespace std;
-
 class VistaDiagrama: public Gtk::DrawingArea {
 private:
 	double zoom;
@@ -23,6 +21,7 @@ private:
 	std::vector<VistaComponente *> componentes;
 	std::vector<VistaComponente *> componentes_seleccionados;
 	std::vector<VistaDiagrama *> diagramas;
+	std::vector<VistaEntidadNueva *> vistaentidades;
 
 	// Para controlar el drag and drop
 	bool mouse_apretado;
@@ -110,12 +109,16 @@ public:
 
 	void agregarComponente(VistaComponente * componente);
 
+	void agregarVistaEntidadNueva(VistaEntidadNueva *ven);
+
 	std::string getNombre() const;
 
 	std::vector<VistaComponente*>::iterator componentesBegin();
 	std::vector<VistaComponente*>::iterator componentesEnd();
 	std::vector<VistaDiagrama*>::iterator vdiagramasBegin();
 	std::vector<VistaDiagrama*>::iterator vdiagramasEnd();
+	std::vector<VistaEntidadNueva*>::iterator vEntidadesBegin();
+	std::vector<VistaEntidadNueva*>::iterator vEntidadesEnd();
 
 	Diagrama * getDiagrama();
 	void test_cargar_componentes_visuales();

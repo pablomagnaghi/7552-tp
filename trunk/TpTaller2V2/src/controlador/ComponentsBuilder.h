@@ -13,27 +13,42 @@
 #include "../vista/componentes/VistaAtributo.h"
 #include "../vista/componentes/VistaLinea.h"
 #include "../vista/VistaDiagrama.h"
+#include "../vista/componentes/VistaJerarquia.h"
 
 
 class VistaProyecto;
 class VistaAtributo;
 class VistaEntidadNueva;
 class VistaDiagrama;
-class Ide;
+class VistaJerarquia;
 
 class ComponentsBuilder {
 private:
-	Ide *ide;
 	ComponentsBuilder();
 	static ComponentsBuilder * instancia;
 public:
 	static ComponentsBuilder * getInstance();
-	void setIde(Ide *vproy);
 	virtual ~ComponentsBuilder();
-	VistaEntidadNueva * crearEntidadNuevaEnDiagrama(VistaDiagrama* vdiag);
-	VistaAtributo * crearAtributoEnEntidad(VistaEntidadNueva *entidad);
-	VistaAtributo * crearAtributoEnAtributo(VistaAtributo *atribPadre);
+	/*
+	 * SI diagramaActual es NULL utilizara El diagrama actual del ide
+	 * Si entidad Nueva es null creara un nuevo modelo de entidad nueva
+	 */
+	VistaEntidadNueva * crearEntidadNuevaEnDiagrama(VistaDiagrama *diagramaActual, EntidadNueva *entidadNueva);
 
+	/*
+	 *ventidad no puede ser NULL
+	 *SI diagramaActual es NULL utilizara El diagrama actual del ide, sino deberia pasarsele el mismo diagrama donde se encuentra la ventidad
+	 *Si atrib es null se creara uno nuevo sino se utilizara el modelo pasado
+	 */
+	VistaAtributo * crearAtributoEnEntidad(VistaEntidadNueva *ventidad,VistaDiagrama *diagramaActual, Atributo *atrib);
+	/*
+	*vatribPadre no puede ser NULL
+	*SI diagramaActual es NULL utilizara El diagrama actual del ide, sino deberia pasarsele el mismo diagrama donde se encuentra la atribPadre
+	*Si atrib es null se creara uno nuevo sino se utilizara el modelo pasado
+	*/
+	VistaAtributo * crearAtributoEnAtributo(VistaAtributo *atribPadre,VistaDiagrama *diagramaActual,Atributo *atrib);
+
+	VistaJerarquia* crearJerarquiaEnDiagrama();
 
 };
 

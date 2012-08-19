@@ -27,24 +27,30 @@ ComponentsBuilder * ComponentsBuilder::getInstance() {
 	}
 }
 
-void ComponentsBuilder::setIde(Ide *ide){
-	this->ide = ide;
+
+VistaEntidadNueva * ComponentsBuilder::crearEntidadNuevaEnDiagrama(VistaDiagrama *diagramaActual=NULL, EntidadNueva *entidadNueva=NULL) {
+	if (diagramaActual == NULL){
+		diagramaActual = Ide::getInstance()->getDiagActual();
+	}
+	if (entidadNueva == NULL){
+		entidadNueva = new EntidadNueva();
+	}
+	VistaEntidadNueva * vEntidadNueva = new VistaEntidadNueva(entidadNueva);
+	diagramaActual->getDiagrama()->agregarEntidadNueva(entidadNueva);
+	diagramaActual->agregarComponente(vEntidadNueva);
+	diagramaActual->agregarVistaEntidadNueva(vEntidadNueva);
+	return vEntidadNueva;
 }
 
-VistaEntidadNueva * ComponentsBuilder::crearEntidadNuevaEnDiagrama(VistaDiagrama *vdiag) {
-	if (this->ide != NULL) {
-		EntidadNueva * entidadNueva = new EntidadNueva();
-		VistaEntidadNueva * vEntidadNueva = new VistaEntidadNueva(entidadNueva);
-		vdiag->getDiagrama()->agregarEntidadNueva(entidadNueva);
-		vdiag->agregarComponente(vEntidadNueva);
-		return vEntidadNueva;
-	}else return NULL;
-}
-
-VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaEntidadNueva *ventidad){
-	if (this->ide != NULL){
+VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaEntidadNueva *ventidad,VistaDiagrama *diagramaActual=NULL, Atributo *atrib=NULL){
+	if (ventidad != NULL){
+		if (atrib == NULL){
+			atrib = new Atributo();
+		}
+		if (diagramaActual == NULL){
+				diagramaActual = Ide::getInstance()->getDiagActual();
+		}
 		//enlazar con la entidad crear union, poner en diagrama actual,etc.
-		Atributo *atrib = new Atributo();
 		VistaAtributo *vatrib = new VistaAtributo(atrib);
 		ventidad->getEntidad()->agregarAtributo(atrib);
 		ventidad->agregarAtributo(vatrib);
@@ -53,16 +59,21 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaEntidadNueva *ven
 		lineaEntidadAtributo->setComponenteHasta(vatrib);
 
 		//Agrego vatributo y vlinea a el diag
-		this->ide->getDiagActual()->agregarComponente(vatrib);
-		this->ide->getDiagActual()->agregarComponente(lineaEntidadAtributo);
+		diagramaActual->agregarComponente(vatrib);
+		diagramaActual->agregarComponente(lineaEntidadAtributo);
 		return vatrib;
 	} else return NULL;
 }
 
-VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaAtributo *vatribPadre){
-	if (this->ide != NULL){
+VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaAtributo *vatribPadre,VistaDiagrama *diagramaActual=NULL, Atributo *atrib=NULL){
+	if (vatribPadre != NULL){
 		//enlazar con el atributo crear union, poner en diagrama actual,etc.
-		Atributo *atrib = new Atributo();
+		if (atrib == NULL){
+			atrib = new Atributo();
+		}
+		if (diagramaActual == NULL){
+			diagramaActual = Ide::getInstance()->getDiagActual();
+		}
 		VistaAtributo *vatrib = new VistaAtributo(atrib);
 		vatribPadre->getAtributo()->agregarAtributo(atrib);
 		vatribPadre->agregarAtributo(vatrib);
@@ -71,12 +82,27 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaAtributo *vatrib
 		lineaAtributoAtributo->setComponenteHasta(vatrib);
 
 		//Agrego vatributo y vlinea a el diag
-		this->ide->getDiagActual()->agregarComponente(vatrib);
-		this->ide->getDiagActual()->agregarComponente(lineaAtributoAtributo);
+		diagramaActual->agregarComponente(vatrib);
+		diagramaActual->agregarComponente(lineaAtributoAtributo);
 		return vatrib;
 	} else return NULL;
 }
 
+VistaJerarquia* ComponentsBuilder::crearJerarquiaEnDiagrama(){
+	//if (this->ide != NULL) {
+		Jerarquia * j = new Jerarquia();
+		VistaJerarquia * vJerarquia = new VistaJerarquia(j);
+		Ide::getInstance()->getDiagActual()->getDiagrama()->agregarJerarquia(j);
+		Ide::getInstance()->getDiagActual()->agregarComponente(vJerarquia);
+		cout<<"JERAQUIA CREADA EN PANEL"<<endl;
+		return vJerarquia;
+	//}else return NULL;
+}
+
+/*
+VistaDiagrama* ComponentsBuilder::getDiagramaActual(){
+	return this->ide->getDiagActual();
+}*/
 
 
 

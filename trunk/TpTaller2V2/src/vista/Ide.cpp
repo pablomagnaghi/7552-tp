@@ -5,7 +5,10 @@
  *      Author: metal
  */
 
+
 #include "Ide.h"
+Ide * Ide::instancia = NULL;
+//VistaDiagrama * Ide::diagactual = NULL;
 
 Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 	Gtk::Window(cobject), m_builder(builder), treePanel(builder, this),
@@ -16,13 +19,13 @@ Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 	this->set_size_request(800, 600);
 	//this->maximize();
 	this->vproyecto = NULL;
-	this->diagactual = NULL;
+	//this->diagactual = NULL;
 	this->show();
 
 	//TODO ESTO ES PARA PROBAR
 	this->nuevoProyecto();
 	ComponentsBuilder* c = ComponentsBuilder::getInstance();
-	c->setIde(this);
+	this->instancia = this;
 }
 
 Ide::~Ide() {
@@ -61,7 +64,6 @@ void Ide::nuevoProyecto() {
 		this->treePanel.regenerar();
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();
-		this->controladorPanelHerramientas.setIde(this);
 	} else {
 		Gtk::MessageDialog mensaje(*this, "Error", false, Gtk::MESSAGE_ERROR,
 				Gtk::BUTTONS_OK);
@@ -76,8 +78,8 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 	this->m_builder->get_widget("contenedor_diag", contenedorDiag);
 
 	//Primero tengo que sacar el diag actual
-	if (this->diagactual != NULL) {
-		contenedorDiag->remove(*(this->diagactual));
+	if (diagactual != NULL) {
+		contenedorDiag->remove(*(diagactual));
 	}
 
 #ifdef DEBUG
@@ -87,13 +89,21 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 
 	contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
 	contenedorDiag->put(*diagrama, 0, 0);
-	this->diagactual = diagrama;
+	diagactual = diagrama;
 
 	//diagrama->show();
 	contenedorDiag->show_all();
 }
 
 VistaDiagrama* Ide::getDiagActual(){
-	VistaDiagrama *d = this->diagactual;
+	VistaDiagrama *d = diagactual;
 	return d;
+}
+
+Ide * Ide::getInstance() {
+	if (Ide::instancia != NULL) {
+		return Ide::instancia;
+	} else {
+		return Ide::instancia;
+	}
 }

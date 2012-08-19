@@ -6,6 +6,7 @@
  */
 
 #include "AsistenteAtributo.h"
+#include "../vista/Ide.h"
 
 AsistenteAtributo * AsistenteAtributo::instancia = NULL;
 
@@ -15,18 +16,21 @@ AsistenteAtributo::AsistenteAtributo(BaseObjectType* cobject, const Glib::RefPtr
 	//this->hide();
 	this->vatributo = NULL;
 	this->enlazarWidgets();
+	this->diagramaActual = Ide::getInstance()->getDiagActual();
 }
 
 AsistenteAtributo::~AsistenteAtributo() {
 
 }
 
-void AsistenteAtributo::setAtributo(VistaAtributo* atrib) {
+void AsistenteAtributo::setDiagActual(VistaDiagrama *vdiagActual) {
+	this->diagramaActual = vdiagActual;
+}
 
+void AsistenteAtributo::setAtributo(VistaAtributo* atrib) {
 	// TODO CARGAR DATOS DE ENTIDAD NUEVA
 	this->vatributo = atrib;
 	this->inicializarAsistente();
-
 }
 
 void AsistenteAtributo::enlazarWidgets() {
@@ -109,7 +113,7 @@ void AsistenteAtributo::on_botonCancelar_click() {
 
 void AsistenteAtributo::on_botonAgregarAtributo_click() {
 	//creo el nuevo atributo
-	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this->vatributo);
+	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this->vatributo,this->diagramaActual,NULL);
 	//Lo incormoramos en la lista
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();
@@ -118,6 +122,7 @@ void AsistenteAtributo::on_botonAgregarAtributo_click() {
 	} else {
 		delete atrib;
 	}
+
 }
 
 void AsistenteAtributo::on_botonModificarAtributo_click() {

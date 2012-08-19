@@ -3,6 +3,7 @@
 
 #include "VistaComponente.h"
 #include "VistaEntidadNueva.h"
+#include "../../controlador/AsistenteJerarquia.h"
 
 #include "../../modelo/componentes/Jerarquia.h"
 
@@ -12,7 +13,7 @@ class VistaEntidadNueva;
 
 class VistaJerarquia: public VistaComponente {
 private:
-
+	bool prop_lanzada;
 	Jerarquia * jerarquia;
 	VistaEntidad * padre;
 	std::vector<VistaEntidadNueva *> hijos;
@@ -26,6 +27,7 @@ public:
 	virtual bool esSeleccionado(double x, double y);
 	virtual void finSeleccionado(double x, double y);
 	virtual bool lanzarProp();
+	void resetearLanzarProp();
 	virtual bool contieneAEstePunto(double x, double y);
 	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
 	virtual bool esPuntoDeRedimension(double x, double y);

@@ -6,6 +6,8 @@
 
 VistaJerarquia::VistaJerarquia(Jerarquia * jerarquiaModelo) {
 	this->jerarquia = jerarquiaModelo;
+	this->prop_lanzada = false;
+	this->padre = NULL;
 }
 
 VistaJerarquia::~VistaJerarquia() {
@@ -56,6 +58,7 @@ void VistaJerarquia::dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double 
 
 // TODO REFACTORIZAR
 void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
+  if (this->padre != NULL){
 	double x0, x1, x2, x3, y0, y1, y2, y3;
 	double xmin, xmax, ymin, ymax;
 	cr->set_line_width(1);
@@ -125,7 +128,7 @@ void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		 cr->stroke();
 		 }
 	}
-
+  }
 }
 
 //Indica q sucede cuando el objeto es seleccionado
@@ -140,6 +143,16 @@ void VistaJerarquia::finSeleccionado(double x, double y) {
 
 //Lanza el asistente de prpiedades del objeto en cuestion.
 bool VistaJerarquia::lanzarProp() {
+	if (!this->prop_lanzada) {
+		AsistenteJerarquia* nuevaProp;
+		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(
+				ARCH_GLADE_JERAR);
+		nHbuilder->get_widget_derived("PropJerarquia", nuevaProp);
+		nuevaProp->setJerarquia(this);
+		this->prop_lanzada = true;
+		nuevaProp->show();
+		return true;
+	}
 	return false;
 }
 
@@ -207,4 +220,8 @@ void VistaJerarquia::setEntidadPadre(VistaEntidad * vistaEntidad) {
 
 VistaEntidad * VistaJerarquia::getEntidadPadre() {
 	return this->padre;
+}
+
+void VistaJerarquia::resetearLanzarProp(){
+	this->prop_lanzada = false;
 }

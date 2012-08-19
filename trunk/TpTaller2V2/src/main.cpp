@@ -1,4 +1,4 @@
-/*
+
 #include "vista/Ide.h"
 #include "controlador/ControladorMenu.h"
 #include "vista/VistaConstantes.h"
@@ -66,4 +66,4 @@ int main(int argc, char *argv[]) {
 
 	return 0;
 }
-*/
+

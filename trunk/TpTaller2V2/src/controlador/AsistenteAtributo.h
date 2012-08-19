@@ -10,6 +10,7 @@
 #include <gtkmm.h>
 #include "../vista/componentes/VistaAtributo.h"
 #include "../modelo/componentes/Atributo.h"
+
 #include "ComponentsBuilder.h"
 
 class VistaAtributo;
@@ -22,6 +23,7 @@ private:
 	Glib::RefPtr<Gtk::Builder> m_builder;
 	Gtk::Entry * entryNombre;
 	Gtk::ComboBoxText* comboTipo;
+	VistaDiagrama *diagramaActual;
 
 	static AsistenteAtributo * instancia;
 
@@ -64,6 +66,7 @@ public:
 	//static AsistenteAtributo * getInstance(const Glib::RefPtr<Gtk::Builder>& builder);
 	//static AsistenteAtributo * getInstance();
 	void setAtributo(VistaAtributo* atrib);
+	void setDiagActual(VistaDiagrama *vdiagActual);
 };
 
 #endif /* AsistenteAtributo_H_ */
