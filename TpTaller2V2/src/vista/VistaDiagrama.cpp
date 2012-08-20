@@ -272,6 +272,7 @@ void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
 
 	atributoCompuesto1->setposini(130, 210);
 	e->agregarAtributo(e1);
+	e1->setNombre("dia");
 	atributoCompuesto->agregarAtributo(atributoCompuesto1);
 	this->componentes.push_back(atributoCompuesto1);
 	lineaEntidadAtributo = new VistaLinea();
@@ -282,6 +283,7 @@ void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
 
 	atributoCompuesto2->setposini(172, 210);
 	e->agregarAtributo(e2);
+	e2->setNombre("mes");
 	atributoCompuesto->agregarAtributo(atributoCompuesto2);
 	this->componentes.push_back(atributoCompuesto2);
 	lineaEntidadAtributo = new VistaLinea();
@@ -292,6 +294,7 @@ void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
 
 	atributoCompuesto3->setposini(210, 210);
 	e->agregarAtributo(e3);
+	e3->setNombre("año");
 	atributoCompuesto->agregarAtributo(atributoCompuesto3);
 	this->componentes.push_back(atributoCompuesto3);
 	lineaEntidadAtributo = new VistaLinea();

@@ -30,6 +30,25 @@ bool VistaAtributo::lanzarProp() {
 	return false;
 }
 
+void VistaAtributo::actualizar_coordenadas() {
+	double radio;
+	double centro_x, centro_y;
+	if (this->vistaAtributos.empty()) {
+		radio = 3;
+		centro_x = this->pos_ini_x + radio;
+		centro_y = this->pos_ini_y + radio;
+
+		this->pos_fin_x = centro_x + radio;
+		this->pos_fin_y = centro_y + radio;
+	}
+}
+
+void VistaAtributo::setposini(double x, double y) {
+	this->pos_ini_x = x;
+	this->pos_ini_y=y;
+	this->actualizar_coordenadas();
+}
+
 void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(1);
 	Cairo::TextExtents textExtents;
@@ -41,6 +60,7 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		texto.append(this->atributo->getCardinalidadMaxima());
 		texto.append(")");
 	}
+	cr->get_text_extents(texto, textExtents);
 
 	if (!this->seleccionado) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
@@ -51,27 +71,45 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	}
 
 	double centro_x, centro_y;
+	this->actualizar_coordenadas();
 
 	if (this->vistaAtributos.empty()) {
 		double radio;
+		double x_texto, y_texto;
 		radio = 3;
 		centro_x = this->pos_ini_x + radio;
 		centro_y = this->pos_ini_y + radio;
 
-		this->pos_fin_x = centro_x + radio;
-		this->pos_fin_y = centro_y + radio;
 
-		//cr->move_to(centro_x, this->pos_ini_y);
+
 		cr->arc(centro_x, centro_y, radio, 0, 2 * M_PI);
 		if (this->esIdentificador) {
 			cr->fill();
 		} else {
 			cr->stroke();
 		}
+
+		//Dibujo el nombre
+		double x0, y0, x1, y1;
+		this->lineaConEntidad->actualizar_coordenadas();
+		this->lineaConEntidad->getposini(x0, y0);
+		this->lineaConEntidad->getposfin(x1, y1);
+		cout << "X0=" << x0 << " Y0=" << y0 << " X1=" << x1 << " Y1=" << y1 << endl;
+		if (x0 < this->pos_ini_x || x0 > this->pos_fin_x || y0 < this->pos_ini_y || y0
+				> this->pos_fin_y) {
+			Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(x1, y1, x0, y0, textExtents.width,
+					textExtents.height, x_texto, y_texto);
+		} else {
+			Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(x0, y0, x1, y1, textExtents.width,
+					textExtents.height, x_texto, y_texto);
+		}
+		cr->move_to(x_texto, y_texto);
+		cr->show_text(texto);
+		cr->stroke();
+
 	} else {
 		double delta_x, delta_y;
 		if (this->pos_fin_x < this->pos_ini_x || this->pos_fin_y < this->pos_ini_y) {
-			cr->get_text_extents(texto, textExtents);
 			this->calcularDimensionesAPartirDeTexto(&textExtents);
 		}
 		// Dibujo una elipse
@@ -275,6 +313,11 @@ bool VistaAtributo::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 bool VistaAtributo::agregarAtributo(VistaAtributo* atributo) {
 	if (atributo == NULL) {
 		return false;
+	}
+	// Para que se recalcule el tamaño
+	if(this->vistaAtributos.empty()){
+		this->pos_fin_y = 0;
+		this->pos_fin_x = 0;
 	}
 	this->vistaAtributos.push_back(atributo);
 	return true;

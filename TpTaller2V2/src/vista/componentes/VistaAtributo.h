@@ -18,6 +18,8 @@ private:
 
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 
+	void actualizar_coordenadas();
+
 public:
 	VistaAtributo(Atributo * atributoModelo);
 	virtual ~VistaAtributo();
@@ -28,6 +30,8 @@ public:
 	void resetearLanzarProp();
 
 	Atributo* getAtributo();
+
+	virtual void setposini(double x, double y);
 
 	// Solo se puede agregar y sacar atributos a la entidad nueva
 	bool agregarAtributo(VistaAtributo* atrib);

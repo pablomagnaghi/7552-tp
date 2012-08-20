@@ -6,6 +6,8 @@
 #include "VistaLinea.h"
 
 VistaLinea::VistaLinea() {
+	this->desde = NULL;
+	this->hasta = NULL;
 	// TODO Auto-generated constructor stub
 }
 
@@ -13,8 +15,23 @@ VistaLinea::~VistaLinea() {
 	// TODO Auto-generated destructor stub
 }
 
-void VistaLinea::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
+void VistaLinea::actualizar_coordenadas() {
 	double x0, x1, x2, x3, y0, y1, y2, y3;
+	if (this->desde != NULL) {
+		this->desde->getposini(x0, y0);
+		this->desde->getposfin(x1, y1);
+	}
+	if (this->hasta != NULL) {
+		this->hasta->getposini(x2, y2);
+		this->hasta->getposfin(x3, y3);
+	}
+	this->pos_ini_x = (x0 + x1) / 2;
+	this->pos_fin_x = (x2 + x3) / 2;
+	this->pos_ini_y = (y0 + y1) / 2;
+	this->pos_fin_y = (y2 + y3) / 2;
+}
+
+void VistaLinea::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(1);
 
 	if (!this->seleccionado) {
@@ -25,15 +42,7 @@ void VistaLinea::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 				colorDeSeleccion.get_blue_p());
 	}
 
-	this->desde->getposini(x0, y0);
-	this->desde->getposfin(x1, y1);
-	this->hasta->getposini(x2, y2);
-	this->hasta->getposfin(x3, y3);
-
-	this->pos_ini_x = (x0 + x1) / 2;
-	this->pos_fin_x = (x2 + x3) / 2;
-	this->pos_ini_y = (y0 + y1) / 2;
-	this->pos_fin_y = (y2 + y3) / 2;
+	this->actualizar_coordenadas();
 
 	this->desde->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
 			this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
@@ -48,8 +57,9 @@ void VistaLinea::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		Cairo::TextExtents textExtents;
 		cr->get_text_extents(this->texto, textExtents);
 		double x_texto, y_texto;
-		Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-				this->pos_fin_y, textExtents.width, textExtents.height, x_texto, y_texto);
+		Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(this->pos_ini_x, this->pos_ini_y,
+				this->pos_fin_x, this->pos_fin_y, textExtents.width, textExtents.height, x_texto,
+				y_texto);
 		cr->move_to(x_texto, y_texto);
 		cr->show_text(texto);
 		cr->stroke();
@@ -58,10 +68,12 @@ void VistaLinea::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 void VistaLinea::setComponenteDesde(VistaComponente *comp) {
 	this->desde = comp;
+	this->actualizar_coordenadas();
 }
 
 void VistaLinea::setComponenteHasta(VistaComponente *comp) {
 	this->hasta = comp;
+	this->actualizar_coordenadas();
 }
 
 bool VistaLinea::esSeleccionado(double x, double y) {

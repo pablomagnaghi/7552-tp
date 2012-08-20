@@ -58,9 +58,9 @@ public:
 	virtual ~VistaComponente();
 
 	void getposini(double &x, double&y) const;
-	void setposini(double x, double y);
+	virtual void setposini(double x, double y);
 	void getposfin(double&x, double&y) const;
-	void setposfin(double x, double y);
+	virtual void setposfin(double x, double y);
 	void getposcentro(double &x, double&y) const;
 
 	void setDibujable(bool d);

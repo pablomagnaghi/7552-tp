@@ -4,12 +4,13 @@
 #include "VistaComponente.h"
 #include <string>
 
-
 class VistaLinea: public VistaComponente {
 private:
 	std::string texto;
 	VistaComponente * desde;
 	VistaComponente * hasta;
+
+
 public:
 	VistaLinea();
 	virtual ~VistaLinea();
@@ -20,6 +21,8 @@ public:
 	void setComponenteDesde(VistaComponente *);
 
 	void setComponenteHasta(VistaComponente *);
+
+	void actualizar_coordenadas();
 
 	//Indica q sucede cuando el objeto es seleccionado
 	virtual bool esSeleccionado(double x, double y);
@@ -51,7 +54,7 @@ public:
 			double pos_fin_y, double & x, double & y);
 
 	void setTexto(const std::string &);
-	 std::string getTexto();
+	std::string getTexto();
 
 };
 
