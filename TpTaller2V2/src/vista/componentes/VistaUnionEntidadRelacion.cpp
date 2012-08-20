@@ -1,15 +1,32 @@
 #include "VistaUnionEntidadRelacion.h"
 
+#include <iostream>
+using namespace std;
+
 VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(UnionEntidadRelacion * unionModelo,
 		VistaEntidadNueva * vEntidad, VistaRelacion * vRelacion) {
 
 	this->unionModelo = unionModelo;
 	this->entidad = vEntidad;
 	this->relacion = vRelacion;
+	this->dibujar_cardinalidad = true;
 }
 
 VistaUnionEntidadRelacion::~VistaUnionEntidadRelacion() {
 	// TODO Auto-generated destructor stub
+}
+
+void VistaUnionEntidadRelacion::actualizar_coordenadas() {
+	double x0, x1, x2, x3, y0, y1, y2, y3;
+	this->entidad->getposini(x0, y0);
+	this->entidad->getposfin(x1, y1);
+	this->relacion->getposini(x2, y2);
+	this->relacion->getposfin(x3, y3);
+
+	this->pos_ini_x = (x0 + x1) / 2;
+	this->pos_fin_x = (x2 + x3) / 2;
+	this->pos_ini_y = (y0 + y1) / 2;
+	this->pos_fin_y = (y2 + y3) / 2;
 }
 
 std::string VistaUnionEntidadRelacion::getNombre() const {
@@ -37,10 +54,7 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	this->relacion->getposini(x2, y2);
 	this->relacion->getposfin(x3, y3);
 
-	this->pos_ini_x = (x0 + x1) / 2;
-	this->pos_fin_x = (x2 + x3) / 2;
-	this->pos_ini_y = (y0 + y1) / 2;
-	this->pos_fin_y = (y2 + y3) / 2;
+	this->actualizar_coordenadas();
 
 	if (!this->entidad->esDebil()) {
 
@@ -69,6 +83,28 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 		cr->move_to(x2, y2);
 		cr->line_to(x3, y3);
+		cr->stroke();
+
+	}
+
+	if (this->dibujar_cardinalidad) {
+		Cairo::TextExtents textExtents;
+		std::string texto;
+		texto = "(";
+		texto.append(this->unionModelo->getCardinalidadMinima());
+		texto.append(";");
+		texto.append(this->unionModelo->getCardinalidadMaxima());
+		texto.append(")");
+		if (this->unionModelo->getRol() != "") {
+			texto.append(":");
+			texto.append(this->unionModelo->getRol());
+		}
+		cr->get_text_extents(texto, textExtents);
+		double x_texto, y_texto;
+		Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+				this->pos_fin_y, textExtents.width, textExtents.height, x_texto, y_texto);
+		cr->move_to(x_texto, y_texto);
+		cr->show_text(texto);
 		cr->stroke();
 
 	}
@@ -110,3 +146,10 @@ bool VistaUnionEntidadRelacion::obtenerInterseccionConLinea(double pos_ini_x, do
 		double pos_fin_x, double pos_fin_y, double & x, double & y) {
 	return false;
 }
+
+void VistaUnionEntidadRelacion::getPuntoMedioLinea(double &x, double &y) {
+	this->actualizar_coordenadas();
+	x = (this->pos_ini_x + this->pos_fin_x) / 2;
+	y = (this->pos_ini_y + this->pos_fin_y) / 2;
+}
+

@@ -175,29 +175,38 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 
 void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
 	EntidadNueva * a = new EntidadNueva();
-	Atributo * b = new Atributo();
-	Atributo * c = new Atributo();
-	Atributo * d = new Atributo();
-	Atributo * e = new Atributo();
-	Atributo * e1 = new Atributo();
-	Atributo * e2 = new Atributo();
-	Atributo * e3 = new Atributo();
-	Identificador * id1 = new Identificador();
-	Identificador * id2 = new Identificador();
-	Identificador * id3 = new Identificador();
-
 	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
+	Atributo * b = new Atributo();
 	VistaAtributo * atributo = new VistaAtributo(b);
+	Atributo * c = new Atributo();
 	VistaAtributo * atributo1 = new VistaAtributo(c);
+	Atributo * d = new Atributo();
 	VistaAtributo * atributo2 = new VistaAtributo(d);
+	Atributo * e = new Atributo();
 	VistaAtributo * atributoCompuesto = new VistaAtributo(e);
+	Atributo * e1 = new Atributo();
 	VistaAtributo * atributoCompuesto1 = new VistaAtributo(e1);
+	Atributo * e2 = new Atributo();
 	VistaAtributo * atributoCompuesto2 = new VistaAtributo(e2);
+	Atributo * e3 = new Atributo();
 	VistaAtributo * atributoCompuesto3 = new VistaAtributo(e3);
 	VistaLinea * lineaEntidadAtributo;
+	Identificador * id1 = new Identificador();
 	VistaIdentificador * identificador1 = new VistaIdentificador(id1);
+	Identificador * id2 = new Identificador();
 	VistaIdentificador * identificador2 = new VistaIdentificador(id2);
+	Identificador * id3 = new Identificador();
 	VistaIdentificador * identificador3 = new VistaIdentificador(id2);
+	Relacion * f = new Relacion();
+	VistaRelacion * relacion = new VistaRelacion(f);
+	UnionEntidadRelacion *g = new UnionEntidadRelacion(a, f);
+	VistaUnionEntidadRelacion * unionEntidadRelacionDebil = new VistaUnionEntidadRelacion(g,
+			entidad, relacion);
+	EntidadNueva * h = new EntidadNueva();
+	VistaEntidadNueva * entidadFuerte = new VistaEntidadNueva(h);
+	UnionEntidadRelacion *i = new UnionEntidadRelacion(h, f);
+	VistaUnionEntidadRelacion * unionEntidadRelacionFuerte = new VistaUnionEntidadRelacion(i,
+			entidadFuerte, relacion);
 
 	entidad->setposini(150, 100);
 	entidad->setposfin(240, 110);
@@ -242,7 +251,6 @@ void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
 	identificador2->agregarAtributo(atributo1);
 	id2->agregarCodigoAtributo(d->getCodigo());
 	identificador2->agregarAtributo(atributo2);
-	this->componentes.push_back(identificador2);
 
 	atributoCompuesto->setposini(142, 155);
 	//atributoCompuesto->setposfin(202, 185);
@@ -288,6 +296,21 @@ void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
 	lineaEntidadAtributo->setComponenteHasta(atributoCompuesto3);
 	atributoCompuesto3->setLinea(lineaEntidadAtributo);
 	this->componentes.push_back(lineaEntidadAtributo);
+
+	entidadFuerte->setposini(250,50);
+	entidadFuerte->setposfin(350,65);
+	this->componentes.push_back(entidadFuerte);
+	relacion->setNombre("Relacion");
+	relacion->setposini(250,100);
+	relacion->setposfin(350,120);
+	this->componentes.push_back(relacion);
+	this->componentes.push_back(unionEntidadRelacionDebil);
+	this->componentes.push_back(unionEntidadRelacionFuerte);
+
+	id2->agregarCodigoRelacion(f->getCodigo());
+	identificador2->agregarEntidadFuerte(unionEntidadRelacionFuerte);
+
+	this->componentes.push_back(identificador2);
 }
 
 void VistaDiagrama::obtenerVistaAPartirDeRelacion(VistaRelacion * vRelacion, std::vector<
@@ -574,7 +597,7 @@ void VistaDiagrama::agregarComponente(VistaComponente * componente) {
 	}
 }
 
-void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven){
+void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven) {
 	if (ven != NULL) {
 		this->vistaentidades.push_back(ven);
 	}
@@ -687,10 +710,10 @@ std::vector<VistaDiagrama*>::iterator VistaDiagrama::vdiagramasEnd() {
 	return this->diagramas.end();
 }
 
-std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesBegin(){
+std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesBegin() {
 	return this->vistaentidades.begin();
 }
-std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesEnd(){
+std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesEnd() {
 	return this->vistaentidades.end();
 }
 

@@ -42,8 +42,18 @@ void VistaLinea::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 	cr->move_to(this->pos_ini_x, this->pos_ini_y);
 	cr->line_to(this->pos_fin_x, this->pos_fin_y);
-
 	cr->stroke();
+
+	if (!this->texto.empty()) {
+		Cairo::TextExtents textExtents;
+		cr->get_text_extents(this->texto, textExtents);
+		double x_texto, y_texto;
+		Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+				this->pos_fin_y, textExtents.width, textExtents.height, x_texto, y_texto);
+		cr->move_to(x_texto, y_texto);
+		cr->show_text(texto);
+		cr->stroke();
+	}
 }
 
 void VistaLinea::setComponenteDesde(VistaComponente *comp) {
@@ -79,7 +89,7 @@ void VistaLinea::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExte
 
 // Verifica si el punto cae dentro de un punto para redimensionar el elemento
 bool VistaLinea::esPuntoDeRedimension(double x, double y) {
-return false;
+	return false;
 }
 
 void VistaLinea::setMouseArriba(double x, double y) {
@@ -90,7 +100,7 @@ void VistaLinea::redimensionar(double x, double y) {
 
 }
 
-std::string VistaLinea::getNombre()const {
+std::string VistaLinea::getNombre() const {
 	return "Linea";
 }
 
@@ -101,4 +111,11 @@ bool VistaLinea::contieneEsteComponente(Componente *) {
 bool VistaLinea::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 		double pos_fin_y, double & x, double & y) {
 	return false;
+}
+
+void VistaLinea::setTexto(const std::string &txt) {
+	this->texto = txt;
+}
+std::string VistaLinea::getTexto() {
+	return this->texto;
 }

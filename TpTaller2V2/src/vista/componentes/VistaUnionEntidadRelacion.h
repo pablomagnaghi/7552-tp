@@ -13,6 +13,9 @@ private:
 	UnionEntidadRelacion * unionModelo;
 	VistaEntidadNueva * entidad;
 	VistaRelacion * relacion;
+	bool dibujar_cardinalidad;
+
+	void actualizar_coordenadas();
 public:
 	VistaUnionEntidadRelacion(UnionEntidadRelacion * unionModelo, VistaEntidadNueva * vEntidad, VistaRelacion * vRelacion);
 	virtual ~VistaUnionEntidadRelacion();
@@ -48,6 +51,8 @@ public:
 
 	virtual void redimensionar(double x, double y);
 	virtual std::string getNombre() const;
+
+	void getPuntoMedioLinea(double&,double &);
 };
 
 #endif /* VISTAUNIONENTIDADRELACION_H_ */
