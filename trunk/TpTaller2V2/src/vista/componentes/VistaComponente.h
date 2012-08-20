@@ -112,6 +112,8 @@ public:
 			double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
 			double & y)=0;
 
+	bool estaSeleccionado();
+
 	// PERSISTENCIA REP
 	VistaComponente(XmlNodo*);
 	XmlNodo guardarXmlREP();

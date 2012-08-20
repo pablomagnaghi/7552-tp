@@ -9,5 +9,6 @@
 #include "VistaJerarquia.h"
 #include "VistaLinea.h"
 #include "VistaAtributo.h"
+#include "VistaIdentificador.h"
 
 #endif /* VISTASDECOMPONENTES_H_ */

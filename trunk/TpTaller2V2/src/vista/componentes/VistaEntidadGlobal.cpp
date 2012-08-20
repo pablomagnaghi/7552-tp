@@ -1,33 +1,59 @@
-/* VistaEntidadGlobal.cpp
- *  Created on: 07/07/2012
- *      Author: Gonzalo Ferrero 89657
- */
-
 #include "VistaEntidadGlobal.h"
 
-VistaEntidadGlobal::VistaEntidadGlobal() {
-	// TODO Auto-generated constructor stub
-
+VistaEntidadGlobal::VistaEntidadGlobal(EntidadGlobal * eg) {
+	this->entidad = eg;
 }
 
 VistaEntidadGlobal::~VistaEntidadGlobal() {
-	// TODO Auto-generated destructor stub
+
 }
 
-std::string VistaEntidadGlobal::getNombre() const{
+std::string VistaEntidadGlobal::getNombre() const {
 	return this->entidad->getNombre();
 }
 
-bool VistaEntidadGlobal::contieneEsteComponente(Componente * c){
+void VistaEntidadGlobal::setNombre(const std::string & nombre) {
+	this->entidad->setNombre(nombre);
+}
+
+bool VistaEntidadGlobal::contieneEsteComponente(Componente * c) {
 	return this->entidad == c;
 }
-bool VistaEntidadGlobal::obtenerInterseccionConLinea(double pos_ini_x,
-			double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
-			double & y){
 
+bool VistaEntidadGlobal::lanzarProp() {
+	return false;
+}
 
+void VistaEntidadGlobal::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
+}
 
+bool VistaEntidadGlobal::esSeleccionado(double x, double y) {
+	return false;
+}
+
+void VistaEntidadGlobal::finSeleccionado(double x, double y) {
+
+}
+
+bool VistaEntidadGlobal::contieneAEstePunto(double x, double y) {
 
 	return false;
 }
+
+void VistaEntidadGlobal::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents) {
+
+}
+
+bool VistaEntidadGlobal::esPuntoDeRedimension(double x, double y) {
+	return false;
+}
+
+void VistaEntidadGlobal::setMouseArriba(double x, double y) {
+
+}
+
+void VistaEntidadGlobal::redimensionar(double x, double y) {
+
+}
+

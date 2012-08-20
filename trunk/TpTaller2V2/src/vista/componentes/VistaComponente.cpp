@@ -251,3 +251,7 @@ XmlNodo VistaComponente::guardarXmlREP() {
 
 	return nodo;
 }
+
+bool  VistaComponente::estaSeleccionado(){
+	return this->seleccionado;
+}

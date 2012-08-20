@@ -75,7 +75,7 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 	cotaFinalInterseccion.y = MIN(MAX(y0, y1), MAX(y2, y3));
 #if DEBUG_GEOMETRIA==1
 	cout << "Cota: (" << cotaInicialInterseccion.x << ";" << cotaInicialInterseccion.y << ") ("
-			<< cotaFinalInterseccion.x << ";" << cotaFinalInterseccion.y << ")" << std::endl;
+	<< cotaFinalInterseccion.x << ";" << cotaFinalInterseccion.y << ")" << std::endl;
 #endif
 	// ACOTO en X y busco los Y
 	acotarX(x0, x1, y0, y1, m0, posInicialLinea1, posFinalLinea1, cotaInicialInterseccion,
@@ -225,7 +225,6 @@ bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1
 
 void Geometria::obtenerPuntosDeTriangulo(double x0, double y0, double x1, double y1, double altura,
 		double base, double & x2, double & y2, double & x3, double & y3) {
-	double m = NAN; // MACRO DE MATH NOT A NUMBER
 	double angulo;
 	double angulo2;
 	double delta_x, delta_y;
@@ -266,9 +265,9 @@ void Geometria::obtenerPuntosDeTriangulo(double x0, double y0, double x1, double
 
 }
 
-void Geometria::obtenerLineasParalelas( double x0, double y0,
-		double x1, double y1, double distancia, double & x2, double & y2, double & x3, double & y3,
-		double & x4, double & y4, double & x5, double & y5) {
+void Geometria::obtenerLineasParalelas(double x0, double y0, double x1, double y1,
+		double distancia, double & x2, double & y2, double & x3, double & y3, double & x4,
+		double & y4, double & x5, double & y5) {
 
 	double angulo;
 	double delta_x, delta_y;
@@ -289,7 +288,6 @@ void Geometria::obtenerLineasParalelas( double x0, double y0,
 	x3 = x1 + delta_x;
 	y3 = y1 + delta_y;
 
-
 	x4 = x0 - delta_x;
 	y4 = y0 - delta_y;
 	x5 = x1 - delta_x;
@@ -302,3 +300,54 @@ void Geometria::obtenerLineasParalelas( double x0, double y0,
 #endif
 }
 
+bool Geometria::hayInterseccionDeLineaConElipse(double x0, double y0, double x1, double y1,
+		double xc, double yc, double rx, double ry, double & x, double & y) {
+	double m = NAN; // MACRO DE MATH NOT A NUMBER
+	double angulo;
+	double delta_x, delta_y;
+	double r_elipse;
+
+	double delta;
+	delta = 0.00001;
+
+	// ACOTO en X y busco los Y
+	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
+		m = (y1 - y0) / (x1 - x0);
+	}
+
+	if (x0 < xc + rx && x0 > xc - rx && y0 < yc + ry && y0 > yc - ry) {
+		if (isnan(m)) {
+			x = xc;
+			if (y1 <= yc) {
+				y = yc - ry;
+			} else {
+				y = yc + ry;
+			}
+		} else {
+			angulo = atan2(y1 - yc, x1 - xc);
+			r_elipse = 1 / sqrt(pow(cos(angulo) / rx, 2) + pow(sin(angulo) / ry, 2));
+			delta_x = cos(angulo);
+			delta_y = sin(angulo);
+			x = xc + delta_x * r_elipse;
+			y = yc + delta_y * r_elipse;
+		}
+	} else if (x1 < xc + rx && x1 > xc - rx && y1 < yc + ry && y1 > yc - ry) {
+		if (isnan(m)) {
+			x = xc;
+			if (y0 <= yc) {
+				y = yc - ry;
+			} else {
+				y = yc + ry;
+			}
+		} else {
+			angulo = atan2(y0 - yc, x0 - xc);
+			r_elipse = 1 / sqrt(pow(cos(angulo) / rx, 2) + pow(sin(angulo) / ry, 2));
+			delta_x = cos(angulo);
+			delta_y = sin(angulo);
+			x = xc + delta_x * r_elipse;
+			y = yc + delta_y * r_elipse;
+		}
+
+	}
+	return true;
+}

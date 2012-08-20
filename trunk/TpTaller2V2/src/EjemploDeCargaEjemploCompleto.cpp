@@ -1,4 +1,4 @@
-/*
+*
  * EjemploDeCarga2.cpp
  *
  *  Created on: 22/06/2012

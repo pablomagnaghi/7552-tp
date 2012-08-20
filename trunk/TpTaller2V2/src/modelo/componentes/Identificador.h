@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include "Relacion.h"
 #include "Atributo.h"
 
 class Identificador {
