@@ -400,14 +400,22 @@ bool Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, d
 
 	if (isnan(m)) {
 		x = xc;
-		y = yc - h / 2 - 2;
+		if (y0 < y1) {
+			y = yc - h - 3;
+		} else {
+			y = yc + h + 3;
+		}
 	} else {
 		angulo = atan2(y1 - y0, x1 - x0);
-		r = sqrt(pow(h / 2 * cos(angulo), 2) + pow(w / 2 * sin(angulo), 2)) + 4;
-		angulo = angulo - M_PI / 2;
-		x = xc + r * cos(angulo);
-		y = yc + r * sin(angulo);
+		r = 1 / sqrt(pow(cos(angulo) / (w / 2 + 10), 2) + pow(sin(angulo) / (h / 2 + 11), 2));
+		//r = sqrt(pow(w * cos(angulo), 2) + pow((h + 8) * sin(angulo), 2))*0.75;
+		//cout << "r= " << r << " ang= " << angulo * 180 / M_PI << endl;
+		//angulo = angulo - M_PI / 2;
+		x = xc - r * cos(angulo);
+		y = yc - r * sin(angulo);
 	}
+
+	return true;
 
 	return true;
 }
