@@ -19,8 +19,6 @@ VistaComponente::VistaComponente() {
 	this->seleccionado = false;
 	this->ajustarTamanioPorTexto = true;
 	//this->estaMouseArriba = false;
-
-
 }
 
 VistaComponente::~VistaComponente() {
@@ -189,8 +187,14 @@ void VistaComponente::on_popup_boton_propiedades() {
 	this->lanzarProp();
 }
 
+bool  VistaComponente::estaSeleccionado(){
+	return this->seleccionado;
+}
+
 // PERSISTENCIA REP
 // VER!!!! COSAS A CAMBIAR
+
+// CARGAR INCOMPLETO. FALTAN CAMBIAR VARIAS COSAS
 
 VistaComponente::VistaComponente(XmlNodo* nodo) {
 
@@ -202,7 +206,7 @@ VistaComponente::VistaComponente(XmlNodo* nodo) {
 }
 
 void VistaComponente::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
-	//this->codigo = nodo->getPropiedadInt("codigo");
+	this->codigoREP = nodo->getPropiedadInt("codigo");
 }
 
 void VistaComponente::obtenerComponentesXmlREP(XmlNodo* nodo) {
@@ -224,9 +228,7 @@ void VistaComponente::obtenerComponentesXmlREP(XmlNodo* nodo) {
 	}
 }
 
-void VistaComponente::agregarPropiedadesXmlREP(XmlNodo* nodo) {
-	//nodo->setPropiedad("codigo",this->codigo);
-}
+// GUARDAR
 
 XmlNodo VistaComponente::guardarXmlREP() {
 	XmlNodo nodo("componente");
@@ -252,6 +254,6 @@ XmlNodo VistaComponente::guardarXmlREP() {
 	return nodo;
 }
 
-bool  VistaComponente::estaSeleccionado(){
-	return this->seleccionado;
+void VistaComponente::agregarPropiedadesXmlREP(XmlNodo* nodo) {
+	nodo->setPropiedad("codigo", this->codigoREP);
 }

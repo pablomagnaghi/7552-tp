@@ -8,6 +8,9 @@ VistaJerarquia::VistaJerarquia(Jerarquia * jerarquiaModelo) {
 	this->jerarquia = jerarquiaModelo;
 	this->prop_lanzada = false;
 	this->padre = NULL;
+
+	// Persistencia REP
+	this->codigoREP = jerarquiaModelo->getCodigo();
 }
 
 VistaJerarquia::~VistaJerarquia() {

@@ -131,14 +131,12 @@ public:
 	bool existeEntidadGlobal(const std::string&);
 
 	// PERSITENCIA COMP
+	bool isOpenXmlCOMP() const;
 
 	// CARGAR
 	void abrirXmlCOMP(const std::string&);
-	bool isOpenXmlCOMP() const;
-
 	// GUARDAR
 	void guardarDiagramaXmlCOMP(const std::string&);
-
 };
 
 #endif /* DIAGRAMA_H_ */

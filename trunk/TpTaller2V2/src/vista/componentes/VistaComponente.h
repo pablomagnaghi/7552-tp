@@ -45,9 +45,12 @@ protected:
 	void on_popup_boton_propiedades();
 
 	// PERSISTENCIA REP
+	int codigoREP;
+	// GUARDAR
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
-	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 
+	// CARGAR
+	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerComponentesXmlREP(XmlNodo* nodo);
 
 public:
@@ -115,7 +118,9 @@ public:
 	bool estaSeleccionado();
 
 	// PERSISTENCIA REP
+	// CARGAR
 	VistaComponente(XmlNodo*);
+	// GUARDAR
 	XmlNodo guardarXmlREP();
 };
 

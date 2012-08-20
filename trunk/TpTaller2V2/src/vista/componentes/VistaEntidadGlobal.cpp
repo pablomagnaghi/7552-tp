@@ -2,6 +2,9 @@
 
 VistaEntidadGlobal::VistaEntidadGlobal(EntidadGlobal * eg) {
 	this->entidad = eg;
+
+	// Persistencia REP
+	this->codigoREP = eg->getCodigo();
 }
 
 VistaEntidadGlobal::~VistaEntidadGlobal() {
