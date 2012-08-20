@@ -84,12 +84,17 @@ private:
 
 	// Persistencia
 	bool diagramaValidoREP;
+	std::string estado;
 
+	// CARGAR
+	void abrirXmlREP(const std::string& path);
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerComponentesXmlREP(XmlNodo* nodo);
+
+	// Guardar
+	void guardarDiagramaXmlREP(const std::string& path);
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
 	void guardarComponentesXmlREP(XmlNodo *nodo);
-
 	XmlNodo guardarXmlREP();
 
 public:
@@ -119,10 +124,13 @@ public:
 	Diagrama * getDiagrama();
 	void test_cargar_componentes_visuales();
 	void test_cargar_componentes_visuales_atributo();
-	// Persistencia REP
-	void abrirREP(const std::string& path);
-	bool isOpenREP() const;
-	void guardarDiagramaREP(const std::string& path);
+
+	// PERSISTENCIA REP
+	bool isOpenXmlREP() const;
+	// CARGAR
+	void abrirXml(const std::string& path);
+	// GUARDAR
+	void guardarDiagramaXml(const std::string& path);
 };
 
 #endif /* VISTADIAGRAMA_H_ */

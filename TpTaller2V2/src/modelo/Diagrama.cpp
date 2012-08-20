@@ -382,6 +382,11 @@ bool Diagrama::existeEntidadGlobal(const std::string& nombre){
 
 // PERSISTENCIA COMP
 
+// Devuelve true si se logró abrir y cargar el documento.
+bool Diagrama::isOpenXmlCOMP() const {
+	return this->diagramaValidoCOMP;
+}
+
 // CARGAR
 
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
@@ -392,16 +397,16 @@ void Diagrama::abrirXmlCOMP(const std::string& path) {
 		this->diagramaValidoCOMP = true;
 
 		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
-		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
+		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz);
 		this->cargarXmlCOMP(nodoRaiz);
 	}
 	catch ( XmlArchivoInexistenteExc* ex ) {
 		delete ex;
-		throw new DiagramaArchivoInexistenteExc( path );
+		throw new DiagramaArchivoInexistenteExc(path);
 	}
 	catch ( XmlArchivoInvalidoExc* ex ) {
 		delete ex;
-		throw new DiagramaInvalidoExc( path );
+		throw new DiagramaInvalidoExc(path);
 	}
 }
 
@@ -531,11 +536,6 @@ void Diagrama::cargarDiagramasHijos() {
 	}
 }
 
-// Devuelve true si se logró abrir y cargar el documento.
-bool Diagrama::isOpenXmlCOMP() const {
-	return this->diagramaValidoCOMP;
-}
-
 // GUARDAR
 
 // Guarda el Diagrama
@@ -559,9 +559,7 @@ XmlNodo Diagrama::guardarXmlCOMP() {
 
 	this->guardarDiagramasHijosXmlCOMP(&nodo);
 	this->guardarEntidadesNuevasXmlCOMP(&nodo);
-	// todo
 	this->guardarEntidadesGlobalesXmlCOMP(&nodo);
-
 	this->guardarRelacionesXmlCOMP(&nodo);
 	this->guardarJerarquiasXmlCOMP(&nodo);
 
@@ -599,12 +597,10 @@ void Diagrama::guardarEntidadesNuevasXmlCOMP(XmlNodo *nodo) {
 
 void Diagrama::guardarEntidadesGlobalesXmlCOMP(XmlNodo *nodo) {
 	std::vector<EntidadGlobal*>::iterator i;
-// todo
+
 	for(i = this->entidadesGlobales.begin(); i != this->entidadesGlobales.end(); ++i) {
-		std::cout << "CARGANDO DIAGRAMAS HIJOS" << std::endl;
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
 	}
-
 }
 
 void Diagrama::guardarRelacionesXmlCOMP(XmlNodo *nodo) {

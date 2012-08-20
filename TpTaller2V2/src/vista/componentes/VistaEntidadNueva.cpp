@@ -14,6 +14,9 @@ VistaEntidadNueva::VistaEntidadNueva(EntidadNueva * entidadDelModelo) {
 	this->pos_ini_y = 0;
 	this->pos_fin_y = 0;
 	this->prop_lanzada = false;
+
+	// Persistencia REP
+	this->codigoREP = entidadDelModelo->getCodigo();
 }
 
 VistaEntidadNueva::~VistaEntidadNueva() {

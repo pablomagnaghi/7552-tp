@@ -10,6 +10,9 @@ VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(UnionEntidadRelacion * unio
 	this->entidad = vEntidad;
 	this->relacion = vRelacion;
 	this->dibujar_cardinalidad = true;
+
+	// Persistencia REP
+	this->codigoREP = unionModelo->getCodigo();
 }
 
 VistaUnionEntidadRelacion::~VistaUnionEntidadRelacion() {

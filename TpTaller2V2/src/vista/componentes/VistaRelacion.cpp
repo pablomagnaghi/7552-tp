@@ -4,8 +4,9 @@ using namespace std;
 
 VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
 	this->relacion = relacionModelo;
-	// TODO Auto-generated constructor stub
 
+	// Persistencia REP
+	this->codigoREP = relacionModelo->getCodigo();
 }
 
 VistaRelacion::~VistaRelacion() {

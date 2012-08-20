@@ -9,6 +9,8 @@ VistaAtributo::VistaAtributo(Atributo * atributoModelo) {
 	this->prop_lanzada = false;
 	this->esIdentificador = false;
 	this->dibujar_cardinalidad = true;
+	// Persistencia REP
+	this->codigoREP = atributoModelo->getCodigo();
 }
 
 VistaAtributo::~VistaAtributo() {

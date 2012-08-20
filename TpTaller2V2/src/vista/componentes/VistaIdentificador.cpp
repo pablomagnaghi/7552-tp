@@ -8,7 +8,6 @@ VistaIdentificador::VistaIdentificador(Identificador * id) {
 	//this->atributo = atributoModelo;
 	this->identificador = id;
 	this->prop_lanzada = false;
-
 }
 
 VistaIdentificador::~VistaIdentificador() {

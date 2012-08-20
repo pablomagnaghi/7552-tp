@@ -12,6 +12,7 @@ const char* const XMLNS = "xmlns:xsi";
 const char* const INSTANCE = "http://www.w3.org/2001/XMLSchema-instance";
 const char* const XSI = "xsi:noNamespaceSchemaLocation";
 const char* const COMPOSICION = "composicion.xsd";
+const char* const REPRESENTACION = "representacion.xsd";
 const char* const NOMBRE_DIAGRAMA = "diagrama";
 
 const char* const XML_VERSION = "1.0";

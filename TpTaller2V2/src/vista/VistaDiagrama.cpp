@@ -5,6 +5,9 @@ using namespace std;
 
 VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo) {
 
+	// para persistencia
+	this->estado = "sin_validar";
+
 	this->diagrama = diagramaModelo;
 	this->zoom = ZOOM_DEFECTO;
 	this->ancho = A4_ANCHO * zoom;
@@ -603,93 +606,6 @@ void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven) {
 	}
 }
 
-// PERSISTENCIA REP
-/*
- // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
- void VistaDiagrama::abrirREP(const std::string& path) {
-
- this->diagramaValidoREP = false;
-
- try {
- // Abro el archivo
- Xml docXml(path);
- this->diagramaValidoREP = true;
-
- XmlNodo* nodoRaiz = docXml.getNodoRaiz();
-
- XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
-
- // archivo listo para cargar el diagrama
- // se cargan los componentes del doc.
- this->obtenerPropiedadesXmlREP(nodoRaiz);
-
- XmlNodo nodo = nodoRaiz->getHijo();
-
- this->obtenerComponentesXmlREP(&nodo);
- }
- catch ( XmlArchivoInexistenteExc* ex ) {
- delete ex;
- throw new DiagramaArchivoInexistenteExc( path );
- }
- catch ( XmlArchivoInvalidoExc* ex ) {
- delete ex;
- throw new DiagramaInvalidoExc( path );
- }
- }*/
-/*
- void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
- this->estado = nodo->getPropiedad("estado");
- }
-
- void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
- while (nodo->esValido()) {
- if (nodo->getNombre() == "componente") {
- //VistaComponente *vistaComponente = new VistaComponente(nodo);
- //this->agregarComponente(vistaComponente);
- }
- *nodo = nodo->getHermano();
- }
- }
-
- void VistaDiagrama::agregarPropiedadesXmlREP(XmlNodo* nodo) {
- nodo->setPropiedad(XMLNS, INSTANCE);
- nodo->setPropiedad(XSI, COMPOSICION);
- nodo->setPropiedad("estado",this->estado);
- }
-
- void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
- std::vector<VistaComponente*>::iterator i;
-
- for(i = this->componentes.begin(); i != this->componentes.end(); ++i)
- nodo->agregarHijo((*i)->guardarXmlREP());
- }
-
- XmlNodo VistaDiagrama::guardarXmlREP() {
- XmlNodo nodo("diagrama");
-
- this->agregarPropiedadesXmlREP(&nodo);
-
- this->guardarComponentesXmlREP(&nodo);
-
- return nodo;
- }
-
- // Devuelve true si se logró abrir y cargar el documento.
-
- bool VistaDiagrama::isOpenREP() const {
- return this->diagramaValidoREP;
- }
- */
-// Guarda el Diagrama
-/*
- void VistaDiagrama::guardarDiagramaREP(const std::string& path) {
- Xml docXml;
- docXml.nuevoDoc();
- XmlNodo nodoDoc = this->guardarXmlREP();
- docXml.setNodoRaiz(nodoDoc);
- docXml.guardar(path);
- }
- */
 std::string VistaDiagrama::getNombre() const {
 	return this->diagrama->getNombre();
 }
@@ -729,4 +645,117 @@ VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
 
 Diagrama * VistaDiagrama::getDiagrama() {
 	return this->diagrama;
+}
+
+
+// PERSISTENCIA REP
+
+// Devuelve true si se logró abrir y cargar el documento.
+
+bool VistaDiagrama::isOpenXmlREP() const {
+	return this->diagramaValidoREP;
+}
+
+// CARGAR
+
+// Recibe el nombre del diagrama del xml y carga el modelo y la vista a partir
+// de los xml de representacion y composicion
+// el xml de representacion termina con REP y el de composicion con COMP
+// Ejemplo: el nombre del diagrama es Principal
+// a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
+
+// todo HACER CARGAR
+
+void VistaDiagrama::abrirXml(const std::string& path) {
+
+}
+
+// Abre un archivo xml, y carga un diagrama con la informacion que contenga.
+void VistaDiagrama::abrirXmlREP(const std::string& path) {
+	this->diagramaValidoREP = false;
+
+	try {
+		// Abro el archivo
+		Xml docXml(path);
+		this->diagramaValidoREP = true;
+
+		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
+
+		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
+
+		// archivo listo para cargar el diagrama
+		// se cargan los componentes del doc.
+
+		this->obtenerPropiedadesXmlREP(nodoRaiz);
+		XmlNodo nodo = nodoRaiz->getHijo();
+		this->obtenerComponentesXmlREP(&nodo);
+	}
+	catch ( XmlArchivoInexistenteExc* ex ) {
+		delete ex;
+		throw new DiagramaArchivoInexistenteExc( path );
+	}
+	catch ( XmlArchivoInvalidoExc* ex ) {
+		delete ex;
+		throw new DiagramaInvalidoExc( path );
+	}
+}
+
+void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
+	this->estado = nodo->getPropiedad("estado");
+}
+
+void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
+	while (nodo->esValido()) {
+		if (nodo->getNombre() == "componente") {
+			//VistaComponente *vistaComponente = new VistaComponente(nodo);
+			//this->agregarComponente(vistaComponente);
+		}
+		*nodo = nodo->getHermano();
+	}
+}
+
+// GUARDAR
+
+// A partir del nombre del diagrama que se pasa, se guarda el modelo en el xml
+// con la extesion COMP y la representacion en el xml con la extension REP
+
+// todo Probar guardar
+
+void VistaDiagrama::guardarDiagramaXml(const std::string& path) {
+	std::string diagramaCOMP = path + "-COMP.xml";
+	this->diagrama->guardarDiagramaXmlCOMP(diagramaCOMP);
+	std::string diagramaREP = path + "-REP.xml";
+	this->guardarDiagramaXmlREP(diagramaREP);
+}
+
+// Guarda el Diagrama
+
+void VistaDiagrama::guardarDiagramaXmlREP(const std::string& path) {
+	Xml docXml;
+	docXml.nuevoDoc();
+	XmlNodo nodoDoc = this->guardarXmlREP();
+	docXml.setNodoRaiz(nodoDoc);
+	docXml.guardar(path);
+}
+
+XmlNodo VistaDiagrama::guardarXmlREP() {
+	XmlNodo nodo("diagrama");
+
+	this->agregarPropiedadesXmlREP(&nodo);
+	this->guardarComponentesXmlREP(&nodo);
+
+	return nodo;
+}
+
+void VistaDiagrama::agregarPropiedadesXmlREP(XmlNodo* nodo) {
+	nodo->setPropiedad(XMLNS, INSTANCE);
+	nodo->setPropiedad(XSI, REPRESENTACION);
+	nodo->setPropiedad("estado",this->estado);
+}
+
+void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
+	std::vector<VistaComponente*>::iterator i;
+
+	for(i = this->componentes.begin(); i != this->componentes.end(); ++i)
+		nodo->agregarHijo((*i)->guardarXmlREP());
 }
