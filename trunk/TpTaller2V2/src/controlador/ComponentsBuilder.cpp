@@ -27,16 +27,16 @@ ComponentsBuilder * ComponentsBuilder::getInstance() {
 	}
 }
 
-
 VistaEntidadNueva * ComponentsBuilder::crearEntidadNuevaEnDiagrama(VistaDiagrama *diagramaActual=NULL, EntidadNueva *entidadNueva=NULL) {
 	if (diagramaActual == NULL){
 		diagramaActual = Ide::getInstance()->getDiagActual();
 	}
 	if (entidadNueva == NULL){
+		// Crea la entidad y la agrega al diagrama del modelo
 		entidadNueva = new EntidadNueva();
+		diagramaActual->getDiagrama()->agregarEntidadNueva(entidadNueva);
 	}
 	VistaEntidadNueva * vEntidadNueva = new VistaEntidadNueva(entidadNueva);
-	diagramaActual->getDiagrama()->agregarEntidadNueva(entidadNueva);
 	diagramaActual->agregarComponente(vEntidadNueva);
 	diagramaActual->agregarVistaEntidadNueva(vEntidadNueva);
 	return vEntidadNueva;
@@ -44,15 +44,17 @@ VistaEntidadNueva * ComponentsBuilder::crearEntidadNuevaEnDiagrama(VistaDiagrama
 
 VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaEntidadNueva *ventidad,VistaDiagrama *diagramaActual=NULL, Atributo *atrib=NULL){
 	if (ventidad != NULL){
-		if (atrib == NULL){
-			atrib = new Atributo();
-		}
 		if (diagramaActual == NULL){
-				diagramaActual = Ide::getInstance()->getDiagActual();
+			diagramaActual = Ide::getInstance()->getDiagActual();
 		}
+		if (atrib == NULL){
+			// Crea el atributo y lo agrega a la entidad del modelo
+			atrib = new Atributo();
+			ventidad->getEntidad()->agregarAtributo(atrib);
+		}
+
 		//enlazar con la entidad crear union, poner en diagrama actual,etc.
 		VistaAtributo *vatrib = new VistaAtributo(atrib);
-		ventidad->getEntidad()->agregarAtributo(atrib);
 		ventidad->agregarAtributo(vatrib);
 		VistaLinea * lineaEntidadAtributo = new VistaLinea();
 		lineaEntidadAtributo->setComponenteDesde(ventidad);
@@ -68,14 +70,17 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaEntidadNueva *ven
 VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaAtributo *vatribPadre,VistaDiagrama *diagramaActual=NULL, Atributo *atrib=NULL){
 	if (vatribPadre != NULL){
 		//enlazar con el atributo crear union, poner en diagrama actual,etc.
-		if (atrib == NULL){
-			atrib = new Atributo();
-		}
 		if (diagramaActual == NULL){
 			diagramaActual = Ide::getInstance()->getDiagActual();
 		}
+
+		if (atrib == NULL){
+			// crea el atributo y lo agrega al atributo compuesto del modelo
+			atrib = new Atributo();
+			vatribPadre->getAtributo()->agregarAtributo(atrib);
+		}
+
 		VistaAtributo *vatrib = new VistaAtributo(atrib);
-		vatribPadre->getAtributo()->agregarAtributo(atrib);
 		vatribPadre->agregarAtributo(vatrib);
 		VistaLinea * lineaAtributoAtributo = new VistaLinea();
 		lineaAtributoAtributo->setComponenteDesde(vatribPadre);
