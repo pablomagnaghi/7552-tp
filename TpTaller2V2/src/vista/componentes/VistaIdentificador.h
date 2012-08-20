@@ -1,36 +1,33 @@
-#ifndef VISTAATRIBUTO_H_
-#define VISTAATRIBUTO_H_
-#include "VistaComponente.h"
-#include "../../modelo/componentes/Atributo.h"
-#include "../../controlador/AsistenteAtributo.h"
-#include <list>
-#include "../VistaConstantes.h"
-#include "VistaLinea.h"
+#ifndef VISTAIDENTIFICADOR_H_
+#define VISTAIDENTIFICADOR_H_
 
-class VistaAtributo: public VistaComponente {
+#include "VistaComponente.h"
+#include "../../modelo/componentes/Identificador.h"
+#include "VistaLinea.h"
+#include "VistaAtributo.h"
+#include <vector>
+#include "../VistaConstantes.h"
+
+class VistaAtributo;
+
+class VistaIdentificador: public VistaComponente {
 private:
-	std::vector<VistaAtributo*> vistaAtributos;
-	Atributo * atributo;
+	std::vector<VistaAtributo *> vistasAtributo;
+	Identificador * identificador;
 	bool prop_lanzada;
-	bool esIdentificador;
-	VistaLinea * lineaConEntidad;
 
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 
 public:
-	VistaAtributo(Atributo * atributoModelo);
-	virtual ~VistaAtributo();
+	VistaIdentificador(Identificador * identificador);
+	virtual ~VistaIdentificador();
+
+	void agregarAtributo(VistaAtributo *);
 
 	std::vector<VistaAtributo*>::iterator atributosBegin();
 	std::vector<VistaAtributo*>::iterator atributosEnd();
 
 	void resetearLanzarProp();
-
-	Atributo* getAtributo();
-
-	// Solo se puede agregar y sacar atributos a la entidad nueva
-	bool agregarAtributo(VistaAtributo* atrib);
-	bool quitarAtributo(VistaAtributo* atrib);
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
@@ -62,12 +59,6 @@ public:
 			double pos_fin_y, double & x, double & y);
 
 	virtual std::string getNombre() const;
-
-	void setEsIdentificador(bool);
-
-	void setLinea(VistaLinea *);
-
-	void getPuntoMedioLinea(double &x, double &y);
 };
 
-#endif /* VISTAATRIBUTO_H_ */
+#endif /* VISTAIDENTIFICADOR_H_ */

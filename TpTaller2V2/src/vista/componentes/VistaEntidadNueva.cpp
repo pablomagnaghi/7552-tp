@@ -175,22 +175,22 @@ bool VistaEntidadNueva::esPuntoDeRedimension(double x, double y) {
 	limiteY3 = this->pos_fin_y - RADIO_CIRCULOS_REDIMENSION - LONGITUD_LINEAS_REDIMENSION;
 	limiteY4 = this->pos_fin_y + RADIO_CIRCULOS_REDIMENSION + LONGITUD_LINEAS_REDIMENSION;
 
-#ifdef DEBUG
+
 	if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY1, limiteX2, limiteY2)) { // Circulo arriba a la izquierda
-		cout << "arriba a la izquierda" << endl;
+		//cout << "arriba a la izquierda" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
-		cout << "abajo a la izquierda" << endl;
+		//cout << "abajo a la izquierda" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) {// Circulo arriba a la derecha
-		cout << "arriba a la derecha" << endl;
+		//cout << "arriba a la derecha" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
-		cout << "abajo a la derecha" << endl;
+		//cout << "abajo a la derecha" << endl;
 		return true;
 	}
 
-#endif
+
 
 	return false;
 }
@@ -287,38 +287,6 @@ bool VistaEntidadNueva::contieneEsteComponente(Componente * c) {
 	return this->entidad == c;
 }
 
-bool VistaEntidadNueva::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y,
-		double pos_fin_x, double pos_fin_y, double & x, double & y) {
-	double xInterseccion, yInterseccion;
-
-	if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			this->pos_ini_x, this->pos_ini_y, this->pos_fin_x, this->pos_ini_y, xInterseccion,
-			yInterseccion)) {
-		x = xInterseccion;
-		y = yInterseccion;
-		return true;
-	} else if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			this->pos_ini_x, this->pos_ini_y, this->pos_ini_x, this->pos_fin_y, xInterseccion,
-			yInterseccion)) {
-		x = xInterseccion;
-		y = yInterseccion;
-		return true;
-	} else if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			this->pos_fin_x, this->pos_ini_y, this->pos_fin_x, this->pos_fin_y, xInterseccion,
-			yInterseccion)) {
-		x = xInterseccion;
-		y = yInterseccion;
-		return true;
-	} else if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			this->pos_ini_x, this->pos_fin_y, this->pos_fin_x, this->pos_fin_y, xInterseccion,
-			yInterseccion)) {
-		x = xInterseccion;
-		y = yInterseccion;
-		return true;
-	}
-
-	return false;
-}
 
 bool VistaEntidadNueva::esDebil(){
 	return this->entidad->getEsDebil();

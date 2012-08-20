@@ -9,7 +9,6 @@
 #include "VistaConstantes.h"
 #include "./componentes/VistasDeComponentes.h"
 
-
 class VistaDiagrama: public Gtk::DrawingArea {
 private:
 	double zoom;
@@ -51,8 +50,8 @@ private:
 	VistaComponente * obtenerComponenteEnPos(gdouble x, gdouble y);
 
 	void
-	obtenerVistaAPartirDeRelacion(VistaRelacion *, std::vector<
-			VistaEntidadNueva *>&, std::vector<UnionEntidadRelacion *>&);
+	obtenerVistaAPartirDeRelacion(VistaRelacion *, std::vector<VistaEntidadNueva *>&, std::vector<
+			UnionEntidadRelacion *>&);
 
 	void configurar_drag_and_drop();
 
@@ -61,14 +60,12 @@ private:
 	// Cuando comienza a arrastrar un objeto
 	void drag_begin(const Glib::RefPtr<Gdk::DragContext>&);
 	// Cuando realiza el movimiento de arrastre de objeto
-	bool drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, gint x,
-			int y, guint time);
+	bool drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, gint x, int y, guint time);
 	// Cuando se obtienen los datos del origen
-	void drag_data_get(const Glib::RefPtr<Gdk::DragContext>&,
-			Gtk::SelectionData& selection_data, guint, guint);
+	void drag_data_get(const Glib::RefPtr<Gdk::DragContext>&, Gtk::SelectionData& selection_data,
+			guint, guint);
 	// Cuando ya se soltó el objeto y se pasaron los datos al destino
-	bool drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, gint x,
-			gint y, guint time);
+	bool drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, gint x, gint y, guint time);
 	// Cuando finaliza el arrastre
 	void drag_end(const Glib::RefPtr<Gdk::DragContext>&);
 	// Cuando se debe eliminar los datos al MOVER
@@ -80,9 +77,8 @@ private:
 
 	// Destino
 	// Cuando el destino recibe los datos del objeto arrastrado
-	void drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
-			gint, int, const Gtk::SelectionData& selection_data, guint,
-			guint time);
+	void drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context, gint, int,
+			const Gtk::SelectionData& selection_data, guint, guint time);
 
 	void seleccionar_componente_clickeado(gdouble x, gdouble y);
 
@@ -122,6 +118,7 @@ public:
 
 	Diagrama * getDiagrama();
 	void test_cargar_componentes_visuales();
+	void test_cargar_componentes_visuales_atributo();
 	// Persistencia REP
 	void abrirREP(const std::string& path);
 	bool isOpenREP() const;

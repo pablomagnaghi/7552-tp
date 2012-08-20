@@ -43,8 +43,15 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	//VistaComponente * componenteNuevo;
 	EntidadNueva * a;
 	EntidadNueva * b;
+	EntidadGlobal * h;
 	Relacion * c;
 	Atributo * d;
+	Atributo * i;
+	Atributo * k;
+	Atributo * l;
+	Atributo * l1;
+	Atributo * l2;
+	Atributo * l3;
 	UnionEntidadRelacion * f;
 	UnionEntidadRelacion * g;
 	Jerarquia * j;
@@ -53,6 +60,12 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	VistaEntidadNueva * entidad;
 	VistaRelacion * relacion;
 	VistaAtributo * atributo;
+	VistaAtributo * atributo1;
+	VistaAtributo * atributo2;
+	VistaAtributo * atributoCompuesto;
+	VistaAtributo * atributoCompuesto1;
+	VistaAtributo * atributoCompuesto2;
+	VistaAtributo * atributoCompuesto3;
 	VistaUnionEntidadRelacion * vUnion;
 	VistaLinea * lineaEntidadAtributo;
 	VistaJerarquia * jerarquia;
@@ -64,9 +77,16 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	b = new EntidadNueva();
 	c = new Relacion();
 	d = new Atributo();
+	i = new Atributo();
+	k = new Atributo();
+	l1 = new Atributo();
+	l2 = new Atributo();
+	l3 = new Atributo();
+	l = new Atributo();
 	f = new UnionEntidadRelacion(a, c);
 	g = new UnionEntidadRelacion(b, c);
 	j = new Jerarquia();
+	h = new EntidadGlobal();
 
 	entidad = new VistaEntidadNueva(a);
 	entidad->setNombre("Alumno A");
@@ -107,6 +127,21 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	lineaEntidadAtributo->setComponenteHasta(atributo);
 	this->componentes.push_back(lineaEntidadAtributo);
 
+	atributo1 = new VistaAtributo(i);
+	atributo1->setposini(20, 240);
+	atributo1->setposfin(28, 248);
+	atributo2 = new VistaAtributo(k);
+	atributoCompuesto = new VistaAtributo(l);
+	atributoCompuesto1 = new VistaAtributo(l1);
+	atributoCompuesto2 = new VistaAtributo(l2);
+	atributoCompuesto3 = new VistaAtributo(l3);
+
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(entidad);
+	lineaEntidadAtributo->setComponenteHasta(atributo1);
+	this->componentes.push_back(atributo1);
+	this->componentes.push_back(lineaEntidadAtributo);
+
 	entidadPadre = new VistaEntidadNueva(new EntidadNueva());
 	entidadPadre->setNombre("Padre");
 	entidadPadre->setposini(60, 100);
@@ -129,15 +164,130 @@ void VistaDiagrama::test_cargar_componentes_visuales() {
 	entidad->setposini(220, 190);
 	entidad->setposfin(270, 260);
 	this->componentes.push_back(entidad);
-	jerarquia->agregarEntidadEspecializada(entidad);
 
+	jerarquia->agregarEntidadEspecializada(entidad);
 	this->componentes.push_back(jerarquia);
 
-	/*vUnion = new VistaUnion(new Union());
-	 vUnion->setposini(150, 20);
-	 vUnion->setposfin(170, 30);
-	 this->componentes.push_back(vUnion);*/
+	entidadGlobal = new VistaEntidadGlobal(h);
+	this->componentes.push_back(entidadGlobal);
 
+}
+
+void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
+	EntidadNueva * a = new EntidadNueva();
+	Atributo * b = new Atributo();
+	Atributo * c = new Atributo();
+	Atributo * d = new Atributo();
+	Atributo * e = new Atributo();
+	Atributo * e1 = new Atributo();
+	Atributo * e2 = new Atributo();
+	Atributo * e3 = new Atributo();
+	Identificador * id1 = new Identificador();
+	Identificador * id2 = new Identificador();
+	Identificador * id3 = new Identificador();
+
+	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
+	VistaAtributo * atributo = new VistaAtributo(b);
+	VistaAtributo * atributo1 = new VistaAtributo(c);
+	VistaAtributo * atributo2 = new VistaAtributo(d);
+	VistaAtributo * atributoCompuesto = new VistaAtributo(e);
+	VistaAtributo * atributoCompuesto1 = new VistaAtributo(e1);
+	VistaAtributo * atributoCompuesto2 = new VistaAtributo(e2);
+	VistaAtributo * atributoCompuesto3 = new VistaAtributo(e3);
+	VistaLinea * lineaEntidadAtributo;
+	VistaIdentificador * identificador1 = new VistaIdentificador(id1);
+	VistaIdentificador * identificador2 = new VistaIdentificador(id2);
+	VistaIdentificador * identificador3 = new VistaIdentificador(id2);
+
+	entidad->setposini(150, 100);
+	entidad->setposfin(240, 110);
+	entidad->setNombre("Entidad");
+	this->componentes.push_back(entidad);
+
+	atributo->setposini(130, 60);
+	b->setNombre("A1");
+	a->agregarAtributo(b);
+	entidad->agregarAtributo(atributo);
+	this->componentes.push_back(atributo);
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(atributo);
+	lineaEntidadAtributo->setComponenteHasta(entidad);
+	this->componentes.push_back(lineaEntidadAtributo);
+	id1->agregarCodigoAtributo(b->getCodigo());
+	identificador1->agregarAtributo(atributo);
+	atributo->setLinea(lineaEntidadAtributo);
+	this->componentes.push_back(identificador1);
+
+	atributo1->setposini(170, 60);
+	a->agregarAtributo(c);
+	entidad->agregarAtributo(atributo1);
+	this->componentes.push_back(atributo1);
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(atributo1);
+	lineaEntidadAtributo->setComponenteHasta(entidad);
+	atributo1->setLinea(lineaEntidadAtributo);
+	this->componentes.push_back(lineaEntidadAtributo);
+
+	atributo2->setposini(210, 60);
+	a->agregarAtributo(d);
+	entidad->agregarAtributo(atributo2);
+	this->componentes.push_back(atributo2);
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(atributo2);
+	lineaEntidadAtributo->setComponenteHasta(entidad);
+	atributo2->setLinea(lineaEntidadAtributo);
+	this->componentes.push_back(lineaEntidadAtributo);
+
+	id2->agregarCodigoAtributo(c->getCodigo());
+	identificador2->agregarAtributo(atributo1);
+	id2->agregarCodigoAtributo(d->getCodigo());
+	identificador2->agregarAtributo(atributo2);
+	this->componentes.push_back(identificador2);
+
+	atributoCompuesto->setposini(142, 155);
+	//atributoCompuesto->setposfin(202, 185);
+	a->agregarAtributo(e);
+	e->setNombre("Compuesto");
+	entidad->agregarAtributo(atributoCompuesto);
+	this->componentes.push_back(atributoCompuesto);
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
+	lineaEntidadAtributo->setComponenteHasta(entidad);
+	atributoCompuesto->setLinea(lineaEntidadAtributo);
+	this->componentes.push_back(lineaEntidadAtributo);
+	id3->agregarCodigoAtributo(e->getCodigo());
+	identificador3->agregarAtributo(atributoCompuesto);
+	this->componentes.push_back(identificador3);
+
+	atributoCompuesto1->setposini(130, 210);
+	e->agregarAtributo(e1);
+	atributoCompuesto->agregarAtributo(atributoCompuesto1);
+	this->componentes.push_back(atributoCompuesto1);
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
+	lineaEntidadAtributo->setComponenteHasta(atributoCompuesto1);
+	atributoCompuesto1->setLinea(lineaEntidadAtributo);
+	this->componentes.push_back(lineaEntidadAtributo);
+
+	atributoCompuesto2->setposini(172, 210);
+	e->agregarAtributo(e2);
+	atributoCompuesto->agregarAtributo(atributoCompuesto2);
+	this->componentes.push_back(atributoCompuesto2);
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
+	lineaEntidadAtributo->setComponenteHasta(atributoCompuesto2);
+	atributoCompuesto2->setLinea(lineaEntidadAtributo);
+	this->componentes.push_back(lineaEntidadAtributo);
+
+	atributoCompuesto3->setposini(210, 210);
+	e->agregarAtributo(e3);
+	atributoCompuesto->agregarAtributo(atributoCompuesto3);
+	this->componentes.push_back(atributoCompuesto3);
+	lineaEntidadAtributo = new VistaLinea();
+	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
+	lineaEntidadAtributo->setComponenteHasta(atributoCompuesto3);
+	atributoCompuesto3->setLinea(lineaEntidadAtributo);
+	this->componentes.push_back(lineaEntidadAtributo);
 }
 
 void VistaDiagrama::obtenerVistaAPartirDeRelacion(VistaRelacion * vRelacion, std::vector<
