@@ -2,9 +2,12 @@
 #define VISTALINEA_H_
 
 #include "VistaComponente.h"
+#include <string>
+
 
 class VistaLinea: public VistaComponente {
 private:
+	std::string texto;
 	VistaComponente * desde;
 	VistaComponente * hasta;
 public:
@@ -46,6 +49,9 @@ public:
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
+
+	void setTexto(const std::string &);
+	 std::string getTexto();
 
 };
 

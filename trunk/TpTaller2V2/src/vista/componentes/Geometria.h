@@ -32,7 +32,13 @@ public:
 			double & y4, double & x5, double & y5);
 	static bool
 	hayInterseccionDeLineaConElipse(double x0, double y0, double x1, double y1, double xc,
-			double yc, double rx,double ry, double & x, double & y);
+			double yc, double rx, double ry, double & x, double & y);
+	static bool
+	obtenerPuntoDeDibujoDeTextoCentradoEnLinea(double x0, double y0, double x1, double y1,
+			double w, double h, double & x, double & y);
+	static bool
+	obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, double x1, double y1,
+			double w, double h, double & x, double & y);
 };
 
 #endif /* GEOMETRIA_H_ */

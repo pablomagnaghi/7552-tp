@@ -351,3 +351,63 @@ bool Geometria::hayInterseccionDeLineaConElipse(double x0, double y0, double x1,
 	}
 	return true;
 }
+
+bool Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(double x0, double y0, double x1,
+		double y1, double w, double h, double & x, double & y) {
+	double r;
+	double m = NAN; // MACRO DE MATH NOT A NUMBER
+	double angulo;
+	double delta;
+	double xc, yc;
+	delta = 0.00001;
+
+	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
+		m = (y1 - y0) / (x1 - x0);
+	}
+
+	xc = (x0 + x1) / 2 - w / 2;
+	yc = (y0 + y1) / 2 + h / 2;
+
+	if (isnan(m)) {
+		x = xc - w / 2 - 2;
+		y = yc;
+	} else {
+		angulo = atan2(y1 - y0, x1 - x0);
+		r = sqrt(pow(h / 2 * cos(angulo), 2) + pow(w / 2 * sin(angulo), 2)) + 4;
+		angulo = angulo - M_PI / 2;
+		x = xc + r * cos(angulo);
+		y = yc + r * sin(angulo);
+	}
+
+	return true;
+}
+
+bool Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, double x1,
+		double y1, double w, double h, double & x, double & y) {
+	double r;
+	double m = NAN; // MACRO DE MATH NOT A NUMBER
+	double angulo;
+	double delta;
+	double xc, yc;
+	delta = 0.00001;
+
+	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
+		m = (y1 - y0) / (x1 - x0);
+	}
+
+	xc = x0 - w / 2;
+	yc = y0 + h / 2;
+
+	if (isnan(m)) {
+		x = xc;
+		y = yc - h / 2 - 2;
+	} else {
+		angulo = atan2(y1 - y0, x1 - x0);
+		r = sqrt(pow(h / 2 * cos(angulo), 2) + pow(w / 2 * sin(angulo), 2)) + 4;
+		angulo = angulo - M_PI / 2;
+		x = xc + r * cos(angulo);
+		y = yc + r * sin(angulo);
+	}
+
+	return true;
+}

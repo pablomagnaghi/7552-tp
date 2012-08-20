@@ -14,6 +14,7 @@ private:
 	bool prop_lanzada;
 	bool esIdentificador;
 	VistaLinea * lineaConEntidad;
+	bool dibujar_cardinalidad;
 
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 

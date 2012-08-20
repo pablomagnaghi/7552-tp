@@ -7,12 +7,15 @@
 #include "VistaAtributo.h"
 #include <vector>
 #include "../VistaConstantes.h"
+#include "VistaUnionEntidadRelacion.h"
 
 class VistaAtributo;
+class VistaUnionEntidadRelacion;
 
 class VistaIdentificador: public VistaComponente {
 private:
 	std::vector<VistaAtributo *> vistasAtributo;
+	std::vector<VistaUnionEntidadRelacion *> vistasEntidadesFuertes;
 	Identificador * identificador;
 	bool prop_lanzada;
 
@@ -23,9 +26,12 @@ public:
 	virtual ~VistaIdentificador();
 
 	void agregarAtributo(VistaAtributo *);
-
 	std::vector<VistaAtributo*>::iterator atributosBegin();
 	std::vector<VistaAtributo*>::iterator atributosEnd();
+
+	void agregarEntidadFuerte(VistaUnionEntidadRelacion *);
+	std::vector<VistaUnionEntidadRelacion*>::iterator entidadesFuertesBegin();
+	std::vector<VistaUnionEntidadRelacion*>::iterator entidadesFuertesEnd();
 
 	void resetearLanzarProp();
 

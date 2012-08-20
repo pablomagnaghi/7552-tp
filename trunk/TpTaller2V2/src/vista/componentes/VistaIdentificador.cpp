@@ -29,6 +29,8 @@ bool VistaIdentificador::lanzarProp() {
 }
 
 void VistaIdentificador::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
+	std::vector<VistaAtributo *>::iterator i;
+	std::vector<VistaUnionEntidadRelacion *>::iterator j;
 	cr->set_line_width(1);
 	if (!this->seleccionado) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
@@ -41,23 +43,52 @@ void VistaIdentificador::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	double x0, x1, y0, y1;
 
 	if (this->vistasAtributo.size() == 1) {
-		this->vistasAtributo[0]->setEsIdentificador(true);
-		this->vistasAtributo[0]->dibujar(cr);
+		if (this->vistasEntidadesFuertes.empty()) {
+			this->vistasAtributo[0]->setEsIdentificador(true);
+			this->vistasAtributo[0]->dibujar(cr);
+		} else {
+			this->vistasAtributo[0]->getPuntoMedioLinea(x0, y0);
+			cr->arc(x0, y0, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
+			cr->fill();
+			cr->move_to(x0, y0);
+			for (j = this->vistasEntidadesFuertes.begin(); j != this->vistasEntidadesFuertes.end(); j++) {
+				(*j)->getPuntoMedioLinea(x1, y1);
+				cr->line_to(x1, y1);
+				cr->stroke();
+				cr->arc(x1, y1, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
+				cr->fill();
+				cr->move_to(x0, y0);
+			}
+			cr->stroke();
+		}
 	} else {
-		std::vector<VistaAtributo *>::iterator i;
 		this->vistasAtributo[0]->getPuntoMedioLinea(x0, y0);
 		cr->arc(x0, y0, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
 		cr->fill();
 		cr->move_to(x0, y0);
+
 		for (i = (this->vistasAtributo.begin() + 1); i != this->vistasAtributo.end(); i++) {
 			(*i)->getPuntoMedioLinea(x1, y1);
 			cr->line_to(x1, y1);
 			cr->stroke();
 			cr->arc(x1, y1, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
 			cr->fill();
-			cr->move_to(x1,y1);
+			cr->move_to(x1, y1);
 		}
 		cr->stroke();
+		if (!this->vistasEntidadesFuertes.empty()) {
+			cr->move_to(x0, y0);
+			for (j = this->vistasEntidadesFuertes.begin(); j != this->vistasEntidadesFuertes.end(); j++) {
+				(*j)->getPuntoMedioLinea(x1, y1);
+				cr->line_to(x1, y1);
+				cout << "X1=" << x1 << " Y1=" << y1 << endl;
+				cr->stroke();
+				cr->arc(x1, y1, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
+				cr->fill();
+				cr->move_to(x0, y0);
+			}
+			cr->stroke();
+		}
 	}
 
 	/*if (this->vistaAtributos.empty()) {
@@ -111,6 +142,18 @@ std::vector<VistaAtributo*>::iterator VistaIdentificador::atributosBegin() {
 
 std::vector<VistaAtributo*>::iterator VistaIdentificador::atributosEnd() {
 	return this->vistasAtributo.end();
+}
+
+void VistaIdentificador::agregarEntidadFuerte(VistaUnionEntidadRelacion * vUnionEntidad) {
+	this->vistasEntidadesFuertes.push_back(vUnionEntidad);
+}
+
+std::vector<VistaUnionEntidadRelacion*>::iterator VistaIdentificador::entidadesFuertesBegin() {
+	return this->vistasEntidadesFuertes.begin();
+}
+
+std::vector<VistaUnionEntidadRelacion*>::iterator VistaIdentificador::entidadesFuertesEnd() {
+	return this->vistasEntidadesFuertes.end();
 }
 
 bool VistaIdentificador::esSeleccionado(double x, double y) {

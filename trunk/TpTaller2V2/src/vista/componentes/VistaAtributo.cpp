@@ -8,7 +8,7 @@ VistaAtributo::VistaAtributo(Atributo * atributoModelo) {
 	this->atributo = atributoModelo;
 	this->prop_lanzada = false;
 	this->esIdentificador = false;
-
+	this->dibujar_cardinalidad = true;
 }
 
 VistaAtributo::~VistaAtributo() {
@@ -31,6 +31,15 @@ bool VistaAtributo::lanzarProp() {
 void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(1);
 	Cairo::TextExtents textExtents;
+	std::string texto(this->atributo->getNombre());
+	if (this->dibujar_cardinalidad) {
+		texto.append("(");
+		texto.append(this->atributo->getCardinalidadMinima());
+		texto.append(";");
+		texto.append(this->atributo->getCardinalidadMaxima());
+		texto.append(")");
+	}
+
 	if (!this->seleccionado) {
 		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
 				colorNegro.get_blue_p());
@@ -60,7 +69,7 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	} else {
 		double delta_x, delta_y;
 		if (this->pos_fin_x < this->pos_ini_x || this->pos_fin_y < this->pos_ini_y) {
-			cr->get_text_extents(this->atributo->getNombre(), textExtents);
+			cr->get_text_extents(texto, textExtents);
 			this->calcularDimensionesAPartirDeTexto(&textExtents);
 		}
 		// Dibujo una elipse
@@ -88,7 +97,8 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 			cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(),
 					colorBlanco.get_blue_p());
 		}
-		this->dibujarNombreCentrado(cr, this->atributo->getNombre());
+
+		this->dibujarNombreCentrado(cr, texto);
 
 	}
 }
@@ -127,7 +137,7 @@ void VistaAtributo::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textE
 
 bool VistaAtributo::esPuntoDeRedimension(double x, double y) {
 
-	if(this->vistaAtributos.empty()){
+	if (this->vistaAtributos.empty()) {
 		return false;
 	}
 	// Considero los circulos de las puntas como cuadrados para que sea mas facil la comparacion
@@ -339,14 +349,14 @@ void VistaAtributo::setEsIdentificador(bool id) {
 	this->esIdentificador = id;
 }
 
-void VistaAtributo::setLinea(VistaLinea * linea){
-	this->lineaConEntidad=linea;
+void VistaAtributo::setLinea(VistaLinea * linea) {
+	this->lineaConEntidad = linea;
 }
 
-void VistaAtributo::getPuntoMedioLinea(double &x, double &y){
+void VistaAtributo::getPuntoMedioLinea(double &x, double &y) {
 	double x0, y0, x1, y1;
-	this->lineaConEntidad->getposini(x0,y0);
-	this->lineaConEntidad->getposfin(x1,y1);
-	x = (x0+x1)/2;
-	y = (y0+y1)/2;
+	this->lineaConEntidad->getposini(x0, y0);
+	this->lineaConEntidad->getposfin(x1, y1);
+	x = (x0 + x1) / 2;
+	y = (y0 + y1) / 2;
 }
