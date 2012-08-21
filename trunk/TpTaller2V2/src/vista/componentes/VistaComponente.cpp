@@ -192,11 +192,10 @@ bool  VistaComponente::estaSeleccionado(){
 }
 
 // PERSISTENCIA REP
-// VER!!!! COSAS A CAMBIAR
 
-// CARGAR INCOMPLETO. FALTAN CAMBIAR VARIAS COSAS
+// CARGAR
 
-VistaComponente::VistaComponente(XmlNodo* nodo) {
+void VistaComponente::cargarDatosXmlRep(XmlNodo* nodo) {
 
 	this->obtenerPropiedadesXmlREP(nodo);
 

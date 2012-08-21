@@ -119,7 +119,7 @@ public:
 
 	// PERSISTENCIA REP
 	// CARGAR
-	VistaComponente(XmlNodo*);
+	void cargarDatosXmlRep(XmlNodo*);
 	// GUARDAR
 	XmlNodo guardarXmlREP();
 };

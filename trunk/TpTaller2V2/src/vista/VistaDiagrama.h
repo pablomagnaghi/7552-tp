@@ -88,10 +88,11 @@ private:
 
 	// CARGAR
 	void abrirXmlREP(const std::string& path);
+	void cargarXmlREP(XmlNodo* nodoRaiz);
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerComponentesXmlREP(XmlNodo* nodo);
 
-	// Guardar
+	// GUARDAR
 	void guardarDiagramaXmlREP(const std::string& path);
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
 	void guardarComponentesXmlREP(XmlNodo *nodo);

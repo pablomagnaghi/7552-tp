@@ -15,6 +15,9 @@ const char* const COMPOSICION = "composicion.xsd";
 const char* const REPRESENTACION = "representacion.xsd";
 const char* const NOMBRE_DIAGRAMA = "diagrama";
 
+const char* const EXTENSION_COMP = "-COMP.xml";
+const char* const EXTENSION_REP = "-REP.xml";
+
 const char* const XML_VERSION = "1.0";
 const char* const XML_ENCODING = "UTF-8";
 
