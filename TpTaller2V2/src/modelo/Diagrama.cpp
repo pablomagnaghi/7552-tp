@@ -526,9 +526,10 @@ void Diagrama::cargarEntidadesYJerarquias() {
 void Diagrama::cargarDiagramasHijos() {
 	std::vector<std::string>::iterator it = this->nombresDiagramasHijosBegin();
 	while (it != this->nombresDiagramasHijosEnd()) {
-		std::string nombre = (*it) + ".xml";
+		std::string nombre = (*it);
 		Diagrama *diagramaHijo = new Diagrama(nombre);
 		diagramaHijo->setDiagramaAncestro(this);
+		nombre += EXTENSION_COMP;
 		diagramaHijo->abrirXmlCOMP(nombre);
 		this->agregarDiagramaHijo(diagramaHijo);
 		it++;

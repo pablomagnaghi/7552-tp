@@ -667,10 +667,11 @@ bool VistaDiagrama::isOpenXmlREP() const {
 // Ejemplo: el nombre del diagrama es Principal
 // a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
 
-// todo HACER CARGAR
-
 void VistaDiagrama::abrirXml(const std::string& path) {
-
+	std::string diagramaCOMP = path + EXTENSION_COMP;
+	this->diagrama->abrirXmlCOMP(diagramaCOMP);
+	std::string diagramaREP = path + EXTENSION_REP;
+	this->abrirXmlREP(diagramaREP);
 }
 
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
@@ -683,15 +684,8 @@ void VistaDiagrama::abrirXmlREP(const std::string& path) {
 		this->diagramaValidoREP = true;
 
 		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
-
 		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz );
-
-		// archivo listo para cargar el diagrama
-		// se cargan los componentes del doc.
-
-		this->obtenerPropiedadesXmlREP(nodoRaiz);
-		XmlNodo nodo = nodoRaiz->getHijo();
-		this->obtenerComponentesXmlREP(&nodo);
+		this->cargarXmlREP(nodoRaiz);
 	}
 	catch ( XmlArchivoInexistenteExc* ex ) {
 		delete ex;
@@ -703,15 +697,26 @@ void VistaDiagrama::abrirXmlREP(const std::string& path) {
 	}
 }
 
+void VistaDiagrama::cargarXmlREP(XmlNodo* nodoRaiz) {
+	// archivo listo para cargar los componentes del diagrama
+	this->obtenerPropiedadesXmlREP(nodoRaiz);
+	XmlNodo nodo = nodoRaiz->getHijo();
+	this->obtenerComponentesXmlREP(&nodo);
+}
+
 void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
 	this->estado = nodo->getPropiedad("estado");
 }
 
+// todo
+// se crean las vistas de cada uno de los componentes
 void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "componente") {
-			//VistaComponente *vistaComponente = new VistaComponente(nodo);
-			//this->agregarComponente(vistaComponente);
+			//int codigoComponente = nodo->getPropiedadInt("codigo");
+			//buscarComponenteEnDiagrama
+			// newVista
+			// cargarComponentesdel X
 		}
 		*nodo = nodo->getHermano();
 	}
@@ -725,9 +730,9 @@ void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
 // todo Probar guardar
 
 void VistaDiagrama::guardarDiagramaXml(const std::string& path) {
-	std::string diagramaCOMP = path + "-COMP.xml";
+	std::string diagramaCOMP = path + EXTENSION_COMP;
 	this->diagrama->guardarDiagramaXmlCOMP(diagramaCOMP);
-	std::string diagramaREP = path + "-REP.xml";
+	std::string diagramaREP = path + EXTENSION_REP;
 	this->guardarDiagramaXmlREP(diagramaREP);
 }
 
