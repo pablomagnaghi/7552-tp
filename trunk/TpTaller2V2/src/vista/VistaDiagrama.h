@@ -87,6 +87,24 @@ private:
 	std::string estado;
 
 	// CARGAR
+
+	// Estos metodos llaman a los builders correspondientes de la
+	// clase ComponentsBuilder en Controlador
+
+	void crearVistasDelModelo();
+
+	void crearVistasEntidadNueva();
+
+	void crearVistasEntidadGlobal();
+
+	void crearVistasAtributo();
+
+	void crearVistasRelacion();
+
+	void crearVistasJerarquia();
+
+	// FALTAN COMPLETAR LOS METODOS DE ARRIBA
+
 	void abrirXmlREP(const std::string& path);
 	void cargarXmlREP(XmlNodo* nodoRaiz);
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
