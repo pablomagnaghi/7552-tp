@@ -670,8 +670,34 @@ bool VistaDiagrama::isOpenXmlREP() const {
 void VistaDiagrama::abrirXml(const std::string& path) {
 	std::string diagramaCOMP = path + EXTENSION_COMP;
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
+	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->abrirXmlREP(diagramaREP);
+}
+
+
+void VistaDiagrama::crearVistasDelModelo() {
+	this->crearVistasEntidadNueva();
+}
+
+void VistaDiagrama::crearVistasEntidadNueva() {
+
+}
+
+void VistaDiagrama::crearVistasEntidadGlobal() {
+
+}
+
+void VistaDiagrama::crearVistasAtributo() {
+
+}
+
+void VistaDiagrama::crearVistasRelacion() {
+
+}
+
+void VistaDiagrama::crearVistasJerarquia() {
+
 }
 
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
@@ -701,6 +727,7 @@ void VistaDiagrama::cargarXmlREP(XmlNodo* nodoRaiz) {
 	// archivo listo para cargar los componentes del diagrama
 	this->obtenerPropiedadesXmlREP(nodoRaiz);
 	XmlNodo nodo = nodoRaiz->getHijo();
+
 	this->obtenerComponentesXmlREP(&nodo);
 }
 
