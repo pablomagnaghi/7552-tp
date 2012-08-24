@@ -111,6 +111,7 @@ private:
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerComponentesXmlREP(XmlNodo* nodo);
 	VistaComponente* obtenerComponente(int codigo);
+	void cargarVistaDiagramasHijos();
 
 	// GUARDAR
 	void guardarDiagramaXmlREP(const std::string& path);
@@ -129,9 +130,11 @@ public:
 	int getAlto();
 	int getAncho();
 
-	void agregarComponente(VistaComponente * componente);
+	void agregarComponente(VistaComponente *componente);
 
 	void agregarVistaEntidadNueva(VistaEntidadNueva *ven);
+
+	void agregarVistaDiagrama(VistaDiagrama *vDiagrama);
 
 	std::string getNombre() const;
 
