@@ -596,7 +596,7 @@ void VistaDiagrama::drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
 	cout << "DRAG_DATA_RECEIVED " << endl;
 }
 
-void VistaDiagrama::agregarComponente(VistaComponente * componente) {
+void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 	if (componente != NULL) {
 		this->componentes.push_back(componente);
 		this->queue_draw();
@@ -606,6 +606,12 @@ void VistaDiagrama::agregarComponente(VistaComponente * componente) {
 void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven) {
 	if (ven != NULL) {
 		this->vistaentidades.push_back(ven);
+	}
+}
+
+void VistaDiagrama::agregarVistaDiagrama(VistaDiagrama *vDiagrama) {
+	if (vDiagrama != NULL) {
+		this->diagramas.push_back(vDiagrama);
 	}
 }
 
@@ -668,30 +674,19 @@ bool VistaDiagrama::isOpenXmlREP() const {
 // a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
 
 void VistaDiagrama::abrirXml(const std::string& path) {
+	// se creo el modelo con todos los diagramas
+	Diagrama *diagrama = new Diagrama(path);
+	this->diagrama = diagrama;
 	std::string diagramaCOMP = path + EXTENSION_COMP;
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
-	// se creo el modelo con todos los diagramas
 
-	// para cada diagrama, desde el padre hasta el ultimo hijo
-	// se setean los datos de las vistas
-
-	// todo
-	/*std::vector<Diagrama*>::iterator it = diagramaPrincipal->diagramasHijosBegin();
-
-		while (it != diagramaPrincipal->diagramasHijosEnd()) {
-			std::string nombre = "PruebaCarga2-Hijo.xml";
-			(*it)->guardarDiagramaXmlCOMP(nombre);
-			it++;
-			nombre += "x";
-		}
-
-*/
+	// se crean las vistas de ese diagrama
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->abrirXmlREP(diagramaREP);
-}
 
-// todo
+	this->cargarVistaDiagramasHijos();
+}
 
 void VistaDiagrama::crearVistasDelModelo() {
 	this->crearVistasEntidadNueva();
@@ -786,6 +781,20 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 		}
 	}
 	return NULL;
+}
+
+void VistaDiagrama::cargarVistaDiagramasHijos() {
+	// para cada diagrama hijo se setean los datos de las vistas
+
+	std::vector<Diagrama*>::iterator it = this->getDiagrama()->diagramasHijosBegin();
+
+	while (it != this->getDiagrama()->diagramasHijosEnd()) {
+		std::string nombre = (*it)->getNombre();
+		VistaDiagrama *vDiagrama = new VistaDiagrama((*it));
+		vDiagrama->abrirXml(nombre);
+		this->agregarVistaDiagrama(vDiagrama);
+		it++;
+	}
 }
 
 // GUARDAR
