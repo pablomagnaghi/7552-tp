@@ -193,14 +193,20 @@ bool  VistaComponente::estaSeleccionado(){
 
 // PERSISTENCIA REP
 
+int VistaComponente::getCodigoREP() {
+	return this->codigoREP;
+}
+
+void VistaComponente::setCodigoREP(int codigoREP) {
+	this->codigoREP = codigoREP;
+}
+
+
 // CARGAR
 
 void VistaComponente::cargarDatosXmlRep(XmlNodo* nodo) {
-
 	this->obtenerPropiedadesXmlREP(nodo);
-
 	XmlNodo nodoAux = nodo->getHijo();
-
 	this->obtenerComponentesXmlREP(&nodoAux);
 }
 

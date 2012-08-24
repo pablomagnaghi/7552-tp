@@ -8,6 +8,7 @@
 #include <vector>
 #include "VistaConstantes.h"
 #include "./componentes/VistasDeComponentes.h"
+#include "../controlador/ComponentsBuilder.h"
 
 class VistaDiagrama: public Gtk::DrawingArea {
 private:
@@ -93,11 +94,11 @@ private:
 
 	void crearVistasDelModelo();
 
+	// crea las vistas de las entidades nuevas y sus atributos correspondientes
+	// que a su vez pueden contener atributos
 	void crearVistasEntidadNueva();
 
 	void crearVistasEntidadGlobal();
-
-	void crearVistasAtributo();
 
 	void crearVistasRelacion();
 
@@ -109,6 +110,7 @@ private:
 	void cargarXmlREP(XmlNodo* nodoRaiz);
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerComponentesXmlREP(XmlNodo* nodo);
+	VistaComponente* obtenerComponente(int codigo);
 
 	// GUARDAR
 	void guardarDiagramaXmlREP(const std::string& path);

@@ -670,25 +670,57 @@ bool VistaDiagrama::isOpenXmlREP() const {
 void VistaDiagrama::abrirXml(const std::string& path) {
 	std::string diagramaCOMP = path + EXTENSION_COMP;
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
+	// se creo el modelo con todos los diagramas
+
+	// para cada diagrama, desde el padre hasta el ultimo hijo
+	// se setean los datos de las vistas
+
+	// todo
+	/*std::vector<Diagrama*>::iterator it = diagramaPrincipal->diagramasHijosBegin();
+
+		while (it != diagramaPrincipal->diagramasHijosEnd()) {
+			std::string nombre = "PruebaCarga2-Hijo.xml";
+			(*it)->guardarDiagramaXmlCOMP(nombre);
+			it++;
+			nombre += "x";
+		}
+
+*/
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->abrirXmlREP(diagramaREP);
 }
 
+// todo
 
 void VistaDiagrama::crearVistasDelModelo() {
 	this->crearVistasEntidadNueva();
 }
 
 void VistaDiagrama::crearVistasEntidadNueva() {
-
+	std::vector<EntidadNueva*>::iterator itEnt = this->getDiagrama()->entidadesNuevasBegin();
+	while (itEnt != this->getDiagrama()->entidadesNuevasEnd()) {
+		// el builder crea la vista entidad nueva
+		VistaEntidadNueva *vEntNueva = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, (*itEnt));
+		// el builder crea las vistas de los atributos de la entidad nueva
+		std::vector<Atributo*>::iterator itAtrib = (*itEnt)->atributosBegin();
+		while (itAtrib != (*itEnt)->atributosEnd()) {
+			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(vEntNueva, this, (*itAtrib));
+			// el builder crea las vistas de los atributos compuestos
+			std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
+			while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
+				// La VistaAtributo* que devuelve no la utilizo en este caso
+				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(vAtrib, this, (*itAtribCompuesto));
+				itAtribCompuesto++;
+			}
+			itAtrib++;
+		}
+		itEnt++;
+	}
 }
 
+// todo faltan estos metodos, SE NECESITAN LOS BUILDERS
 void VistaDiagrama::crearVistasEntidadGlobal() {
-
-}
-
-void VistaDiagrama::crearVistasAtributo() {
 
 }
 
@@ -727,7 +759,6 @@ void VistaDiagrama::cargarXmlREP(XmlNodo* nodoRaiz) {
 	// archivo listo para cargar los componentes del diagrama
 	this->obtenerPropiedadesXmlREP(nodoRaiz);
 	XmlNodo nodo = nodoRaiz->getHijo();
-
 	this->obtenerComponentesXmlREP(&nodo);
 }
 
@@ -735,18 +766,26 @@ void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
 	this->estado = nodo->getPropiedad("estado");
 }
 
-// todo
-// se crean las vistas de cada uno de los componentes
-void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
+// se agregan los datos de color y posicion a la vista de cada uno de los componentes
+void VistaDiagrama::obtenerComponentesXmlREP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "componente") {
-			//int codigoComponente = nodo->getPropiedadInt("codigo");
-			//buscarComponenteEnDiagrama
-			// newVista
-			// cargarComponentesdel X
+			VistaComponente *vComponente = obtenerComponente(nodo->getPropiedadInt("codigo"));
+			if (vComponente)
+				vComponente->cargarDatosXmlRep(nodo);
 		}
 		*nodo = nodo->getHermano();
 	}
+}
+
+VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
+	std::vector<VistaComponente *>::iterator i;
+	for (i = this->componentes.begin(); i != this->componentes.end(); i++) {
+		if ((*i)->getCodigoREP() == codigoREP) {
+			return *i;
+		}
+	}
+	return NULL;
 }
 
 // GUARDAR
@@ -754,16 +793,12 @@ void VistaDiagrama::obtenerComponentesXmlREP (XmlNodo* nodo) {
 // A partir del nombre del diagrama que se pasa, se guarda el modelo en el xml
 // con la extesion COMP y la representacion en el xml con la extension REP
 
-// todo Probar guardar
-
 void VistaDiagrama::guardarDiagramaXml(const std::string& path) {
 	std::string diagramaCOMP = path + EXTENSION_COMP;
 	this->diagrama->guardarDiagramaXmlCOMP(diagramaCOMP);
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->guardarDiagramaXmlREP(diagramaREP);
 }
-
-// Guarda el Diagrama
 
 void VistaDiagrama::guardarDiagramaXmlREP(const std::string& path) {
 	Xml docXml;
