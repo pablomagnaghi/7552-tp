@@ -118,6 +118,8 @@ public:
 	bool estaSeleccionado();
 
 	// PERSISTENCIA REP
+	int getCodigoREP();
+	void setCodigoREP(int codigoREP);
 	// CARGAR
 	void cargarDatosXmlRep(XmlNodo*);
 	// GUARDAR
