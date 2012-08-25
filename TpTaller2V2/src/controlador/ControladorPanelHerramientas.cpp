@@ -44,6 +44,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 	} else {
 		delete nuevaEntidad;
 	}
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
@@ -56,7 +57,8 @@ void ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click() {
 #ifdef DEBUG
 	cout << "Agregar Jerarquia" << endl;
 #endif
-	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama();
+	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(NULL);
+	Ide::getInstance()->regenerarTreePanel();
 	nuevaJerarquia->lanzarProp();
 }
 

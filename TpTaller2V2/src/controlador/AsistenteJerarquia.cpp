@@ -31,22 +31,27 @@ void AsistenteJerarquia::setJerarquia(VistaJerarquia* jer) {
 
 void AsistenteJerarquia::setDiagrama(VistaDiagrama * diag){
 	this->diagrama = diag;
-	this->llenarListaEntidades();
+	this->llenarListaEntidades(NULL);
+	this->llenarComboBox();
 }
 void AsistenteJerarquia::enlazarWidgets() {
 	Gtk::Button* bAceptar = 0;
 	Gtk::Button* bCancelar = 0;
 	Gtk::Entry *entryNombre = 0;
 	Gtk::ScrolledWindow* scrollLista = 0;
+	Gtk::Fixed * fixed = 0;
 
 	this->m_builder->get_widget("bAceptar", bAceptar);
 	this->m_builder->get_widget("bCancelar", bCancelar);
 	this->m_builder->get_widget("entryNombre", entryNombre);
+	this->m_builder->get_widget("fixed3", fixed);
 
 	bAceptar->signal_clicked().connect(sigc::mem_fun(*this,
 			&AsistenteJerarquia::on_botonAceptar_click));
 	bCancelar->signal_clicked().connect(sigc::mem_fun(*this,
 			&AsistenteJerarquia::on_botonCancelar_click));
+	this->comboBox.signal_changed().connect(sigc::mem_fun(*this,
+			&AsistenteJerarquia::on_ComboBox_click));
 
 	this->signal_hide().connect(sigc::mem_fun(*this,
 						&AsistenteJerarquia::on_about_hide));
@@ -63,52 +68,88 @@ void AsistenteJerarquia::enlazarWidgets() {
 	this->treeView.append_column_editable("Selected",
 			this->m_Columnas.m_col_selected);
 
+	this->refTreeModelCombo = Gtk::ListStore::create(this->m_ColumnasCombo);
+	this->comboBox.set_model(this->refTreeModelCombo);
+	this->comboBox.pack_start(this->m_ColumnasCombo.m_col_Nombre);
+	this->comboBox.set_active(0);
+	this->comboBox.set_size_request(120,25);
+	fixed->put(this->comboBox,200,50);
 
-	/*Gtk::ComboBoxText* comboTipo = manage(new Gtk::ComboBoxText());
-	this->comboTipo = comboTipo;
-	this->m_builder->get_widget("vboxDerecha", vbox);
-	vbox->add(*comboTipo);
-	comboTipo->append_text("Caracterizacion");
-	comboTipo->append_text("Copiado");
-	comboTipo->append_text("Calculado");
-	comboTipo->set_active(1);
-	comboTipo->show();*/
-	//this->llenarListaEntidades();
 	this->treeView.show();
+	this->show_all();
 }
 
-void AsistenteJerarquia::llenarListaEntidades(){
-	/*cout<<"LLEGO2222!!!"<<endl;
-	//vector<VistaEntidadNueva*>::iterator it1 =Ide::diagactual->vEntidadesBegin();
-	cout<<"LLEGO2222!!!"<<endl;
-	//vector<VistaEntidadNueva*>::iterator it2 = Ide::diagactual->vEntidadesEnd();
-	Gtk::TreeModel::Row row;
-
+void AsistenteJerarquia::llenarListaEntidades(VistaEntidadNueva * omitir){
+	this->limpiarLista();
+	std::vector<VistaEntidadNueva *>::iterator it1 =  this->diagrama->vEntidadesBegin();
+	std::vector<VistaEntidadNueva *>::iterator it2 =  this->diagrama->vEntidadesEnd();
 	while (it1 != it2){
-		row = *(this->refTreeModel->append());
-		row[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
-		row[this->m_Columnas.m_col_vEnt_Pointer] = *(it1);
-		row[this->m_Columnas.m_col_selected] =false;
+		if ((*it1) != omitir){
+			Gtk::TreeModel::Row row = *(this->refTreeModel->append());
+			row[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
+			row[this->m_Columnas.m_col_selected] = false;
+			row[this->m_Columnas.m_col_vEnt_Pointer] = *it1;
+		}
 		it1++;
-	}*/
+	}
+}
+
+void AsistenteJerarquia::llenarComboBox(){
+	std::vector<VistaEntidadNueva *>::iterator it1 =  this->diagrama->vEntidadesBegin();
+	std::vector<VistaEntidadNueva *>::iterator it2 =  this->diagrama->vEntidadesEnd();
+	while (it1 != it2){
+		Gtk::TreeModel::Row row = *(this->refTreeModelCombo->append());
+		row[this->m_ColumnasCombo.m_col_Nombre] = (*it1)->getNombre();
+		row[this->m_ColumnasCombo.m_col_vEnt_Pointer] = *it1;
+		it1++;
+	}
+}
+
+void AsistenteJerarquia::on_ComboBox_click(){
+	Gtk::TreeModel::iterator iter = this->comboBox.get_active();
+	if(iter)
+	{
+	  Gtk::TreeModel::Row row = *iter;
+	  VistaEntidadNueva* omitir = row[this->m_ColumnasCombo.m_col_vEnt_Pointer];
+	  this->llenarListaEntidades(omitir);
+	}
 }
 
 void AsistenteJerarquia::on_botonAceptar_click() {
-	/*Gtk::Entry * entryCardMin = 0;
-	Gtk::Entry * entryCardMax = 0;
-	Gtk::Entry * entryExpresion = 0;
-	this->m_builder->get_widget("entryCardMin", entryCardMin);
-	this->m_builder->get_widget("entryCardMax", entryCardMax);
-	this->m_builder->get_widget("entryExpresion", entryExpresion);
+	VistaEntidadNueva* entidadPadre = NULL;
+	VistaEntidadNueva* entidad = NULL;
+	Gtk::Entry *entryNombre = 0;
+	this->m_builder->get_widget("entryNombre", entryNombre);
+	string nom =entryNombre->get_text();
+	if ( nom != "") {
+		this->vjerarquia->setNombre(nom);
+		Gtk::TreeModel::iterator iter = this->comboBox.get_active();
+		if (iter) {
+			this->m_builder->get_widget("entryNombre", entryNombre);
 
-	this->vatributo->getAtributo()->setNombre(this->entryNombre->get_text());
-	this->vatributo->getAtributo()->setCardinalidadMinima(entryCardMin->get_text());
-	this->vatributo->getAtributo()->setCardinalidadMaxima(entryCardMax->get_text());
-	this->vatributo->getAtributo()->setExpresion(entryExpresion->get_text());
-	this->vatributo->getAtributo()->setTipo(this->comboTipo->get_active_text());
-
-	this->vatributo->resetearLanzarProp();
-	this->hide();*/
+			Gtk::TreeModel::Row row = *iter;
+			entidadPadre = row[this->m_ColumnasCombo.m_col_vEnt_Pointer];
+			this->vjerarquia->setEntidadPadre(entidadPadre);
+			//Ahora seteo las entidades hijas
+			typedef Gtk::TreeModel::Children type_children;
+			type_children children = this->refTreeModel->children();
+			type_children::iterator iter = children.begin();
+			type_children::iterator iter1 = children.end();
+			while (iter != iter1) {
+				Gtk::TreeModel::Row row = *iter;
+				// si esta seleccionada la agrego
+				if (row[this->m_Columnas.m_col_selected] == true) {
+					entidad = row[this->m_Columnas.m_col_vEnt_Pointer];
+					this->vjerarquia->agregarEntidadEspecializada(entidad);
+				}
+				iter++;
+			}
+		}
+	} else {
+		//NOMBRe VACIO
+		entryNombre->set_text("Ingrese un nombre");
+	}
+	this->hide();
 }
 
 void AsistenteJerarquia::on_botonCancelar_click() {
@@ -120,39 +161,15 @@ void AsistenteJerarquia::on_botonCancelar_click() {
 
 
 void AsistenteJerarquia::inicializarAsistente() {
-	/*Gtk::Entry * entryCardMin = 0;
-	Gtk::Entry * entryCardMax = 0;
-	Gtk::Entry * entryExpresion = 0;
-	this->entryNombre->set_text(this->vatributo->getNombre());
-	//Cargo la lista;
-	std::vector<VistaAtributo*>::iterator it1 = this->vatributo->atributosBegin();
-	std::vector<VistaAtributo*>::iterator it2 = this->vatributo->atributosEnd();
-	while (it1 != it2) {
-		Gtk::TreeModel::Row row = *(this->refTreeModel->append());
-		row[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
-		row[this->m_Columnas.m_col_Atrib_Pointer] = *it1;
-		it1++;
-	}
-	//cargo cardinalidades
-	this->m_builder->get_widget("entryCardMin", entryCardMin);
-	entryCardMin->set_text(this->vatributo->getAtributo()->getCardinalidadMinima());
-	this->m_builder->get_widget("entryCardMax", entryCardMax);
-	entryCardMax->set_text(this->vatributo->getAtributo()->getCardinalidadMaxima());
-	this->m_builder->get_widget("entryExpresion", entryExpresion);
-	entryExpresion->set_text(this->vatributo->getAtributo()->getExpresion());
-	//Cargo el typo
-	string tipo = this->vatributo->getAtributo()->getTipo();
 
-	this->comboTipo->set_active(1);
-	for (int i =0;i<3;i++){
-		if (tipo != this->comboTipo->get_active_text()){
-			this->comboTipo->set_active(i+1);
-		}
-	}*/
 }
 
 void AsistenteJerarquia::on_about_hide()
 {
 	this->vjerarquia->resetearLanzarProp();
+}
+
+void AsistenteJerarquia::limpiarLista() {
+	this->refTreeModel->clear();
 }
 

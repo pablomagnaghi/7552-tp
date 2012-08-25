@@ -61,7 +61,7 @@ void Ide::nuevoProyecto() {
 	if (this->vproyecto == NULL) {
 		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("DiagramaPrincipal")));
 		this->vproyecto->testCargarDiagramas();
-		this->treePanel.regenerar();
+		this->regenerarTreePanel();
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();
 	} else {
@@ -106,4 +106,8 @@ Ide * Ide::getInstance() {
 	} else {
 		return Ide::instancia;
 	}
+}
+
+void Ide::regenerarTreePanel(){
+	this->treePanel.regenerar();
 }

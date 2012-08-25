@@ -18,6 +18,7 @@ TreePanel::TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i) :
 bool TreePanel::regenerar() {
 	if (!this->hayProyecto())
 		return false;
+	this->limpiar();
 	VistaDiagrama *principal = this->ide->getProyecto()->getDiagramaPrincipal();
 
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
@@ -106,4 +107,9 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 
 bool TreePanel::hayProyecto() {
 	return this->ide->getProyecto() != NULL;
+}
+
+
+void TreePanel::limpiar(){
+	this->refTreeModel->clear();
 }

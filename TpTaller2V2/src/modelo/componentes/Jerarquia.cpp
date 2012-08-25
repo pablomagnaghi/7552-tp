@@ -2,7 +2,7 @@
 
 Jerarquia::Jerarquia() :
 	entidadGeneral (NULL) {
-
+	this->nombre = "JERARQUIA";
 }
 
 Jerarquia::~Jerarquia() {

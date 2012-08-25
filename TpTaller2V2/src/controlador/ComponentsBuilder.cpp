@@ -93,15 +93,16 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaAtributo *vatrib
 	} else return NULL;
 }
 
-VistaJerarquia* ComponentsBuilder::crearJerarquiaEnDiagrama(){
-	//if (this->ide != NULL) {
-		Jerarquia * j = new Jerarquia();
-		VistaJerarquia * vJerarquia = new VistaJerarquia(j);
-		Ide::getInstance()->getDiagActual()->getDiagrama()->agregarJerarquia(j);
-		Ide::getInstance()->getDiagActual()->agregarComponente(vJerarquia);
-		cout<<"JERAQUIA CREADA EN PANEL"<<endl;
-		return vJerarquia;
-	//}else return NULL;
+VistaJerarquia* ComponentsBuilder::crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual=NULL){
+	if (diagramaActual == NULL){
+				diagramaActual = Ide::getInstance()->getDiagActual();
+	}
+	Jerarquia * j = new Jerarquia();
+	VistaJerarquia * vJerarquia = new VistaJerarquia(j);
+	Ide::getInstance()->getDiagActual()->getDiagrama()->agregarJerarquia(j);
+	Ide::getInstance()->getDiagActual()->agregarComponente(vJerarquia);
+	cout<<"JERAQUIA CREADA EN PANEL"<<endl;
+	return vJerarquia;
 }
 
 /*
