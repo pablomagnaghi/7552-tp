@@ -63,6 +63,7 @@ public:
 	void abrir_proyecto(string path);
 	void guardar_proyecto();
 	void cargarDiagrama(VistaDiagrama* diagrama);
+	void regenerarTreePanel();
 	inline VistaProyecto* getProyecto(){return this->vproyecto;}
 	VistaDiagrama* getDiagActual();
 

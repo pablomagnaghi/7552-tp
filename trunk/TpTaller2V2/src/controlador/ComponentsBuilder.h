@@ -48,7 +48,10 @@ public:
 	*/
 	VistaAtributo * crearAtributoEnAtributo(VistaAtributo *atribPadre,VistaDiagrama *diagramaActual,Atributo *atrib);
 
-	VistaJerarquia* crearJerarquiaEnDiagrama();
+	/*
+	 * SI diagramaActual es NULL utilizara El diagrama actual del ide
+	 */
+	VistaJerarquia* crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual);
 
 };
 

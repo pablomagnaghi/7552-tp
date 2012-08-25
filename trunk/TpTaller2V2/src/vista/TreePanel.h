@@ -52,6 +52,7 @@ private:
 	void regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row);
 	virtual bool on_button_press_event(GdkEventButton* event);
 	bool hayProyecto();
+	void limpiar();
 public:
 	TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i);
 	virtual ~TreePanel();

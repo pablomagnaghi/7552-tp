@@ -1,4 +1,5 @@
 #include "VistaJerarquia.h"
+#include "../Ide.h"
 
 #include <algorithm>
 
@@ -152,6 +153,7 @@ bool VistaJerarquia::lanzarProp() {
 				ARCH_GLADE_JERAR);
 		nHbuilder->get_widget_derived("PropJerarquia", nuevaProp);
 		nuevaProp->setJerarquia(this);
+		nuevaProp->setDiagrama(Ide::getInstance()->getDiagActual());
 		this->prop_lanzada = true;
 		nuevaProp->show();
 		return true;
@@ -178,10 +180,6 @@ void VistaJerarquia::setMouseArriba(double x, double y) {
 }
 
 void VistaJerarquia::redimensionar(double x, double y) {
-
-}
-
-void setNombre(const std::string & nombre) {
 
 }
 
@@ -227,4 +225,8 @@ VistaEntidad * VistaJerarquia::getEntidadPadre() {
 
 void VistaJerarquia::resetearLanzarProp(){
 	this->prop_lanzada = false;
+}
+
+void VistaJerarquia::setNombre(const std::string & nombre) {
+	this->jerarquia->setNombre(nombre);
 }
