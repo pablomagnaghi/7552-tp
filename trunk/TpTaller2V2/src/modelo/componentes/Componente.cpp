@@ -34,6 +34,8 @@ void Componente::setNombre(const std::string& nombre) {
 void Componente::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->codigo = nodo->getPropiedadInt("codigo");
 	this->nombre = nodo->getPropiedad("nombre");
+
+	GeneradorCodigo::getInstance()->testAndSetCodigo(this->codigo);
 }
 
 // GUARDAR

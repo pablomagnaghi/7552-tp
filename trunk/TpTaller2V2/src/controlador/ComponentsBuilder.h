@@ -51,7 +51,7 @@ public:
 	/*
 	 * SI diagramaActual es NULL utilizara El diagrama actual del ide
 	 */
-	VistaJerarquia* crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual);
+	VistaJerarquia* crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual, Jerarquia *j);
 
 };
 
