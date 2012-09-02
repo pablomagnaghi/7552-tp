@@ -8,6 +8,9 @@
 // Persistencia
 #include "../persistencia/Persistencia.h"
 
+// Generador Codigo
+#include "../GeneradorCodigo.h"
+
 class Componente {
 
 protected:

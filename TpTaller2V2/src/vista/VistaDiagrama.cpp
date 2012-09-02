@@ -724,7 +724,12 @@ void VistaDiagrama::crearVistasRelacion() {
 }
 
 void VistaDiagrama::crearVistasJerarquia() {
-
+	std::vector<Jerarquia*>::iterator itJer = this->getDiagrama()->jerarquiasBegin();
+	while (itJer != this->getDiagrama()->jerarquiasEnd()) {
+		// el builder crea la vista jerarquia
+		ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, (*itJer));
+		itJer++;
+	}
 }
 
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.

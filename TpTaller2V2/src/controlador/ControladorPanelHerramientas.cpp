@@ -57,7 +57,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click() {
 #ifdef DEBUG
 	cout << "Agregar Jerarquia" << endl;
 #endif
-	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(NULL);
+	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(NULL, NULL);
 	Ide::getInstance()->regenerarTreePanel();
 	nuevaJerarquia->lanzarProp();
 }
