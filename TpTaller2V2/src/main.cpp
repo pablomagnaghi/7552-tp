@@ -33,6 +33,7 @@ int aplicacion_principal(int argc, char *argv[]) {
 #ifdef DEBUG
 	cout << "IDE Construido" << endl;
 #endif
+
 	menu = new ControladorMenu(builder);
 	menu->setIde(ide);
 
@@ -49,7 +50,7 @@ int aplicacion_principal(int argc, char *argv[]) {
 int main(int argc, char *argv[]) {
 	//test_modelo();
 
-	try {
+	/*try {
 		throw ArgumentoInvalido("El codigo no puede ser negativo");
 	} catch (const ArgumentoInvalido& ex) {
 		std::cerr << ex.what() << std::endl;
@@ -59,7 +60,7 @@ int main(int argc, char *argv[]) {
 	} catch (const NullPointer& ex) {
 		std::cerr << ex.what() << std::endl;
 		//return 1;
-	}
+	}*/
 	aplicacion_principal(argc, argv);
 
 	double x, y;

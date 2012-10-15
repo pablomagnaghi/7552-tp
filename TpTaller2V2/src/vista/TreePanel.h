@@ -8,7 +8,6 @@
 #ifndef TREEPANEL_H_
 #define TREEPANEL_H_
 
-
 #include <iostream>
 
 #include <gtkmm.h>
@@ -25,7 +24,10 @@ typedef GtkRequisition Requisition;
 
 class Ide;
 
-class TreePanel : Gtk::TreeView{
+
+// public Para que no tire error cuando se conecta la señal
+// del menu popup
+class TreePanel: public Gtk::TreeView {
 private:
 	Ide *ide;
 	const Glib::RefPtr<Gtk::Builder>& Ide_builder;
@@ -53,7 +55,16 @@ private:
 	virtual bool on_button_press_event(GdkEventButton* event);
 	bool hayProyecto();
 	void limpiar();
+
+	void lanzarPopup(GdkEventButton* event);
+
+
+	void on_popup_boton_agregar_diagrama_hijo();
+	void on_popup_boton_eliminar_diagrama();
+
 public:
+
+
 	TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i);
 	virtual ~TreePanel();
 	bool regenerar();

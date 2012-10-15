@@ -8,7 +8,6 @@
 #ifndef IDE_H_
 #define IDE_H_
 
-
 #include "../controlador/ControladorPanelHerramientas.h"
 #include "../controlador/ComponentsBuilder.h"
 #include "VistaDiagrama.h"
@@ -25,17 +24,20 @@ using namespace std;
 class VistaProyecto;
 class VistaDiagrama;
 
-class Ide : public Gtk::Window {
+class Ide: public Gtk::Window {
 
 private:
 
 	Glib::RefPtr<Gtk::Builder> m_builder;
-	//Posse un proyecto por vez
-	VistaProyecto* vproyecto;
 
-	 VistaDiagrama *diagactual;
+	//Posee un proyecto por vez
+	VistaProyecto * vproyecto;
 
-	//Posse un treePanel
+	VistaDiagrama * diagramaActual;
+
+	Gtk::Layout* contenedorDiag;
+
+	//Posee un treePanel
 	TreePanel treePanel;
 
 	ControladorPanelHerramientas controladorPanelHerramientas;
@@ -45,11 +47,21 @@ private:
 	//Posee un panel de acciones
 	//PanelAcciones panelAcciones;
 
+	// ARCHIVOS
+
+	std::string carpetaProyecto; // Path al proyecto
+
+
+	// LOS METODOS QUE COMIENZAN CON debug SON PARA PRUEBAS
+
+	void debugInformarValorVariable(const std::string & nombreVariable, const std::string & valor);
+
+
+
 	/*
 	 * Enlaza todos los widgets que forman al Ide con las respectivas funciones.
 	 */
-	void enlazarWidgets();
-
+	//void enlazarWidgets();
 	//Devuelve true si hay un proyecto cargado
 	bool hayProyecto();
 
@@ -59,14 +71,20 @@ public:
 	virtual ~Ide();
 
 	//Proyecto
-	void nuevoProyecto();
-	void abrir_proyecto(string path);
-	void guardar_proyecto();
+
+	// MANEJO DE ARCHIVOS
+	bool abrir_proyecto();
+	bool guardar_proyecto(bool guardarComo);
+
+	bool crearNuevoProyecto();
 	void cargarDiagrama(VistaDiagrama* diagrama);
 	void regenerarTreePanel();
-	inline VistaProyecto* getProyecto(){return this->vproyecto;}
-	VistaDiagrama* getDiagActual();
 
+
+	inline VistaProyecto* getProyecto() {
+		return this->vproyecto;
+	}
+	VistaDiagrama* getDiagActual();
 
 };
 

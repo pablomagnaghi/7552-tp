@@ -7,9 +7,8 @@
 #include "Ide.h"
 #include "TreePanel.h"
 
-
 TreePanel::TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i) :
-	ide(i), Ide_builder(Ide_b) {
+		ide(i), Ide_builder(Ide_b) {
 	add_events(Gdk::ALL_EVENTS_MASK);
 	this->enlazarWidgets();
 	this->show();
@@ -101,15 +100,76 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 			//Gtk::TreeModel::Row row = *iter;
 			//this->refTreeModel->erase(iter);
 		}
+	} else if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3)) {
+		Gtk::TreeModel::Path seleccion;
+		if (this->get_path_at_pos(event->x,event->y,seleccion)) {
+			//
+			this->lanzarPopup(event);
+		}
 	}
 	return true;
+}
+
+void TreePanel::lanzarPopup(GdkEventButton* event) {
+
+	// CREO MENU POPUP (Ver dependiendo que se clickeo)
+	Glib::RefPtr<Gtk::ActionGroup> actionGroup;
+
+	Gtk::Menu * m_pMenuPopup;
+	Glib::RefPtr<Gtk::UIManager> userInterfaceManager;
+
+	actionGroup = Gtk::ActionGroup::create();
+
+	actionGroup->add(Gtk::Action::create("ContextMenu", "Context Menu"));
+
+	actionGroup->add(
+			Gtk::Action::create("ContextAgregarDiagrama",
+					"Agregar Diagrama Hijo"),
+			sigc::mem_fun(*this,
+					&TreePanel::on_popup_boton_agregar_diagrama_hijo));
+
+	actionGroup->add(
+			Gtk::Action::create("ContextEliminarDiagrama", "Eliminar Diagrama"),
+			sigc::mem_fun(*this, &TreePanel::on_popup_boton_eliminar_diagrama));
+
+	userInterfaceManager = Gtk::UIManager::create();
+	userInterfaceManager->insert_action_group(actionGroup);
+
+	//Layout the actions in a menubar and toolbar:
+	Glib::ustring ui_info = "<ui>"
+			"  <popup name='PopupMenu'>"
+			"    <menuitem action='ContextAgregarDiagrama'/>"
+			"    <menuitem action='ContextEliminarDiagrama'/>"
+			"  </popup>"
+			"</ui>";
+	try {
+		userInterfaceManager->add_ui_from_string(ui_info);
+	} catch (const Glib::Error& ex) {
+		std::cerr << "building menus failed: " << ex.what();
+	}
+
+	// LANZO MENU POPUP
+	m_pMenuPopup = dynamic_cast<Gtk::Menu*>(userInterfaceManager->get_widget(
+			"/PopupMenu"));
+
+	if (!m_pMenuPopup)
+		g_warning("menu not found");
+	else
+		m_pMenuPopup->popup(event->button, event->time);
+}
+
+void TreePanel::on_popup_boton_agregar_diagrama_hijo() {
+
+}
+
+void TreePanel::on_popup_boton_eliminar_diagrama() {
+
 }
 
 bool TreePanel::hayProyecto() {
 	return this->ide->getProyecto() != NULL;
 }
 
-
-void TreePanel::limpiar(){
+void TreePanel::limpiar() {
 	this->refTreeModel->clear();
 }

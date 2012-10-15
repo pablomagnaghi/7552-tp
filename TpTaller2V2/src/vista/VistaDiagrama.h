@@ -146,8 +146,7 @@ public:
 	std::vector<VistaEntidadNueva*>::iterator vEntidadesEnd();
 
 	Diagrama * getDiagrama();
-	void test_cargar_componentes_visuales();
-	void test_cargar_componentes_visuales_atributo();
+
 
 	// PERSISTENCIA REP
 	bool isOpenXmlREP() const;
@@ -155,6 +154,10 @@ public:
 	void abrirXml(const std::string& path);
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
+
+	// TEST
+	void test_cargar_componentes_visuales();
+	void test_cargar_componentes_visuales_atributo();
 };
 
 #endif /* VISTADIAGRAMA_H_ */

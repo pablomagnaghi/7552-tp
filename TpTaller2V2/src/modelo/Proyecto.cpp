@@ -31,9 +31,9 @@ void Proyecto::setDiagramaPrincipal(Diagrama* diagramaPrincipal){
 }
 
 bool Proyecto::existeDiagrama(const std::string& nombre){
-	std::string nombreMin = toLowerCase(nombre);
+	std::string nombreMin = Utils::toLowerCase(nombre);
 	if (this->diagramaPrincipal != NULL){
-		return (toLowerCase(diagramaPrincipal->getNombre()).compare(nombreMin) == 0
+		return (Utils::toLowerCase(diagramaPrincipal->getNombre()).compare(nombreMin) == 0
 				|| this->diagramaPrincipal->existeDiagrama(nombre));
 	} else {
 		return false;

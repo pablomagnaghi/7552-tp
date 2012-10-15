@@ -5,6 +5,7 @@ Gdk::Color VistaComponente::colorDeSeleccion;
 Gdk::Color VistaComponente::colorDeRedimension;
 Gdk::Color VistaComponente::colorBlanco;
 
+
 VistaComponente::VistaComponente() {
 	this->setposfin(0, 0);
 	this->setposini(0, 0);

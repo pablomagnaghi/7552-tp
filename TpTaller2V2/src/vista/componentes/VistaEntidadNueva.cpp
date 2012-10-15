@@ -312,6 +312,8 @@ bool VistaEntidadNueva::quitarAtributo(VistaAtributo* atributo) {
 		return false;
 	}
 	remove(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
+	// TODO VERIFICAR RETORNO DE remove()
+	return true;
 }
 
 std::vector<VistaAtributo*>::iterator VistaEntidadNueva::atributosBegin() {
