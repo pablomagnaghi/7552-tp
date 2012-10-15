@@ -175,6 +175,7 @@ bool VistaIdentificador::contieneAEstePunto(double x, double y) {
 	 }
 	 return Geometria::estaContenidoEnRectangulo(x, y, this->pos_ini_x, this->pos_ini_y,
 	 this->pos_fin_x, this->pos_fin_y);*/
+	return false;
 }
 
 void VistaIdentificador::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents) {

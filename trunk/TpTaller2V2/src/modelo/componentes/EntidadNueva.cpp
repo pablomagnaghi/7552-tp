@@ -126,10 +126,10 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo) {
 }
 
 bool EntidadNueva::existeAtributo(const std::string& nombre){
-	std::string nombreMin = toLowerCase(nombre);
+	std::string nombreMin = Utils::toLowerCase(nombre);
 	std::vector<Atributo*>::iterator it = this->atributos.begin();
 	while (it != this->atributos.end()) {
-		if (toLowerCase((*it)->getNombre()).compare(nombreMin) == 0) {
+		if (Utils::toLowerCase((*it)->getNombre()).compare(nombreMin) == 0) {
 			return true;
 		}
 		it++;

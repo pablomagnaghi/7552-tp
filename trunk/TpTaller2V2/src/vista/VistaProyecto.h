@@ -17,19 +17,19 @@ using namespace std;
 
 class VistaDiagrama;
 
-class VistaProyecto  {
+class VistaProyecto {
 private:
 
 	VistaDiagrama * diagramaPrincipal;
 	Proyecto * proyecto;
 
-
-
 public:
 	VistaProyecto(Proyecto * proyectoModelo);
 	virtual ~VistaProyecto();
 	void testCargarDiagramas();
-	 VistaDiagrama* getDiagramaPrincipal();
+	VistaDiagrama* getDiagramaPrincipal();
+
+	void setNombre(const std::string & nombre);
 };
 
 #endif /* VISTAPROYECTO_H_ */

@@ -329,10 +329,10 @@ Componente* Diagrama::getComponenteByCodigo(int codigo){
 }
 
 bool Diagrama::existeDiagrama(const std::string& nombre){
-	std::string nombreMin = toLowerCase(nombre);
+	std::string nombreMin = Utils::toLowerCase(nombre);
 	std::vector<Diagrama*>::iterator it = this->diagramasHijos.begin();
 	while (it != this->diagramasHijos.end()) {
-		if ((toLowerCase((*it)->getNombre())).compare(nombreMin) == 0){
+		if ((Utils::toLowerCase((*it)->getNombre())).compare(nombreMin) == 0){
 			return true;
 		} else if ((*it)->existeDiagrama(nombre)){
 			return true;
@@ -343,10 +343,10 @@ bool Diagrama::existeDiagrama(const std::string& nombre){
 }
 
 bool Diagrama::existeEntidadNueva(const std::string& nombre){
-	std::string nombreMin = toLowerCase(nombre);
+	std::string nombreMin = Utils::toLowerCase(nombre);
 	std::vector<EntidadNueva*>::iterator itE = this->entidadesNuevas.begin();
 	while (itE != this->entidadesNuevas.end()) {
-		if (toLowerCase((*itE)->getNombre()).compare(nombreMin) == 0){
+		if (Utils::toLowerCase((*itE)->getNombre()).compare(nombreMin) == 0){
 			return true;
 		}
 		itE++;
@@ -362,10 +362,10 @@ bool Diagrama::existeEntidadNueva(const std::string& nombre){
 }
 
 bool Diagrama::existeEntidadGlobal(const std::string& nombre){
-	std::string nombreMin = toLowerCase(nombre);
+	std::string nombreMin = Utils::toLowerCase(nombre);
 	std::vector<EntidadGlobal*>::iterator itE = this->entidadesGlobales.begin();
 	while (itE != this->entidadesGlobales.end()) {
-		if (toLowerCase((*itE)->getNombre()).compare(nombreMin) == 0){
+		if (Utils::toLowerCase((*itE)->getNombre()).compare(nombreMin) == 0){
 			return true;
 		}
 		itE++;

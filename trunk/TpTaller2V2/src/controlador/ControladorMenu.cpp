@@ -23,30 +23,38 @@ ControladorMenu::~ControladorMenu() {
 void ControladorMenu::enlazar_botones_de_menu(
 		const Glib::RefPtr<Gtk::Builder>& builder) {
 	builder->get_widget("MANuevo", botonArchivoNuevo);
-	botonArchivoNuevo->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Archivo_Nuevo_click));
+	botonArchivoNuevo->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Archivo_Nuevo_click));
 	builder->get_widget("MAAbrir", botonArchivoAbrir);
-	botonArchivoAbrir->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Archivo_Abrir_click));
+	botonArchivoAbrir->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Archivo_Abrir_click));
 	builder->get_widget("MAGuardar", botonArchivoGuardar);
-	botonArchivoGuardar->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Archivo_Guardar_click));
+	botonArchivoGuardar->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Archivo_Guardar_click));
 	builder->get_widget("MAGuardarComo", botonArchivoGuardarComo);
-	botonArchivoGuardarComo->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Archivo_GuardarComo_click));
+	botonArchivoGuardarComo->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Archivo_GuardarComo_click));
 	builder->get_widget("MAImprimir", botonArchivoImprimir);
-	botonArchivoImprimir->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Archivo_Imprimir_click));
+	botonArchivoImprimir->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Archivo_Imprimir_click));
 	builder->get_widget("MAExportar", botonArchivoExportar);
-	botonArchivoExportar->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Archivo_Exportar_click));
+	botonArchivoExportar->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Archivo_Exportar_click));
 	builder->get_widget("MASalir", botonArchivoSalir);
-	botonArchivoSalir->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Archivo_Salir_click));
+	botonArchivoSalir->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Archivo_Salir_click));
 
 	builder->get_widget("MAyAcercaDe", botonAyudaAcercaDe);
-	botonAyudaAcercaDe->signal_activate().connect(sigc::mem_fun(*this,
-			&ControladorMenu::on_menu_Ayuda_AcercaDe_click));
+	botonAyudaAcercaDe->signal_activate().connect(
+			sigc::mem_fun(*this,
+					&ControladorMenu::on_menu_Ayuda_AcercaDe_click));
 }
 
 void ControladorMenu::on_menu_Archivo_Nuevo_click() {
@@ -55,32 +63,48 @@ void ControladorMenu::on_menu_Archivo_Nuevo_click() {
 	cout << "Menu Archivo Nuevo" << endl;
 #endif
 
-	this->editor->nuevoProyecto();
+	if (this->editor->crearNuevoProyecto()) {
 
-	this->botonArchivoGuardar->set_sensitive(true);
-	this->botonArchivoGuardarComo->set_sensitive(true);
-	this->botonArchivoImprimir->set_sensitive(true);
-	this->botonArchivoExportar->set_sensitive(true);
+		//this->botonArchivoGuardar->set_sensitive(true);
+		this->botonArchivoGuardarComo->set_sensitive(true);
+		this->botonArchivoImprimir->set_sensitive(true);
+		this->botonArchivoExportar->set_sensitive(true);
+	}
 
 }
+
 void ControladorMenu::on_menu_Archivo_Abrir_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Abrir" << endl;
 #endif
 
+	if(this->editor->abrir_proyecto()){
+		this->botonArchivoGuardarComo->set_sensitive(true);
+		this->botonArchivoImprimir->set_sensitive(true);
+		this->botonArchivoExportar->set_sensitive(true);
+	}
 }
+
 void ControladorMenu::on_menu_Archivo_Guardar_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Guardar" << endl;
 #endif
 
+	if (this->editor->guardar_proyecto(false)) {
+		this->botonArchivoGuardar->set_sensitive(true);
+	}
+
 }
+
 void ControladorMenu::on_menu_Archivo_GuardarComo_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Guardar Como" << endl;
 #endif
-
+	if (this->editor->guardar_proyecto(true)) {
+		this->botonArchivoGuardar->set_sensitive(false);
+	}
 }
+
 void ControladorMenu::on_menu_Archivo_Imprimir_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Imprimir" << endl;
