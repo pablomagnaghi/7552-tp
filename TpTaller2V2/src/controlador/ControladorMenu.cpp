@@ -20,41 +20,35 @@ ControladorMenu::~ControladorMenu() {
 
 }
 
-void ControladorMenu::enlazar_botones_de_menu(
-		const Glib::RefPtr<Gtk::Builder>& builder) {
+void ControladorMenu::enlazar_botones_de_menu(const Glib::RefPtr<Gtk::Builder>& builder) {
 	builder->get_widget("MANuevo", botonArchivoNuevo);
 	botonArchivoNuevo->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Archivo_Nuevo_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Nuevo_click));
 	builder->get_widget("MAAbrir", botonArchivoAbrir);
 	botonArchivoAbrir->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Archivo_Abrir_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Abrir_click));
 	builder->get_widget("MAGuardar", botonArchivoGuardar);
 	botonArchivoGuardar->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Archivo_Guardar_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Guardar_click));
 	builder->get_widget("MAGuardarComo", botonArchivoGuardarComo);
 	botonArchivoGuardarComo->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Archivo_GuardarComo_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_GuardarComo_click));
 	builder->get_widget("MAImprimir", botonArchivoImprimir);
 	botonArchivoImprimir->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Archivo_Imprimir_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Imprimir_click));
 	builder->get_widget("MAExportar", botonArchivoExportar);
 	botonArchivoExportar->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Archivo_Exportar_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Exportar_click));
+	builder->get_widget("MACerrar", botonArchivoSalir);
+	botonArchivoSalir->signal_activate().connect(
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Cerrar_click));
 	builder->get_widget("MASalir", botonArchivoSalir);
 	botonArchivoSalir->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Archivo_Salir_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Salir_click));
 
 	builder->get_widget("MAyAcercaDe", botonAyudaAcercaDe);
 	botonAyudaAcercaDe->signal_activate().connect(
-			sigc::mem_fun(*this,
-					&ControladorMenu::on_menu_Ayuda_AcercaDe_click));
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Ayuda_AcercaDe_click));
 }
 
 void ControladorMenu::on_menu_Archivo_Nuevo_click() {
@@ -78,7 +72,7 @@ void ControladorMenu::on_menu_Archivo_Abrir_click() {
 	cout << "Menu Archivo Abrir" << endl;
 #endif
 
-	if(this->editor->abrir_proyecto()){
+	if (this->editor->abrir_proyecto()) {
 		this->botonArchivoGuardarComo->set_sensitive(true);
 		this->botonArchivoImprimir->set_sensitive(true);
 		this->botonArchivoExportar->set_sensitive(true);
@@ -93,7 +87,6 @@ void ControladorMenu::on_menu_Archivo_Guardar_click() {
 	if (this->editor->guardar_proyecto(false)) {
 		this->botonArchivoGuardar->set_sensitive(true);
 	}
-
 }
 
 void ControladorMenu::on_menu_Archivo_GuardarComo_click() {
@@ -111,12 +104,27 @@ void ControladorMenu::on_menu_Archivo_Imprimir_click() {
 #endif
 
 }
+
 void ControladorMenu::on_menu_Archivo_Exportar_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Exportar" << endl;
 #endif
 
 }
+
+void ControladorMenu::on_menu_Archivo_Cerrar_click() {
+
+	if (this->editor->cerrarProyecto()) {
+		this->botonArchivoGuardar->set_sensitive(false);
+		this->botonArchivoGuardarComo->set_sensitive(false);
+		this->botonArchivoImprimir->set_sensitive(false);
+		this->botonArchivoExportar->set_sensitive(false);
+	}
+#ifdef DEBUG
+	cout << "Menu Archivo Cerrar" << endl;
+#endif
+}
+
 void ControladorMenu::on_menu_Archivo_Salir_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Salir" << endl;
@@ -132,12 +140,14 @@ void ControladorMenu::on_menu_Editar_Copiar_click() {
 #endif
 
 }
+
 void ControladorMenu::on_menu_Editar_Cortar_click() {
 #ifdef DEBUG
 	cout << "Cortar" << endl;
 #endif
 
 }
+
 void ControladorMenu::on_menu_Editar_Pegar_click() {
 #ifdef DEBUG
 	cout << "Pegar" << endl;
@@ -151,6 +161,7 @@ void ControladorMenu::on_menu_Ver_Zoom_Mas_click() {
 #endif
 
 }
+
 void ControladorMenu::on_menu_Ver_Zoom_Menos_click() {
 #ifdef DEBUG
 	cout << "Zoom-" << endl;

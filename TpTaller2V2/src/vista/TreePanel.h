@@ -58,7 +58,6 @@ private:
 
 	void lanzarPopup(GdkEventButton* event);
 
-
 	void on_popup_boton_agregar_diagrama_hijo();
 	void on_popup_boton_eliminar_diagrama();
 

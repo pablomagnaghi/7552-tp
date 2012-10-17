@@ -1,4 +1,3 @@
-
 #include "vista/Ide.h"
 #include "controlador/ControladorMenu.h"
 #include "vista/VistaConstantes.h"
@@ -51,16 +50,17 @@ int main(int argc, char *argv[]) {
 	//test_modelo();
 
 	/*try {
-		throw ArgumentoInvalido("El codigo no puede ser negativo");
-	} catch (const ArgumentoInvalido& ex) {
-		std::cerr << ex.what() << std::endl;
-	}
-	try {
-		throw NullPointer("Puntero a nulo en Agregar Entidad");
-	} catch (const NullPointer& ex) {
-		std::cerr << ex.what() << std::endl;
-		//return 1;
-	}*/
+	 throw ArgumentoInvalido("El codigo no puede ser negativo");
+	 } catch (const ArgumentoInvalido& ex) {
+	 std::cerr << ex.what() << std::endl;
+	 }
+	 try {
+	 throw NullPointer("Puntero a nulo en Agregar Entidad");
+	 } catch (const NullPointer& ex) {
+	 std::cerr << ex.what() << std::endl;
+	 //return 1;
+	 }*/
+
 	aplicacion_principal(argc, argv);
 
 	double x, y;

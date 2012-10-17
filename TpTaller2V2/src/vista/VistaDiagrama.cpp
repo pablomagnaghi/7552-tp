@@ -1,6 +1,9 @@
 #include "VistaDiagrama.h"
 #include <gdkmm.h>
 #include <iostream>
+
+#include <algorithm>
+
 using namespace std;
 
 VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo) {
@@ -26,156 +29,36 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo) {
 	this->signal_motion_notify_event().connect(
 			sigc::mem_fun(*this, &VistaDiagrama::on_mouse_motion_event));
 
-
 	configurar_drag_and_drop();
 
 	// TEST
-
 
 	test_cargar_componentes_visuales_atributo();
 }
 
 VistaDiagrama::~VistaDiagrama() {
-	std::vector<VistaComponente*>::iterator it = this->componentes.begin();
-	while (it != this->componentes.end()) {
-		delete (*it);
-		it++;
-	}
-	this->componentes.clear();
+	this->eliminar();
 }
 
-void VistaDiagrama::test_cargar_componentes_visuales() {
-	//VistaComponente * componenteNuevo;
-	EntidadNueva * a;
-	EntidadNueva * b;
-	EntidadGlobal * h;
-	Relacion * c;
-	Atributo * d;
-	Atributo * i;
-	Atributo * k;
-	Atributo * l;
-	Atributo * l1;
-	Atributo * l2;
-	Atributo * l3;
-	UnionEntidadRelacion * f;
-	UnionEntidadRelacion * g;
-	Jerarquia * j;
+void VistaDiagrama::eliminar() {
+	// REGLA, LA VISTA NO BORRA AL MODELO
+	/*if(this->diagrama!=NULL){
+	 delete this->diagrama;
+	 }*/
 
-	VistaEntidadNueva * entidadDebil;
-	VistaEntidadNueva * entidad;
-	VistaRelacion * relacion;
-	VistaAtributo * atributo;
-	VistaAtributo * atributo1;
-	VistaAtributo * atributo2;
-	VistaAtributo * atributoCompuesto;
-	VistaAtributo * atributoCompuesto1;
-	VistaAtributo * atributoCompuesto2;
-	VistaAtributo * atributoCompuesto3;
-	VistaUnionEntidadRelacion * vUnion;
-	VistaLinea * lineaEntidadAtributo;
-	VistaJerarquia * jerarquia;
-	VistaEntidadNueva * entidadPadre;
-	VistaEntidadGlobal * entidadGlobal;
+	std::vector<VistaComponente *>::iterator i;
+	std::vector<VistaDiagrama *>::iterator j;
 
-	// Creo el modelo
-	a = new EntidadNueva();
-	b = new EntidadNueva();
-	c = new Relacion();
-	d = new Atributo();
-	i = new Atributo();
-	k = new Atributo();
-	l1 = new Atributo();
-	l2 = new Atributo();
-	l3 = new Atributo();
-	l = new Atributo();
-	f = new UnionEntidadRelacion(a, c);
-	g = new UnionEntidadRelacion(b, c);
-	j = new Jerarquia();
-	h = new EntidadGlobal();
-
-	entidad = new VistaEntidadNueva(a);
-	entidad->setNombre("Alumno A");
-	entidad->setposini(60, 200);
-	entidad->setposfin(110, 260);
-	this->componentes.push_back(entidad);
-
-	entidadDebil = new VistaEntidadNueva(b);
-	entidadDebil->setNombre("Entidad Debil");
-	entidadDebil->setposini(60, 400);
-	entidadDebil->setposfin(120, 450);
-	entidadDebil->setEsDebil(true);
-	this->componentes.push_back(entidadDebil);
-
-	relacion = new VistaRelacion(c);
-	relacion->setNombre("Cursa");
-	relacion->setposini(60, 300);
-	relacion->setposfin(110, 380);
-	this->componentes.push_back(relacion);
-
-	atributo = new VistaAtributo(d);
-	atributo->setposini(20, 220);
-	atributo->setposfin(28, 228);
-	this->componentes.push_back(atributo);
-
-	// Obtengo la vista Entidad a partir de la Vista Relacion
-	std::vector<VistaEntidadNueva *> vistasEntidaes;
-	std::vector<UnionEntidadRelacion *> uniones;
-	obtenerVistaAPartirDeRelacion(relacion, vistasEntidaes, uniones);
-
-	for (unsigned int i = 0; i < vistasEntidaes.size(); i++) {
-		vUnion = new VistaUnionEntidadRelacion(uniones[i], vistasEntidaes[i],
-				relacion);
-		this->componentes.push_back(vUnion);
+	for (i = this->componentesBegin(); i != this->componentesEnd(); i++) {
+		delete (*i);
 	}
 
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(entidad);
-	lineaEntidadAtributo->setComponenteHasta(atributo);
-	this->componentes.push_back(lineaEntidadAtributo);
+	for (j = this->diagramas.begin(); j != this->diagramas.end(); j++) {
+		delete (*j);
+	}
 
-	atributo1 = new VistaAtributo(i);
-	atributo1->setposini(20, 240);
-	atributo1->setposfin(28, 248);
-	atributo2 = new VistaAtributo(k);
-	atributoCompuesto = new VistaAtributo(l);
-	atributoCompuesto1 = new VistaAtributo(l1);
-	atributoCompuesto2 = new VistaAtributo(l2);
-	atributoCompuesto3 = new VistaAtributo(l3);
-
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(entidad);
-	lineaEntidadAtributo->setComponenteHasta(atributo1);
-	this->componentes.push_back(atributo1);
-	this->componentes.push_back(lineaEntidadAtributo);
-
-	entidadPadre = new VistaEntidadNueva(new EntidadNueva());
-	entidadPadre->setNombre("Padre");
-	entidadPadre->setposini(60, 100);
-	entidadPadre->setposfin(110, 150);
-	this->componentes.push_back(entidadPadre);
-
-	jerarquia = new VistaJerarquia(j);
-	jerarquia->agregarEntidadEspecializada(entidad);
-	jerarquia->setEntidadPadre(entidadPadre);
-
-	entidad = new VistaEntidadNueva(new EntidadNueva());
-	entidad->setNombre("Alumno B");
-	entidad->setposini(140, 200);
-	entidad->setposfin(190, 260);
-	this->componentes.push_back(entidad);
-	jerarquia->agregarEntidadEspecializada(entidad);
-
-	entidad = new VistaEntidadNueva(new EntidadNueva());
-	entidad->setNombre("Alumno C");
-	entidad->setposini(220, 190);
-	entidad->setposfin(270, 260);
-	this->componentes.push_back(entidad);
-
-	jerarquia->agregarEntidadEspecializada(entidad);
-	this->componentes.push_back(jerarquia);
-
-	entidadGlobal = new VistaEntidadGlobal(h);
-	this->componentes.push_back(entidadGlobal);
+	this->componentes.clear();
+	this->diagramas.clear();
 
 }
 
@@ -206,13 +89,13 @@ void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
 	Relacion * f = new Relacion();
 	VistaRelacion * relacion = new VistaRelacion(f);
 	UnionEntidadRelacion *g = new UnionEntidadRelacion(a, f);
-	VistaUnionEntidadRelacion * unionEntidadRelacionDebil =
-			new VistaUnionEntidadRelacion(g, entidad, relacion);
+	VistaUnionEntidadRelacion * unionEntidadRelacionDebil = new VistaUnionEntidadRelacion(g,
+			entidad, relacion);
 	EntidadNueva * h = new EntidadNueva();
 	VistaEntidadNueva * entidadFuerte = new VistaEntidadNueva(h);
 	UnionEntidadRelacion *i = new UnionEntidadRelacion(h, f);
-	VistaUnionEntidadRelacion * unionEntidadRelacionFuerte =
-			new VistaUnionEntidadRelacion(i, entidadFuerte, relacion);
+	VistaUnionEntidadRelacion * unionEntidadRelacionFuerte = new VistaUnionEntidadRelacion(i,
+			entidadFuerte, relacion);
 
 	entidad->setposini(150, 100);
 	entidad->setposfin(240, 110);
@@ -336,8 +219,7 @@ void VistaDiagrama::obtenerVistaAPartirDeRelacion(VistaRelacion * vRelacion,
 		componente = (*i)->getEntidad();
 		for (j = this->componentes.begin(); j != this->componentes.end(); j++) {
 			if ((*j)->contieneEsteComponente(componente)) {
-				vistasEntidadesACrear.push_back(
-						dynamic_cast<VistaEntidadNueva *>(*j));
+				vistasEntidadesACrear.push_back(dynamic_cast<VistaEntidadNueva *>(*j));
 				unionesACrear.push_back(*i);
 				cout << "A" << endl;
 				break;
@@ -355,8 +237,8 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 
 	std::vector<VistaComponente *>::iterator componenteActual;
 
-	for (componenteActual = this->componentes.begin();
-			componenteActual != this->componentes.end(); componenteActual++) {
+	for (componenteActual = this->componentes.begin(); componenteActual != this->componentes.end();
+			componenteActual++) {
 		(*componenteActual)->dibujar(cr);
 	}
 
@@ -383,8 +265,7 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 		seleccionar_componente_clickeado(event->x, event->y);
 
 		if (this->componentes_seleccionados.size() == 1
-				&& this->componentes_seleccionados[0]->esPuntoDeRedimension(
-						event->x, event->y)) {
+				&& this->componentes_seleccionados[0]->esPuntoDeRedimension(event->x, event->y)) {
 			this->estaRedimensionandoElemento = true;
 		} else {
 			this->estaRedimensionandoElemento = false;
@@ -415,8 +296,8 @@ void VistaDiagrama::seleccionar_componente_clickeado(gdouble x, gdouble y) {
 	// IF NOT APRETO CONTROL
 	componentes_seleccionados.clear();
 
-	for (componenteActual = this->componentes.begin();
-			componenteActual != this->componentes.end(); componenteActual++) {
+	for (componenteActual = this->componentes.begin(); componenteActual != this->componentes.end();
+			componenteActual++) {
 		if ((*componenteActual)->contieneAEstePunto(x, y)) {
 			(*componenteActual)->seleccionar(x, y);
 			componentes_seleccionados.push_back((*componenteActual));
@@ -468,8 +349,7 @@ bool VistaDiagrama::on_mouse_motion_event(GdkEventMotion * event) {
 
 	if (!this->estaRedimensionandoElemento) {
 		for (componenteActual = this->componentes.begin();
-				componenteActual != this->componentes.end();
-				componenteActual++) {
+				componenteActual != this->componentes.end(); componenteActual++) {
 			(*componenteActual)->setMouseArriba(event->x, event->y);
 		}
 	}
@@ -493,10 +373,8 @@ void VistaDiagrama::configurar_drag_and_drop() {
 
 	// Configuro el widget origen
 	this->drag_source_set(listaDeTargets, Gdk::BUTTON1_MASK, Gdk::ACTION_MOVE);
-	this->signal_drag_begin().connect(
-			sigc::mem_fun(*this, &VistaDiagrama::drag_begin));
-	this->signal_drag_motion().connect(
-			sigc::mem_fun(*this, &VistaDiagrama::drag_motion));
+	this->signal_drag_begin().connect(sigc::mem_fun(*this, &VistaDiagrama::drag_begin));
+	this->signal_drag_motion().connect(sigc::mem_fun(*this, &VistaDiagrama::drag_motion));
 	//this->signal_drag_data_delete().connect(sigc::mem_fun(*this,
 	//		&VistaDiagrama::drag_data_delete));
 	//this->signal_drag_data_get().connect(sigc::mem_fun(*this,
@@ -511,8 +389,7 @@ void VistaDiagrama::configurar_drag_and_drop() {
 	//		&VistaDiagrama::drag_leave));
 
 	// Configuro el widget destino
-	this->drag_dest_set(listaDeTargets, Gtk::DEST_DEFAULT_ALL,
-			Gdk::ACTION_MOVE);
+	this->drag_dest_set(listaDeTargets, Gtk::DEST_DEFAULT_ALL, Gdk::ACTION_MOVE);
 	//this->signal_drag_data_received().connect(sigc::mem_fun(*this,
 	//		&VistaDiagrama::drag_data_received));
 }
@@ -521,11 +398,10 @@ void VistaDiagrama::drag_begin(const Glib::RefPtr<Gdk::DragContext>&context) {
 	Glib::ustring seleccion = context->get_selection();
 	//Glib::RefPtr<Gdk::Pixbuf> icono = Gdk::Pixbuf::create_from_inline(0,NULL,false);
 	// Le saco el icono
-	Cairo::RefPtr<Cairo::ImageSurface> imSur = Cairo::ImageSurface::create(
-			Cairo::FORMAT_RGB24, 1, 1);
-	Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_data(
-			imSur->get_data(), Gdk::COLORSPACE_RGB, false, 8, 1, 1,
-			imSur->get_stride());
+	Cairo::RefPtr<Cairo::ImageSurface> imSur = Cairo::ImageSurface::create(Cairo::FORMAT_RGB24, 1,
+			1);
+	Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_data(imSur->get_data(),
+			Gdk::COLORSPACE_RGB, false, 8, 1, 1, imSur->get_stride());
 
 	context->set_icon(pixbuf, 0, 0);
 #ifdef DEBUG
@@ -533,8 +409,8 @@ void VistaDiagrama::drag_begin(const Glib::RefPtr<Gdk::DragContext>&context) {
 #endif
 }
 
-bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
-		gint x_actual, gint y_actual, guint timestamp) {
+bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, gint x_actual,
+		gint y_actual, guint timestamp) {
 
 	std::vector<VistaComponente *>::iterator componenteSeleccionado;
 
@@ -564,15 +440,14 @@ void VistaDiagrama::drag_data_get(const Glib::RefPtr<Gdk::DragContext>&context,
 
 	// 8 bits format
 	// 9 the length of I'm Data! in bytes
-	selection_data.set(selection_data.get_target(), 8,
-			(const guchar*) "I'm Data!", 9);
+	selection_data.set(selection_data.get_target(), 8, (const guchar*) "I'm Data!", 9);
 #ifdef DEBUG
 	cout << "DRAG_DATA_GET " << endl;
 #endif
 }
 
-bool VistaDiagrama::drag_drop(const Glib::RefPtr<Gdk::DragContext>& context,
-		int x, int y, guint timestamp) {
+bool VistaDiagrama::drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, int x, int y,
+		guint timestamp) {
 #ifdef DEBUG
 	cout << "DRAG_DROP" << endl;
 #endif
@@ -583,8 +458,7 @@ void VistaDiagrama::drag_end(const Glib::RefPtr<Gdk::DragContext>&context) {
 	cout << "DRAG_END" << endl;
 }
 
-void VistaDiagrama::drag_data_delete(
-		const Glib::RefPtr<Gdk::DragContext>&context) {
+void VistaDiagrama::drag_data_delete(const Glib::RefPtr<Gdk::DragContext>&context) {
 	cout << "DRAG_DELETE" << endl;
 }
 
@@ -594,19 +468,17 @@ bool VistaDiagrama::drag_failed(const Glib::RefPtr<Gdk::DragContext>&context,
 	return true;
 }
 
-void VistaDiagrama::drag_leave(const Glib::RefPtr<Gdk::DragContext>&context,
-		guint timestamp) {
+void VistaDiagrama::drag_leave(const Glib::RefPtr<Gdk::DragContext>&context, guint timestamp) {
 	cout << "DRAG_LEAVE" << endl;
 }
 
-void VistaDiagrama::drag_data_received(
-		const Glib::RefPtr<Gdk::DragContext>& context, gint x_dropped,
-		gint y_dropped, const Gtk::SelectionData& selection_data, guint info,
+void VistaDiagrama::drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+		gint x_dropped, gint y_dropped, const Gtk::SelectionData& selection_data, guint info,
 		guint timestamp) {
 	const int length = selection_data.get_length();
 	if ((length >= 0) && (selection_data.get_format() == 8)) {
-		std::cout << "Received \"" << selection_data.get_data_as_string()
-				<< "\" in label " << std::endl;
+		std::cout << "Received \"" << selection_data.get_data_as_string() << "\" in label "
+				<< std::endl;
 	}
 
 	context->drag_finish(false, false, timestamp);
@@ -622,7 +494,7 @@ void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 
 void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven) {
 	if (ven != NULL) {
-		this->vistaentidades.push_back(ven);
+		this->vistaEntidades.push_back(ven);
 	}
 }
 
@@ -653,10 +525,10 @@ std::vector<VistaDiagrama*>::iterator VistaDiagrama::vdiagramasEnd() {
 }
 
 std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesBegin() {
-	return this->vistaentidades.begin();
+	return this->vistaEntidades.begin();
 }
 std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesEnd() {
-	return this->vistaentidades.end();
+	return this->vistaEntidades.end();
 }
 
 VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
@@ -709,26 +581,22 @@ void VistaDiagrama::crearVistasDelModelo() {
 }
 
 void VistaDiagrama::crearVistasEntidadNueva() {
-	std::vector<EntidadNueva*>::iterator itEnt =
-			this->getDiagrama()->entidadesNuevasBegin();
+	std::vector<EntidadNueva*>::iterator itEnt = this->getDiagrama()->entidadesNuevasBegin();
 	while (itEnt != this->getDiagrama()->entidadesNuevasEnd()) {
 		// el builder crea la vista entidad nueva
 		VistaEntidadNueva *vEntNueva =
-				ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(
-						this, (*itEnt));
+				ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, (*itEnt));
 		// el builder crea las vistas de los atributos de la entidad nueva
 		std::vector<Atributo*>::iterator itAtrib = (*itEnt)->atributosBegin();
 		while (itAtrib != (*itEnt)->atributosEnd()) {
-			VistaAtributo *vAtrib =
-					ComponentsBuilder::getInstance()->crearAtributoEnEntidad(
-							vEntNueva, this, (*itAtrib));
+			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(
+					vEntNueva, this, (*itAtrib));
 			// el builder crea las vistas de los atributos compuestos
-			std::vector<Atributo*>::iterator itAtribCompuesto =
-					(*itAtrib)->atributosBegin();
+			std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
 			while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
 				// La VistaAtributo* que devuelve no la utilizo en este caso
-				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(
-						vAtrib, this, (*itAtribCompuesto));
+				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(vAtrib, this,
+						(*itAtribCompuesto));
 				itAtribCompuesto++;
 			}
 			itAtrib++;
@@ -747,12 +615,10 @@ void VistaDiagrama::crearVistasRelacion() {
 }
 
 void VistaDiagrama::crearVistasJerarquia() {
-	std::vector<Jerarquia*>::iterator itJer =
-			this->getDiagrama()->jerarquiasBegin();
+	std::vector<Jerarquia*>::iterator itJer = this->getDiagrama()->jerarquiasBegin();
 	while (itJer != this->getDiagrama()->jerarquiasEnd()) {
 		// el builder crea la vista jerarquia
-		ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this,
-				(*itJer));
+		ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, (*itJer));
 		itJer++;
 	}
 }
@@ -793,8 +659,7 @@ void VistaDiagrama::obtenerPropiedadesXmlREP(XmlNodo* nodo) {
 void VistaDiagrama::obtenerComponentesXmlREP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "componente") {
-			VistaComponente *vComponente = obtenerComponente(
-					nodo->getPropiedadInt("codigo"));
+			VistaComponente *vComponente = obtenerComponente(nodo->getPropiedadInt("codigo"));
 			if (vComponente)
 				vComponente->cargarDatosXmlRep(nodo);
 		}
@@ -815,8 +680,7 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 void VistaDiagrama::cargarVistaDiagramasHijos() {
 	// para cada diagrama hijo se setean los datos de las vistas
 
-	std::vector<Diagrama*>::iterator it =
-			this->getDiagrama()->diagramasHijosBegin();
+	std::vector<Diagrama*>::iterator it = this->getDiagrama()->diagramasHijosBegin();
 
 	while (it != this->getDiagrama()->diagramasHijosEnd()) {
 		std::string nombre = (*it)->getNombre();

@@ -1,10 +1,3 @@
-/*
- * Ide.cpp
- *
- *  Created on: 02/04/2012
- *      Author: metal
- */
-
 #include "Ide.h"
 Ide * Ide::instancia = NULL;
 //VistaDiagrama * Ide::diagactual = NULL;
@@ -28,6 +21,7 @@ Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 }
 
 Ide::~Ide() {
+	this->cerrarProyecto();
 	// TODO Auto-generated destructor stub
 }
 
@@ -120,22 +114,26 @@ bool Ide::guardar_proyecto(bool guardarComo) {
 
 	this->set_title(nombreProyecto);
 
+	this->vproyecto->setNombre(nombreProyecto);
+
 	this->debugInformarValorVariable("Nombre Proyecto", nombreProyecto);
 
 	return true;
 }
 
+void Ide::regenerarTreePanel() {
+	this->treePanel.regenerar();
+}
+
 bool Ide::crearNuevoProyecto() {
 	if (this->vproyecto == NULL) {
-		this->vproyecto = new VistaProyecto(
-				new Proyecto(new Diagrama("Principal")));
+		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Principal")));
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();
-		this->regenerarTreePanel();
+		this->treePanel.regenerar();
 		this->set_title("*Nuevo Proyecto");
 	} else {
-		Gtk::MessageDialog mensaje(*this, "Error", false, Gtk::MESSAGE_ERROR,
-				Gtk::BUTTONS_OK);
+		Gtk::MessageDialog mensaje(*this, "Error", false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK);
 		mensaje.set_secondary_text("Ya existe un proyecto");
 		mensaje.run();
 		return false;
@@ -155,8 +153,7 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 	cout << "ALTO:" << diagrama->getAlto() << endl;
 #endif
 
-	this->contenedorDiag->set_size_request(diagrama->getAncho(),
-			diagrama->getAlto());
+	this->contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
 	this->contenedorDiag->put(*diagrama, 0, 0);
 	diagramaActual = diagrama;
 
@@ -177,14 +174,28 @@ Ide * Ide::getInstance() {
 	}
 }
 
-void Ide::regenerarTreePanel() {
-	this->treePanel.regenerar();
+bool Ide::cerrarProyecto() {
+
+	// PEDIR CONFIRMACION
+
+	//Primero tengo que sacar el diagrama actual
+	if (this->vproyecto != NULL) {
+		this->contenedorDiag->remove(*(diagramaActual));
+
+		delete this->vproyecto;
+
+		this->vproyecto = NULL;
+		this->diagramaActual = NULL;
+
+		this->treePanel.regenerar();
+	}
+
+	return true;
 }
 
 void Ide::debugInformarValorVariable(const std::string & nombreVariable,
 		const std::string & valor) {
-	Gtk::MessageDialog mensaje(*this, nombreVariable, false, Gtk::MESSAGE_INFO,
-			Gtk::BUTTONS_OK);
+	Gtk::MessageDialog mensaje(*this, nombreVariable, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK);
 
 	mensaje.set_secondary_text(valor);
 	mensaje.run();

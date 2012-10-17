@@ -3,10 +3,13 @@
 #include <algorithm>
 
 Entidad::Entidad() {
+	this->jerarquiaHija = NULL;
 }
 
 Entidad::~Entidad() {
-
+	if (this->jerarquiaHija) {
+		delete this->jerarquiaHija;
+	}
 }
 
 void Entidad::agregarUnionARelacion(UnionEntidadRelacion *u) throw (NullPointer) {
@@ -38,7 +41,7 @@ void Entidad::setJerarquiaHija(Jerarquia * jHija) throw (NullPointer) {
 	this->jerarquiaHija = jHija;
 }
 
-Jerarquia * Entidad::getJerarquiaHija()const {
+Jerarquia * Entidad::getJerarquiaHija() const {
 	return this->jerarquiaHija;
 }
 

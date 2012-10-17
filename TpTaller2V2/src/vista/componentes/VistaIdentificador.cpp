@@ -276,7 +276,9 @@ void VistaIdentificador::redimensionar(double x, double y) {
 }
 
 std::string VistaIdentificador::getNombre() const {
-	return "";
+	std::string nombre("Identificador");
+
+	return nombre;
 }
 
 bool VistaIdentificador::contieneEsteComponente(Componente * c) {

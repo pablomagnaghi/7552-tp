@@ -78,6 +78,15 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkImageMenuItem" id="MACerrar">
+                        <property name="label" translatable="yes">Cerrar</property>
+                        <property name="visible">True</property>
+                        <property name="image">image2</property>
+                        <property name="use_stock">False</property>
+                        <property name="always_show_image">True</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="MASalir">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
@@ -133,6 +142,39 @@
         <child>
           <object class="GtkToolbar" id="toolbar1">
             <property name="visible">True</property>
+            <child>
+              <object class="GtkToolButton" id="TBAgregarDiagrama">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Agregar Diagrama Hijo</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="TBEliminarDiagrama">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Eliminar Diagrama</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton1">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
             <child>
               <object class="GtkToolButton" id="TBAgregarEntidad">
                 <property name="visible">True</property>
@@ -458,5 +500,9 @@
       <action-widget response="0">bCancelar</action-widget>
       <action-widget response="1">bAceptar</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="stock">gtk-stop</property>
   </object>
 </interface>

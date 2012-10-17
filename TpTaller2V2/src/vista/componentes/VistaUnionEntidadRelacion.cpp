@@ -104,8 +104,9 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		}
 		cr->get_text_extents(texto, textExtents);
 		double x_texto, y_texto;
-		Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-				this->pos_fin_y, textExtents.width, textExtents.height, x_texto, y_texto);
+		Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(this->pos_ini_x, this->pos_ini_y,
+				this->pos_fin_x, this->pos_fin_y, textExtents.width, textExtents.height, x_texto,
+				y_texto);
 		cr->move_to(x_texto, y_texto);
 		cr->show_text(texto);
 		cr->stroke();
@@ -125,7 +126,8 @@ bool VistaUnionEntidadRelacion::contieneAEstePunto(double x, double y) {
 	return false;
 }
 
-void VistaUnionEntidadRelacion::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents) {
+void VistaUnionEntidadRelacion::calcularDimensionesAPartirDeTexto(
+		Cairo::TextExtents * textExtents) {
 
 }
 

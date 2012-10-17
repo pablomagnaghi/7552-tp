@@ -1,13 +1,12 @@
 #include "UnionEntidadRelacion.h"
 
-UnionEntidadRelacion::UnionEntidadRelacion(Entidad * e, Relacion * r):
-	entidad (e),
-	relacion (r),
-	cardinalidadMinima ("1"),
-	cardinalidadMaxima ("1") {
+UnionEntidadRelacion::UnionEntidadRelacion(Entidad * e, Relacion * r) :
+		entidad(e), relacion(r), cardinalidadMinima("1"), cardinalidadMaxima("1"){
+
 
 	e->agregarUnionARelacion(this);
 	r->agregarUnionAEntidad(this);
+	this->nombre.assign("Union");
 }
 
 UnionEntidadRelacion::~UnionEntidadRelacion() {
@@ -58,7 +57,6 @@ int UnionEntidadRelacion::getCodigoEntidad() {
 	return this->codigoEntidad;
 }
 
-
 // PERSISTENCIA COMP
 // CARGAR
 UnionEntidadRelacion::UnionEntidadRelacion(XmlNodo* nodo) {
@@ -75,11 +73,11 @@ XmlNodo UnionEntidadRelacion::guardarXmlCOMP() {
 
 	Componente::agregarPropiedadesXmlCOMP(&nodo);
 
-	nodo.setPropiedad("entidad",this->entidad->getCodigo());
-	nodo.setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
-	nodo.setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
+	nodo.setPropiedad("entidad", this->entidad->getCodigo());
+	nodo.setPropiedad("cardinalidad_minima", this->cardinalidadMinima);
+	nodo.setPropiedad("cardinalidad_maxima", this->cardinalidadMaxima);
 	if (this->rol.size())
-		nodo.setPropiedad("rol",this->rol);
+		nodo.setPropiedad("rol", this->rol);
 
 	return nodo;
 }
