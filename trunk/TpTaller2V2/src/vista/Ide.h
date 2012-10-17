@@ -75,10 +75,12 @@ public:
 	// MANEJO DE ARCHIVOS
 	bool abrir_proyecto();
 	bool guardar_proyecto(bool guardarComo);
+	void regenerarTreePanel();
 
 	bool crearNuevoProyecto();
 	void cargarDiagrama(VistaDiagrama* diagrama);
-	void regenerarTreePanel();
+
+	bool cerrarProyecto();
 
 
 	inline VistaProyecto* getProyecto() {

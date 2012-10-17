@@ -15,10 +15,13 @@ TreePanel::TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i) :
 }
 
 bool TreePanel::regenerar() {
-	if (!this->hayProyecto())
-		return false;
 	this->limpiar();
-	VistaDiagrama *principal = this->ide->getProyecto()->getDiagramaPrincipal();
+
+	if (!this->hayProyecto()) {
+		return false;
+	}
+
+	VistaDiagrama * principal = this->ide->getProyecto()->getDiagramaPrincipal();
 
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = principal->getNombre();
@@ -28,16 +31,24 @@ bool TreePanel::regenerar() {
 	return true;
 }
 
+void agregarItemAlTreeModel(const std::string, VistaComponente *, bool esDiagrama) {
+
+}
+
 void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
+	std::string nombre;
 	//primero cargo los componentes de ese diag y luego los diag hijos
 	vector<VistaComponente*>::iterator itComp = diag->componentesBegin();
 	vector<VistaComponente*>::iterator compEnd = diag->componentesEnd();
 	while (itComp != compEnd) {
-		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
-				row->children()));
-		rowSec[this->m_Columnas.m_col_Nombre] = (*itComp)->getNombre();
-		rowSec[this->m_Columnas.m_col_vComp_Pointer] = *itComp;
-		rowSec[this->m_Columnas.m_col_esDiag] = false;
+		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(row->children()));
+		nombre = (*itComp)->getNombre();
+		std::cout << nombre << std::endl;
+		if (nombre != "") {
+			rowSec[this->m_Columnas.m_col_Nombre] = nombre;
+			rowSec[this->m_Columnas.m_col_vComp_Pointer] = *itComp;
+			rowSec[this->m_Columnas.m_col_esDiag] = false;
+		}
 		itComp++;
 	}
 
@@ -45,8 +56,7 @@ void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
 	vector<VistaDiagrama*>::iterator itHijos = diag->vdiagramasBegin();
 	vector<VistaDiagrama*>::iterator HijosEnd = diag->vdiagramasEnd();
 	while (itHijos != HijosEnd) {
-		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(
-				row->children()));
+		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(row->children()));
 		rowSec[this->m_Columnas.m_col_Nombre] = (*itHijos)->getNombre();
 		rowSec[this->m_Columnas.m_col_vDiag_Pointer] = (*itHijos);
 		rowSec[this->m_Columnas.m_col_esDiag] = true;
@@ -74,24 +84,21 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 	Gtk::TreeView::on_button_press_event(event);
 	//Doble click izquierdo
 	if (event->type == GDK_2BUTTON_PRESS) {
-		Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
-				this->get_selection();
+		Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->get_selection();
 		Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 		if (iter) //If anything is selected
 		{
 			//Hay que distinguir entre diagramas y componentes
 			bool esDiagrama = (*iter)[this->m_Columnas.m_col_esDiag];
 			if (esDiagrama) {
-				VistaDiagrama *diagPointer =
-						(*iter)[this->m_Columnas.m_col_vDiag_Pointer];
+				VistaDiagrama *diagPointer = (*iter)[this->m_Columnas.m_col_vDiag_Pointer];
 				this->ide->cargarDiagrama((VistaDiagrama*) diagPointer);
 			} else {
 				Gtk::TreeModel::iterator parentIter;
 				parentIter = (*iter)->parent();
 				//Se supone que tiene que ser un diagrama
 				if (((*parentIter)[this->m_Columnas.m_col_esDiag]) == true) {
-					VistaDiagrama *diagPointer =
-							(*parentIter)[this->m_Columnas.m_col_vDiag_Pointer];
+					VistaDiagrama *diagPointer = (*parentIter)[this->m_Columnas.m_col_vDiag_Pointer];
 					this->ide->cargarDiagrama((VistaDiagrama*) diagPointer);
 				}
 			}
@@ -102,7 +109,7 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 		}
 	} else if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3)) {
 		Gtk::TreeModel::Path seleccion;
-		if (this->get_path_at_pos(event->x,event->y,seleccion)) {
+		if (this->get_path_at_pos(event->x, event->y, seleccion)) {
 			//
 			this->lanzarPopup(event);
 		}
@@ -122,14 +129,10 @@ void TreePanel::lanzarPopup(GdkEventButton* event) {
 
 	actionGroup->add(Gtk::Action::create("ContextMenu", "Context Menu"));
 
-	actionGroup->add(
-			Gtk::Action::create("ContextAgregarDiagrama",
-					"Agregar Diagrama Hijo"),
-			sigc::mem_fun(*this,
-					&TreePanel::on_popup_boton_agregar_diagrama_hijo));
+	actionGroup->add(Gtk::Action::create("ContextAgregarDiagrama", "Agregar Diagrama Hijo"),
+			sigc::mem_fun(*this, &TreePanel::on_popup_boton_agregar_diagrama_hijo));
 
-	actionGroup->add(
-			Gtk::Action::create("ContextEliminarDiagrama", "Eliminar Diagrama"),
+	actionGroup->add(Gtk::Action::create("ContextEliminarDiagrama", "Eliminar Diagrama"),
 			sigc::mem_fun(*this, &TreePanel::on_popup_boton_eliminar_diagrama));
 
 	userInterfaceManager = Gtk::UIManager::create();
@@ -149,8 +152,7 @@ void TreePanel::lanzarPopup(GdkEventButton* event) {
 	}
 
 	// LANZO MENU POPUP
-	m_pMenuPopup = dynamic_cast<Gtk::Menu*>(userInterfaceManager->get_widget(
-			"/PopupMenu"));
+	m_pMenuPopup = dynamic_cast<Gtk::Menu*>(userInterfaceManager->get_widget("/PopupMenu"));
 
 	if (!m_pMenuPopup)
 		g_warning("menu not found");

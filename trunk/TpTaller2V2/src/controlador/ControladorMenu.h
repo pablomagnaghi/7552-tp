@@ -30,6 +30,7 @@ private:
 	void on_menu_Archivo_GuardarComo_click();
 	void on_menu_Archivo_Imprimir_click();
 	void on_menu_Archivo_Exportar_click();
+	void on_menu_Archivo_Cerrar_click();
 	void on_menu_Archivo_Salir_click();
 
 	void on_menu_Editar_Copiar_click();

@@ -29,6 +29,8 @@ public:
 	void testCargarDiagramas();
 	VistaDiagrama* getDiagramaPrincipal();
 
+	void eliminarModelo();
+
 	void setNombre(const std::string & nombre);
 };
 

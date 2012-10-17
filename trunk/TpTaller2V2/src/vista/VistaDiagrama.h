@@ -21,7 +21,7 @@ private:
 	std::vector<VistaComponente *> componentes;
 	std::vector<VistaComponente *> componentes_seleccionados;
 	std::vector<VistaDiagrama *> diagramas;
-	std::vector<VistaEntidadNueva *> vistaentidades;
+	std::vector<VistaEntidadNueva *> vistaEntidades;
 
 	// Para controlar el drag and drop
 	bool mouse_apretado;
@@ -119,6 +119,8 @@ private:
 	void guardarComponentesXmlREP(XmlNodo *nodo);
 	XmlNodo guardarXmlREP();
 
+	void eliminar();
+
 public:
 
 	VistaDiagrama(Diagrama * diagramaModelo);
@@ -155,8 +157,9 @@ public:
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
 
+
+
 	// TEST
-	void test_cargar_componentes_visuales();
 	void test_cargar_componentes_visuales_atributo();
 };
 

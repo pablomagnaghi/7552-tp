@@ -29,10 +29,10 @@ public:
 	UnionEntidadRelacion(Entidad *, Relacion *);
 	virtual ~UnionEntidadRelacion();
 
-	const std::string  getCardinalidadMinima() const;
+	const std::string getCardinalidadMinima() const;
 	void setCardinalidadMinima(const std::string &);
 
-	const std::string  getCardinalidadMaxima() const;
+	const std::string getCardinalidadMaxima() const;
 	void setCardinalidadMaxima(const std::string &);
 
 	const std::string getRol() const;
@@ -46,7 +46,7 @@ public:
 	int getCodigoEntidad();
 	// PERSISTENCIA COMP
 	// CARGAR
-	 UnionEntidadRelacion(XmlNodo*);
+	UnionEntidadRelacion(XmlNodo*);
 
 	// GUARDAR
 	virtual XmlNodo guardarXmlCOMP();

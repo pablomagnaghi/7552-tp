@@ -11,6 +11,7 @@ VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
 
 VistaRelacion::~VistaRelacion() {
 	// TODO Auto-generated destructor stub
+
 }
 
 bool VistaRelacion::lanzarProp() {

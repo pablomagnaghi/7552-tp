@@ -2,7 +2,7 @@
 
 EntidadNueva::EntidadNueva() {
 	this->nombre = "Entidad Nueva";
-
+	this->esDebil = false;
 }
 
 EntidadNueva::~EntidadNueva() {

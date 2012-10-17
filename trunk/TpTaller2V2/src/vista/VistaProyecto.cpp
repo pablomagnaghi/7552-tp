@@ -1,22 +1,16 @@
-/*
- * Proyecto.cpp
- *
- *  Created on: 02/04/2012
- *      Author: Guagnini Enzo 88325
- */
-
 #include "VistaProyecto.h"
 
 VistaProyecto::VistaProyecto(Proyecto * proyectoModelo) {
 	//Prueba
 	this->proyecto = proyectoModelo;
-	this->diagramaPrincipal = new VistaDiagrama(
-			proyectoModelo->getDiagramaPrincipal());
+	this->diagramaPrincipal = new VistaDiagrama(proyectoModelo->getDiagramaPrincipal());
 	//this->testCargarDiagramas();
 }
 
 VistaProyecto::~VistaProyecto() {
 	// TODO Auto-generated destructor stub
+	delete this->diagramaPrincipal;
+
 }
 
 void VistaProyecto::testCargarDiagramas() {
@@ -36,6 +30,11 @@ void VistaProyecto::testCargarDiagramas() {
 	diag->setZoom(0.75);
 
 	this->diagramaPrincipal->test_cargar_componentes_visuales_atributo();
+}
+
+void VistaProyecto::eliminarModelo(){
+	delete this->proyecto;
+	this->proyecto = NULL;
 }
 
 VistaDiagrama* VistaProyecto::getDiagramaPrincipal() {
