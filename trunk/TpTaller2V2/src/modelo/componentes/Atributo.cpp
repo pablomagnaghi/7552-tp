@@ -8,6 +8,7 @@ Atributo::Atributo() :
 
 Atributo::~Atributo() {
 	this->borrarAtributos();
+	this->cardinalidadMaxima.clear();
 }
 
 std::string Atributo::getTipo() const {

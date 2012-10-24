@@ -28,6 +28,15 @@ class Ide: public Gtk::Window {
 
 private:
 
+	Gtk::Fixed * fijacionTreePanel;
+	Gtk::HPaned * panelHorizontal;
+	bool expandido;
+	int posicion_anterior;
+	Gtk::ToggleButton * botonEsconderPanel;
+	Gtk::Image * flecha_izquierda;
+	Gtk::Image * flecha_derecha;
+	Gtk::ScrolledWindow * scrolledTreePanel;
+
 	Glib::RefPtr<Gtk::Builder> m_builder;
 
 	//Posee un proyecto por vez
@@ -51,13 +60,12 @@ private:
 
 	std::string carpetaProyecto; // Path al proyecto
 
-
 	// LOS METODOS QUE COMIENZAN CON debug SON PARA PRUEBAS
 
 	void debugInformarValorVariable(const std::string & nombreVariable, const std::string & valor);
 
-
-
+	void on_panel_horizontal_size_request(Gtk::Requisition* const & requisition);
+	void on_boton_esconder_panel_toggle();
 	/*
 	 * Enlaza todos los widgets que forman al Ide con las respectivas funciones.
 	 */
@@ -81,7 +89,6 @@ public:
 	void cargarDiagrama(VistaDiagrama* diagrama);
 
 	bool cerrarProyecto();
-
 
 	inline VistaProyecto* getProyecto() {
 		return this->vproyecto;

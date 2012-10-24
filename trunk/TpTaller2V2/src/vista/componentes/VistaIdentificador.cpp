@@ -287,8 +287,9 @@ bool VistaIdentificador::contieneEsteComponente(Componente * c) {
 
 bool VistaIdentificador::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y,
 		double pos_fin_x, double pos_fin_y, double & x, double & y) {
-	double xInterseccion, yInterseccion;
-	double centro_x, centro_y, radio;
+	//double xInterseccion, yInterseccion;
+	//double radio;
+	double centro_x, centro_y;
 
 	centro_x = (this->pos_fin_x + this->pos_ini_x) / 2;
 	centro_y = (this->pos_fin_y + this->pos_ini_y) / 2;

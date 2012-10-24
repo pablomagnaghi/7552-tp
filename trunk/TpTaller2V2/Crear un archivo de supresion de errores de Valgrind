@@ -1,0 +1,13 @@
+Step by step summary
+
+Check you have gawk and md5sum installed; you almost certainly already have.
+Open a terminal in the 'minimal' sample directory and run make.
+Copy the parse_valgrind_suppressions.sh script to this directory (ensure it has executable permission). Alternatively you could use its full filepath in 5.
+Create a raw suppression file: valgrind --leak-check=full --show-reachable=yes --error-limit=no --gen-suppressions=all --log-file=minimalraw.log ./minimal
+Process the raw data: cat ./minimalraw.log | ./parse_valgrind_suppressions.sh > minimal.supp
+Examine the resulting files. Select likely candidates for wildcarding, writing the resulting suppressions to another file e.g. wxGTK-2-8-11.supp.
+Rerun valgrind using that suppression file: valgrind --leak-check=full --show-reachable=yes --error-limit=no --suppressions=./wxGTK-2.8.11.supp --gen-suppressions=all --log-file=minimalraw.log ./minimal
+Goto 5.
+Once there aren't too many errors, or none that you dare wildcard, append the remaining unaltered suppressions to wxGTK-2-8-11.supp.
+Move wxGTK-2-8-11.supp to somewhere sensible and add its filepath to ~/.valgrindrc.
+If necessary, repeat using a different sample. Point to the resulting file either in ~/.valgrindrc or in ./.valgrindrc as appropriate.

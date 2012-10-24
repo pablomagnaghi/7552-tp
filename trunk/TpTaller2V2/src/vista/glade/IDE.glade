@@ -257,13 +257,34 @@
             <property name="position">300</property>
             <property name="position_set">True</property>
             <child>
-              <object class="GtkScrolledWindow" id="scroll_treePanel">
+              <object class="GtkFixed" id="fixed1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">automatic</property>
-                <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkToggleButton" id="togglebutton1">
+                    <property name="width_request">24</property>
+                    <property name="height_request">24</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">True</property>
+                    <property name="image">image3</property>
+                    <property name="relief">none</property>
+                    <property name="focus_on_click">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scroll_treePanel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="resize_mode">immediate</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="y">25</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -504,5 +525,15 @@
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="stock">gtk-stop</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="stock">gtk-go-back</property>
+    <property name="icon-size">1</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="stock">gtk-go-forward</property>
+    <property name="icon-size">1</property>
   </object>
 </interface>

@@ -24,7 +24,6 @@ typedef GtkRequisition Requisition;
 
 class Ide;
 
-
 // public Para que no tire error cuando se conecta la señal
 // del menu popup
 class TreePanel: public Gtk::TreeView {
@@ -62,7 +61,6 @@ private:
 	void on_popup_boton_eliminar_diagrama();
 
 public:
-
 
 	TreePanel(const Glib::RefPtr<Gtk::Builder>& Ide_b, Ide* i);
 	virtual ~TreePanel();
