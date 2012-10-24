@@ -10,10 +10,23 @@ Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 
 	// INICIALIZACION
 	this->vproyecto = NULL;
+	this->diagramaActual = NULL;
 	this->instancia = this;
+	this->expandido = true;
+	this->posicion_anterior = 0;
 
 	this->m_builder->get_widget("contenedor_diag", this->contenedorDiag);
+	this->m_builder->get_widget("hpaned1", panelHorizontal);
+	this->m_builder->get_widget("fixed1", fijacionTreePanel);
+	this->m_builder->get_widget("togglebutton1", botonEsconderPanel);
+	this->m_builder->get_widget("image3", this->flecha_izquierda);
+	this->m_builder->get_widget("image4", this->flecha_derecha);
+	this->m_builder->get_widget("scroll_treePanel", this->scrolledTreePanel);
 
+	this->botonEsconderPanel->signal_toggled().connect(
+			sigc::mem_fun(*this, &Ide::on_boton_esconder_panel_toggle));
+	this->panelHorizontal->signal_size_request().connect(
+			sigc::mem_fun(*this, &Ide::on_panel_horizontal_size_request));
 	this->show();
 
 	//TODO TEST
@@ -199,4 +212,49 @@ void Ide::debugInformarValorVariable(const std::string & nombreVariable,
 
 	mensaje.set_secondary_text(valor);
 	mensaje.run();
+}
+
+void Ide::on_boton_esconder_panel_toggle() {
+	//int w, h;
+	//this->fijacionTreePanel->get_size_request(w, h);
+	if (this->expandido) {
+		this->posicion_anterior = this->panelHorizontal->get_position();
+		cout << "off" << endl;
+		this->expandido = false;
+		this->botonEsconderPanel->set_image(*this->flecha_derecha);
+		//this->fijacionTreePanel->set_size_request(24, h);
+		this->panelHorizontal->set_position(24);
+		this->treePanel.set_visible(false);
+	} else {
+		cout << "on" << endl;
+		this->expandido = true;
+		this->botonEsconderPanel->set_image(*this->flecha_izquierda);
+		//this->fijacionTreePanel->set_size_request(this->posicion_anterior, h);
+		this->panelHorizontal->set_position(this->posicion_anterior);
+		this->treePanel.set_visible(true);
+	}
+	this->panelHorizontal->check_resize();
+	this->panelHorizontal->queue_resize();
+}
+
+void Ide::on_panel_horizontal_size_request(Gtk::Requisition* const & requisition) {
+	int w, h;
+	this->get_size_request(w, h);
+	if (this->panelHorizontal->get_position() < 24) {
+		this->panelHorizontal->set_position(24);
+	}
+	if (this->expandido == false) {
+		this->panelHorizontal->set_position(24);
+	}
+	this->treePanel.set_size_request(this->panelHorizontal->get_position(), h);
+
+	this->panelHorizontal->get_size_request(w, h);
+	std::cout << "hpaned1 w: " << w << " h: " << h << endl;
+	this->fijacionTreePanel->get_size_request(w, h);
+	std::cout << "fixed1 w: " << w << " h: " << h << endl;
+	this->treePanel.get_size_request(w, h);
+	std::cout << "treePanel w: " << w << " h: " << h << endl;
+	this->scrolledTreePanel->get_size_request(w, h);
+	std::cout << "scrolledTreePanel w: " << w << " h: " << h << endl;
+	std::cout << "posicion: " << this->panelHorizontal->get_position() << std::endl;
 }
