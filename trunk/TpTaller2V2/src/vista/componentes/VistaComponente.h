@@ -36,6 +36,7 @@ protected:
 	static Gdk::Color colorDeSeleccion;
 	static Gdk::Color colorDeRedimension;
 	static Gdk::Color colorBlanco;
+	static Gdk::Color colorVerde;
 	int mouseArribaDePuntoDeRedimension;
 	bool ajustarTamanioPorTexto;
 
@@ -68,12 +69,6 @@ public:
 
 	// Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr) = 0;
-
-	// Indica q sucede cuando el objeto es seleccionado
-	virtual bool esSeleccionado(double x, double y) = 0;
-
-	// indica q sucede con el objeto cuando deja de ser seleccionado
-	virtual void finSeleccionado(double x, double y) = 0;
 
 	// Lanza el asistente de prpiedades del objeto en cuestion.
 	virtual bool lanzarProp() = 0;

@@ -4,7 +4,7 @@ Gdk::Color VistaComponente::colorNegro;
 Gdk::Color VistaComponente::colorDeSeleccion;
 Gdk::Color VistaComponente::colorDeRedimension;
 Gdk::Color VistaComponente::colorBlanco;
-
+Gdk::Color VistaComponente::colorVerde;
 
 VistaComponente::VistaComponente() {
 	this->setposfin(0, 0);
@@ -17,8 +17,9 @@ VistaComponente::VistaComponente() {
 	VistaComponente::colorDeSeleccion.set_rgb_p(0.25, 0.69, 1);
 	VistaComponente::colorDeRedimension.set_rgb_p(1, 0, 0);
 	VistaComponente::colorBlanco.set_rgb_p(1, 1, 1);
+	VistaComponente::colorVerde.set_rgb_p(0, 1, 0);
 	this->seleccionado = false;
-	this->ajustarTamanioPorTexto = true;
+	this->ajustarTamanioPorTexto = false;
 	//this->estaMouseArriba = false;
 }
 

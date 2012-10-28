@@ -92,7 +92,7 @@ bool Ide::abrir_proyecto() {
 bool Ide::guardar_proyecto(bool guardarComo) {
 	std::string nombreProyecto;
 
-	if (guardarComo) {
+	/*if (guardarComo) {
 		// Pedir Carpeta donde se guarda el proyecto
 		Gtk::FileChooserDialog selector("Seleccione la carpeta del proyecto",
 				Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
@@ -104,9 +104,9 @@ bool Ide::guardar_proyecto(bool guardarComo) {
 
 		switch (selector.run()) {
 		case (Gtk::RESPONSE_OK): {
-			/*std::cout << "Select clicked." << std::endl;
-			 std::cout << "Folder selected: " << selector.get_filename()
-			 << std::endl;*/
+			//std::cout << "Select clicked." << std::endl;
+			//std::cout << "Folder selected: " << selector.get_filename()
+			//<< std::endl;
 			this->carpetaProyecto = selector.get_filename();
 
 			break;
@@ -119,9 +119,13 @@ bool Ide::guardar_proyecto(bool guardarComo) {
 		default: {
 			std::cout << "Unexpected button clicked." << std::endl;
 			break;
+			return false;
 		}
 		}
-	}
+	}*/
+
+	// ES PARA PROBAR, GUARDAR SIN QUE TE PIDA LA CARPETA A CADA RATO
+	this->carpetaProyecto = "/home/gonzalo/workspaces/Distribuidos/TPtaller2/proyectos/proyecto1";
 
 	nombreProyecto = Utils::getBasename(this->carpetaProyecto);
 
@@ -129,7 +133,9 @@ bool Ide::guardar_proyecto(bool guardarComo) {
 
 	this->vproyecto->setNombre(nombreProyecto);
 
-	this->debugInformarValorVariable("Nombre Proyecto", nombreProyecto);
+	//this->debugInformarValorVariable("Nombre Proyecto", nombreProyecto);
+
+	this->diagramaActual->guardarDiagramaXml(this->carpetaProyecto);
 
 	return true;
 }

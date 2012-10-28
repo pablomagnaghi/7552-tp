@@ -24,8 +24,6 @@ public:
 	virtual ~VistaJerarquia();
 
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
-	virtual bool esSeleccionado(double x, double y);
-	virtual void finSeleccionado(double x, double y);
 	virtual bool lanzarProp();
 	void resetearLanzarProp();
 	virtual bool contieneAEstePunto(double x, double y);

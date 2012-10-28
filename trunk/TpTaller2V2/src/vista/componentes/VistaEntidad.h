@@ -4,6 +4,8 @@
 #include "VistaComponente.h"
 
 class VistaEntidad: public VistaComponente {
+protected:
+
 
 public:
 	VistaEntidad();

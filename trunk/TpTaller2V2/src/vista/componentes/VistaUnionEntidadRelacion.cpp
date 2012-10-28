@@ -114,14 +114,6 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	}
 }
 
-bool VistaUnionEntidadRelacion::esSeleccionado(double x, double y) {
-	return false;
-}
-
-void VistaUnionEntidadRelacion::finSeleccionado(double x, double y) {
-
-}
-
 bool VistaUnionEntidadRelacion::contieneAEstePunto(double x, double y) {
 	return false;
 }

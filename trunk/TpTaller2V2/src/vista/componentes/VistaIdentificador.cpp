@@ -155,13 +155,6 @@ std::vector<VistaUnionEntidadRelacion*>::iterator VistaIdentificador::entidadesF
 	return this->vistasEntidadesFuertes.end();
 }
 
-bool VistaIdentificador::esSeleccionado(double x, double y) {
-	return false;
-}
-
-void VistaIdentificador::finSeleccionado(double x, double y) {
-
-}
 
 bool VistaIdentificador::contieneAEstePunto(double x, double y) {
 	/*double limiteX1, limiteX4;

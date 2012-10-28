@@ -127,13 +127,6 @@ void VistaEntidadNueva::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Contex
 	}
 }
 
-bool VistaEntidadNueva::esSeleccionado(double x, double y) {
-	return false;
-}
-
-void VistaEntidadNueva::finSeleccionado(double x, double y) {
-
-}
 
 bool VistaEntidadNueva::contieneAEstePunto(double x, double y) {
 	double limiteX1, limiteX4;
