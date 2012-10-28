@@ -143,14 +143,6 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	}
 }
 
-bool VistaAtributo::esSeleccionado(double x, double y) {
-	return false;
-}
-
-void VistaAtributo::finSeleccionado(double x, double y) {
-
-}
-
 bool VistaAtributo::contieneAEstePunto(double x, double y) {
 	double limiteX1, limiteX4;
 	double limiteY1, limiteY4;

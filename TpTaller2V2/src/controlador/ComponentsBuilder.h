@@ -8,19 +8,20 @@
 #ifndef COMPONENTSBUILDER_H_
 #define COMPONENTSBUILDER_H_
 
-
 #include "../vista/componentes/VistaEntidadNueva.h"
 #include "../vista/componentes/VistaAtributo.h"
 #include "../vista/componentes/VistaLinea.h"
+#include "../vista/componentes/VistaIdentificador.h"
+#include "../vista/componentes/VistaEntidadGlobal.h"
 #include "../vista/VistaDiagrama.h"
 #include "../vista/componentes/VistaJerarquia.h"
-
 
 class VistaProyecto;
 class VistaAtributo;
 class VistaEntidadNueva;
 class VistaDiagrama;
 class VistaJerarquia;
+class VistaIdentificador;
 
 class ComponentsBuilder {
 private:
@@ -33,26 +34,39 @@ public:
 	 * SI diagramaActual es NULL utilizara El diagrama actual del ide
 	 * Si entidad Nueva es null creara un nuevo modelo de entidad nueva
 	 */
-	VistaEntidadNueva * crearEntidadNuevaEnDiagrama(VistaDiagrama *diagramaActual, EntidadNueva *entidadNueva);
+	VistaEntidadNueva * crearEntidadNuevaEnDiagrama(VistaDiagrama *diagramaActual,
+			EntidadNueva *entidadNueva);
 
 	/*
 	 *ventidad no puede ser NULL
 	 *SI diagramaActual es NULL utilizara El diagrama actual del ide, sino deberia pasarsele el mismo diagrama donde se encuentra la ventidad
 	 *Si atrib es null se creara uno nuevo sino se utilizara el modelo pasado
 	 */
-	VistaAtributo * crearAtributoEnEntidad(VistaEntidadNueva *ventidad,VistaDiagrama *diagramaActual, Atributo *atrib);
+	VistaAtributo * crearAtributoEnEntidad(VistaEntidadNueva *ventidad,
+			VistaDiagrama *diagramaActual, Atributo *atrib);
 	/*
-	*vatribPadre no puede ser NULL
-	*SI diagramaActual es NULL utilizara El diagrama actual del ide, sino deberia pasarsele el mismo diagrama donde se encuentra la atribPadre
-	*Si atrib es null se creara uno nuevo sino se utilizara el modelo pasado
-	*/
-	VistaAtributo * crearAtributoEnAtributo(VistaAtributo *atribPadre,VistaDiagrama *diagramaActual,Atributo *atrib);
+	 *vatribPadre no puede ser NULL
+	 *SI diagramaActual es NULL utilizara El diagrama actual del ide, sino deberia pasarsele el mismo diagrama donde se encuentra la atribPadre
+	 *Si atrib es null se creara uno nuevo sino se utilizara el modelo pasado
+	 */
+	VistaAtributo * crearAtributoEnAtributo(VistaAtributo *atribPadre,
+			VistaDiagrama *diagramaActual, Atributo *atrib);
 
 	/*
 	 * SI diagramaActual es NULL utilizara El diagrama actual del ide
 	 */
-	VistaJerarquia* crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual, Jerarquia *j);
+	VistaJerarquia * crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual, Jerarquia *j);
 
+	/*
+	 *
+	 * */
+
+	VistaAtributo * crearAtributoEnRelacion(VistaDiagrama *, VistaRelacion *, Atributo *);
+	VistaRelacion * crearRelacionEnDiagrama(VistaDiagrama *, Relacion *);
+	VistaIdentificador * crearIdentificadorEnEntidad(VistaDiagrama *, VistaEntidadNueva *,
+			Identificador*);
+	VistaEntidadGlobal * crearEntidadGlobalEnDiagrama(VistaDiagrama * diagramaActual,
+			const std::string & nombreEntidadNueva, EntidadGlobal * entidadGlobal = NULL);
 };
 
 #endif /* COMPONENTSBUILDER_H_ */

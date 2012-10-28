@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="composicion.xsd" nombre="Principal"><entidad_nueva codigo="1" nombre="Entidad 1" tipo=""/><entidad_nueva codigo="2" nombre="Entidad 2" tipo=""/><relacion codigo="3" nombre="Relacion"><union_entidad_relacion  codigo="4" nombre="Union" entidad="1" cardinalidad_minima="1" cardinalidad_maxima="1"/><union_entidad_relacion  codigo="5" nombre="Union" entidad="2" cardinalidad_minima="1" cardinalidad_maxima="1"/></relacion></diagrama>

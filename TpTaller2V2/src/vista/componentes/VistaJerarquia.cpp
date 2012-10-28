@@ -135,16 +135,6 @@ void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
   }
 }
 
-//Indica q sucede cuando el objeto es seleccionado
-bool VistaJerarquia::esSeleccionado(double x, double y) {
-	return false;
-}
-
-//indica q sucede con el objeto cuando deja de ser seleccionado
-void VistaJerarquia::finSeleccionado(double x, double y) {
-
-}
-
 //Lanza el asistente de prpiedades del objeto en cuestion.
 bool VistaJerarquia::lanzarProp() {
 	if (!this->prop_lanzada) {

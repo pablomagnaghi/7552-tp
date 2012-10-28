@@ -76,14 +76,7 @@ void VistaLinea::setComponenteHasta(VistaComponente *comp) {
 	this->actualizar_coordenadas();
 }
 
-bool VistaLinea::esSeleccionado(double x, double y) {
-	return false;
-}
 
-//indica q sucede con el objeto cuando deja de ser seleccionado
-void VistaLinea::finSeleccionado(double x, double y) {
-
-}
 
 //Lanza el asistente de prpiedades del objeto en cuestion.
 bool VistaLinea::lanzarProp() {

@@ -24,11 +24,6 @@ public:
 
 	void actualizar_coordenadas();
 
-	//Indica q sucede cuando el objeto es seleccionado
-	virtual bool esSeleccionado(double x, double y);
-
-	//indica q sucede con el objeto cuando deja de ser seleccionado
-	virtual void finSeleccionado(double x, double y);
 
 	//Lanza el asistente de prpiedades del objeto en cuestion.
 	virtual bool lanzarProp();

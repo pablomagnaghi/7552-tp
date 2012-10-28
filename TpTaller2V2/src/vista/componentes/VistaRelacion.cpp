@@ -104,13 +104,6 @@ void VistaRelacion::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> c
 	}
 }
 
-bool VistaRelacion::esSeleccionado(double x, double y) {
-	return false;
-}
-
-void VistaRelacion::finSeleccionado(double x, double y) {
-
-}
 
 bool VistaRelacion::contieneAEstePunto(double x, double y) {
 	double limiteX1, limiteX4;

@@ -17,6 +17,7 @@ private:
 	int alto;
 
 	Diagrama * diagrama;
+	VistaDiagrama * diagramaAncestro;
 
 	std::vector<VistaComponente *> componentes;
 	std::vector<VistaComponente *> componentes_seleccionados;
@@ -51,8 +52,8 @@ private:
 	VistaComponente * obtenerComponenteEnPos(gdouble x, gdouble y);
 
 	void
-	obtenerVistaAPartirDeRelacion(VistaRelacion *, std::vector<VistaEntidadNueva *>&, std::vector<
-			UnionEntidadRelacion *>&);
+	obtenerVistaAPartirDeRelacion(VistaRelacion *, std::vector<VistaEntidadNueva *>&,
+			std::vector<UnionEntidadRelacion *>&);
 
 	void configurar_drag_and_drop();
 
@@ -123,7 +124,7 @@ private:
 
 public:
 
-	VistaDiagrama(Diagrama * diagramaModelo);
+	VistaDiagrama(Diagrama * diagramaModelo, int a = 0);
 	virtual ~VistaDiagrama();
 
 	void setZoom(double z);
@@ -136,7 +137,8 @@ public:
 
 	void agregarVistaEntidadNueva(VistaEntidadNueva *ven);
 
-	void agregarVistaDiagrama(VistaDiagrama *vDiagrama);
+	void agregarDiagramaHijo(VistaDiagrama *vDiagrama);
+	VistaDiagrama * buscarDiagrama(const std::string & nombreDiagrama);
 
 	std::string getNombre() const;
 
@@ -148,7 +150,9 @@ public:
 	std::vector<VistaEntidadNueva*>::iterator vEntidadesEnd();
 
 	Diagrama * getDiagrama();
-
+	void setDiagramaAncestro(VistaDiagrama *);
+	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,
+			std::string & nombreDiagramaAncestro);
 
 	// PERSISTENCIA REP
 	bool isOpenXmlREP() const;
@@ -157,10 +161,13 @@ public:
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
 
-
-
 	// TEST
 	void test_cargar_componentes_visuales_atributo();
+	void test_1();
+	void test_2();
+	void test_3();
+	void test_4();
+	void test_5();
 };
 
 #endif /* VISTADIAGRAMA_H_ */

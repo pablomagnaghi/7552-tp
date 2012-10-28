@@ -6,7 +6,7 @@
 
 using namespace std;
 
-VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo) {
+VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	// para persistencia
 	this->estado = "sin_validar";
@@ -31,9 +31,134 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo) {
 
 	configurar_drag_and_drop();
 
+	this->diagramaAncestro = NULL;
+
 	// TEST
 
-	test_cargar_componentes_visuales_atributo();
+	//test_cargar_componentes_visuales_atributo();
+	if (a == 0) {
+		test_4();
+	}
+}
+
+void VistaDiagrama::test_1() {
+	EntidadNueva * a = new EntidadNueva();
+	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
+	entidad->setposini(150, 100);
+	entidad->setposfin(240, 110);
+	entidad->setNombre("Entidad");
+	this->diagrama->agregarEntidadNueva(a);
+	this->agregarVistaEntidadNueva(entidad);
+}
+
+void VistaDiagrama::test_2() {
+	EntidadNueva * a = new EntidadNueva();
+	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
+	VistaLinea * lineaEntidadAtributo = new VistaLinea();
+	Atributo * b = new Atributo();
+	b->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaAtributo * atributo = new VistaAtributo(b);
+
+	entidad->setposini(150, 100);
+	entidad->setposfin(240, 110);
+	entidad->setNombre("Entidad");
+	this->diagrama->agregarEntidadNueva(a);
+	this->agregarVistaEntidadNueva(entidad);
+
+	atributo->setposini(130, 60);
+	b->setNombre("A1");
+	a->agregarAtributo(b);
+	entidad->agregarAtributo(atributo);
+	this->agregarVistaEntidadNueva(entidad);
+	lineaEntidadAtributo->setComponenteDesde(atributo);
+	lineaEntidadAtributo->setComponenteHasta(entidad);
+	this->componentes.push_back(lineaEntidadAtributo);
+	atributo->setLinea(lineaEntidadAtributo);
+}
+
+void VistaDiagrama::test_3() {
+	EntidadNueva * a = new EntidadNueva();
+	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
+	EntidadNueva * b = new EntidadNueva();
+	b->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaEntidadNueva * entidad2 = new VistaEntidadNueva(b);
+	Relacion * r = new Relacion();
+	r->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaRelacion * vistaRelacion = new VistaRelacion(r);
+	UnionEntidadRelacion *u1 = new UnionEntidadRelacion(a, r);
+	u1->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaUnionEntidadRelacion * unionEntidadRelacion1 = new VistaUnionEntidadRelacion(u1, entidad,
+			vistaRelacion);
+	UnionEntidadRelacion *u2 = new UnionEntidadRelacion(b, r);
+	u2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaUnionEntidadRelacion * unionEntidadRelacion2 = new VistaUnionEntidadRelacion(u2, entidad2,
+			vistaRelacion);
+
+	entidad->setposini(150, 100);
+	entidad->setposfin(220, 125);
+	entidad->setNombre("Entidad 1");
+	this->diagrama->agregarEntidadNueva(a);
+	this->agregarVistaEntidadNueva(entidad);
+
+	entidad2->setposini(360, 100);
+	entidad2->setposfin(430, 125);
+	entidad2->setNombre("Entidad 2");
+	this->diagrama->agregarEntidadNueva(b);
+	this->agregarVistaEntidadNueva(entidad2);
+
+	vistaRelacion->setposini(251, 90);
+	vistaRelacion->setposfin(330, 130);
+	vistaRelacion->setNombre("Relacion");
+	this->diagrama->agregarRelacion(r);
+	this->componentes.push_back(vistaRelacion);
+
+	this->componentes.push_back(unionEntidadRelacion1);
+	this->componentes.push_back(unionEntidadRelacion2);
+
+}
+
+void VistaDiagrama::test_4() {
+	EntidadNueva * a = new EntidadNueva();
+	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
+	EntidadGlobal * b = new EntidadGlobal();
+	b->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	//VistaEntidadGlobal * entidad2 = new VistaEntidadGlobal(b);
+	VistaEntidadGlobal * entidad2;
+	Diagrama * diagramaHijo = new Diagrama();
+	// OJO CON EL 1, SOLO PARA DEBUG (GONZALO)
+	VistaDiagrama * vistaDiagramaHijo = new VistaDiagrama(diagramaHijo, 1);
+
+	diagramaHijo->setNombre("Diagrama Hijo 1");
+
+	this->agregarDiagramaHijo(vistaDiagramaHijo);
+
+	entidad->setposini(150, 100);
+	entidad->setposfin(220, 125);
+	entidad->setNombre("Entidad 1");
+	this->diagrama->agregarEntidadNueva(a);
+	this->agregarVistaEntidadNueva(entidad);
+
+	/*entidad2->setposini(150, 100);
+	 entidad2->setposfin(220, 125);
+	 entidad2->setNombre("Entidad Global");
+	 b->setDiagramaAncestro(diagramaHijo->getNombre());
+	 b->setEntidadNueva(a);
+	 diagramaHijo->agregarEntidadGlobal(b);
+	 vistaDiagramaHijo->agregarComponente(entidad2);*/
+
+	entidad2 = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(vistaDiagramaHijo,
+			"Entidad 1", b);
+	entidad2->setposini(150, 100);
+	entidad2->setposfin(220, 125);
+	entidad2->setNombre("Entidad Global");
+}
+
+void VistaDiagrama::test_5() {
+
 }
 
 VistaDiagrama::~VistaDiagrama() {
@@ -494,13 +619,16 @@ void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 
 void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven) {
 	if (ven != NULL) {
+		this->componentes.push_back(ven);
 		this->vistaEntidades.push_back(ven);
+		this->queue_draw();
 	}
 }
 
-void VistaDiagrama::agregarVistaDiagrama(VistaDiagrama *vDiagrama) {
+void VistaDiagrama::agregarDiagramaHijo(VistaDiagrama *vDiagrama) {
 	if (vDiagrama != NULL) {
 		this->diagramas.push_back(vDiagrama);
+		vDiagrama->setDiagramaAncestro(this);
 	}
 }
 
@@ -543,6 +671,35 @@ VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
 
 Diagrama * VistaDiagrama::getDiagrama() {
 	return this->diagrama;
+}
+
+void VistaDiagrama::setDiagramaAncestro(VistaDiagrama * ancestro) {
+	this->diagramaAncestro = ancestro;
+}
+
+/*
+ * Este metodo obtiene la entidad nueva y el nombre del diagrama ancestro
+ * donde se encontro dicha entidad
+ *
+ * */
+
+VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(
+		const std::string & nombreEntidadNueva, std::string & nombreDiagramaAncestro) {
+	VistaDiagrama * diagramaActual;
+	diagramaActual = this->diagramaAncestro;
+	std::vector<VistaEntidadNueva *>::iterator i;
+
+	while (diagramaActual != NULL) {
+		for (i = diagramaActual->vistaEntidades.begin(); i != diagramaActual->vistaEntidades.end();
+				i++) {
+			if ((*i)->getNombre() == nombreEntidadNueva) {
+				nombreDiagramaAncestro = diagramaActual->getNombre();
+				return (*i);
+			}
+		}
+		diagramaActual = diagramaActual->diagramaAncestro;
+	}
+	return NULL;
 }
 
 // PERSISTENCIA REP
@@ -686,7 +843,7 @@ void VistaDiagrama::cargarVistaDiagramasHijos() {
 		std::string nombre = (*it)->getNombre();
 		VistaDiagrama *vDiagrama = new VistaDiagrama((*it));
 		vDiagrama->abrirXml(nombre);
-		this->agregarVistaDiagrama(vDiagrama);
+		this->agregarDiagramaHijo(vDiagrama);
 		it++;
 	}
 }
@@ -697,9 +854,17 @@ void VistaDiagrama::cargarVistaDiagramasHijos() {
 // con la extesion COMP y la representacion en el xml con la extension REP
 
 void VistaDiagrama::guardarDiagramaXml(const std::string& path) {
-	std::string diagramaCOMP = path + EXTENSION_COMP;
+	std::string diagramaCOMP;
+	std::string diagramaREP;
+	if (path.find("/", path.size() - 1, 1) == std::string::npos) {
+		diagramaCOMP = path + "/" + this->diagrama->getNombre() + EXTENSION_COMP;
+		diagramaREP = path + "/" + this->diagrama->getNombre() + EXTENSION_REP;
+	} else {
+		diagramaCOMP = path + this->diagrama->getNombre() + EXTENSION_COMP;
+		diagramaREP = path + this->diagrama->getNombre() + EXTENSION_REP;
+	}
+
 	this->diagrama->guardarDiagramaXmlCOMP(diagramaCOMP);
-	std::string diagramaREP = path + EXTENSION_REP;
 	this->guardarDiagramaXmlREP(diagramaREP);
 }
 
