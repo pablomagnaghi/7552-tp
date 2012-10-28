@@ -36,10 +36,10 @@ public:
 
 	virtual void redimensionar(double x, double y);
 
-	void setNombre(const std::string & nombre);
+	virtual void setNombre(const std::string & nombre);
 	virtual std::string getNombre() const;
 
-
+	virtual Entidad * getEntidad();
 };
 
 #endif /* VISTAENTIDADGLOBAL_H_ */

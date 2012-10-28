@@ -10,9 +10,9 @@
 
 AsistenteAtributo * AsistenteAtributo::instancia = NULL;
 
-AsistenteAtributo::AsistenteAtributo(BaseObjectType* cobject, const Glib::RefPtr<
-		Gtk::Builder>& builder) :
-	Gtk::Window(cobject), m_builder(builder) {
+AsistenteAtributo::AsistenteAtributo(BaseObjectType* cobject,
+		const Glib::RefPtr<Gtk::Builder>& builder) :
+		Gtk::Window(cobject), m_builder(builder) {
 	//this->hide();
 	this->vatributo = NULL;
 	this->enlazarWidgets();
@@ -47,19 +47,18 @@ void AsistenteAtributo::enlazarWidgets() {
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
 	this->m_builder->get_widget("entryNombre", entryNombre);
 
-	bAceptar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteAtributo::on_botonAceptar_click));
-	bCancelar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteAtributo::on_botonCancelar_click));
-	bAAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteAtributo::on_botonAgregarAtributo_click));
-	bMAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteAtributo::on_botonModificarAtributo_click));
-	bEAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteAtributo::on_botonEliminarAtributo_click));
+	bAceptar->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteAtributo::on_botonAceptar_click));
+	bCancelar->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteAtributo::on_botonCancelar_click));
+	bAAtributo->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteAtributo::on_botonAgregarAtributo_click));
+	bMAtributo->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteAtributo::on_botonModificarAtributo_click));
+	bEAtributo->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteAtributo::on_botonEliminarAtributo_click));
 
-	this->signal_hide().connect(sigc::mem_fun(*this,
-						&AsistenteAtributo::on_about_hide));
+	this->signal_hide().connect(sigc::mem_fun(*this, &AsistenteAtributo::on_about_hide));
 
 	//Lista
 	this->m_builder->get_widget("scrollLista", scrollLista);
@@ -68,12 +67,11 @@ void AsistenteAtributo::enlazarWidgets() {
 
 	//Agrego modelo a treeview
 	this->treeView.set_model(this->refTreeModel);
-	this->treeView.append_column("Nombre",
-			this->m_Columnas.m_col_Nombre);
+	this->treeView.append_column("Nombre", this->m_Columnas.m_col_Nombre);
 	/*this->treeView.append_column_editable("Visible",
-			this->m_Columnas.m_col_esVisible);
-	this->treeView.append_column_editable("Imprimible",
-			this->m_Columnas.m_col_esImprimible);*/
+	 this->m_Columnas.m_col_esVisible);
+	 this->treeView.append_column_editable("Imprimible",
+	 this->m_Columnas.m_col_esImprimible);*/
 
 	Gtk::ComboBoxText* comboTipo = manage(new Gtk::ComboBoxText());
 	this->comboTipo = comboTipo;
@@ -113,7 +111,8 @@ void AsistenteAtributo::on_botonCancelar_click() {
 
 void AsistenteAtributo::on_botonAgregarAtributo_click() {
 	//creo el nuevo atributo
-	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this->vatributo,this->diagramaActual,NULL);
+	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(
+			this->diagramaActual, this->vatributo, NULL);
 	//Lo incormoramos en la lista
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();
@@ -126,8 +125,7 @@ void AsistenteAtributo::on_botonAgregarAtributo_click() {
 }
 
 void AsistenteAtributo::on_botonModificarAtributo_click() {
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
-			this->treeView.get_selection();
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
 	{
@@ -138,8 +136,7 @@ void AsistenteAtributo::on_botonModificarAtributo_click() {
 }
 
 void AsistenteAtributo::on_botonEliminarAtributo_click() {
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
-			this->treeView.get_selection();
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
 	{
@@ -175,14 +172,13 @@ void AsistenteAtributo::inicializarAsistente() {
 	string tipo = this->vatributo->getAtributo()->getTipo();
 
 	this->comboTipo->set_active(1);
-	for (int i =0;i<3;i++){
-		if (tipo != this->comboTipo->get_active_text()){
-			this->comboTipo->set_active(i+1);
+	for (int i = 0; i < 3; i++) {
+		if (tipo != this->comboTipo->get_active_text()) {
+			this->comboTipo->set_active(i + 1);
 		}
 	}
 }
 
-void AsistenteAtributo::on_about_hide()
-{
+void AsistenteAtributo::on_about_hide() {
 	this->vatributo->resetearLanzarProp();
 }

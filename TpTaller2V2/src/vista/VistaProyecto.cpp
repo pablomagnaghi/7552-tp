@@ -29,7 +29,6 @@ void VistaProyecto::testCargarDiagramas() {
 	diag = this->diagramaPrincipal->crearDiagramaHijo("Sub Diag Prueba3 0,75");
 	diag->setZoom(0.75);
 
-	this->diagramaPrincipal->test_cargar_componentes_visuales_atributo();
 }
 
 void VistaProyecto::eliminarModelo(){

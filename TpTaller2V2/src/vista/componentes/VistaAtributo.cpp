@@ -397,3 +397,7 @@ void VistaAtributo::getPuntoMedioLinea(double &x, double &y) {
 	x = (x0 + x1) / 2;
 	y = (y0 + y1) / 2;
 }
+
+void VistaAtributo::setNombre(const std::string & nombre) {
+	this->atributo->setNombre(nombre);
+}

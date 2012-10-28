@@ -48,7 +48,7 @@ public:
 
 	virtual void redimensionar(double x, double y);
 
-	void setNombre(const std::string & nombre);
+	virtual void setNombre(const std::string & nombre);
 	virtual  std::string getNombre() const;
 
 	virtual bool contieneEsteComponente(Componente *);
@@ -57,7 +57,8 @@ public:
 
 	bool esDebil();
 
-	virtual EntidadNueva * getEntidad();
+	virtual Entidad * getEntidad();
+	EntidadNueva * getEntidadNueva();
 };
 
 #endif /* VISTAENTIDADNUEVA_H_ */

@@ -124,3 +124,6 @@ void VistaLinea::setTexto(const std::string &txt) {
 std::string VistaLinea::getTexto() {
 	return this->texto;
 }
+
+void VistaLinea::setNombre(const std::string & nombre) {
+}

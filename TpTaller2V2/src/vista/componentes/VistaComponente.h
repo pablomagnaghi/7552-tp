@@ -100,6 +100,7 @@ public:
 	void ajustarTamanioAlTexto();
 
 	virtual std::string getNombre() const = 0;
+	virtual void setNombre(const std::string &)  = 0;
 
 	// Menu Pop Up
 	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager);

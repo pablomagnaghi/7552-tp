@@ -4,7 +4,7 @@
 using namespace std;
 
 VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(UnionEntidadRelacion * unionModelo,
-		VistaEntidadNueva * vEntidad, VistaRelacion * vRelacion) {
+		VistaEntidad * vEntidad, VistaRelacion * vRelacion) {
 
 	this->unionModelo = unionModelo;
 	this->entidad = vEntidad;
@@ -59,36 +59,37 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 	this->actualizar_coordenadas();
 
-	if (!this->entidad->esDebil()) {
+	// TODO VER SI LO PONGO EN ENTIDAD
+	//if (!this->entidad->esDebil()) {
 
-		this->entidad->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
-				this->pos_fin_x, this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
-		this->relacion->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
-				this->pos_fin_x, this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
+	this->entidad->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+			this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
+	this->relacion->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+			this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
-		cr->move_to(this->pos_ini_x, this->pos_ini_y);
-		cr->line_to(this->pos_fin_x, this->pos_fin_y);
+	cr->move_to(this->pos_ini_x, this->pos_ini_y);
+	cr->line_to(this->pos_fin_x, this->pos_fin_y);
 
-		cr->stroke();
-	} else {
+	cr->stroke();
+	/*} else {
 
-		Geometria::obtenerLineasParalelas(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-				this->pos_fin_y, 1.6, x0, y0, x1, y1, x2, y2, x3, y3);
+	 Geometria::obtenerLineasParalelas(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+	 this->pos_fin_y, 1.6, x0, y0, x1, y1, x2, y2, x3, y3);
 
-		this->entidad->obtenerInterseccionConLinea(x0, y0, x1, y1, x0, y0);
-		this->relacion->obtenerInterseccionConLinea(x0, y0, x1, y1, x1, y1);
-		this->entidad->obtenerInterseccionConLinea(x2, y2, x3, y3, x2, y2);
-		this->relacion->obtenerInterseccionConLinea(x2, y2, x3, y3, x3, y3);
+	 this->entidad->obtenerInterseccionConLinea(x0, y0, x1, y1, x0, y0);
+	 this->relacion->obtenerInterseccionConLinea(x0, y0, x1, y1, x1, y1);
+	 this->entidad->obtenerInterseccionConLinea(x2, y2, x3, y3, x2, y2);
+	 this->relacion->obtenerInterseccionConLinea(x2, y2, x3, y3, x3, y3);
 
-		cr->move_to(x0, y0);
-		cr->line_to(x1, y1);
-		cr->stroke();
+	 cr->move_to(x0, y0);
+	 cr->line_to(x1, y1);
+	 cr->stroke();
 
-		cr->move_to(x2, y2);
-		cr->line_to(x3, y3);
-		cr->stroke();
+	 cr->move_to(x2, y2);
+	 cr->line_to(x3, y3);
+	 cr->stroke();
 
-	}
+	 }*/
 
 	if (this->dibujar_cardinalidad) {
 		Cairo::TextExtents textExtents;
@@ -150,3 +151,10 @@ void VistaUnionEntidadRelacion::getPuntoMedioLinea(double &x, double &y) {
 	y = (this->pos_ini_y + this->pos_fin_y) / 2;
 }
 
+void VistaUnionEntidadRelacion::setNombre(const std::string & nombre) {
+	this->unionModelo->setNombre(nombre);
+}
+
+UnionEntidadRelacion * VistaUnionEntidadRelacion::getUnion(){
+	return this->unionModelo;
+}
