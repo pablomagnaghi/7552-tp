@@ -60,6 +60,9 @@ public:
 			double pos_fin_y, double & x, double & y);
 
 	virtual std::string getNombre() const;
+	virtual void setNombre(const std::string &);
+
+	Identificador * getIdentificador();
 };
 
 #endif /* VISTAIDENTIFICADOR_H_ */

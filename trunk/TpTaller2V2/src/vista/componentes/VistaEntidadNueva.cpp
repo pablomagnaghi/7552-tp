@@ -26,8 +26,7 @@ VistaEntidadNueva::~VistaEntidadNueva() {
 bool VistaEntidadNueva::lanzarProp() {
 	if (!this->prop_lanzada) {
 		AsistenteEntidad* nuevaProp;
-		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(
-				ARCH_GLADE_IDE);
+		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_IDE);
 		nHbuilder->get_widget_derived("PropEntidad", nuevaProp);
 		nuevaProp->setEntidad(this);
 		this->prop_lanzada = true;
@@ -65,6 +64,14 @@ void VistaEntidadNueva::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr)
 				colorDeSeleccion.get_blue_p());
 	}
 
+	if (!this->seleccionado) {
+		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
+				colorNegro.get_blue_p());
+	} else {
+		cr->set_source_rgb(colorDeSeleccion.get_red_p(), colorDeSeleccion.get_green_p(),
+				colorDeSeleccion.get_blue_p());
+	}
+
 	if (this->ajustarTamanioPorTexto) {
 		cr->get_text_extents(this->entidad->getNombre(), textExtents);
 		this->calcularDimensionesAPartirDeTexto(&textExtents);
@@ -78,8 +85,8 @@ void VistaEntidadNueva::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr)
 
 	if (this->entidad->getEsDebil()) {
 		cr->set_line_width(1);
-		cr->rectangle(this->pos_ini_x + 4, this->pos_ini_y + 4, this->pos_fin_x - this->pos_ini_x
-				- 8, this->pos_fin_y - this->pos_ini_y - 8);
+		cr->rectangle(this->pos_ini_x + 4, this->pos_ini_y + 4,
+				this->pos_fin_x - this->pos_ini_x - 8, this->pos_fin_y - this->pos_ini_y - 8);
 	}
 	cr->stroke();
 }
@@ -87,7 +94,8 @@ void VistaEntidadNueva::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr)
 void VistaEntidadNueva::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(2);
 	//  Dibujo los circulos en las puntas
-	cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(), colorBlanco.get_blue_p());
+	cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(),
+			colorBlanco.get_blue_p());
 	cr->set_line_width(1);
 	cr->arc(this->pos_ini_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
 	cr->move_to(this->pos_ini_x + RADIO_CIRCULOS_REDIMENSION, this->pos_fin_y);
@@ -126,7 +134,6 @@ void VistaEntidadNueva::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Contex
 		break;
 	}
 }
-
 
 bool VistaEntidadNueva::contieneAEstePunto(double x, double y) {
 	double limiteX1, limiteX4;
@@ -171,22 +178,19 @@ bool VistaEntidadNueva::esPuntoDeRedimension(double x, double y) {
 	limiteY3 = this->pos_fin_y - RADIO_CIRCULOS_REDIMENSION - LONGITUD_LINEAS_REDIMENSION;
 	limiteY4 = this->pos_fin_y + RADIO_CIRCULOS_REDIMENSION + LONGITUD_LINEAS_REDIMENSION;
 
-
 	if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY1, limiteX2, limiteY2)) { // Circulo arriba a la izquierda
 		//cout << "arriba a la izquierda" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
 		//cout << "abajo a la izquierda" << endl;
 		return true;
-	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) {// Circulo arriba a la derecha
+	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) { // Circulo arriba a la derecha
 		//cout << "arriba a la derecha" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
 		//cout << "abajo a la derecha" << endl;
 		return true;
 	}
-
-
 
 	return false;
 }
@@ -207,7 +211,7 @@ void VistaEntidadNueva::setMouseArriba(double x, double y) {
 		this->mouseArribaDePuntoDeRedimension = 1;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
 		this->mouseArribaDePuntoDeRedimension = 2;
-	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) {// Circulo arriba a la derecha
+	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) { // Circulo arriba a la derecha
 		this->mouseArribaDePuntoDeRedimension = 3;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
 		this->mouseArribaDePuntoDeRedimension = 4;
@@ -219,8 +223,8 @@ void VistaEntidadNueva::setMouseArriba(double x, double y) {
 	cout << "Punto Seleccionado " << this->mouseArribaDePuntoDeRedimension << endl;
 
 	if (this->seleccionado) {
-		cout << "Dimensiones: (" << this->pos_fin_x - this->pos_ini_x << ";" << this->pos_fin_y
-				- this->pos_ini_y << ")" << endl;
+		cout << "Dimensiones: (" << this->pos_fin_x - this->pos_ini_x << ";"
+				<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
 		cout << "Posicion: inicial=(" << this->pos_ini_x << ";" << this->pos_ini_y << ")  final=("
 				<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
 		cout << "Circulo arriba izq: (" << limiteX1 << ";" << limiteY1 << ") (" << limiteX2 << ";"
@@ -283,12 +287,11 @@ bool VistaEntidadNueva::contieneEsteComponente(Componente * c) {
 	return this->entidad == c;
 }
 
-
-bool VistaEntidadNueva::esDebil(){
+bool VistaEntidadNueva::esDebil() {
 	return this->entidad->getEsDebil();
 }
 
-EntidadNueva * VistaEntidadNueva::getEntidad(){
+Entidad * VistaEntidadNueva::getEntidad() {
 	return this->entidad;
 }
 
@@ -317,6 +320,11 @@ std::vector<VistaAtributo*>::iterator VistaEntidadNueva::atributosEnd() {
 	return this->vistaAtributos.end();
 }
 
-void VistaEntidadNueva::resetearLanzarProp(){
+void VistaEntidadNueva::resetearLanzarProp() {
 	this->prop_lanzada = false;
 }
+
+EntidadNueva * VistaEntidadNueva::getEntidadNueva() {
+	return this->entidad;
+}
+

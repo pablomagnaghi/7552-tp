@@ -361,3 +361,10 @@ void VistaIdentificador::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Conte
 	 break;
 	 }*/
 }
+
+Identificador * VistaIdentificador::getIdentificador(){
+	return this->identificador;
+}
+
+void VistaIdentificador::setNombre(const std::string & nombre) {
+}

@@ -293,3 +293,34 @@ bool VistaRelacion::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 	}
 	return false;
 }
+
+
+Relacion * VistaRelacion::getRelacion(){
+	return this->relacion;
+}
+
+bool VistaRelacion::agregarAtributo(VistaAtributo* atributo) {
+	if (atributo == NULL) {
+		return false;
+	}
+	this->vistaAtributos.push_back(atributo);
+	return true;
+}
+
+bool VistaRelacion::quitarAtributo(VistaAtributo* atributo) {
+	if (atributo == NULL) {
+		return false;
+	}
+	remove(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
+	// TODO VERIFICAR RETORNO DE remove()
+	return true;
+}
+
+std::vector<VistaAtributo*>::iterator VistaRelacion::atributosBegin() {
+	return this->vistaAtributos.begin();
+}
+
+std::vector<VistaAtributo*>::iterator VistaRelacion::atributosEnd() {
+	return this->vistaAtributos.end();
+}
+

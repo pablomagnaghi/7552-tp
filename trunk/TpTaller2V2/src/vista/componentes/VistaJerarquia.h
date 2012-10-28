@@ -31,8 +31,8 @@ public:
 	virtual bool esPuntoDeRedimension(double x, double y);
 	virtual void setMouseArriba(double x, double y);
 	virtual void redimensionar(double x, double y);
-	void setNombre(const std::string & nombre);
 	virtual std::string getNombre() const;
+	virtual void setNombre(const std::string &);
 	virtual bool contieneEsteComponente(Componente *);
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
@@ -45,6 +45,7 @@ public:
 	void setEntidadPadre(VistaEntidad *);
 	VistaEntidad * getEntidadPadre();
 
+	Jerarquia * getJerarquia();
 };
 
 #endif /* VISTAJERARQUIA_H_ */

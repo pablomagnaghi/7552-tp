@@ -10,6 +10,11 @@
 #include "./componentes/VistasDeComponentes.h"
 #include "../controlador/ComponentsBuilder.h"
 
+class VistaRelacion;
+class VistaEntidad;
+class VistaEntidadNueva;
+class VistaEntidadGlobal;
+
 class VistaDiagrama: public Gtk::DrawingArea {
 private:
 	double zoom;
@@ -162,12 +167,13 @@ public:
 	void guardarDiagramaXml(const std::string& path);
 
 	// TEST
-	void test_cargar_componentes_visuales_atributo();
-	void test_1();
-	void test_2();
-	void test_3();
-	void test_4();
-	void test_5();
+	void test_1_builder();
+	void test_2_builder();
+	void test_3_builder();
+	void test_4_builder();
+	void test_5_builder_interfaz_grafica();
+	void test_5_builder_persistencia();
+	void test_6_builder();
 };
 
 #endif /* VISTADIAGRAMA_H_ */

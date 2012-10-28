@@ -10,9 +10,9 @@
 
 AsistenteEntidad * AsistenteEntidad::instancia = NULL;
 
-AsistenteEntidad::AsistenteEntidad(BaseObjectType* cobject, const Glib::RefPtr<
-		Gtk::Builder>& builder) :
-	Gtk::Window(cobject), m_builder(builder) {
+AsistenteEntidad::AsistenteEntidad(BaseObjectType* cobject,
+		const Glib::RefPtr<Gtk::Builder>& builder) :
+		Gtk::Window(cobject), m_builder(builder) {
 	this->ventidad = NULL;
 	this->enlazarWidgets();
 	this->diagramaActual = Ide::getInstance()->getDiagActual();
@@ -28,9 +28,9 @@ void AsistenteEntidad::setEntidad(VistaEntidadNueva* ent) {
 }
 
 /*
-void AsistenteEntidad::setDiagrama(VistaDiagrama* diag) {
-	this->vdiagrama = diag;
-}*/
+ void AsistenteEntidad::setDiagrama(VistaDiagrama* diag) {
+ this->vdiagrama = diag;
+ }*/
 
 void AsistenteEntidad::enlazarWidgets() {
 	Gtk::Button* bAceptar = 0;
@@ -45,18 +45,17 @@ void AsistenteEntidad::enlazarWidgets() {
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
 	this->m_builder->get_widget("entryNombreEntidad", entryNombreEntidad);
 
-	bAceptar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_botonAceptar_click));
-	bCancelar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_botonCancelar_click));
-	bAAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_botonAgregarAtributo_click));
-	bMAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_botonModificarAtributo_click));
-	bEAtributo->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntidad::on_botonEliminarAtributo_click));
-	this->signal_hide().connect(sigc::mem_fun(*this,
-							&AsistenteEntidad::on_about_hide));
+	bAceptar->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteEntidad::on_botonAceptar_click));
+	bCancelar->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteEntidad::on_botonCancelar_click));
+	bAAtributo->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteEntidad::on_botonAgregarAtributo_click));
+	bMAtributo->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteEntidad::on_botonModificarAtributo_click));
+	bEAtributo->signal_clicked().connect(
+			sigc::mem_fun(*this, &AsistenteEntidad::on_botonEliminarAtributo_click));
+	this->signal_hide().connect(sigc::mem_fun(*this, &AsistenteEntidad::on_about_hide));
 
 	//Lista
 	this->m_builder->get_widget("scrollLista", scrollLista);
@@ -65,8 +64,7 @@ void AsistenteEntidad::enlazarWidgets() {
 
 	//Agrego modelo a treeview
 	this->treeView.set_model(this->refTreeModel);
-	this->treeView.append_column("Nombre",
-			this->m_Columnas.m_col_Nombre);
+	this->treeView.append_column("Nombre", this->m_Columnas.m_col_Nombre);
 	this->treeView.show();
 }
 
@@ -86,7 +84,8 @@ void AsistenteEntidad::on_botonCancelar_click() {
 
 void AsistenteEntidad::on_botonAgregarAtributo_click() {
 	//creo el nuevo atributo
-	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this->ventidad,this->diagramaActual,NULL);
+	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(
+			this->diagramaActual, this->ventidad, NULL);
 	//Lo incormoramos en la lista
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();
@@ -98,8 +97,7 @@ void AsistenteEntidad::on_botonAgregarAtributo_click() {
 }
 
 void AsistenteEntidad::on_botonModificarAtributo_click() {
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
-			this->treeView.get_selection();
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
 	{
@@ -112,8 +110,7 @@ void AsistenteEntidad::on_botonModificarAtributo_click() {
 }
 
 void AsistenteEntidad::on_botonEliminarAtributo_click() {
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection =
-			this->treeView.get_selection();
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
 	{
@@ -142,8 +139,7 @@ void AsistenteEntidad::limpiarLista() {
 	this->refTreeModel->clear();
 }
 
-void AsistenteEntidad::on_about_hide()
-{
+void AsistenteEntidad::on_about_hide() {
 	this->ventidad->resetearLanzarProp();
 }
 

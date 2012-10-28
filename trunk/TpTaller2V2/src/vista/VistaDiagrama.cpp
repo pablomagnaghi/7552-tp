@@ -35,130 +35,495 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	// TEST
 
-	//test_cargar_componentes_visuales_atributo();
+	// NO SACAR EL IF SI PRUEBAN EL TEST 4
 	if (a == 0) {
-		test_4();
+		test_6_builder();
+		//test_5_builder_interfaz_grafica();
+		//test_5_builder_persistencia();
 	}
 }
 
-void VistaDiagrama::test_1() {
-	EntidadNueva * a = new EntidadNueva();
-	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
-	entidad->setposini(150, 100);
-	entidad->setposfin(240, 110);
-	entidad->setNombre("Entidad");
-	this->diagrama->agregarEntidadNueva(a);
-	this->agregarVistaEntidadNueva(entidad);
+
+
+// ENTIDAD
+void VistaDiagrama::test_1_builder() {
+	// POR INTERFAZ GRAFICA
+	VistaEntidadNueva * ve1;
+	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+
+	ve1->setposini(30, 100);
+	ve1->setposfin(100, 125);
+	ve1->setNombre("Entidad");
+
+	/************ POR PERSISTENCIA *************/
+	// CREO EL MODELO A MANO
+	EntidadNueva * e2 = new EntidadNueva();
+	e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	VistaEntidadNueva * ve2;
+
+	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
+
+	ve2->setposini(30, 150);
+	ve2->setposfin(100, 175);
+	ve2->setNombre("Entidad");
 }
 
-void VistaDiagrama::test_2() {
-	EntidadNueva * a = new EntidadNueva();
-	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
-	VistaLinea * lineaEntidadAtributo = new VistaLinea();
-	Atributo * b = new Atributo();
-	b->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaAtributo * atributo = new VistaAtributo(b);
 
-	entidad->setposini(150, 100);
-	entidad->setposfin(240, 110);
-	entidad->setNombre("Entidad");
-	this->diagrama->agregarEntidadNueva(a);
-	this->agregarVistaEntidadNueva(entidad);
+// ATRIBUTOS
+void VistaDiagrama::test_2_builder() {
+	// POR INTERFAZ GRAFICA
+	VistaEntidadNueva * ve1;
+	VistaAtributo * va1;
+	VistaAtributo * va2;
+	VistaAtributo * va21;
+	VistaAtributo * va22;
 
-	atributo->setposini(130, 60);
-	b->setNombre("A1");
-	a->agregarAtributo(b);
-	entidad->agregarAtributo(atributo);
-	this->agregarVistaEntidadNueva(entidad);
-	lineaEntidadAtributo->setComponenteDesde(atributo);
-	lineaEntidadAtributo->setComponenteHasta(entidad);
-	this->componentes.push_back(lineaEntidadAtributo);
-	atributo->setLinea(lineaEntidadAtributo);
+	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+
+	ve1->setposini(150, 150);
+	ve1->setposfin(220, 175);
+	ve1->setNombre("Entidad 1");
+
+	va1 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1);
+	va1->setposini(80, 160);
+	va1->setNombre("Atributo 1");
+
+	va2 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1);
+	va2->setposini(280, 150);
+	va2->setNombre("Atributo 2");
+
+	va21 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va2);
+	va21->setposini(350, 140);
+	va21->setNombre("Atributo 2:1");
+
+	va22 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va2);
+	va22->setposini(380, 160);
+	va22->setNombre("Atributo 2:2");
+
+	/************ POR PERSISTENCIA *************/
+	VistaEntidadNueva * ve2;
+	Atributo * a3;
+	Atributo * a4;
+	Atributo * a41;
+	Atributo * a42;
+	VistaAtributo * va3;
+	VistaAtributo * va4;
+	VistaAtributo * va41;
+	VistaAtributo * va42;
+
+	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+
+	ve2->setposini(150, 200);
+	ve2->setposfin(220, 225);
+	ve2->setNombre("Entidad 2");
+
+	// CREO EL MODELO A MANO
+	a3 = new Atributo();
+	a3->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a4 = new Atributo();
+	a4->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a41 = new Atributo();
+	a41->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a42 = new Atributo();
+	a42->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	ve2->getEntidadNueva()->agregarAtributo(a3);
+	ve2->getEntidadNueva()->agregarAtributo(a4);
+	a4->agregarAtributo(a41);
+	a4->agregarAtributo(a42);
+
+	va3 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve2, a3);
+	va3->setposini(80, 215);
+	va3->setNombre("Atributo 3");
+
+	va4 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve2, a4);
+	va4->setposini(280, 215);
+	va4->setNombre("Atributo 4");
+
+	va41 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a41);
+	va41->setposini(350, 250);
+	va41->setNombre("Atributo 4:1");
+
+	va42 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a42);
+	va42->setposini(380, 230);
+	va42->setNombre("Atributo 4:2");
+
 }
 
-void VistaDiagrama::test_3() {
-	EntidadNueva * a = new EntidadNueva();
-	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
-	EntidadNueva * b = new EntidadNueva();
-	b->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaEntidadNueva * entidad2 = new VistaEntidadNueva(b);
-	Relacion * r = new Relacion();
-	r->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaRelacion * vistaRelacion = new VistaRelacion(r);
-	UnionEntidadRelacion *u1 = new UnionEntidadRelacion(a, r);
-	u1->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaUnionEntidadRelacion * unionEntidadRelacion1 = new VistaUnionEntidadRelacion(u1, entidad,
-			vistaRelacion);
-	UnionEntidadRelacion *u2 = new UnionEntidadRelacion(b, r);
-	u2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaUnionEntidadRelacion * unionEntidadRelacion2 = new VistaUnionEntidadRelacion(u2, entidad2,
-			vistaRelacion);
 
-	entidad->setposini(150, 100);
-	entidad->setposfin(220, 125);
-	entidad->setNombre("Entidad 1");
-	this->diagrama->agregarEntidadNueva(a);
-	this->agregarVistaEntidadNueva(entidad);
+// RELACION-ENTIDAD
+void VistaDiagrama::test_3_builder() {
+	/**********       POR INTERFAZ GRAFICA      **********/
+	VistaEntidadNueva * ve1;
+	VistaEntidadNueva * ve2;
+	VistaRelacion * vr2;
+	VistaUnionEntidadRelacion * vu1;
+	VistaUnionEntidadRelacion * vu2;
 
-	entidad2->setposini(360, 100);
-	entidad2->setposfin(430, 125);
-	entidad2->setNombre("Entidad 2");
-	this->diagrama->agregarEntidadNueva(b);
-	this->agregarVistaEntidadNueva(entidad2);
+	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
 
-	vistaRelacion->setposini(251, 90);
-	vistaRelacion->setposfin(330, 130);
-	vistaRelacion->setNombre("Relacion");
-	this->diagrama->agregarRelacion(r);
-	this->componentes.push_back(vistaRelacion);
+	ve1->setposini(150, 150);
+	ve1->setposfin(220, 175);
+	ve1->setNombre("Entidad 1");
 
-	this->componentes.push_back(unionEntidadRelacion1);
-	this->componentes.push_back(unionEntidadRelacion2);
+	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
 
+	ve2->setposini(360, 150);
+	ve2->setposfin(430, 175);
+	ve2->setNombre("Entidad 2");
+
+	vr2 = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this);
+
+	vr2->setposini(251, 140);
+	vr2->setposfin(330, 180);
+	vr2->setNombre("Relacion");
+
+	vu1 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve1, vr2);
+
+	vu2 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve2, vr2);
+
+	/************ POR PERSISTENCIA *************/
+	// CREO EL MODELO A MANO
+	EntidadNueva * e3 = new EntidadNueva();
+	e3->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	EntidadNueva * e4 = new EntidadNueva();
+	e4->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	Relacion * r2 = new Relacion();
+	r2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	UnionEntidadRelacion * u3 = new UnionEntidadRelacion(e3, r2);
+	u3->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	UnionEntidadRelacion * u4 = new UnionEntidadRelacion(e4, r2);
+	u4->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+
+	VistaEntidadNueva * ve3;
+	VistaEntidadNueva * ve4;
+	VistaRelacion * vr1;
+	VistaUnionEntidadRelacion * vu3;
+	VistaUnionEntidadRelacion * vu4;
+
+	ve3 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+
+	ve3->setposini(150, 200);
+	ve3->setposfin(220, 225);
+	ve3->setNombre("Entidad 1");
+
+	ve4 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+
+	ve4->setposini(360, 200);
+	ve4->setposfin(430, 225);
+	ve4->setNombre("Entidad 2");
+
+	vr1 = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this, r2);
+
+	vr1->setposini(251, 190);
+	vr1->setposfin(330, 230);
+	vr1->setNombre("Relacion");
+
+	vu3 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve3, vr1, u3);
+
+	vu4 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve4, vr1, u4);
 }
 
-void VistaDiagrama::test_4() {
-	EntidadNueva * a = new EntidadNueva();
-	a->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
-	EntidadGlobal * b = new EntidadGlobal();
-	b->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	//VistaEntidadGlobal * entidad2 = new VistaEntidadGlobal(b);
-	VistaEntidadGlobal * entidad2;
+
+
+// ENTIDAD GLOBAL
+void VistaDiagrama::test_4_builder() {
+	/************   OJO CON EL 1, SOLO PARA DEBUG (GONZALO) *************/
+	/************   NO PONERLO EN 0                         *************/
 	Diagrama * diagramaHijo = new Diagrama();
-	// OJO CON EL 1, SOLO PARA DEBUG (GONZALO)
 	VistaDiagrama * vistaDiagramaHijo = new VistaDiagrama(diagramaHijo, 1);
-
 	diagramaHijo->setNombre("Diagrama Hijo 1");
-
 	this->agregarDiagramaHijo(vistaDiagramaHijo);
 
-	entidad->setposini(150, 100);
-	entidad->setposfin(220, 125);
-	entidad->setNombre("Entidad 1");
-	this->diagrama->agregarEntidadNueva(a);
-	this->agregarVistaEntidadNueva(entidad);
+	/**********       POR INTERFAZ GRAFICA      **********/
+	VistaEntidadNueva * ve1;
+	VistaEntidadGlobal * vg1;
 
-	/*entidad2->setposini(150, 100);
-	 entidad2->setposfin(220, 125);
-	 entidad2->setNombre("Entidad Global");
-	 b->setDiagramaAncestro(diagramaHijo->getNombre());
-	 b->setEntidadNueva(a);
-	 diagramaHijo->agregarEntidadGlobal(b);
-	 vistaDiagramaHijo->agregarComponente(entidad2);*/
+	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
 
-	entidad2 = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(vistaDiagramaHijo,
-			"Entidad 1", b);
-	entidad2->setposini(150, 100);
-	entidad2->setposfin(220, 125);
-	entidad2->setNombre("Entidad Global");
+	ve1->setposini(150, 100);
+	ve1->setposfin(220, 125);
+	ve1->setNombre("Entidad 1");
+
+	vg1 = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(vistaDiagramaHijo,
+			"Entidad 1");
+	vg1->setposini(140, 100);
+	vg1->setposfin(230, 125);
+	vg1->setNombre("Entidad Global 1");
+
+	/************ POR PERSISTENCIA *************/
+	// CREO EL MODELO A MANO
+	EntidadNueva * e2 = new EntidadNueva();
+	e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	EntidadGlobal * g2 = new EntidadGlobal();
+	g2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	g2->setEntidadNueva(e2);
+
+	VistaEntidadNueva * ve2;
+	VistaEntidadGlobal * vg2;
+
+	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
+
+	ve2->setposini(150, 150);
+	ve2->setposfin(220, 175);
+	ve2->setNombre("Entidad 2");
+
+	vg2 = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(vistaDiagramaHijo,
+			"Entidad 2", g2);
+	vg2->setposini(140, 150);
+	vg2->setposfin(230, 175);
+	vg2->setNombre("Entidad Global 2");
+
 }
 
-void VistaDiagrama::test_5() {
 
+//IDENTIFICADOR
+void VistaDiagrama::test_5_builder_interfaz_grafica() {
+	/**********       POR INTERFAZ GRAFICA      **********/
+	VistaEntidadNueva * ve1;
+	VistaEntidadNueva * ve2;
+	VistaRelacion * vr1;
+	VistaUnionEntidadRelacion *vu1;
+	VistaUnionEntidadRelacion *vu2;
+	VistaAtributo * va1;
+	VistaAtributo * va2;
+	VistaAtributo * va3;
+	VistaAtributo * va4;
+	VistaAtributo * va41;
+	VistaAtributo * va42;
+	VistaAtributo * va5;
+	VistaIdentificador * vi1;
+	VistaIdentificador * vi2;
+	VistaIdentificador * vi3;
+	VistaIdentificador * vi4;
+
+	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+	ve1->setposini(150, 150);
+	ve1->setposfin(220, 175);
+	ve1->setNombre("Entidad 1");
+	va1 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1);
+	va1->setposini(80, 160);
+	va1->setNombre("Atributo 1");
+	va2 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1);
+	va2->setposini(150, 100);
+	va2->setNombre("Atributo 2");
+	va3 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1);
+	va3->setposini(220, 100);
+	va3->setNombre("Atributo 3");
+	va4 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1);
+	va4->setposini(250, 150);
+	va4->setNombre("Atributo 4");
+	va41 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4);
+	va41->setposini(370, 140);
+	va41->setNombre("Atributo 4:1");
+	va42 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4);
+	va42->setposini(370, 180);
+	va42->setNombre("Atributo 4:2");
+	va5 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1);
+	va5->setposini(80, 220);
+	va5->setNombre("Atributo 5");
+
+	vi1 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi1, va1);
+
+	vi2 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi2, va2);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi2, va3);
+
+	vi3 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi3, va4);
+
+	vr1 = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this);
+	vr1->setposini(150, 220);
+	vr1->setposfin(220, 255);
+	vr1->setNombre("Relacion");
+	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+	ve2->setposini(150, 300);
+	ve2->setposfin(220, 325);
+	ve2->setNombre("Entidad 2");
+	vu1 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve1, vr1);
+	vu2 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve2, vr1);
+
+	vi4 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi4, va5);
+	ComponentsBuilder::getInstance()->agregarEntidadFuerteAIdentificador(vi4, vu2);
+}
+
+// IDENTIFICADOR
+void VistaDiagrama::test_5_builder_persistencia() {
+	/************ POR PERSISTENCIA *************/
+	// CREO EL MODELO A MANO
+	EntidadNueva * e1 = new EntidadNueva();
+	EntidadNueva * e2 = new EntidadNueva();
+	Relacion *r1 = new Relacion();
+	UnionEntidadRelacion * u1 = new UnionEntidadRelacion(e1, r1);
+	UnionEntidadRelacion * u2 = new UnionEntidadRelacion(e2, r1);
+	Atributo * a1 = new Atributo();
+	Atributo * a2 = new Atributo();
+	Atributo * a3 = new Atributo();
+	Atributo * a4 = new Atributo();
+	Atributo * a41 = new Atributo();
+	Atributo * a42 = new Atributo();
+	Atributo * a5 = new Atributo();
+	Identificador * i1 = new Identificador();
+	Identificador * i2 = new Identificador();
+	Identificador * i3 = new Identificador();
+	Identificador * i4 = new Identificador();
+	e1->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	r1->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	u1->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	u2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a1->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a3->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a4->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a41->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a42->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	a5->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	e1->agregarAtributo(a1);
+	e1->agregarAtributo(a2);
+	e1->agregarAtributo(a3);
+	e1->agregarAtributo(a4);
+	a4->agregarAtributo(a41);
+	a4->agregarAtributo(a42);
+	e1->agregarAtributo(a5);
+	i1->agregarCodigoAtributo(a1->getCodigo());
+	i2->agregarCodigoAtributo(a2->getCodigo());
+	i2->agregarCodigoAtributo(a3->getCodigo());
+	i3->agregarCodigoAtributo(a4->getCodigo());
+	i4->agregarCodigoAtributo(a5->getCodigo());
+	i4->agregarCodigoRelacion(r1->getCodigo());
+
+	VistaEntidadNueva * ve1;
+	VistaEntidadNueva * ve2;
+	VistaRelacion * vr1;
+	VistaUnionEntidadRelacion *vu1;
+	VistaUnionEntidadRelacion *vu2;
+	VistaAtributo * va1;
+	VistaAtributo * va2;
+	VistaAtributo * va3;
+	VistaAtributo * va4;
+	VistaAtributo * va41;
+	VistaAtributo * va42;
+	VistaAtributo * va5;
+	VistaIdentificador * vi1;
+	VistaIdentificador * vi2;
+	VistaIdentificador * vi3;
+	VistaIdentificador * vi4;
+
+	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e1);
+	ve1->setposini(150, 150);
+	ve1->setposfin(220, 175);
+	ve1->setNombre("Entidad 1");
+	va1 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1, a1);
+	va1->setposini(80, 160);
+	va1->setNombre("Atributo 1");
+	va2 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1, a2);
+	va2->setposini(150, 100);
+	va2->setNombre("Atributo 2");
+	va3 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1, a3);
+	va3->setposini(220, 100);
+	va3->setNombre("Atributo 3");
+	va4 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1, a4);
+	va4->setposini(250, 150);
+	va4->setNombre("Atributo 4");
+	va41 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a41);
+	va41->setposini(370, 140);
+	va41->setNombre("Atributo 4:1");
+	va42 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a41);
+	va42->setposini(370, 180);
+	va42->setNombre("Atributo 4:2");
+	va5 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve1, a5);
+	va5->setposini(80, 220);
+	va5->setNombre("Atributo 5");
+
+	vi1 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1, i1);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi1, va1);
+
+	vi2 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1, i2);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi2, va2);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi2, va3);
+
+	vi3 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1, i3);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi3, va4);
+
+	vr1 = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this, r1);
+	vr1->setposini(150, 220);
+	vr1->setposfin(220, 255);
+	vr1->setNombre("Relacion");
+	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
+	ve2->setposini(150, 300);
+	ve2->setposfin(220, 325);
+	ve2->setNombre("Entidad 2");
+	vu1 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve1, vr1, u1);
+	vu2 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve2, vr1, u2);
+
+	vi4 = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, ve1, i4);
+	ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vi4, va5);
+	ComponentsBuilder::getInstance()->agregarEntidadFuerteAIdentificador(vi4, vu2);
+}
+
+//JERARQUIA
+void VistaDiagrama::test_6_builder() {
+	/**********       POR INTERFAZ GRAFICA      **********/
+	VistaEntidadNueva * ve1;
+	VistaEntidadNueva * ve2;
+	VistaEntidadNueva * ve3;
+	VistaJerarquia * vj1;
+
+	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+	ve1->setposini(150, 50);
+	ve1->setposfin(220, 75);
+	ve1->setNombre("Entidad 1");
+	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+	ve2->setposini(100, 150);
+	ve2->setposfin(170, 175);
+	ve2->setNombre("Entidad 2");
+	ve3 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+	ve3->setposini(200, 150);
+	ve3->setposfin(270, 175);
+	ve3->setNombre("Entidad 3");
+	vj1 = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this);
+
+	ComponentsBuilder::getInstance()->agregarJerarquiaHijaDeEntidad(vj1, ve1);
+	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj1, ve2);
+	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj1, ve3);
+
+	/************ POR PERSISTENCIA *************/
+	// CREO EL MODELO A MANO
+	EntidadNueva * e4 = new EntidadNueva();
+	EntidadNueva * e5 = new EntidadNueva();
+	EntidadNueva * e6 = new EntidadNueva();
+	Jerarquia * j2 = new Jerarquia();
+	j2->setEntidadGeneral(e4);
+	j2->agregarEntidadEspecializada(e5);
+	j2->agregarEntidadEspecializada(e6);
+	e4->setJerarquiaHija(j2);
+	e5->agregarJerarquiaPadre(j2);
+	e6->agregarJerarquiaPadre(j2);
+
+	VistaEntidadNueva * ve4;
+	VistaEntidadNueva * ve5;
+	VistaEntidadNueva * ve6;
+	VistaJerarquia * vj2;
+
+	ve4 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e4);
+	ve4->setposini(150, 250);
+	ve4->setposfin(220, 275);
+	ve4->setNombre("Entidad 1");
+	ve5 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e5);
+	ve5->setposini(100, 350);
+	ve5->setposfin(170, 375);
+	ve5->setNombre("Entidad 2");
+	ve6 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e6);
+	ve6->setposini(200, 350);
+	ve6->setposfin(270, 375);
+	ve6->setNombre("Entidad 3");
+	vj2 = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, j2);
+
+	ComponentsBuilder::getInstance()->agregarJerarquiaHijaDeEntidad(vj2, ve4);
+	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj2, ve5);
+	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj2, ve6);
 }
 
 VistaDiagrama::~VistaDiagrama() {
@@ -185,149 +550,6 @@ void VistaDiagrama::eliminar() {
 	this->componentes.clear();
 	this->diagramas.clear();
 
-}
-
-void VistaDiagrama::test_cargar_componentes_visuales_atributo() {
-	EntidadNueva * a = new EntidadNueva();
-	VistaEntidadNueva * entidad = new VistaEntidadNueva(a);
-	Atributo * b = new Atributo();
-	VistaAtributo * atributo = new VistaAtributo(b);
-	Atributo * c = new Atributo();
-	VistaAtributo * atributo1 = new VistaAtributo(c);
-	Atributo * d = new Atributo();
-	VistaAtributo * atributo2 = new VistaAtributo(d);
-	Atributo * e = new Atributo();
-	VistaAtributo * atributoCompuesto = new VistaAtributo(e);
-	Atributo * e1 = new Atributo();
-	VistaAtributo * atributoCompuesto1 = new VistaAtributo(e1);
-	Atributo * e2 = new Atributo();
-	VistaAtributo * atributoCompuesto2 = new VistaAtributo(e2);
-	Atributo * e3 = new Atributo();
-	VistaAtributo * atributoCompuesto3 = new VistaAtributo(e3);
-	VistaLinea * lineaEntidadAtributo;
-	Identificador * id1 = new Identificador();
-	VistaIdentificador * identificador1 = new VistaIdentificador(id1);
-	Identificador * id2 = new Identificador();
-	VistaIdentificador * identificador2 = new VistaIdentificador(id2);
-	Identificador * id3 = new Identificador();
-	VistaIdentificador * identificador3 = new VistaIdentificador(id2);
-	Relacion * f = new Relacion();
-	VistaRelacion * relacion = new VistaRelacion(f);
-	UnionEntidadRelacion *g = new UnionEntidadRelacion(a, f);
-	VistaUnionEntidadRelacion * unionEntidadRelacionDebil = new VistaUnionEntidadRelacion(g,
-			entidad, relacion);
-	EntidadNueva * h = new EntidadNueva();
-	VistaEntidadNueva * entidadFuerte = new VistaEntidadNueva(h);
-	UnionEntidadRelacion *i = new UnionEntidadRelacion(h, f);
-	VistaUnionEntidadRelacion * unionEntidadRelacionFuerte = new VistaUnionEntidadRelacion(i,
-			entidadFuerte, relacion);
-
-	entidad->setposini(150, 100);
-	entidad->setposfin(240, 110);
-	entidad->setNombre("Entidad");
-	this->componentes.push_back(entidad);
-
-	atributo->setposini(130, 60);
-	b->setNombre("A1");
-	a->agregarAtributo(b);
-	entidad->agregarAtributo(atributo);
-	this->componentes.push_back(atributo);
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(atributo);
-	lineaEntidadAtributo->setComponenteHasta(entidad);
-	this->componentes.push_back(lineaEntidadAtributo);
-	id1->agregarCodigoAtributo(b->getCodigo());
-	identificador1->agregarAtributo(atributo);
-	atributo->setLinea(lineaEntidadAtributo);
-	this->componentes.push_back(identificador1);
-
-	atributo1->setposini(170, 60);
-	a->agregarAtributo(c);
-	entidad->agregarAtributo(atributo1);
-	this->componentes.push_back(atributo1);
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(atributo1);
-	lineaEntidadAtributo->setComponenteHasta(entidad);
-	atributo1->setLinea(lineaEntidadAtributo);
-	this->componentes.push_back(lineaEntidadAtributo);
-
-	atributo2->setposini(210, 60);
-	a->agregarAtributo(d);
-	entidad->agregarAtributo(atributo2);
-	this->componentes.push_back(atributo2);
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(atributo2);
-	lineaEntidadAtributo->setComponenteHasta(entidad);
-	atributo2->setLinea(lineaEntidadAtributo);
-	this->componentes.push_back(lineaEntidadAtributo);
-
-	id2->agregarCodigoAtributo(c->getCodigo());
-	identificador2->agregarAtributo(atributo1);
-	id2->agregarCodigoAtributo(d->getCodigo());
-	identificador2->agregarAtributo(atributo2);
-
-	atributoCompuesto->setposini(142, 155);
-	//atributoCompuesto->setposfin(202, 185);
-	a->agregarAtributo(e);
-	e->setNombre("Compuesto");
-	entidad->agregarAtributo(atributoCompuesto);
-	this->componentes.push_back(atributoCompuesto);
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
-	lineaEntidadAtributo->setComponenteHasta(entidad);
-	atributoCompuesto->setLinea(lineaEntidadAtributo);
-	this->componentes.push_back(lineaEntidadAtributo);
-	id3->agregarCodigoAtributo(e->getCodigo());
-	identificador3->agregarAtributo(atributoCompuesto);
-	this->componentes.push_back(identificador3);
-
-	atributoCompuesto1->setposini(130, 210);
-	e->agregarAtributo(e1);
-	e1->setNombre("dia");
-	atributoCompuesto->agregarAtributo(atributoCompuesto1);
-	this->componentes.push_back(atributoCompuesto1);
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
-	lineaEntidadAtributo->setComponenteHasta(atributoCompuesto1);
-	atributoCompuesto1->setLinea(lineaEntidadAtributo);
-	this->componentes.push_back(lineaEntidadAtributo);
-
-	atributoCompuesto2->setposini(172, 210);
-	e->agregarAtributo(e2);
-	e2->setNombre("mes");
-	atributoCompuesto->agregarAtributo(atributoCompuesto2);
-	this->componentes.push_back(atributoCompuesto2);
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
-	lineaEntidadAtributo->setComponenteHasta(atributoCompuesto2);
-	atributoCompuesto2->setLinea(lineaEntidadAtributo);
-	this->componentes.push_back(lineaEntidadAtributo);
-
-	atributoCompuesto3->setposini(210, 210);
-	e->agregarAtributo(e3);
-	e3->setNombre("año");
-	atributoCompuesto->agregarAtributo(atributoCompuesto3);
-	this->componentes.push_back(atributoCompuesto3);
-	lineaEntidadAtributo = new VistaLinea();
-	lineaEntidadAtributo->setComponenteDesde(atributoCompuesto);
-	lineaEntidadAtributo->setComponenteHasta(atributoCompuesto3);
-	atributoCompuesto3->setLinea(lineaEntidadAtributo);
-	this->componentes.push_back(lineaEntidadAtributo);
-
-	entidadFuerte->setposini(250, 50);
-	entidadFuerte->setposfin(350, 65);
-	this->componentes.push_back(entidadFuerte);
-	relacion->setNombre("Relacion");
-	relacion->setposini(250, 100);
-	relacion->setposfin(350, 120);
-	this->componentes.push_back(relacion);
-	this->componentes.push_back(unionEntidadRelacionDebil);
-	this->componentes.push_back(unionEntidadRelacionFuerte);
-
-	id2->agregarCodigoRelacion(f->getCodigo());
-	identificador2->agregarEntidadFuerte(unionEntidadRelacionFuerte);
-
-	this->componentes.push_back(identificador2);
 }
 
 void VistaDiagrama::obtenerVistaAPartirDeRelacion(VistaRelacion * vRelacion,
@@ -746,13 +968,13 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 		// el builder crea las vistas de los atributos de la entidad nueva
 		std::vector<Atributo*>::iterator itAtrib = (*itEnt)->atributosBegin();
 		while (itAtrib != (*itEnt)->atributosEnd()) {
-			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(
-					vEntNueva, this, (*itAtrib));
+			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this,
+					vEntNueva, (*itAtrib));
 			// el builder crea las vistas de los atributos compuestos
 			std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
 			while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
 				// La VistaAtributo* que devuelve no la utilizo en este caso
-				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(vAtrib, this,
+				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, vAtrib,
 						(*itAtribCompuesto));
 				itAtribCompuesto++;
 			}

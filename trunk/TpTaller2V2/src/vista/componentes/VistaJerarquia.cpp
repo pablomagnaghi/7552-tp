@@ -220,3 +220,9 @@ void VistaJerarquia::resetearLanzarProp(){
 void VistaJerarquia::setNombre(const std::string & nombre) {
 	this->jerarquia->setNombre(nombre);
 }
+
+Jerarquia * VistaJerarquia::getJerarquia(){
+	return this->jerarquia;
+}
+
+
