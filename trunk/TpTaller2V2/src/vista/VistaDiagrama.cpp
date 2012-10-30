@@ -959,6 +959,11 @@ void VistaDiagrama::crearVistasDelModelo() {
 	this->crearVistasEntidadNueva();
 }
 
+// FALTA
+// ComponentsBuilder::crearIdentificadorEnEntidad
+// ComponentsBuilder::agregarAtributoAIdentificado
+// agregarEntidadFuerteAIdentificador
+
 void VistaDiagrama::crearVistasEntidadNueva() {
 	std::vector<EntidadNueva*>::iterator itEnt = this->getDiagrama()->entidadesNuevasBegin();
 	while (itEnt != this->getDiagrama()->entidadesNuevasEnd()) {
@@ -984,14 +989,35 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 	}
 }
 
-// todo faltan estos metodos, SE NECESITAN LOS BUILDERS
 void VistaDiagrama::crearVistasEntidadGlobal() {
+	std::vector<EntidadGlobal*>::iterator it = this->getDiagrama()->entidadesGlobalesBegin();
+	while (it != this->getDiagrama()->entidadesGlobalesEnd()) {
+		int codigoEntidadNueva = (*it)->getCodigoEntidadNueva();
+		EntidadNueva* entNueva = this->getDiagrama()->getEntidadNuevaByCodigo(codigoEntidadNueva);
+		std::string nombreEntidadNueva = entNueva->getNombre();
 
+		// el builder crea la vista entidad global
+		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this,nombreEntidadNueva, (*it));
+		it++;
+	}
 }
+
+// FALTA
+// Crear ComponentsBuilder::crearUnionEntidadRelacion
+// ComponentsBuilder::crearAtributoEnRelacion
 
 void VistaDiagrama::crearVistasRelacion() {
-
+	std::vector<Relacion*>::iterator it = this->getDiagrama()->relacionesBegin();
+	while (it != this->getDiagrama()->relacionesEnd()) {
+		// el builder crea la vista relacion
+		ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this, (*it));
+		it++;
+	}
 }
+
+// FALTA
+//agregarJerarquiaHijaDeEntidad(VistaJerarquia * vistaJerarquia, VistaEntidad*vistaEntidad)
+//agregarJerarquiaPadreDeEntidad(VistaJerarquia *vistaJerarquia,
 
 void VistaDiagrama::crearVistasJerarquia() {
 	std::vector<Jerarquia*>::iterator itJer = this->getDiagrama()->jerarquiasBegin();
