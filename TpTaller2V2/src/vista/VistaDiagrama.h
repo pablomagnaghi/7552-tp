@@ -14,6 +14,8 @@ class VistaRelacion;
 class VistaEntidad;
 class VistaEntidadNueva;
 class VistaEntidadGlobal;
+class VistaIdentificador;
+class VistaUnionEntidadRelacion;
 
 class VistaDiagrama: public Gtk::DrawingArea {
 private:
@@ -29,6 +31,9 @@ private:
 	std::vector<VistaDiagrama *> diagramas;
 	std::vector<VistaEntidadNueva *> vistaEntidades;
 	std::vector<VistaEntidad*> vEnt;
+
+	std::vector<VistaIdentificador*> vIdentificador;
+	std::vector<VistaUnionEntidadRelacion*> vUnionEntidadRelacion;
 
 	// Para controlar el drag and drop
 	bool mouse_apretado;
@@ -111,7 +116,7 @@ private:
 
 	void crearVistasJerarquia();
 
-	// FALTAN COMPLETAR LOS METODOS DE ARRIBA
+	void agregarEntidadFuerteAlIdentificador();
 
 	void abrirXmlREP(const std::string& path);
 	void cargarXmlREP(XmlNodo* nodoRaiz);
@@ -145,6 +150,9 @@ public:
 
 	void agregarVistaEntidad(VistaEntidad *ven);
 
+	void agregarVistaUnionEntidadRelacion(VistaUnionEntidadRelacion *);
+	void agregarVistaIdentificador(VistaIdentificador *);
+
 	void agregarDiagramaHijo(VistaDiagrama *vDiagrama);
 	VistaDiagrama * buscarDiagrama(const std::string & nombreDiagrama);
 
@@ -159,6 +167,12 @@ public:
 
 	std::vector<VistaEntidad*>::iterator vEntBegin();
 	std::vector<VistaEntidad*>::iterator vEntEnd();
+
+	std::vector<VistaIdentificador*>::iterator vIdentificadorBegin();
+	std::vector<VistaIdentificador*>::iterator vIdentificadorEnd();
+
+	std::vector<VistaUnionEntidadRelacion*>::iterator vUnionEntidadRelacionBegin();
+	std::vector<VistaUnionEntidadRelacion*>::iterator vUnionEntidadRelacionEnd();
 
 	VistaEntidadNueva * obtenerVistaEntidadNuevabyCodigo(int codigo);
 	VistaEntidad * obtenerVistaEntidadbyCodigo(int codigo);

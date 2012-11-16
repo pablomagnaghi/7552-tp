@@ -186,6 +186,8 @@ VistaUnionEntidadRelacion * ComponentsBuilder::crearUnionEntidadRelacion(
 	}
 	vistaUnion = new VistaUnionEntidadRelacion(unionEntidadRelacion, entidad, relacion);
 	diagramaActual->agregarComponente(vistaUnion);
+	// Para el cargar de la persistencia
+	diagramaActual->agregarVistaUnionEntidadRelacion(vistaUnion);
 	return vistaUnion;
 }
 
@@ -229,6 +231,7 @@ VistaIdentificador * ComponentsBuilder::crearIdentificadorEnEntidad(VistaDiagram
 
 	VistaIdentificador * vistaIdentificador = new VistaIdentificador(identificador);
 	diagramaActual->agregarComponente(vistaIdentificador);
+	diagramaActual->agregarVistaIdentificador(vistaIdentificador);
 
 	return vistaIdentificador;
 }

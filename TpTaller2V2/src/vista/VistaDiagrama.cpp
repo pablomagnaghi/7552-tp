@@ -854,6 +854,20 @@ void VistaDiagrama::agregarVistaEntidad(VistaEntidad *ven) {
 	}
 }
 
+// Para la persistencia
+void VistaDiagrama::agregarVistaIdentificador(VistaIdentificador *vIden) {
+	if (vIden != NULL) {
+		this->vIdentificador.push_back(vIden);
+	}
+}
+
+// Para la persistencia
+void VistaDiagrama::agregarVistaUnionEntidadRelacion(VistaUnionEntidadRelacion *vUER) {
+	if (vUER != NULL) {
+		this->vUnionEntidadRelacion.push_back(vUER);
+	}
+}
+
 void VistaDiagrama::agregarDiagramaHijo(VistaDiagrama *vDiagrama) {
 	if (vDiagrama != NULL) {
 		this->diagramas.push_back(vDiagrama);
@@ -894,6 +908,21 @@ std::vector<VistaEntidad*>::iterator VistaDiagrama::vEntBegin() {
 std::vector<VistaEntidad*>::iterator VistaDiagrama::vEntEnd() {
 	return this->vEnt.end();
 }
+
+std::vector<VistaIdentificador*>::iterator VistaDiagrama::vIdentificadorBegin() {
+	return this->vIdentificador.begin();
+}
+std::vector<VistaIdentificador*>::iterator VistaDiagrama::vIdentificadorEnd() {
+	return this->vIdentificador.end();
+}
+
+std::vector<VistaUnionEntidadRelacion*>::iterator VistaDiagrama::vUnionEntidadRelacionBegin() {
+	return this->vUnionEntidadRelacion.begin();
+}
+std::vector<VistaUnionEntidadRelacion*>::iterator VistaDiagrama::vUnionEntidadRelacionEnd() {
+	return this->vUnionEntidadRelacion.end();
+}
+
 
 VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
 	std::vector<VistaComponente *>::iterator i;
@@ -999,6 +1028,7 @@ void VistaDiagrama::crearVistasDelModelo() {
 	this->crearVistasEntidadGlobal();
 	this->crearVistasRelacion();
 	this->crearVistasJerarquia();
+	this->agregarEntidadFuerteAlIdentificador();
 }
 
 void VistaDiagrama::crearVistasEntidadNueva() {
@@ -1090,10 +1120,6 @@ void VistaDiagrama::crearVistasRelacion() {
 	}
 }
 
-// FALTA
-//agregarJerarquiaHijaDeEntidad(VistaJerarquia * vistaJerarquia, VistaEntidad*vistaEntidad)
-//agregarJerarquiaPadreDeEntidad(VistaJerarquia *vistaJerarquia,
-
 void VistaDiagrama::crearVistasJerarquia() {
 	std::vector<Jerarquia*>::iterator itJer = this->getDiagrama()->jerarquiasBegin();
 	while (itJer != this->getDiagrama()->jerarquiasEnd()) {
@@ -1115,6 +1141,32 @@ void VistaDiagrama::crearVistasJerarquia() {
 		}
 
 		itJer++;
+	}
+}
+
+void VistaDiagrama::agregarEntidadFuerteAlIdentificador() {
+	std::vector<VistaIdentificador*>::iterator itVI = this->vIdentificadorBegin();
+
+	while (itVI != this->vIdentificadorEnd()) {
+
+		std::vector<int>::iterator itRel = (*itVI)->getIdentificador()->codigoRelacionesBegin();
+
+		while (itRel != (*itVI)->getIdentificador()->codigoRelacionesEnd()) {
+
+			std::vector<VistaUnionEntidadRelacion*>::iterator itVUER = this->vUnionEntidadRelacionBegin();
+
+			while (itVUER != this->vUnionEntidadRelacionEnd()) {
+				// Busco el codigo de relacion que posee el identificador y lo comparo
+				// con las vUnionEntidadRelacion y la que coincide la agrego a la
+				// vista de identificador
+				if ((*itVUER)->getUnion()->getRelacion()->getCodigo() == (*itRel)) {
+					(*itVI)->agregarEntidadFuerte(*itVUER);
+				}
+				itVUER++;
+			}
+			itRel++;
+		}
+		itVI++;
 	}
 }
 
