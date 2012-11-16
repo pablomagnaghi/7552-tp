@@ -42,6 +42,8 @@ VistaEntidadNueva * ComponentsBuilder::crearEntidadNuevaEnDiagrama(VistaDiagrama
 	VistaEntidadNueva * vEntidadNueva = new VistaEntidadNueva(entidadNueva);
 	// AGREGAR COMPONENTE EN ESTE NO SE USA
 	diagramaActual->agregarVistaEntidadNueva(vEntidadNueva);
+	// Para la carga de la persistencia, necesito guardar todas las vistaEntidadNueva como VistaEntidad
+	diagramaActual->agregarVistaEntidad(vEntidadNueva);
 	return vEntidadNueva;
 }
 
@@ -151,6 +153,8 @@ VistaEntidadGlobal * ComponentsBuilder::crearEntidadGlobalEnDiagrama(VistaDiagra
 	vistaEntidadGlobal = new VistaEntidadGlobal(entidadGlobal);
 
 	diagramaActual->agregarComponente(vistaEntidadGlobal);
+	// Para la carga de la persistencia, necesito guardar todas las vistaEntidadGLobal como VistaEntidad
+	diagramaActual->agregarVistaEntidad(vistaEntidadGlobal);
 	return vistaEntidadGlobal;
 }
 
