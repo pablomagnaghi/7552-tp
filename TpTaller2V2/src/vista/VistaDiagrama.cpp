@@ -847,6 +847,13 @@ void VistaDiagrama::agregarVistaEntidadNueva(VistaEntidadNueva *ven) {
 	}
 }
 
+// Para la carga de las vistas en la persistencia
+void VistaDiagrama::agregarVistaEntidad(VistaEntidad *ven) {
+	if (ven != NULL) {
+		this->vEnt.push_back(ven);
+	}
+}
+
 void VistaDiagrama::agregarDiagramaHijo(VistaDiagrama *vDiagrama) {
 	if (vDiagrama != NULL) {
 		this->diagramas.push_back(vDiagrama);
@@ -879,6 +886,13 @@ std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesBegin() {
 }
 std::vector<VistaEntidadNueva*>::iterator VistaDiagrama::vEntidadesEnd() {
 	return this->vistaEntidades.end();
+}
+
+std::vector<VistaEntidad*>::iterator VistaDiagrama::vEntBegin() {
+	return this->vEnt.begin();
+}
+std::vector<VistaEntidad*>::iterator VistaDiagrama::vEntEnd() {
+	return this->vEnt.end();
 }
 
 VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
@@ -924,6 +938,31 @@ VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(
 	return NULL;
 }
 
+VistaEntidadNueva * VistaDiagrama::obtenerVistaEntidadNuevabyCodigo(int codigo) {
+
+	std::vector<VistaEntidadNueva *>::iterator it = this->vEntidadesBegin();
+	while (it != this->vEntidadesEnd()) {
+		if ((*it)->getEntidad()->getCodigo() == codigo) {
+			return (*it);
+		}
+	}
+
+	return NULL;
+}
+
+VistaEntidad * VistaDiagrama::obtenerVistaEntidadbyCodigo(int codigo) {
+
+	std::vector<VistaEntidad *>::iterator it = this->vEntBegin();
+	while (it != this->vEntEnd()) {
+		if ((*it)->getEntidad()->getCodigo() == codigo) {
+			return (*it);
+		}
+	}
+
+	return NULL;
+}
+
+
 // PERSISTENCIA REP
 
 // Devuelve true si se logró abrir y cargar el documento.
@@ -957,14 +996,16 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 
 void VistaDiagrama::crearVistasDelModelo() {
 	this->crearVistasEntidadNueva();
+	this->crearVistasEntidadGlobal();
+	this->crearVistasRelacion();
+	this->crearVistasJerarquia();
 }
 
 void VistaDiagrama::crearVistasEntidadNueva() {
 	std::vector<EntidadNueva*>::iterator itEnt = this->getDiagrama()->entidadesNuevasBegin();
 	while (itEnt != this->getDiagrama()->entidadesNuevasEnd()) {
 		// el builder crea la vista entidad nueva
-		VistaEntidadNueva *vEntNueva =
-				ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, (*itEnt));
+		VistaEntidadNueva *vEntNueva = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, (*itEnt));
 		// el builder crea las vistas de los atributos de la entidad nueva
 		std::vector<Atributo*>::iterator itAtrib = (*itEnt)->atributosBegin();
 		while (itAtrib != (*itEnt)->atributosEnd()) {
@@ -1015,17 +1056,37 @@ void VistaDiagrama::crearVistasEntidadGlobal() {
 	}
 }
 
-// FALTA
-// Crear ComponentsBuilder::crearUnionEntidadRelacion
-// ComponentsBuilder::crearAtributoEnRelacion
-// agregarEntidadFuerteAIdentificador
-
 void VistaDiagrama::crearVistasRelacion() {
-	std::vector<Relacion*>::iterator it = this->getDiagrama()->relacionesBegin();
-	while (it != this->getDiagrama()->relacionesEnd()) {
+	std::vector<Relacion*>::iterator itRel = this->getDiagrama()->relacionesBegin();
+	while (itRel != this->getDiagrama()->relacionesEnd()) {
 		// el builder crea la vista relacion
-		ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this, (*it));
-		it++;
+		VistaRelacion *vRel = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this, (*itRel));
+		// el builder crea las vistas de las UnionRelacion
+		std::vector<UnionEntidadRelacion*>::iterator itUER = (*itRel)->unionesAEntidadBegin();
+		while (itUER != (*itRel)->unionesAEntidadEnd()) {
+			VistaEntidad *vEnt = this->obtenerVistaEntidadbyCodigo((*itUER)->getEntidad()->getCodigo());
+
+			ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this,
+					vEnt,vRel,(*itUER));
+			itUER++;
+		}
+
+		// el builder crea las vistas de los atributos de la relacion
+		std::vector<Atributo*>::iterator itAtrib = (*itRel)->atributosBegin();
+		while (itAtrib != (*itRel)->atributosEnd()) {
+			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnRelacion(this,vRel,
+				(*itAtrib));
+			// el builder crea las vistas de los atributos compuestos
+			std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
+			while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
+				// La VistaAtributo* que devuelve no la utilizo en este caso
+				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, vAtrib,
+					(*itAtribCompuesto));
+				itAtribCompuesto++;
+			}
+			itAtrib++;
+		}
+		itRel++;
 	}
 }
 
@@ -1037,7 +1098,22 @@ void VistaDiagrama::crearVistasJerarquia() {
 	std::vector<Jerarquia*>::iterator itJer = this->getDiagrama()->jerarquiasBegin();
 	while (itJer != this->getDiagrama()->jerarquiasEnd()) {
 		// el builder crea la vista jerarquia
-		ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, (*itJer));
+		VistaJerarquia *vJer = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, (*itJer));
+
+		VistaEntidad *vEnt = this->obtenerVistaEntidadbyCodigo((*itJer)->getCodigoEntidadGeneral());
+
+		vJer->setEntidadPadre(vEnt);
+
+		std::vector<int>::iterator itEntNueva = (*itJer)->codigosEntidadesEspecializadasBegin();
+		// Para cada jerarquia agrego la entidad nueva a traves de una busqueda por su codigo
+		while (itEntNueva != (*itJer)->codigosEntidadesEspecializadasEnd()) {
+			VistaEntidadNueva *vEntNueva = this->obtenerVistaEntidadNuevabyCodigo((*itEntNueva));
+
+			vJer->agregarEntidadEspecializada(vEntNueva);
+
+			itEntNueva++;
+		}
+
 		itJer++;
 	}
 }

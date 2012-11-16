@@ -28,6 +28,7 @@ private:
 	std::vector<VistaComponente *> componentes_seleccionados;
 	std::vector<VistaDiagrama *> diagramas;
 	std::vector<VistaEntidadNueva *> vistaEntidades;
+	std::vector<VistaEntidad*> vEnt;
 
 	// Para controlar el drag and drop
 	bool mouse_apretado;
@@ -142,6 +143,8 @@ public:
 
 	void agregarVistaEntidadNueva(VistaEntidadNueva *ven);
 
+	void agregarVistaEntidad(VistaEntidad *ven);
+
 	void agregarDiagramaHijo(VistaDiagrama *vDiagrama);
 	VistaDiagrama * buscarDiagrama(const std::string & nombreDiagrama);
 
@@ -153,6 +156,12 @@ public:
 	std::vector<VistaDiagrama*>::iterator vdiagramasEnd();
 	std::vector<VistaEntidadNueva*>::iterator vEntidadesBegin();
 	std::vector<VistaEntidadNueva*>::iterator vEntidadesEnd();
+
+	std::vector<VistaEntidad*>::iterator vEntBegin();
+	std::vector<VistaEntidad*>::iterator vEntEnd();
+
+	VistaEntidadNueva * obtenerVistaEntidadNuevabyCodigo(int codigo);
+	VistaEntidad * obtenerVistaEntidadbyCodigo(int codigo);
 
 	Diagrama * getDiagrama();
 	void setDiagramaAncestro(VistaDiagrama *);
