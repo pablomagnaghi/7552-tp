@@ -959,11 +959,6 @@ void VistaDiagrama::crearVistasDelModelo() {
 	this->crearVistasEntidadNueva();
 }
 
-// FALTA
-// ComponentsBuilder::crearIdentificadorEnEntidad
-// ComponentsBuilder::agregarAtributoAIdentificado
-// agregarEntidadFuerteAIdentificador
-
 void VistaDiagrama::crearVistasEntidadNueva() {
 	std::vector<EntidadNueva*>::iterator itEnt = this->getDiagrama()->entidadesNuevasBegin();
 	while (itEnt != this->getDiagrama()->entidadesNuevasEnd()) {
@@ -985,6 +980,24 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 			}
 			itAtrib++;
 		}
+		// identificadores
+		std::vector<Identificador*>::iterator itIden = (*itEnt)->identificadoresBegin();
+		while (itIden != (*itEnt)->identificadoresEnd()) {
+			VistaIdentificador *vIden = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this,
+					vEntNueva,(*itIden));
+			// agrego la vista de atributos al identificador
+			std::vector<int>::iterator itCodAtribIden = (*itIden)->codigoAtributosBegin();
+			while (itCodAtribIden != (*itIden)->codigoAtributosEnd()) {
+				std::vector<VistaAtributo*>::iterator itVatri = vEntNueva->atributosBegin();
+				while (itVatri != vEntNueva->atributosEnd()) {
+					if ((*itCodAtribIden) == (*itVatri)->getAtributo()->getCodigo())
+						ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vIden,(*itVatri));
+					itVatri++;
+				}
+				itCodAtribIden++;
+			}
+			itIden++;
+		}
 		itEnt++;
 	}
 }
@@ -1005,6 +1018,7 @@ void VistaDiagrama::crearVistasEntidadGlobal() {
 // FALTA
 // Crear ComponentsBuilder::crearUnionEntidadRelacion
 // ComponentsBuilder::crearAtributoEnRelacion
+// agregarEntidadFuerteAIdentificador
 
 void VistaDiagrama::crearVistasRelacion() {
 	std::vector<Relacion*>::iterator it = this->getDiagrama()->relacionesBegin();
