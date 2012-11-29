@@ -57,9 +57,6 @@ private:
 
 	bool on_mouse_motion_event(GdkEventMotion * event);
 
-	//friend class TreePanel;
-	//friend class VistaProyecto;
-
 	VistaComponente * obtenerComponenteEnPos(gdouble x, gdouble y);
 
 	void
@@ -145,7 +142,7 @@ public:
 	int getAncho();
 
 	void agregarComponente(VistaComponente *componente);
-
+	void quitarComponente(VistaComponente *componente);
 	void agregarVistaEntidadNueva(VistaEntidadNueva *ven);
 
 	void agregarVistaEntidad(VistaEntidad *ven);

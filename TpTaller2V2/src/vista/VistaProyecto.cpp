@@ -4,8 +4,9 @@ VistaProyecto::VistaProyecto(Proyecto * proyectoModelo) {
 	//Prueba
 	this->proyecto = proyectoModelo;
 	this->diagramaPrincipal = new VistaDiagrama(proyectoModelo->getDiagramaPrincipal());
-	//this->testCargarDiagramas();
+
 }
+
 
 VistaProyecto::~VistaProyecto() {
 	// TODO Auto-generated destructor stub

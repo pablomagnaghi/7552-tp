@@ -1,6 +1,7 @@
 #ifndef VISTARELACION_H_
 #define VISTARELACION_H_
 #include "../../modelo/componentes/Relacion.h"
+#include "../../controlador/AsistenteRelacion.h"
 #include "VistaComponente.h"
 #include "VistaAtributo.h"
 

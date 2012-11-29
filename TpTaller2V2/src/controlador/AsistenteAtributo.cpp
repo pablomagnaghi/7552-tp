@@ -27,9 +27,9 @@ void AsistenteAtributo::setDiagActual(VistaDiagrama *vdiagActual) {
 	this->diagramaActual = vdiagActual;
 }
 
-void AsistenteAtributo::setAtributo(VistaAtributo* atrib) {
+void AsistenteAtributo::setAtributo(VistaAtributo* attrib) {
 	// TODO CARGAR DATOS DE ENTIDAD NUEVA
-	this->vatributo = atrib;
+	this->vatributo = attrib;
 	this->inicializarAsistente();
 }
 

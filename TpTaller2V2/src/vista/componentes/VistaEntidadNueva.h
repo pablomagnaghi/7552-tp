@@ -7,6 +7,8 @@
 #include <vector>
 #include "VistaAtributo.h"
 
+class VistaAtributo;
+
 class VistaEntidadNueva: public VistaEntidad{
 private:
 	friend class AsistenteEntidad;
