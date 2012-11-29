@@ -12,7 +12,7 @@
 #include "VistaIdentificador.h"
 
 class VistaProyecto;
-class VistaAtributo;
+class VistaRelacion;
 class VistaEntidadNueva;
 class VistaDiagrama;
 class VistaJerarquia;

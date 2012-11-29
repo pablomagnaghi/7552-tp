@@ -36,11 +36,11 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	// TEST
 
 	// NO SACAR EL IF SI PRUEBAN EL TEST 4
-	if (a == 0) {
+	/*if (a == 0) {
 		test_6_builder();
 		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
-	}
+	}*/
 }
 
 
@@ -835,6 +835,14 @@ void VistaDiagrama::drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
 void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 	if (componente != NULL) {
 		this->componentes.push_back(componente);
+		this->queue_draw();
+	}
+}
+
+void VistaDiagrama::quitarComponente(VistaComponente *componente) {
+	if (componente != NULL) {
+
+		remove(componentes.begin(),componentes.end(),componente);
 		this->queue_draw();
 	}
 }

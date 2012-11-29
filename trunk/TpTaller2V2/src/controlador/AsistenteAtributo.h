@@ -56,6 +56,7 @@ private:
 	void enlazarWidgets();
 
 	void inicializarAsistente();
+
 protected:
 	virtual void on_about_hide();
 

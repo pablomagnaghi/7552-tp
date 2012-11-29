@@ -39,6 +39,7 @@ protected:
 	static Gdk::Color colorVerde;
 	int mouseArribaDePuntoDeRedimension;
 	bool ajustarTamanioPorTexto;
+	bool prop_lanzada;
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
 			const std::string nombre);

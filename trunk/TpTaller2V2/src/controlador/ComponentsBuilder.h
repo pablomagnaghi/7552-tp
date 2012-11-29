@@ -12,13 +12,13 @@
 #include "../vista/VistaDiagrama.h"
 
 class VistaProyecto;
-class VistaAtributo;
+class VistaRelacion;
 class VistaEntidadNueva;
 class VistaEntidadGlobal;
 class VistaDiagrama;
 class VistaJerarquia;
 class VistaIdentificador;
-class VistaRelacion;
+class VistaAtributo;
 class VistaUnionEntidadRelacion;
 
 class ComponentsBuilder {

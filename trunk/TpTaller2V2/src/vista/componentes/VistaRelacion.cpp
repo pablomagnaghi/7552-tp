@@ -1,5 +1,6 @@
 #include "VistaRelacion.h"
 #include <iostream>
+#include "../Ide.h"
 using namespace std;
 
 VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
@@ -15,6 +16,16 @@ VistaRelacion::~VistaRelacion() {
 }
 
 bool VistaRelacion::lanzarProp() {
+	/*if (!this->prop_lanzada) {
+		AsistenteRelacion* nuevaProp;
+		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_RELAC);
+		nHbuilder->get_widget_derived("PropRelacion", nuevaProp);
+		nuevaProp->setRelacion(this);
+		nuevaProp->setDiagrama(Ide::getInstance()->getDiagActual());
+		this->prop_lanzada = true;
+		nuevaProp->show();
+		return true;
+	}*/
 	return false;
 }
 
@@ -64,7 +75,8 @@ void VistaRelacion::dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr) {
 void VistaRelacion::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(2);
 	//  Dibujo los circulos en las puntas
-	cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(), colorBlanco.get_blue_p());
+	cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(),
+			colorBlanco.get_blue_p());
 	cr->set_line_width(1);
 	cr->arc(this->pos_ini_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
 	cr->move_to(this->pos_ini_x + RADIO_CIRCULOS_REDIMENSION, this->pos_fin_y);
@@ -103,7 +115,6 @@ void VistaRelacion::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> c
 		break;
 	}
 }
-
 
 bool VistaRelacion::contieneAEstePunto(double x, double y) {
 	double limiteX1, limiteX4;
@@ -147,7 +158,7 @@ bool VistaRelacion::esPuntoDeRedimension(double x, double y) {
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
 		cout << "abajo a la izquierda" << endl;
 		return true;
-	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) {// Circulo arriba a la derecha
+	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) { // Circulo arriba a la derecha
 		cout << "arriba a la derecha" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
@@ -174,7 +185,7 @@ void VistaRelacion::setMouseArriba(double x, double y) {
 		this->mouseArribaDePuntoDeRedimension = 1;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
 		this->mouseArribaDePuntoDeRedimension = 2;
-	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) {// Circulo arriba a la derecha
+	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) { // Circulo arriba a la derecha
 		this->mouseArribaDePuntoDeRedimension = 3;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
 		this->mouseArribaDePuntoDeRedimension = 4;
@@ -185,8 +196,8 @@ void VistaRelacion::setMouseArriba(double x, double y) {
 	cout << "Punto Seleccionado " << this->mouseArribaDePuntoDeRedimension << endl;
 
 	if (this->seleccionado) {
-		cout << "Dimensiones: (" << this->pos_fin_x - this->pos_ini_x << ";" << this->pos_fin_y
-				- this->pos_ini_y << ")" << endl;
+		cout << "Dimensiones: (" << this->pos_fin_x - this->pos_ini_x << ";"
+				<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
 		cout << "Posicion: inicial=(" << this->pos_ini_x << ";" << this->pos_ini_y << ")  final=("
 				<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
 		cout << "Circulo arriba izq: (" << limiteX1 << ";" << limiteY1 << ") (" << limiteX2 << ";"
@@ -247,7 +258,8 @@ std::vector<UnionEntidadRelacion *> VistaRelacion::getUniones() {
 	std::vector<UnionEntidadRelacion *> uniones;
 	std::vector<UnionEntidadRelacion *>::iterator i;
 
-	for (i = this->relacion->unionesAEntidadBegin(); i != this->relacion->unionesAEntidadEnd(); i++) {
+	for (i = this->relacion->unionesAEntidadBegin(); i != this->relacion->unionesAEntidadEnd();
+			i++) {
 		uniones.push_back(*i);
 	}
 
@@ -267,26 +279,22 @@ bool VistaRelacion::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 	mitad_y = (this->pos_fin_y + this->pos_ini_y) / 2;
 
 	if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			this->pos_ini_x, mitad_y, mitad_x, this->pos_ini_y, xInterseccion,
-			yInterseccion)) {
+			this->pos_ini_x, mitad_y, mitad_x, this->pos_ini_y, xInterseccion, yInterseccion)) {
 		x = xInterseccion;
 		y = yInterseccion;
 		return true;
 	} else if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			mitad_x, this->pos_ini_y, this->pos_fin_x, mitad_y, xInterseccion,
-			yInterseccion)) {
+			mitad_x, this->pos_ini_y, this->pos_fin_x, mitad_y, xInterseccion, yInterseccion)) {
 		x = xInterseccion;
 		y = yInterseccion;
 		return true;
 	} else if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			this->pos_ini_x, mitad_y, mitad_x, this->pos_fin_y, xInterseccion,
-			yInterseccion)) {
+			this->pos_ini_x, mitad_y, mitad_x, this->pos_fin_y, xInterseccion, yInterseccion)) {
 		x = xInterseccion;
 		y = yInterseccion;
 		return true;
 	} else if (Geometria::hayInterseccionDeLineas(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-			mitad_x, this->pos_fin_y, this->pos_fin_x, mitad_y, xInterseccion,
-			yInterseccion)) {
+			mitad_x, this->pos_fin_y, this->pos_fin_x, mitad_y, xInterseccion, yInterseccion)) {
 		x = xInterseccion;
 		y = yInterseccion;
 		return true;
@@ -294,8 +302,7 @@ bool VistaRelacion::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 	return false;
 }
 
-
-Relacion * VistaRelacion::getRelacion(){
+Relacion * VistaRelacion::getRelacion() {
 	return this->relacion;
 }
 

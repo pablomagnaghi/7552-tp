@@ -13,7 +13,7 @@ class VistaEntidadNueva;
 
 class VistaJerarquia: public VistaComponente {
 private:
-	bool prop_lanzada;
+
 	Jerarquia * jerarquia;
 	VistaEntidad * padre;
 	std::vector<VistaEntidadNueva *> hijos;

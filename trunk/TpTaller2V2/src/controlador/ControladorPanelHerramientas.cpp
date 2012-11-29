@@ -1,4 +1,3 @@
-
 #include "ControladorPanelHerramientas.h"
 
 #ifdef DEBUG
@@ -7,9 +6,9 @@ using namespace std;
 #endif
 #include "../vista/Ide.h"
 
-ControladorPanelHerramientas::ControladorPanelHerramientas(const Glib::RefPtr<
-		Gtk::Builder> & builder, Gtk::Window * ventana) :
-	m_builder (builder) {
+ControladorPanelHerramientas::ControladorPanelHerramientas(
+		const Glib::RefPtr<Gtk::Builder> & builder, Gtk::Window * ventana) :
+		m_builder(builder) {
 
 #ifdef DEBUG
 	cout << "Creando ControladorPanelHerramientas" << endl;
@@ -35,7 +34,8 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #ifdef DEBUG
 	cout << "Agregar Entidad" << endl;
 #endif
-	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(NULL,NULL);
+	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(
+			NULL, NULL);
 #ifdef DEBUG
 	cout << "Vuelve" << endl;
 #endif
@@ -51,13 +51,23 @@ void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
 #ifdef DEBUG
 	cout << "Agregar Relacion" << endl;
 #endif
+	VistaRelacion * nuevaRelacion = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(
+			Ide::getInstance()->getDiagActual());
+
+	if(nuevaRelacion->lanzarProp()){
+
+	} else {
+		delete nuevaRelacion;
+	}
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click() {
 #ifdef DEBUG
 	cout << "Agregar Jerarquia" << endl;
 #endif
-	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(NULL, NULL);
+	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(
+			NULL, NULL);
 	Ide::getInstance()->regenerarTreePanel();
 	nuevaJerarquia->lanzarProp();
 }
@@ -74,25 +84,24 @@ void ControladorPanelHerramientas::on_boton_Agregar_Comentario_click() {
 #endif
 }
 
-void ControladorPanelHerramientas::enlazar_botones_de_menu(const Glib::RefPtr<
-		Gtk::Builder>& builder) {
+void ControladorPanelHerramientas::enlazar_botones_de_menu(
+		const Glib::RefPtr<Gtk::Builder>& builder) {
 	builder->get_widget("TBAgregarEntidad", botonAgregarEntidad);
-	botonAgregarEntidad->signal_clicked().connect(sigc::mem_fun(*this,
-			&ControladorPanelHerramientas::on_boton_Agregar_Entidad_click));
+	botonAgregarEntidad->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Entidad_click));
 	builder->get_widget("TBAgregarRelacion", botonAgregarRelacion);
-	botonAgregarRelacion->signal_clicked().connect(sigc::mem_fun(*this,
-			&ControladorPanelHerramientas::on_boton_Agregar_Relacion_click));
+	botonAgregarRelacion->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Relacion_click));
 	builder->get_widget("TBAgregarJerarquia", botonAgregarJerarquia);
-	botonAgregarJerarquia->signal_clicked().connect(sigc::mem_fun(*this,
-			&ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click));
+	botonAgregarJerarquia->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click));
 	builder->get_widget("TBAgregarUnion", botonAgregarUnion);
-	botonAgregarUnion->signal_clicked().connect(sigc::mem_fun(*this,
-			&ControladorPanelHerramientas::on_boton_Agregar_Union_click));
+	botonAgregarUnion->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Union_click));
 	builder->get_widget("TBAgregarComentario", botonAgregarComentario);
-	botonAgregarComentario->signal_clicked().connect(sigc::mem_fun(*this,
-			&ControladorPanelHerramientas::on_boton_Agregar_Comentario_click));
+	botonAgregarComentario->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Comentario_click));
 }
-
 
 void ControladorPanelHerramientas::activarBotones() {
 	botonAgregarEntidad->set_sensitive(true);

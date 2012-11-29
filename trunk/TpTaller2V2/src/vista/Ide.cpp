@@ -76,6 +76,7 @@ bool Ide::abrir_proyecto() {
 	}
 	default: {
 		std::cout << "Unexpected button clicked." << std::endl;
+		return false;
 		break;
 	}
 	}
@@ -83,8 +84,17 @@ bool Ide::abrir_proyecto() {
 	// TODO verificar que exista una subcarpeta "DATOS" y que tenga un diagrama principal
 
 	// Cerrar el proyecto Actual (si hay)
+	this->cerrarProyecto();
 
 	// Levantar los archivos guardados
+	this->carpetaProyecto.append("/Principal");
+
+	this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Principal")));
+	this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
+	this->diagramaActual->abrirXml(this->carpetaProyecto);
+	this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
+	this->controladorPanelHerramientas.activarBotones();
+	this->treePanel.regenerar();
 
 	return true;
 }
@@ -92,7 +102,7 @@ bool Ide::abrir_proyecto() {
 bool Ide::guardar_proyecto(bool guardarComo) {
 	std::string nombreProyecto;
 
-	/*if (guardarComo) {
+	if (guardarComo) {
 		// Pedir Carpeta donde se guarda el proyecto
 		Gtk::FileChooserDialog selector("Seleccione la carpeta del proyecto",
 				Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
@@ -122,10 +132,10 @@ bool Ide::guardar_proyecto(bool guardarComo) {
 			return false;
 		}
 		}
-	}*/
+	}
 
 	// ES PARA PROBAR, GUARDAR SIN QUE TE PIDA LA CARPETA A CADA RATO
-	this->carpetaProyecto = "/home/gonzalo/workspaces/Distribuidos/TPtaller2/proyectos/proyecto1";
+	//this->carpetaProyecto = "/home/gonzalo/workspaces/Distribuidos/TPtaller2/proyectos/proyecto1";
 
 	nombreProyecto = Utils::getBasename(this->carpetaProyecto);
 
@@ -147,6 +157,7 @@ void Ide::regenerarTreePanel() {
 bool Ide::crearNuevoProyecto() {
 	if (this->vproyecto == NULL) {
 		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Principal")));
+		this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();
 		this->treePanel.regenerar();
