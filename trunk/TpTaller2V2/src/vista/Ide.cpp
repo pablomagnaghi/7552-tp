@@ -145,7 +145,7 @@ bool Ide::guardar_proyecto(bool guardarComo) {
 
 	//this->debugInformarValorVariable("Nombre Proyecto", nombreProyecto);
 
-	this->diagramaActual->guardarDiagramaXml(this->carpetaProyecto);
+	this->vproyecto->getDiagramaPrincipal()->guardarDiagramaXml(this->carpetaProyecto);
 
 	return true;
 }
