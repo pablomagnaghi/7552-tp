@@ -6,6 +6,8 @@
 
 using namespace std;
 
+double VistaDiagrama::paso_zoom = 0.1;
+
 VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	// para persistencia
@@ -13,8 +15,8 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	this->diagrama = diagramaModelo;
 	this->zoom = ZOOM_DEFECTO;
-	this->ancho = A4_ANCHO * zoom;
-	this->alto = A4_ALTO * zoom;
+	this->ancho = A4_ALTO * zoom;
+	this->alto = A4_ANCHO * zoom;
 	this->set_size_request(this->ancho, this->alto);
 
 	this->estaRedimensionandoElemento = false;
@@ -36,14 +38,14 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	// TEST
 
 	// NO SACAR EL IF SI PRUEBAN EL TEST 4
+	this->zoom = 1;
+	test_1_builder();
 	/*if (a == 0) {
-		test_6_builder();
-		//test_5_builder_interfaz_grafica();
-		//test_5_builder_persistencia();
-	}*/
+	 test_6_builder();
+	 //test_5_builder_interfaz_grafica();
+	 //test_5_builder_persistencia();
+	 }*/
 }
-
-
 
 // ENTIDAD
 void VistaDiagrama::test_1_builder() {
@@ -51,8 +53,8 @@ void VistaDiagrama::test_1_builder() {
 	VistaEntidadNueva * ve1;
 	ve1 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
 
-	ve1->setposini(30, 100);
-	ve1->setposfin(100, 125);
+	ve1->setposini(1, 1);
+	ve1->setposfin(100, 50);
 	ve1->setNombre("Entidad");
 
 	/************ POR PERSISTENCIA *************/
@@ -63,11 +65,10 @@ void VistaDiagrama::test_1_builder() {
 
 	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
 
-	ve2->setposini(30, 150);
-	ve2->setposfin(100, 175);
+	ve2->setposini(200, 1);
+	ve2->setposfin(500, 50);
 	ve2->setNombre("Entidad");
 }
-
 
 // ATRIBUTOS
 void VistaDiagrama::test_2_builder() {
@@ -149,7 +150,6 @@ void VistaDiagrama::test_2_builder() {
 
 }
 
-
 // RELACION-ENTIDAD
 void VistaDiagrama::test_3_builder() {
 	/**********       POR INTERFAZ GRAFICA      **********/
@@ -223,8 +223,6 @@ void VistaDiagrama::test_3_builder() {
 	vu4 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve4, vr1, u4);
 }
 
-
-
 // ENTIDAD GLOBAL
 void VistaDiagrama::test_4_builder() {
 	/************   OJO CON EL 1, SOLO PARA DEBUG (GONZALO) *************/
@@ -274,7 +272,6 @@ void VistaDiagrama::test_4_builder() {
 	vg2->setNombre("Entidad Global 2");
 
 }
-
 
 //IDENTIFICADOR
 void VistaDiagrama::test_5_builder_interfaz_grafica() {
@@ -581,6 +578,7 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	cr = this->get_window()->create_cairo_context();
 	cr->set_source_rgba(1, 1, 1, 1); // white
 	cr->paint();
+	cr->scale(this->zoom, this->zoom);
 
 	std::vector<VistaComponente *>::iterator componenteActual;
 
@@ -604,23 +602,24 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 	cout << "Event button: " << event->button << endl;
 
 	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3)) {
-		componente = obtenerComponenteEnPos(event->x, event->y);
+		componente = obtenerComponenteEnPos(event->x / this->zoom, event->y / this->zoom);
 		if (componente != NULL) {
 			componente->lanzarMenuPopUp(event);
 		}
 	} else {
-		seleccionar_componente_clickeado(event->x, event->y);
+		seleccionar_componente_clickeado(event->x / this->zoom, event->y / this->zoom);
 
 		if (this->componentes_seleccionados.size() == 1
-				&& this->componentes_seleccionados[0]->esPuntoDeRedimension(event->x, event->y)) {
+				&& this->componentes_seleccionados[0]->esPuntoDeRedimension(event->x / this->zoom,
+						event->y / this->zoom)) {
 			this->estaRedimensionandoElemento = true;
 		} else {
 			this->estaRedimensionandoElemento = false;
 		}
 	}
 
-	this->x_button_press = event->x;
-	this->y_button_press = event->y;
+	this->x_button_press = event->x / this->zoom;
+	this->y_button_press = event->y / this->zoom;
 
 	// Para redibujar el area de dibujo
 	this->queue_draw();
@@ -697,7 +696,7 @@ bool VistaDiagrama::on_mouse_motion_event(GdkEventMotion * event) {
 	if (!this->estaRedimensionandoElemento) {
 		for (componenteActual = this->componentes.begin();
 				componenteActual != this->componentes.end(); componenteActual++) {
-			(*componenteActual)->setMouseArriba(event->x, event->y);
+			(*componenteActual)->setMouseArriba(event->x / this->zoom, event->y / this->zoom);
 		}
 	}
 #ifdef DEBUG
@@ -765,7 +764,7 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, g
 		for (componenteSeleccionado = componentes_seleccionados.begin();
 				componenteSeleccionado != componentes_seleccionados.end();
 				componenteSeleccionado++) {
-			(*componenteSeleccionado)->mover(x_actual, y_actual);
+			(*componenteSeleccionado)->mover(x_actual /  this->zoom, y_actual / this->zoom);
 			//(*componenteSeleccionado)->setposini(x_actual, y_actual);
 			//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
 		}
@@ -773,7 +772,7 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, g
 		cout << "Arrastrando X= " << x_actual << " Y= " << y_actual << endl;
 #endif
 	} else {
-		this->componentes_seleccionados[0]->redimensionar(x_actual, y_actual);
+		this->componentes_seleccionados[0]->redimensionar(x_actual/ this->zoom, y_actual/ this->zoom);
 		//context->drag_finish(true, true, timestamp);
 		cout << "Redimensionando X= " << x_actual << " Y= " << y_actual << endl;
 	}
@@ -842,7 +841,7 @@ void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 void VistaDiagrama::quitarComponente(VistaComponente *componente) {
 	if (componente != NULL) {
 
-		remove(componentes.begin(),componentes.end(),componente);
+		remove(componentes.begin(), componentes.end(), componente);
 		this->queue_draw();
 	}
 }
@@ -931,7 +930,6 @@ std::vector<VistaUnionEntidadRelacion*>::iterator VistaDiagrama::vUnionEntidadRe
 	return this->vUnionEntidadRelacion.end();
 }
 
-
 VistaComponente * VistaDiagrama::obtenerComponenteEnPos(gdouble x, gdouble y) {
 	std::vector<VistaComponente *>::iterator i;
 	for (i = this->componentes.begin(); i != this->componentes.end(); i++) {
@@ -999,7 +997,6 @@ VistaEntidad * VistaDiagrama::obtenerVistaEntidadbyCodigo(int codigo) {
 	return NULL;
 }
 
-
 // PERSISTENCIA REP
 
 // Devuelve true si se logró abrir y cargar el documento.
@@ -1043,7 +1040,8 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 	std::vector<EntidadNueva*>::iterator itEnt = this->getDiagrama()->entidadesNuevasBegin();
 	while (itEnt != this->getDiagrama()->entidadesNuevasEnd()) {
 		// el builder crea la vista entidad nueva
-		VistaEntidadNueva *vEntNueva = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, (*itEnt));
+		VistaEntidadNueva *vEntNueva =
+				ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, (*itEnt));
 		// el builder crea las vistas de los atributos de la entidad nueva
 		std::vector<Atributo*>::iterator itAtrib = (*itEnt)->atributosBegin();
 		while (itAtrib != (*itEnt)->atributosEnd()) {
@@ -1062,15 +1060,17 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 		// identificadores
 		std::vector<Identificador*>::iterator itIden = (*itEnt)->identificadoresBegin();
 		while (itIden != (*itEnt)->identificadoresEnd()) {
-			VistaIdentificador *vIden = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this,
-					vEntNueva,(*itIden));
+			VistaIdentificador *vIden =
+					ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, vEntNueva,
+							(*itIden));
 			// agrego la vista de atributos al identificador
 			std::vector<int>::iterator itCodAtribIden = (*itIden)->codigoAtributosBegin();
 			while (itCodAtribIden != (*itIden)->codigoAtributosEnd()) {
 				std::vector<VistaAtributo*>::iterator itVatri = vEntNueva->atributosBegin();
 				while (itVatri != vEntNueva->atributosEnd()) {
 					if ((*itCodAtribIden) == (*itVatri)->getAtributo()->getCodigo())
-						ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vIden,(*itVatri));
+						ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vIden,
+								(*itVatri));
 					itVatri++;
 				}
 				itCodAtribIden++;
@@ -1089,7 +1089,8 @@ void VistaDiagrama::crearVistasEntidadGlobal() {
 		std::string nombreEntidadNueva = entNueva->getNombre();
 
 		// el builder crea la vista entidad global
-		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this,nombreEntidadNueva, (*it));
+		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, nombreEntidadNueva,
+				(*it));
 		it++;
 	}
 }
@@ -1098,28 +1099,29 @@ void VistaDiagrama::crearVistasRelacion() {
 	std::vector<Relacion*>::iterator itRel = this->getDiagrama()->relacionesBegin();
 	while (itRel != this->getDiagrama()->relacionesEnd()) {
 		// el builder crea la vista relacion
-		VistaRelacion *vRel = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this, (*itRel));
+		VistaRelacion *vRel = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this,
+				(*itRel));
 		// el builder crea las vistas de las UnionRelacion
 		std::vector<UnionEntidadRelacion*>::iterator itUER = (*itRel)->unionesAEntidadBegin();
 		while (itUER != (*itRel)->unionesAEntidadEnd()) {
-			VistaEntidad *vEnt = this->obtenerVistaEntidadbyCodigo((*itUER)->getEntidad()->getCodigo());
+			VistaEntidad *vEnt = this->obtenerVistaEntidadbyCodigo(
+					(*itUER)->getEntidad()->getCodigo());
 
-			ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this,
-					vEnt,vRel,(*itUER));
+			ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, vEnt, vRel, (*itUER));
 			itUER++;
 		}
 
 		// el builder crea las vistas de los atributos de la relacion
 		std::vector<Atributo*>::iterator itAtrib = (*itRel)->atributosBegin();
 		while (itAtrib != (*itRel)->atributosEnd()) {
-			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnRelacion(this,vRel,
-				(*itAtrib));
+			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnRelacion(this,
+					vRel, (*itAtrib));
 			// el builder crea las vistas de los atributos compuestos
 			std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
 			while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
 				// La VistaAtributo* que devuelve no la utilizo en este caso
 				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, vAtrib,
-					(*itAtribCompuesto));
+						(*itAtribCompuesto));
 				itAtribCompuesto++;
 			}
 			itAtrib++;
@@ -1132,7 +1134,8 @@ void VistaDiagrama::crearVistasJerarquia() {
 	std::vector<Jerarquia*>::iterator itJer = this->getDiagrama()->jerarquiasBegin();
 	while (itJer != this->getDiagrama()->jerarquiasEnd()) {
 		// el builder crea la vista jerarquia
-		VistaJerarquia *vJer = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, (*itJer));
+		VistaJerarquia *vJer = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this,
+				(*itJer));
 
 		VistaEntidad *vEnt = this->obtenerVistaEntidadbyCodigo((*itJer)->getCodigoEntidadGeneral());
 
@@ -1161,7 +1164,8 @@ void VistaDiagrama::agregarEntidadFuerteAlIdentificador() {
 
 		while (itRel != (*itVI)->getIdentificador()->codigoRelacionesEnd()) {
 
-			std::vector<VistaUnionEntidadRelacion*>::iterator itVUER = this->vUnionEntidadRelacionBegin();
+			std::vector<VistaUnionEntidadRelacion*>::iterator itVUER =
+					this->vUnionEntidadRelacionBegin();
 
 			while (itVUER != this->vUnionEntidadRelacionEnd()) {
 				// Busco el codigo de relacion que posee el identificador y lo comparo
@@ -1295,3 +1299,28 @@ void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
 	for (i = this->componentes.begin(); i != this->componentes.end(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlREP());
 }
+
+void VistaDiagrama::aumentarZoom() {
+	this->alto /= this->zoom;
+	this->ancho /= this->zoom;
+	this->zoom += VistaDiagrama::paso_zoom;
+	this->alto *= this->zoom;
+	this->ancho *= this->zoom;
+#ifdef DEBUG
+	std::cout << "Zoom: " << this->zoom << std::endl;
+#endif
+	this->queue_draw();
+}
+
+void VistaDiagrama::disminuirZoom() {
+	this->alto /= this->zoom;
+	this->ancho /= this->zoom;
+	this->zoom -= VistaDiagrama::paso_zoom;
+	this->alto *= this->zoom;
+	this->ancho *= this->zoom;
+#ifdef DEBUG
+	std::cout << "Zoom: " << this->zoom << std::endl;
+#endif
+	this->queue_draw();
+}
+

@@ -54,7 +54,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
 	VistaRelacion * nuevaRelacion = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(
 			Ide::getInstance()->getDiagActual());
 
-	if(nuevaRelacion->lanzarProp()){
+	if (nuevaRelacion->lanzarProp()) {
 
 	} else {
 		delete nuevaRelacion;
@@ -84,6 +84,14 @@ void ControladorPanelHerramientas::on_boton_Agregar_Comentario_click() {
 #endif
 }
 
+void ControladorPanelHerramientas::on_boton_Aumentar_Zoom_click() {
+	Ide::getInstance()->getDiagActual()->aumentarZoom();
+}
+
+void ControladorPanelHerramientas::on_boton_Reducir_Zoom_click() {
+	Ide::getInstance()->getDiagActual()->disminuirZoom();
+}
+
 void ControladorPanelHerramientas::enlazar_botones_de_menu(
 		const Glib::RefPtr<Gtk::Builder>& builder) {
 	builder->get_widget("TBAgregarEntidad", botonAgregarEntidad);
@@ -101,6 +109,12 @@ void ControladorPanelHerramientas::enlazar_botones_de_menu(
 	builder->get_widget("TBAgregarComentario", botonAgregarComentario);
 	botonAgregarComentario->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Comentario_click));
+	builder->get_widget("TBZoom+", botonAumentarZoom);
+	botonAumentarZoom->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Aumentar_Zoom_click));
+	builder->get_widget("TBZoom-", botonReducirZoom);
+	botonReducirZoom->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Reducir_Zoom_click));
 }
 
 void ControladorPanelHerramientas::activarBotones() {

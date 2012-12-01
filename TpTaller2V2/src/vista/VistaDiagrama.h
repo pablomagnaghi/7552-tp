@@ -23,6 +23,8 @@ private:
 	int ancho;
 	int alto;
 
+	static double paso_zoom;
+
 	Diagrama * diagrama;
 	VistaDiagrama * diagramaAncestro;
 
@@ -185,6 +187,9 @@ public:
 	void abrirXml(const std::string& path);
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
+
+	void aumentarZoom();
+	void disminuirZoom();
 
 	// TEST
 	void test_1_builder();
