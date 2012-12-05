@@ -19,6 +19,7 @@ private:
 
 	Gtk::ToolButton * botonAumentarZoom;
 	Gtk::ToolButton * botonReducirZoom;
+	Gtk::ToolButton * botonRestablecerZoom;
 
 	void on_boton_Agregar_Entidad_click();
 	void on_boton_Agregar_Relacion_click();
@@ -28,6 +29,7 @@ private:
 
 	void on_boton_Aumentar_Zoom_click();
 	void on_boton_Reducir_Zoom_click();
+	void on_boton_Restablecer_Zoom_click();
 
 	void enlazar_botones_de_menu(const Glib::RefPtr<Gtk::Builder>& builder);
 public:

@@ -28,7 +28,7 @@ void VistaProyecto::testCargarDiagramas() {
 	this->diagramaPrincipal->crearDiagramaHijo("Sub Diag Prueba1");
 	this->diagramaPrincipal->crearDiagramaHijo("Sub Diag Prueba2");
 	diag = this->diagramaPrincipal->crearDiagramaHijo("Sub Diag Prueba3 0,75");
-	diag->setZoom(0.75);
+	//diag->setZoom(0.75);
 
 }
 
