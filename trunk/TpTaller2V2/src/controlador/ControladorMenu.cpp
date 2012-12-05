@@ -4,6 +4,10 @@
 #include <iostream>
 using namespace std;
 #endif
+#include <gtkmm.h>
+#include <memory>
+
+#define GLIBMM_EXCEPTIONS_ENABLED
 
 ControladorMenu::ControladorMenu(const Glib::RefPtr<Gtk::Builder> & builder) {
 	this->editor = NULL;
@@ -14,6 +18,9 @@ ControladorMenu::ControladorMenu(const Glib::RefPtr<Gtk::Builder> & builder) {
 	this->botonArchivoGuardarComo->set_sensitive(false);
 	this->botonArchivoImprimir->set_sensitive(false);
 	this->botonArchivoExportar->set_sensitive(false);
+
+	m_refPageSetup = Gtk::PageSetup::create();
+	m_refSettings = Gtk::PrintSettings::create();
 }
 
 ControladorMenu::~ControladorMenu() {
@@ -33,6 +40,9 @@ void ControladorMenu::enlazar_botones_de_menu(const Glib::RefPtr<Gtk::Builder>& 
 	builder->get_widget("MAGuardarComo", botonArchivoGuardarComo);
 	botonArchivoGuardarComo->signal_activate().connect(
 			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_GuardarComo_click));
+	builder->get_widget("MAConfigurarPagina", botonArchivoConfigurarPagina);
+	botonArchivoConfigurarPagina->signal_activate().connect(
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Configurar_Pagina_click));
 	builder->get_widget("MAImprimir", botonArchivoImprimir);
 	botonArchivoImprimir->signal_activate().connect(
 			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Imprimir_click));
@@ -98,11 +108,80 @@ void ControladorMenu::on_menu_Archivo_GuardarComo_click() {
 	}
 }
 
+void ControladorMenu::on_menu_Archivo_Configurar_Pagina_click() {
+	//Show the page setup dialog, asking it to start with the existing settings:
+	Glib::RefPtr<Gtk::PageSetup> new_page_setup = Gtk::run_page_setup_dialog(*Ide::getInstance(),
+			m_refPageSetup, m_refSettings);
+
+	//Save the chosen page setup dialog for use when printing, previewing, or
+	//showing the page setup dialog again:
+	m_refPageSetup = new_page_setup;
+}
+
 void ControladorMenu::on_menu_Archivo_Imprimir_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Imprimir" << endl;
 #endif
+	Gtk::PrintOperationAction print_action;
+	Glib::RefPtr<ImpresionDiagrama> print = ImpresionDiagrama::create();
+	print->set_diagrama(*Ide::getInstance()->getDiagActual());
+	print->set_track_print_status();
+	print->set_default_page_setup(m_refPageSetup);
+	print->set_print_settings(m_refSettings);
 
+	print->signal_done().connect(
+			sigc::bind(sigc::mem_fun(*this, &ControladorMenu::on_finalizacion_impresion), print));
+
+	//print->run(Gtk::PRINT_OPERATION_ACTION_PREVIEW, *Ide::getInstance());
+
+	print_action = Gtk::PRINT_OPERATION_ACTION_PREVIEW;
+
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+	try {
+		Gtk::PrintOperationResult result = print->run(print_action /* print or preview */,
+				*Ide::getInstance());
+		if(result == Gtk::PRINT_OPERATION_RESULT_APPLY){
+			std::cout << "Apply" << std::endl;
+		} else if(result == Gtk::PRINT_OPERATION_RESULT_ERROR){
+			std::cout << "Error" << std::endl;
+		}
+	} catch (const Gtk::PrintError& ex) {
+		//See documentation for exact Gtk::PrintError error codes.
+		std::cerr << "An error occurred while trying to run a print operation:" << ex.what()
+				<< std::endl;
+	}
+#else
+	std::auto_ptr<Glib::Error> ex;
+	print->run(print_action /* print or preview */, Ide::getInstance(), ex);
+
+	if (ex.get()) {
+		std::cerr << "An error occurred while trying to run a print operation:" << ex->what()
+		<< std::endl;
+	}
+#endif /* !GLIBMM_EXCEPTIONS_ENABLED */
+
+}
+
+void ControladorMenu::on_finalizacion_impresion(Gtk::PrintOperationResult result,
+		const Glib::RefPtr<ImpresionDiagrama>& operation) {
+	if (result == Gtk::PRINT_OPERATION_RESULT_ERROR) {
+		Gtk::MessageDialog err_dialog(*Ide::getInstance(), "Error printing form", false,
+				Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		err_dialog.run();
+	} else if (result == Gtk::PRINT_OPERATION_RESULT_APPLY) {
+		//Update PrintSettings with the ones used in this PrintOperation:
+		m_refSettings = operation->get_print_settings();
+	}
+
+	/*if (!operation->is_finished()) {
+	 //We will connect to the status-changed signal to track status
+	 //and update a status bar. In addition, you can, for example,
+	 //keep a list of active print operations, or provide a progress dialog.
+	 operation->signal_status_changed().connect(
+	 sigc::bind(
+	 sigc::mem_fun(*Ide::getInstance(), &PrintExampleWindow::on_printoperation_status_changed),
+	 operation));
+	 }*/
 }
 
 void ControladorMenu::on_menu_Archivo_Exportar_click() {

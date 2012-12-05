@@ -54,7 +54,7 @@
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1308827025" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.135079150" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
-							<tool command="g++ " commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX} ${OUTPUT} ${INPUTS} `pkg-config --cflags --libs gtkmm-2.4 libxml-2.0`" id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.15414005" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
+							<tool command="g++ `pkg-config --cflags --libs gtkmm-2.4 libxml-2.0`" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX} ${OUTPUT} ${INPUTS} `pkg-config --cflags --libs gtkmm-2.4 libxml-2.0` " id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.15414005" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.flags.1497240759" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
 								<option id="gnu.cpp.link.option.paths.1951380545" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/usr/include/gtkmm-2.4"/>

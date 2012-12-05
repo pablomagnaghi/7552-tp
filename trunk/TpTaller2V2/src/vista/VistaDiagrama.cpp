@@ -17,9 +17,10 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	this->zoom = ZOOM_DEFECTO;
 	this->ancho = A4_ALTO * zoom;
 	this->alto = A4_ANCHO * zoom;
+
 	this->set_size_request(this->ancho, this->alto);
 
-	this->estaRedimensionandoElemento = false;
+	//this->estaRedimensionandoElemento = false;
 
 	// Habilito el evento de apretar el boton del mouse
 	this->add_events(Gdk::BUTTON_PRESS_MASK | Gdk::POINTER_MOTION_MASK);
@@ -39,12 +40,13 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	// NO SACAR EL IF SI PRUEBAN EL TEST 4
 	this->zoom = 1;
-	test_1_builder();
-	/*if (a == 0) {
-	 test_6_builder();
-	 //test_5_builder_interfaz_grafica();
-	 //test_5_builder_persistencia();
-	 }*/
+	//test_1_builder();
+	if (a == 0) {
+		test_3_builder();
+		//test_6_builder();
+		//test_5_builder_interfaz_grafica();
+		//test_5_builder_persistencia();
+	}
 }
 
 // ENTIDAD
@@ -574,18 +576,13 @@ void VistaDiagrama::obtenerVistaAPartirDeRelacion(VistaRelacion * vRelacion,
 
 bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	this->set_size_request(this->ancho, this->alto);
-	Cairo::RefPtr<Cairo::Context> cr;
-	cr = this->get_window()->create_cairo_context();
-	cr->set_source_rgba(1, 1, 1, 1); // white
-	cr->paint();
-	cr->scale(this->zoom, this->zoom);
+	Cairo::RefPtr<Cairo::Context> context;
+	context = this->get_window()->create_cairo_context();
+	context->set_source_rgba(1, 1, 1, 1); // white
+	context->paint();
+	context->scale(this->zoom, this->zoom);
 
-	std::vector<VistaComponente *>::iterator componenteActual;
-
-	for (componenteActual = this->componentes.begin(); componenteActual != this->componentes.end();
-			componenteActual++) {
-		(*componenteActual)->dibujar(cr);
-	}
+	this->dibujarComponentes(context);
 
 	//Glib::RefPtr < Pango::Layout > layout = this->create_pango_layout("Hola");
 	//	layout
@@ -594,6 +591,16 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	//layout->show_in_cairo_context(cr);
 
 	return true;
+}
+
+void VistaDiagrama::dibujarComponentes(Cairo::RefPtr<Cairo::Context>& context) {
+
+	std::vector<VistaComponente *>::iterator componenteActual;
+
+	for (componenteActual = this->componentes.begin(); componenteActual != this->componentes.end();
+			componenteActual++) {
+		(*componenteActual)->dibujar(context);
+	}
 }
 
 bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
@@ -662,14 +669,6 @@ void VistaDiagrama::seleccionar_componente_clickeado(gdouble x, gdouble y) {
 	while (componenteActual != this->componentes.end()) {
 		(*componenteActual)->deseleccionar();
 		componenteActual++;
-	}
-}
-
-void VistaDiagrama::setZoom(double z) {
-	if ((z >= ZOOM_MIN) && (z <= ZOOM_MAX)) {
-		this->zoom = z;
-		this->ancho = A4_ANCHO * z;
-		this->alto = A4_ALTO * z;
 	}
 }
 
@@ -764,7 +763,7 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, g
 		for (componenteSeleccionado = componentes_seleccionados.begin();
 				componenteSeleccionado != componentes_seleccionados.end();
 				componenteSeleccionado++) {
-			(*componenteSeleccionado)->mover(x_actual /  this->zoom, y_actual / this->zoom);
+			(*componenteSeleccionado)->mover(x_actual / this->zoom, y_actual / this->zoom);
 			//(*componenteSeleccionado)->setposini(x_actual, y_actual);
 			//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
 		}
@@ -772,7 +771,8 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, g
 		cout << "Arrastrando X= " << x_actual << " Y= " << y_actual << endl;
 #endif
 	} else {
-		this->componentes_seleccionados[0]->redimensionar(x_actual/ this->zoom, y_actual/ this->zoom);
+		this->componentes_seleccionados[0]->redimensionar(x_actual / this->zoom,
+				y_actual / this->zoom);
 		//context->drag_finish(true, true, timestamp);
 		cout << "Redimensionando X= " << x_actual << " Y= " << y_actual << endl;
 	}
@@ -1300,6 +1300,16 @@ void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
 		nodo->agregarHijo((*i)->guardarXmlREP());
 }
 
+void VistaDiagrama::restablecerZoom() {
+	this->alto /= this->zoom;
+	this->ancho /= this->zoom;
+	this->zoom = 1;
+#ifdef DEBUG
+	std::cout << "Zoom: " << this->zoom << std::endl;
+#endif
+	this->queue_draw();
+}
+
 void VistaDiagrama::aumentarZoom() {
 	this->alto /= this->zoom;
 	this->ancho /= this->zoom;
@@ -1313,14 +1323,16 @@ void VistaDiagrama::aumentarZoom() {
 }
 
 void VistaDiagrama::disminuirZoom() {
-	this->alto /= this->zoom;
-	this->ancho /= this->zoom;
-	this->zoom -= VistaDiagrama::paso_zoom;
-	this->alto *= this->zoom;
-	this->ancho *= this->zoom;
+	if (this->zoom > 0.2) {
+		this->alto /= this->zoom;
+		this->ancho /= this->zoom;
+		this->zoom -= VistaDiagrama::paso_zoom;
+		this->alto *= this->zoom;
+		this->ancho *= this->zoom;
 #ifdef DEBUG
-	std::cout << "Zoom: " << this->zoom << std::endl;
+		std::cout << "Zoom: " << this->zoom << std::endl;
 #endif
+	}
 	this->queue_draw();
 }
 

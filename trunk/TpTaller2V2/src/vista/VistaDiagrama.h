@@ -137,11 +137,7 @@ public:
 	VistaDiagrama(Diagrama * diagramaModelo, int a = 0);
 	virtual ~VistaDiagrama();
 
-	void setZoom(double z);
-
 	virtual VistaDiagrama* crearDiagramaHijo(string nombre);
-	int getAlto();
-	int getAncho();
 
 	void agregarComponente(VistaComponente *componente);
 	void quitarComponente(VistaComponente *componente);
@@ -157,6 +153,25 @@ public:
 
 	std::string getNombre() const;
 
+	//*****     MODELO     *****//
+	int getAlto();
+	int getAncho();
+
+	VistaEntidadNueva * obtenerVistaEntidadNuevabyCodigo(int codigo);
+	VistaEntidad * obtenerVistaEntidadbyCodigo(int codigo);
+
+	Diagrama * getDiagrama();
+	void setDiagramaAncestro(VistaDiagrama *);
+	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,
+			std::string & nombreDiagramaAncestro);
+
+	//*****     GRAFICOS     *****//
+	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context);
+	void aumentarZoom();
+	void disminuirZoom();
+	void restablecerZoom();
+
+	//*****     Iteradores     *****//
 	std::vector<VistaComponente*>::iterator componentesBegin();
 	std::vector<VistaComponente*>::iterator componentesEnd();
 	std::vector<VistaDiagrama*>::iterator vdiagramasBegin();
@@ -173,25 +188,14 @@ public:
 	std::vector<VistaUnionEntidadRelacion*>::iterator vUnionEntidadRelacionBegin();
 	std::vector<VistaUnionEntidadRelacion*>::iterator vUnionEntidadRelacionEnd();
 
-	VistaEntidadNueva * obtenerVistaEntidadNuevabyCodigo(int codigo);
-	VistaEntidad * obtenerVistaEntidadbyCodigo(int codigo);
-
-	Diagrama * getDiagrama();
-	void setDiagramaAncestro(VistaDiagrama *);
-	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,
-			std::string & nombreDiagramaAncestro);
-
-	// PERSISTENCIA REP
+	//*****     PERSISTENCIA REP     *****//
 	bool isOpenXmlREP() const;
 	// CARGAR
 	void abrirXml(const std::string& path);
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
 
-	void aumentarZoom();
-	void disminuirZoom();
-
-	// TEST
+	//*****     TEST     *****//
 	void test_1_builder();
 	void test_2_builder();
 	void test_3_builder();

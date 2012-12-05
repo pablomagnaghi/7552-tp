@@ -3,6 +3,9 @@
 
 #include "../vista/Ide.h"
 #include "gtkmm.h"
+#include "../vista/ImpresionDiagrama.h"
+
+class Ide;
 
 class ControladorMenu {
 private:
@@ -11,6 +14,7 @@ private:
 	Gtk::MenuItem * botonArchivoAbrir;
 	Gtk::MenuItem * botonArchivoGuardar;
 	Gtk::MenuItem * botonArchivoGuardarComo;
+	Gtk::MenuItem * botonArchivoConfigurarPagina;
 	Gtk::MenuItem * botonArchivoImprimir;
 	Gtk::MenuItem * botonArchivoExportar;
 	Gtk::MenuItem * botonArchivoSalir;
@@ -24,10 +28,14 @@ private:
 
 	Gtk::MenuItem * botonAyudaAcercaDe;
 
+	Glib::RefPtr<Gtk::PageSetup> m_refPageSetup;
+	Glib::RefPtr<Gtk::PrintSettings> m_refSettings;
+
 	void on_menu_Archivo_Nuevo_click();
 	void on_menu_Archivo_Abrir_click();
 	void on_menu_Archivo_Guardar_click();
 	void on_menu_Archivo_GuardarComo_click();
+	void on_menu_Archivo_Configurar_Pagina_click();
 	void on_menu_Archivo_Imprimir_click();
 	void on_menu_Archivo_Exportar_click();
 	void on_menu_Archivo_Cerrar_click();
@@ -41,6 +49,9 @@ private:
 	void on_menu_Ver_Zoom_Menos_click();
 
 	void on_menu_Ayuda_AcercaDe_click();
+
+	void on_finalizacion_impresion(Gtk::PrintOperationResult result,
+			const Glib::RefPtr<ImpresionDiagrama>& operation);
 
 	void enlazar_botones_de_menu(const Glib::RefPtr<Gtk::Builder>& builder);
 public:

@@ -92,6 +92,10 @@ void ControladorPanelHerramientas::on_boton_Reducir_Zoom_click() {
 	Ide::getInstance()->getDiagActual()->disminuirZoom();
 }
 
+void ControladorPanelHerramientas::on_boton_Restablecer_Zoom_click(){
+	Ide::getInstance()->getDiagActual()->restablecerZoom();
+}
+
 void ControladorPanelHerramientas::enlazar_botones_de_menu(
 		const Glib::RefPtr<Gtk::Builder>& builder) {
 	builder->get_widget("TBAgregarEntidad", botonAgregarEntidad);
@@ -115,6 +119,9 @@ void ControladorPanelHerramientas::enlazar_botones_de_menu(
 	builder->get_widget("TBZoom-", botonReducirZoom);
 	botonReducirZoom->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Reducir_Zoom_click));
+	builder->get_widget("TBZoomNormal", botonRestablecerZoom);
+	botonRestablecerZoom->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Restablecer_Zoom_click));
 }
 
 void ControladorPanelHerramientas::activarBotones() {
