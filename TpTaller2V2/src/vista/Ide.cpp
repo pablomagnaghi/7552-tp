@@ -186,6 +186,7 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 	this->contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
 	this->contenedorDiag->put(*diagrama, 0, 0);
 	diagramaActual = diagrama;
+	diagrama->set_parent(*this->contenedorDiag);
 
 	//diagrama->show();
 	this->contenedorDiag->show_all();

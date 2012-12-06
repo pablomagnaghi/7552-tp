@@ -170,6 +170,7 @@ public:
 	void aumentarZoom();
 	void disminuirZoom();
 	void restablecerZoom();
+	void getDimensionesDelDiagrama(double &offset_x, double& offset_y, double& ancho, double& alto);
 
 	//*****     Iteradores     *****//
 	std::vector<VistaComponente*>::iterator componentesBegin();
