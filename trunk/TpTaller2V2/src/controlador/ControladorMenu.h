@@ -15,6 +15,7 @@ private:
 	Gtk::MenuItem * botonArchivoGuardar;
 	Gtk::MenuItem * botonArchivoGuardarComo;
 	Gtk::MenuItem * botonArchivoConfigurarPagina;
+	Gtk::MenuItem * botonArchivoVistaPreviaImpresion;
 	Gtk::MenuItem * botonArchivoImprimir;
 	Gtk::MenuItem * botonArchivoExportar;
 	Gtk::MenuItem * botonArchivoSalir;
@@ -36,6 +37,7 @@ private:
 	void on_menu_Archivo_Guardar_click();
 	void on_menu_Archivo_GuardarComo_click();
 	void on_menu_Archivo_Configurar_Pagina_click();
+	void on_menu_Archivo_Vista_Previa_Impresion_click();
 	void on_menu_Archivo_Imprimir_click();
 	void on_menu_Archivo_Exportar_click();
 	void on_menu_Archivo_Cerrar_click();
@@ -54,6 +56,8 @@ private:
 			const Glib::RefPtr<ImpresionDiagrama>& operation);
 
 	void enlazar_botones_de_menu(const Glib::RefPtr<Gtk::Builder>& builder);
+
+	void print_or_preview(Gtk::PrintOperationAction print_action);
 public:
 	ControladorMenu(const Glib::RefPtr<Gtk::Builder>& builder);
 	virtual ~ControladorMenu();

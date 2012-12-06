@@ -15,8 +15,10 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	this->diagrama = diagramaModelo;
 	this->zoom = ZOOM_DEFECTO;
-	this->ancho = A4_ALTO * zoom;
-	this->alto = A4_ANCHO * zoom;
+	this->ancho = 800;
+	this->alto = 600;
+
+	//this->get_parent()->get_size_request(this->ancho,this->alto);
 
 	this->set_size_request(this->ancho, this->alto);
 
@@ -726,8 +728,7 @@ void VistaDiagrama::configurar_drag_and_drop() {
 	//		&VistaDiagrama::drag_data_get));
 	//this->signal_drag_drop().connect(sigc::mem_fun(*this,
 	//		&VistaDiagrama::drag_drop));
-	//this->signal_drag_end().connect(sigc::mem_fun(*this,
-	//		&VistaDiagrama::drag_end));
+	this->signal_drag_end().connect(sigc::mem_fun(*this, &VistaDiagrama::drag_end));
 	//this->signal_drag_failed().connect(sigc::mem_fun(*this,
 	//		&VistaDiagrama::drag_failed));
 	//this->signal_drag_leave().connect(sigc::mem_fun(*this,
@@ -758,12 +759,16 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, g
 		gint y_actual, guint timestamp) {
 
 	std::vector<VistaComponente *>::iterator componenteSeleccionado;
+	//double x0, y0;
 
 	if (!this->estaRedimensionandoElemento) {
 		for (componenteSeleccionado = componentes_seleccionados.begin();
 				componenteSeleccionado != componentes_seleccionados.end();
 				componenteSeleccionado++) {
+			//(*componenteSeleccionado)->getposini(x0, y0);
+			//if (x0 > 1 && y0 > 1) {
 			(*componenteSeleccionado)->mover(x_actual / this->zoom, y_actual / this->zoom);
+			//}
 			//(*componenteSeleccionado)->setposini(x_actual, y_actual);
 			//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
 		}
@@ -774,7 +779,9 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, g
 		this->componentes_seleccionados[0]->redimensionar(x_actual / this->zoom,
 				y_actual / this->zoom);
 		//context->drag_finish(true, true, timestamp);
+#ifdef DEBUG
 		cout << "Redimensionando X= " << x_actual << " Y= " << y_actual << endl;
+#endif
 	}
 
 	this->queue_draw();
@@ -801,6 +808,25 @@ bool VistaDiagrama::drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, int
 }
 
 void VistaDiagrama::drag_end(const Glib::RefPtr<Gdk::DragContext>&context) {
+	double x1, y1;
+	bool cambio = false;
+	std::vector<VistaComponente *>::iterator componenteSeleccionado;
+	for (componenteSeleccionado = componentes_seleccionados.begin();
+			componenteSeleccionado != componentes_seleccionados.end(); ++componenteSeleccionado) {
+		(*componenteSeleccionado)->getposfin(x1, y1);
+		if (x1 + 20 > this->ancho / this->zoom) {
+			this->ancho = (x1 + 80) * this->zoom;
+			cambio = true;
+		}
+		if (y1 + 20 > this->alto / this->zoom) {
+			this->alto = (y1 + 80) * this->zoom;
+			cambio = true;
+		}
+	}
+	if (cambio) {
+		this->set_size_request(this->ancho, this->alto);
+		this->get_parent()->set_size_request(this->ancho, this->alto);
+	}
 	cout << "DRAG_END" << endl;
 }
 
@@ -1304,6 +1330,8 @@ void VistaDiagrama::restablecerZoom() {
 	this->alto /= this->zoom;
 	this->ancho /= this->zoom;
 	this->zoom = 1;
+	this->set_size_request(this->ancho, this->alto);
+	this->get_parent()->set_size_request(this->ancho, this->alto);
 #ifdef DEBUG
 	std::cout << "Zoom: " << this->zoom << std::endl;
 #endif
@@ -1316,8 +1344,12 @@ void VistaDiagrama::aumentarZoom() {
 	this->zoom += VistaDiagrama::paso_zoom;
 	this->alto *= this->zoom;
 	this->ancho *= this->zoom;
+	this->set_size_request(this->ancho, this->alto);
+	this->get_parent()->set_size_request(this->ancho, this->alto);
+
 #ifdef DEBUG
 	std::cout << "Zoom: " << this->zoom << std::endl;
+	std::cout << "Ancho: " << this->ancho << " Alto: " << this->alto << std::endl;
 #endif
 	this->queue_draw();
 }
@@ -1329,6 +1361,8 @@ void VistaDiagrama::disminuirZoom() {
 		this->zoom -= VistaDiagrama::paso_zoom;
 		this->alto *= this->zoom;
 		this->ancho *= this->zoom;
+		this->set_size_request(this->ancho, this->alto);
+		this->get_parent()->set_size_request(this->ancho, this->alto);
 #ifdef DEBUG
 		std::cout << "Zoom: " << this->zoom << std::endl;
 #endif
@@ -1336,3 +1370,47 @@ void VistaDiagrama::disminuirZoom() {
 	this->queue_draw();
 }
 
+void VistaDiagrama::getDimensionesDelDiagrama(double &offset_x, double& offset_y, double& ancho,
+		double& alto) {
+	std::vector<VistaComponente *>::iterator i;
+	double x0, y0, x1, y1;
+	double xc0, yc0, xc1, yc1;
+	x0 = this->ancho;
+	x1 = 0;
+	y0 = this->alto;
+	y1 = 0;
+
+	if (!componentes.empty()) {
+		for (i = this->componentes.begin(); i != this->componentes.end(); i++) {
+			(*i)->getposini(xc0, yc0);
+			(*i)->getposfin(xc1, yc1);
+			if (xc0 < x0) {
+				x0 = xc0;
+			}
+			if (yc0 < y0) {
+				y0 = yc0;
+			}
+			if (xc1 > x1) {
+				x1 = xc1;
+			}
+			if (yc1 > y1) {
+				y1 = yc1;
+			}
+		}
+		offset_x = x0;
+		offset_y = y0;
+		ancho = x1 - x0;
+		alto = y1 - y0;
+	} else {
+		offset_x = 0;
+		offset_y = 0;
+		ancho = 0;
+		alto = 0;
+	}
+#ifdef DEBUG
+	std::cout << "Offset (" << offset_x << ":" << offset_y << ") ";
+	std::cout << "Dimensiones (" << ancho << ":" << alto << ") " << std::endl;
+#endif
+
+
+}

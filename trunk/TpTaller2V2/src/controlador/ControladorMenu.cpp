@@ -18,6 +18,7 @@ ControladorMenu::ControladorMenu(const Glib::RefPtr<Gtk::Builder> & builder) {
 	this->botonArchivoGuardarComo->set_sensitive(false);
 	this->botonArchivoImprimir->set_sensitive(false);
 	this->botonArchivoExportar->set_sensitive(false);
+	this->botonArchivoVistaPreviaImpresion->set_sensitive(false);
 
 	m_refPageSetup = Gtk::PageSetup::create();
 	m_refSettings = Gtk::PrintSettings::create();
@@ -43,6 +44,9 @@ void ControladorMenu::enlazar_botones_de_menu(const Glib::RefPtr<Gtk::Builder>& 
 	builder->get_widget("MAConfigurarPagina", botonArchivoConfigurarPagina);
 	botonArchivoConfigurarPagina->signal_activate().connect(
 			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Configurar_Pagina_click));
+	builder->get_widget("MAVistaPrevia", botonArchivoVistaPreviaImpresion);
+	botonArchivoVistaPreviaImpresion->signal_activate().connect(
+			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Vista_Previa_Impresion_click));
 	builder->get_widget("MAImprimir", botonArchivoImprimir);
 	botonArchivoImprimir->signal_activate().connect(
 			sigc::mem_fun(*this, &ControladorMenu::on_menu_Archivo_Imprimir_click));
@@ -73,6 +77,7 @@ void ControladorMenu::on_menu_Archivo_Nuevo_click() {
 		this->botonArchivoGuardarComo->set_sensitive(true);
 		this->botonArchivoImprimir->set_sensitive(true);
 		this->botonArchivoExportar->set_sensitive(true);
+		this->botonArchivoVistaPreviaImpresion->set_sensitive(true);
 	}
 
 }
@@ -86,6 +91,7 @@ void ControladorMenu::on_menu_Archivo_Abrir_click() {
 		this->botonArchivoGuardarComo->set_sensitive(true);
 		this->botonArchivoImprimir->set_sensitive(true);
 		this->botonArchivoExportar->set_sensitive(true);
+		this->botonArchivoVistaPreviaImpresion->set_sensitive(true);
 	}
 }
 
@@ -118,11 +124,20 @@ void ControladorMenu::on_menu_Archivo_Configurar_Pagina_click() {
 	m_refPageSetup = new_page_setup;
 }
 
+void ControladorMenu::on_menu_Archivo_Vista_Previa_Impresion_click() {
+	print_or_preview(Gtk::PRINT_OPERATION_ACTION_PREVIEW);
+}
+
 void ControladorMenu::on_menu_Archivo_Imprimir_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Imprimir" << endl;
 #endif
-	Gtk::PrintOperationAction print_action;
+
+	print_or_preview(Gtk::PRINT_OPERATION_ACTION_PRINT_DIALOG);
+
+}
+
+void ControladorMenu::print_or_preview(Gtk::PrintOperationAction print_action) {
 	Glib::RefPtr<ImpresionDiagrama> print = ImpresionDiagrama::create();
 	print->set_diagrama(*Ide::getInstance()->getDiagActual());
 	print->set_track_print_status();
@@ -134,15 +149,13 @@ void ControladorMenu::on_menu_Archivo_Imprimir_click() {
 
 	//print->run(Gtk::PRINT_OPERATION_ACTION_PREVIEW, *Ide::getInstance());
 
-	print_action = Gtk::PRINT_OPERATION_ACTION_PREVIEW;
-
 #ifdef GLIBMM_EXCEPTIONS_ENABLED
 	try {
 		Gtk::PrintOperationResult result = print->run(print_action /* print or preview */,
 				*Ide::getInstance());
-		if(result == Gtk::PRINT_OPERATION_RESULT_APPLY){
+		if (result == Gtk::PRINT_OPERATION_RESULT_APPLY) {
 			std::cout << "Apply" << std::endl;
-		} else if(result == Gtk::PRINT_OPERATION_RESULT_ERROR){
+		} else if (result == Gtk::PRINT_OPERATION_RESULT_ERROR) {
 			std::cout << "Error" << std::endl;
 		}
 	} catch (const Gtk::PrintError& ex) {
@@ -198,6 +211,7 @@ void ControladorMenu::on_menu_Archivo_Cerrar_click() {
 		this->botonArchivoGuardarComo->set_sensitive(false);
 		this->botonArchivoImprimir->set_sensitive(false);
 		this->botonArchivoExportar->set_sensitive(false);
+		this->botonArchivoVistaPreviaImpresion->set_sensitive(false);
 	}
 #ifdef DEBUG
 	cout << "Menu Archivo Cerrar" << endl;

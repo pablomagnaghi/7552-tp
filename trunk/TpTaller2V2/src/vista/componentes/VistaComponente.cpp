@@ -48,9 +48,9 @@ void VistaComponente::setposfin(double x, double y) {
 	this->pos_fin_y = y;
 }
 
-void VistaComponente::getposcentro(double &x, double&y) const{
-	x = (this->pos_ini_x + this->pos_fin_x)/2;
-	y = (this->pos_ini_y + this->pos_fin_y)/2;
+void VistaComponente::getposcentro(double &x, double&y) const {
+	x = (this->pos_ini_x + this->pos_fin_x) / 2;
+	y = (this->pos_ini_y + this->pos_fin_y) / 2;
 }
 
 void VistaComponente::setDibujable(bool d) {
@@ -63,12 +63,19 @@ bool VistaComponente::getDibujable() {
 
 void VistaComponente::mover(double x, double y) {
 	double ancho, alto;
+	double pos_x_final, pos_y_final;
 	ancho = this->pos_fin_x - this->pos_ini_x;
 	alto = this->pos_fin_y - this->pos_ini_y;
-	this->pos_ini_x = x - this->pos_selec_x;
-	this->pos_fin_x = this->pos_ini_x + ancho;
+	pos_x_final = x - this->pos_selec_x;
+	pos_y_final = y - this->pos_selec_y;
+	if (pos_x_final > 0) {
+		this->pos_ini_x = pos_x_final;
+		this->pos_fin_x = this->pos_ini_x + ancho;
+	}
+	if (pos_y_final > 0) {
 	this->pos_ini_y = y - this->pos_selec_y;
 	this->pos_fin_y = this->pos_ini_y + alto;
+	}
 }
 
 void VistaComponente::seleccionar(double x, double y) {
@@ -157,10 +164,10 @@ void VistaComponente::crear_menu(Glib::RefPtr<Gtk::UIManager> & manager) {
 
 	//Layout the actions in a menubar and toolbar:
 	Glib::ustring ui_info = "<ui>"
-		"  <popup name='PopupMenu'>"
-		"    <menuitem action='ContextPropiedades'/>"
-		"  </popup>"
-		"</ui>";
+			"  <popup name='PopupMenu'>"
+			"    <menuitem action='ContextPropiedades'/>"
+			"  </popup>"
+			"</ui>";
 	try {
 		manager->add_ui_from_string(ui_info);
 
@@ -176,8 +183,7 @@ void VistaComponente::lanzarMenuPopUp(GdkEventButton* event) {
 
 	this->crear_menu(userInterfaceManager);
 
-	m_pMenuPopup = dynamic_cast<Gtk::Menu*> (userInterfaceManager->get_widget(
-			"/PopupMenu"));
+	m_pMenuPopup = dynamic_cast<Gtk::Menu*>(userInterfaceManager->get_widget("/PopupMenu"));
 	if (!m_pMenuPopup)
 		g_warning("menu not found");
 	else
@@ -189,7 +195,7 @@ void VistaComponente::on_popup_boton_propiedades() {
 	this->lanzarProp();
 }
 
-bool  VistaComponente::estaSeleccionado(){
+bool VistaComponente::estaSeleccionado() {
 	return this->seleccionado;
 }
 
@@ -202,7 +208,6 @@ int VistaComponente::getCodigoREP() {
 void VistaComponente::setCodigoREP(int codigoREP) {
 	this->codigoREP = codigoREP;
 }
-
 
 // CARGAR
 

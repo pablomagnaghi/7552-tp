@@ -35,12 +35,15 @@ int aplicacion_principal(int argc, char *argv[]) {
 
 	menu = new ControladorMenu(builder);
 	menu->setIde(ide);
+	try {
+		if (ide) {
+			//Start:
+			Gtk::Main::run(*ide);
+		}
 
-	if (ide) {
-		//Start:
-		Gtk::Main::run(*ide);
+	} catch (std::exception & ex) {
+		std::cerr << ex.what() << std::endl;
 	}
-
 	delete ide;
 
 	return 0;
