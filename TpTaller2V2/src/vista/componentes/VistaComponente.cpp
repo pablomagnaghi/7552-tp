@@ -53,6 +53,11 @@ void VistaComponente::getposcentro(double &x, double&y) const {
 	y = (this->pos_ini_y + this->pos_fin_y) / 2;
 }
 
+void VistaComponente::getposseleccion(double &x, double &y) const {
+	x = this->pos_selec_x;
+	y = this->pos_selec_y;
+}
+
 void VistaComponente::setDibujable(bool d) {
 	this->dibujable = d;
 }
@@ -73,8 +78,8 @@ void VistaComponente::mover(double x, double y) {
 		this->pos_fin_x = this->pos_ini_x + ancho;
 	}
 	if (pos_y_final > 0) {
-	this->pos_ini_y = y - this->pos_selec_y;
-	this->pos_fin_y = this->pos_ini_y + alto;
+		this->pos_ini_y = y - this->pos_selec_y;
+		this->pos_fin_y = this->pos_ini_y + alto;
 	}
 }
 
