@@ -34,7 +34,7 @@ void ImpresionDiagrama::on_draw_page(const Glib::RefPtr<Gtk::PrintContext>& prin
 	double ancho_diagrama, alto_diagrama;
 	double offset_x, offset_y;
 	double traslacion_x = 0, traslacion_y = 0;
-	double zoom = 1, rotacion = 0;
+	double zoom = 1.4, rotacion = 0;
 
 	diagrama->getDimensionesDelDiagrama(offset_x, offset_y, ancho_diagrama, alto_diagrama);
 
@@ -44,25 +44,31 @@ void ImpresionDiagrama::on_draw_page(const Glib::RefPtr<Gtk::PrintContext>& prin
 	std::cout << "on_draw_page" << endl;
 	Cairo::RefPtr<Cairo::Context> cairo_ctx = print_context->get_cairo_context();
 
-	cairo_ctx->set_source_rgb(0, 1, 0);
-	cairo_ctx->move_to(this->context_width / 2, this->context_height / 2);
-	cairo_ctx->arc(this->context_width / 2, this->context_height / 2, 3, 0, 2 * M_PI);
-	cairo_ctx->fill();
+	/*cairo_ctx->set_source_rgb(0, 1, 0);
+	 cairo_ctx->move_to(this->context_width / 2, this->context_height / 2);
+	 cairo_ctx->arc(this->context_width / 2, this->context_height / 2, 3, 0, 2 * M_PI);
+	 cairo_ctx->fill();
+	 cairo_ctx->move_to(0, 0);
+	 cairo_ctx->rectangle(0, 0, this->context_width, this->context_height);
+	 cairo_ctx->stroke();*/
 
-	cairo_ctx->translate(traslacion_x + 100, traslacion_y);
+	cairo_ctx->translate(traslacion_x, traslacion_y);
 	cairo_ctx->rotate_degrees(rotacion);
 	cairo_ctx->scale(zoom, zoom);
 
-	diagrama->dibujarComponentes(cairo_ctx);
+	diagrama->dibujarComponentes(cairo_ctx, false);
 
-	cairo_ctx->set_source_rgb(1, 0, 0);
-	cairo_ctx->move_to(offset_x, offset_y);
-	cairo_ctx->arc(offset_x, offset_y, 3 / zoom, 0, 2 * M_PI);
-	cairo_ctx->fill();
-	cairo_ctx->move_to(offset_x + ancho_diagrama / 2, offset_y + alto_diagrama / 2);
-	cairo_ctx->arc(offset_x + ancho_diagrama / 2, offset_y + alto_diagrama / 2, 3 / zoom, 0,
-			2 * M_PI);
-	cairo_ctx->fill();
+	/*cairo_ctx->set_source_rgb(1, 0, 0);
+	 cairo_ctx->move_to(offset_x, offset_y);
+	 cairo_ctx->arc(offset_x, offset_y, 3 / zoom, 0, 2 * M_PI);
+	 cairo_ctx->fill();
+	 cairo_ctx->move_to(offset_x + ancho_diagrama / 2, offset_y + alto_diagrama / 2);
+	 cairo_ctx->arc(offset_x + ancho_diagrama / 2, offset_y + alto_diagrama / 2, 3 / zoom, 0,
+	 2 * M_PI);
+	 cairo_ctx->fill();
+	 cairo_ctx->move_to(offset_x, offset_y);
+	 cairo_ctx->rectangle(offset_x, offset_y, ancho_diagrama, alto_diagrama);
+	 cairo_ctx->stroke();*/
 
 	std::cout << "on_draw_page" << endl;
 }
@@ -71,8 +77,6 @@ void ImpresionDiagrama::calcular_ajuste_del_diagrama(double offset_x, double off
 		double ancho_diagrama, double alto_diagrama, double & rotacion, double & zoom,
 		double & traslacion_x, double & traslacion_y) {
 	double aux;
-	double centro_x, centro_y;
-	double margen_x = 20, margen_y = 20;
 
 	if (this->context_width > this->context_height) {
 		if (ancho_diagrama > alto_diagrama) {
@@ -88,23 +92,32 @@ void ImpresionDiagrama::calcular_ajuste_del_diagrama(double offset_x, double off
 		}
 	}
 
-	zoom = (this->context_width - margen_x) / ancho_diagrama;
-	aux = (this->context_height - margen_y) / alto_diagrama;
+	if (rotacion == 0) {
+		zoom = (this->context_width) / ancho_diagrama;
+		aux = (this->context_height) / alto_diagrama;
+
+	} else {
+		zoom = (this->context_height) / ancho_diagrama;
+		aux = (this->context_width) / alto_diagrama;
+	}
+
+#ifdef DEBUG
+	std::cout << "ZoomH=" << zoom;
+	std::cout << " ZoomV= " << aux << std::endl;
+#endif
 
 	if (aux < zoom) {
 		zoom = aux;
 	}
 
-	/*if (zoom > 2) {
-	 zoom = 2;
-	 }*/
+	zoom *= 0.95;
 
 	if (rotacion == 0) {
-		traslacion_x = margen_x / 2 - offset_x * zoom;
-		traslacion_y = this->context_height / 2 + (-alto_diagrama / 2 - offset_y) * zoom;
+		traslacion_x = this->context_width / 2 + ((-ancho_diagrama) / 2 - offset_x) * zoom;
+		traslacion_y = this->context_height / 2 + ((-alto_diagrama) / 2 - offset_y) * zoom;
 	} else {
-		traslacion_x = (this->context_width) / 2 - margen_x / zoom + (offset_y) * zoom;
-		traslacion_y = this->context_height / 2 + (-ancho_diagrama / 2 - offset_x) * zoom;
+		traslacion_x = this->context_width / 2 + ((alto_diagrama) / 2 + offset_y) * zoom;
+		traslacion_y = this->context_height / 2 + ((-ancho_diagrama) / 2 - offset_x) * zoom;
 	}
 #ifdef DEBUG
 	std::cout << "Rotacion=" << rotacion;

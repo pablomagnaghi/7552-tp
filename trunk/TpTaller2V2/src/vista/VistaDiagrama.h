@@ -166,7 +166,7 @@ public:
 			std::string & nombreDiagramaAncestro);
 
 	//*****     GRAFICOS     *****//
-	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context);
+	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context,bool dibujarSeleccionado);
 	void aumentarZoom();
 	void disminuirZoom();
 	void restablecerZoom();

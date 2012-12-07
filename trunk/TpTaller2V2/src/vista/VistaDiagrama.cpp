@@ -584,7 +584,7 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	context->paint();
 	context->scale(this->zoom, this->zoom);
 
-	this->dibujarComponentes(context);
+	this->dibujarComponentes(context, true);
 
 	//Glib::RefPtr < Pango::Layout > layout = this->create_pango_layout("Hola");
 	//	layout
@@ -595,13 +595,28 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	return true;
 }
 
-void VistaDiagrama::dibujarComponentes(Cairo::RefPtr<Cairo::Context>& context) {
-
+void VistaDiagrama::dibujarComponentes(Cairo::RefPtr<Cairo::Context>& context,
+		bool dibujarSeleccionado) {
+	double pos_x, pos_y;
 	std::vector<VistaComponente *>::iterator componenteActual;
 
-	for (componenteActual = this->componentes.begin(); componenteActual != this->componentes.end();
-			componenteActual++) {
-		(*componenteActual)->dibujar(context);
+	if (dibujarSeleccionado) {
+		for (componenteActual = this->componentes.begin();
+				componenteActual != this->componentes.end(); componenteActual++) {
+			(*componenteActual)->dibujar(context);
+		}
+	} else {
+		for (componenteActual = this->componentes.begin();
+				componenteActual != this->componentes.end(); componenteActual++) {
+			if ((*componenteActual)->estaSeleccionado()) {
+				(*componenteActual)->getposseleccion(pos_x, pos_y);
+				(*componenteActual)->deseleccionar();
+				(*componenteActual)->dibujar(context);
+				(*componenteActual)->seleccionar(pos_x, pos_y);
+			} else {
+				(*componenteActual)->dibujar(context);
+			}
+		}
 	}
 }
 
@@ -1411,6 +1426,5 @@ void VistaDiagrama::getDimensionesDelDiagrama(double &offset_x, double& offset_y
 	std::cout << "Offset (" << offset_x << ":" << offset_y << ") ";
 	std::cout << "Dimensiones (" << ancho << ":" << alto << ") " << std::endl;
 #endif
-
 
 }

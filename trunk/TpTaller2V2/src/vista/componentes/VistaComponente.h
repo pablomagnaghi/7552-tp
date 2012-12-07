@@ -64,6 +64,7 @@ public:
 	void getposfin(double&x, double&y) const;
 	virtual void setposfin(double x, double y);
 	void getposcentro(double &x, double&y) const;
+	void getposseleccion(double &x, double &y)const;
 
 	void setDibujable(bool d);
 	bool getDibujable();
