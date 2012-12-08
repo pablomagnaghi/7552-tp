@@ -201,7 +201,7 @@ void ControladorMenu::on_menu_Archivo_Exportar_click() {
 #ifdef DEBUG
 	cout << "Menu Archivo Exportar" << endl;
 #endif
-
+	Ide::getInstance()->exportar_diagrama();
 }
 
 void ControladorMenu::on_menu_Archivo_Cerrar_click() {

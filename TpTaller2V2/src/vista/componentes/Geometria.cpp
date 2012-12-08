@@ -84,17 +84,17 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 			cotaFinalInterseccion);
 
 	// Verifico si no hay interseccion
-	if (posInicialLinea1.y < cotaInicialInterseccion.y && posFinalLinea1.y
-			< cotaInicialInterseccion.y) {
+	if (posInicialLinea1.y < cotaInicialInterseccion.y
+			&& posFinalLinea1.y < cotaInicialInterseccion.y) {
 		return false;
-	} else if (posInicialLinea2.y < cotaInicialInterseccion.y && posFinalLinea2.y
-			< cotaInicialInterseccion.y) {
+	} else if (posInicialLinea2.y < cotaInicialInterseccion.y
+			&& posFinalLinea2.y < cotaInicialInterseccion.y) {
 		return false;
-	} else if (posInicialLinea1.y > cotaFinalInterseccion.y && posFinalLinea1.y
-			> cotaFinalInterseccion.y) {
+	} else if (posInicialLinea1.y > cotaFinalInterseccion.y
+			&& posFinalLinea1.y > cotaFinalInterseccion.y) {
 		return false;
-	} else if (posInicialLinea2.y > cotaFinalInterseccion.y && posFinalLinea2.y
-			> cotaFinalInterseccion.y) {
+	} else if (posInicialLinea2.y > cotaFinalInterseccion.y
+			&& posFinalLinea2.y > cotaFinalInterseccion.y) {
 		return false;
 	}
 
@@ -155,7 +155,6 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 
 	// Acoto en Y y busco los X
 	//if (posInicialLinea1.y < cotaInicialInterseccion.y) {
-
 	//}
 	return false;
 }
@@ -265,9 +264,9 @@ void Geometria::obtenerPuntosDeTriangulo(double x0, double y0, double x1, double
 
 }
 
-void Geometria::obtenerLineasParalelas(double x0, double y0, double x1, double y1,
-		double distancia, double & x2, double & y2, double & x3, double & y3, double & x4,
-		double & y4, double & x5, double & y5) {
+void Geometria::obtenerLineasParalelas(double x0, double y0, double x1, double y1, double distancia,
+		double & x2, double & y2, double & x3, double & y3, double & x4, double & y4, double & x5,
+		double & y5) {
 
 	double angulo;
 	double delta_x, delta_y;
@@ -382,8 +381,8 @@ bool Geometria::obtenerPuntoDeDibujoDeTextoCentradoEnLinea(double x0, double y0,
 	return true;
 }
 
-bool Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, double x1,
-		double y1, double w, double h, double & x, double & y) {
+bool Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, double x1, double y1,
+		double w, double h, double & x, double & y) {
 	double r;
 	double m = NAN; // MACRO DE MATH NOT A NUMBER
 	double angulo;
@@ -418,4 +417,57 @@ bool Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, d
 	return true;
 
 	return true;
+}
+
+void Geometria::calcularAjusteDiagrama(double offset_x, double offset_y, double ancho_diagrama,
+		double alto_diagrama, double & rotacion, double & zoom, double & traslacion_x,
+		double & traslacion_y, double ancho_contexto, double alto_contexto) {
+	double aux;
+
+	if (ancho_contexto > alto_contexto) {
+		if (ancho_diagrama > alto_diagrama) {
+			rotacion = 0;
+		} else {
+			rotacion = 90;
+		}
+	} else {
+		if (ancho_diagrama > alto_diagrama) {
+			rotacion = 90;
+		} else {
+			rotacion = 0;
+		}
+	}
+
+	if (rotacion == 0) {
+		zoom = ancho_contexto / ancho_diagrama;
+		aux = alto_contexto / alto_diagrama;
+
+	} else {
+		zoom = alto_contexto / ancho_diagrama;
+		aux = ancho_contexto / alto_diagrama;
+	}
+
+#if DEBUG_GEOMETRIA==1
+	std::cout << "ZoomH=" << zoom;
+	std::cout << " ZoomV= " << aux << std::endl;
+#endif
+
+	if (aux < zoom) {
+		zoom = aux;
+	}
+
+	zoom *= 0.95;
+
+	if (rotacion == 0) {
+		traslacion_x = ancho_contexto / 2 + ((-ancho_diagrama) / 2 - offset_x) * zoom;
+		traslacion_y = alto_contexto / 2 + ((-alto_diagrama) / 2 - offset_y) * zoom;
+	} else {
+		traslacion_x = ancho_contexto / 2 + ((alto_diagrama) / 2 + offset_y) * zoom;
+		traslacion_y = alto_contexto / 2 + ((-ancho_diagrama) / 2 - offset_x) * zoom;
+	}
+#if DEBUG_GEOMETRIA==1
+	std::cout << "Rotacion=" << rotacion;
+	std::cout << " Zoom= " << zoom;
+	std::cout << " Traslacion= (" << traslacion_x << ":" << traslacion_y << ")" << std::endl;
+#endif
 }
