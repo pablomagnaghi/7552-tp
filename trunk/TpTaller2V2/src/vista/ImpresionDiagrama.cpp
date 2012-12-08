@@ -1,5 +1,7 @@
 #include "ImpresionDiagrama.h"
 
+#include "componentes/Geometria.h"
+
 #include <iostream>
 using namespace std;
 
@@ -38,8 +40,8 @@ void ImpresionDiagrama::on_draw_page(const Glib::RefPtr<Gtk::PrintContext>& prin
 
 	diagrama->getDimensionesDelDiagrama(offset_x, offset_y, ancho_diagrama, alto_diagrama);
 
-	calcular_ajuste_del_diagrama(offset_x, offset_y, ancho_diagrama, alto_diagrama, rotacion, zoom,
-			traslacion_x, traslacion_y);
+	Geometria::calcularAjusteDiagrama(offset_x, offset_y, ancho_diagrama, alto_diagrama, rotacion, zoom,
+			traslacion_x, traslacion_y,this->context_width, this->context_height);
 
 	std::cout << "on_draw_page" << endl;
 	Cairo::RefPtr<Cairo::Context> cairo_ctx = print_context->get_cairo_context();
@@ -71,59 +73,6 @@ void ImpresionDiagrama::on_draw_page(const Glib::RefPtr<Gtk::PrintContext>& prin
 	 cairo_ctx->stroke();*/
 
 	std::cout << "on_draw_page" << endl;
-}
-
-void ImpresionDiagrama::calcular_ajuste_del_diagrama(double offset_x, double offset_y,
-		double ancho_diagrama, double alto_diagrama, double & rotacion, double & zoom,
-		double & traslacion_x, double & traslacion_y) {
-	double aux;
-
-	if (this->context_width > this->context_height) {
-		if (ancho_diagrama > alto_diagrama) {
-			rotacion = 0;
-		} else {
-			rotacion = 90;
-		}
-	} else {
-		if (ancho_diagrama > alto_diagrama) {
-			rotacion = 90;
-		} else {
-			rotacion = 0;
-		}
-	}
-
-	if (rotacion == 0) {
-		zoom = (this->context_width) / ancho_diagrama;
-		aux = (this->context_height) / alto_diagrama;
-
-	} else {
-		zoom = (this->context_height) / ancho_diagrama;
-		aux = (this->context_width) / alto_diagrama;
-	}
-
-#ifdef DEBUG
-	std::cout << "ZoomH=" << zoom;
-	std::cout << " ZoomV= " << aux << std::endl;
-#endif
-
-	if (aux < zoom) {
-		zoom = aux;
-	}
-
-	zoom *= 0.95;
-
-	if (rotacion == 0) {
-		traslacion_x = this->context_width / 2 + ((-ancho_diagrama) / 2 - offset_x) * zoom;
-		traslacion_y = this->context_height / 2 + ((-alto_diagrama) / 2 - offset_y) * zoom;
-	} else {
-		traslacion_x = this->context_width / 2 + ((alto_diagrama) / 2 + offset_y) * zoom;
-		traslacion_y = this->context_height / 2 + ((-ancho_diagrama) / 2 - offset_x) * zoom;
-	}
-#ifdef DEBUG
-	std::cout << "Rotacion=" << rotacion;
-	std::cout << " Zoom= " << zoom;
-	std::cout << " Traslacion= (" << traslacion_x << ":" << traslacion_y << ")" << std::endl;
-#endif
 }
 
 Gtk::Widget* ImpresionDiagrama::on_create_custom_widget() {

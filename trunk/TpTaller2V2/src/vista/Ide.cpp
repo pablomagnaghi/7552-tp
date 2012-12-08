@@ -2,6 +2,11 @@
 Ide * Ide::instancia = NULL;
 //VistaDiagrama * Ide::diagactual = NULL;
 
+#ifdef DEBUG
+#include <iostream>
+using namespace std;
+#endif
+
 Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 		Gtk::Window(cobject), m_builder(builder), treePanel(builder, this), controladorPanelHerramientas(
 				builder, static_cast<Gtk::Window *>(this)) {
@@ -222,6 +227,86 @@ bool Ide::cerrarProyecto() {
 	}
 
 	return true;
+}
+
+void Ide::exportar_diagrama() {
+	std::string filename;
+	double offset_x, offset_y, ancho_imagen, alto_imagen;
+	double margen_x = 20, margen_y = 20;
+	double ajuste_zoom;
+	std::string type;
+	// Pedir Carpeta donde se guarda el proyecto
+	Gtk::FileChooserDialog selector("Seleccione la carpeta del proyecto",
+			Gtk::FILE_CHOOSER_ACTION_SAVE);
+	selector.set_transient_for(*this);
+	selector.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+	selector.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+
+	selector.set_current_folder(Utils::getCurrentDirectory());
+
+	Gtk::FileFilter filter_png;
+	filter_png.set_name("Png files");
+	filter_png.add_pattern("*.png");
+	selector.add_filter(filter_png);
+	Gtk::FileFilter filter_jpg;
+	filter_jpg.set_name("Jpg files");
+	filter_jpg.add_pattern("*.jpg");
+	selector.add_filter(filter_jpg);
+
+	switch (selector.run()) {
+	case (Gtk::RESPONSE_OK): {
+
+		filename = selector.get_filename();
+		if (selector.get_filter() == &filter_jpg) {
+			type = "jpeg";
+			if (filename.find(".jpg", filename.length() - 4, 4) == string::npos) {
+				filename.append(".jpg");
+			}
+			//this->debugInformarValorVariable("FILTER JPG", filename);
+		}
+		if (selector.get_filter() == &filter_png) {
+			type = "png";
+			if (filename.find(".png", filename.length() - 4, 4) == string::npos) {
+				filename.append(".png");
+			}
+			//this->debugInformarValorVariable("FILTER PNG", filename);
+		}
+		break;
+	}
+	case (Gtk::RESPONSE_CANCEL): {
+		//std::cout << "Cancel clicked." << std::endl;
+		return;
+		break;
+	}
+	default: {
+		std::cout << "Unexpected button clicked." << std::endl;
+		return;
+		break;
+	}
+
+	}
+
+	this->diagramaActual->getDimensionesDelDiagrama(offset_x, offset_y, ancho_imagen, alto_imagen);
+
+	ajuste_zoom = 5;
+
+	Cairo::RefPtr<Cairo::ImageSurface> surface = Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32,
+			ancho_imagen * ajuste_zoom + margen_x, alto_imagen * ajuste_zoom + margen_y);
+
+	Cairo::RefPtr<Cairo::Context> cr = Cairo::Context::create(surface);
+	cr->set_source_rgba(1, 1, 1, 1); // white
+	cr->paint();
+	cr->translate(margen_x / 2 - offset_x * ajuste_zoom, margen_y / 2 - offset_y * ajuste_zoom);
+	cr->scale(ajuste_zoom, ajuste_zoom);
+
+	this->diagramaActual->dibujarComponentes(cr, false);
+
+	Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_data(surface->get_data(),
+			Gdk::COLORSPACE_RGB, true, 8, ancho_imagen * ajuste_zoom + margen_x,
+			alto_imagen * ajuste_zoom + margen_y, surface->get_stride());
+
+	pixbuf->save(filename, type);
+
 }
 
 void Ide::debugInformarValorVariable(const std::string & nombreVariable,

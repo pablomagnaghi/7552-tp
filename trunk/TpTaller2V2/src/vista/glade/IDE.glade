@@ -56,6 +56,11 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkSeparatorMenuItem" id="menuitem5">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="MAConfigurarPagina">
                         <property name="label">gtk-page-setup</property>
                         <property name="visible">True</property>
