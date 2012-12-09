@@ -1021,6 +1021,7 @@ VistaEntidadNueva * VistaDiagrama::obtenerVistaEntidadNuevabyCodigo(int codigo) 
 		if ((*it)->getEntidad()->getCodigo() == codigo) {
 			return (*it);
 		}
+		it++;
 	}
 
 	return NULL;
@@ -1033,6 +1034,7 @@ VistaEntidad * VistaDiagrama::obtenerVistaEntidadbyCodigo(int codigo) {
 		if ((*it)->getEntidad()->getCodigo() == codigo) {
 			return (*it);
 		}
+		it++;
 	}
 
 	return NULL;
@@ -1059,9 +1061,11 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 	Diagrama *diagrama = new Diagrama(path);
 	this->diagrama = diagrama;
 	std::string diagramaCOMP = path + EXTENSION_COMP;
+
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
 
 	// se crean las vistas de ese diagrama
+	// todo ACA HAY PROBLEMAS
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->abrirXmlREP(diagramaREP);
@@ -1070,9 +1074,12 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 }
 
 void VistaDiagrama::crearVistasDelModelo() {
+
 	this->crearVistasEntidadNueva();
 	this->crearVistasEntidadGlobal();
+
 	this->crearVistasRelacion();
+
 	this->crearVistasJerarquia();
 	this->agregarEntidadFuerteAlIdentificador();
 }
@@ -1137,6 +1144,7 @@ void VistaDiagrama::crearVistasEntidadGlobal() {
 }
 
 void VistaDiagrama::crearVistasRelacion() {
+
 	std::vector<Relacion*>::iterator itRel = this->getDiagrama()->relacionesBegin();
 	while (itRel != this->getDiagrama()->relacionesEnd()) {
 		// el builder crea la vista relacion
@@ -1144,6 +1152,7 @@ void VistaDiagrama::crearVistasRelacion() {
 				(*itRel));
 		// el builder crea las vistas de las UnionRelacion
 		std::vector<UnionEntidadRelacion*>::iterator itUER = (*itRel)->unionesAEntidadBegin();
+
 		while (itUER != (*itRel)->unionesAEntidadEnd()) {
 			VistaEntidad *vEnt = this->obtenerVistaEntidadbyCodigo(
 					(*itUER)->getEntidad()->getCodigo());
