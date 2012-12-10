@@ -8,6 +8,7 @@ VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
 
 	// Persistencia REP
 	this->codigoREP = relacionModelo->getCodigo();
+	this->prop_lanzada = false;
 }
 
 VistaRelacion::~VistaRelacion() {
@@ -16,16 +17,15 @@ VistaRelacion::~VistaRelacion() {
 }
 
 bool VistaRelacion::lanzarProp() {
-	/*if (!this->prop_lanzada) {
+	if (!this->prop_lanzada) {
 		AsistenteRelacion* nuevaProp;
 		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_RELAC);
 		nHbuilder->get_widget_derived("PropRelacion", nuevaProp);
 		nuevaProp->setRelacion(this);
-		nuevaProp->setDiagrama(Ide::getInstance()->getDiagActual());
 		this->prop_lanzada = true;
 		nuevaProp->show();
 		return true;
-	}*/
+	}
 	return false;
 }
 
@@ -333,5 +333,9 @@ std::vector<VistaAtributo*>::iterator VistaRelacion::atributosEnd() {
 
 void VistaRelacion::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
 
+}
+
+void VistaRelacion::resetearLanzarProp() {
+	this->prop_lanzada = false;
 }
 

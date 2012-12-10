@@ -1,39 +1,39 @@
 /*
- * AsistenteEntidad.cpp
+ * AsistenteRelacion.cpp
  *
  *  Created on: 30/04/2012
  *      Author: Guagnini Enzo 88325
  */
 
-#include "AsistenteEntidad.h"
+#include "AsistenteRelacion.h"
 #include "../vista/Ide.h"
 
-AsistenteEntidad * AsistenteEntidad::instancia = NULL;
+AsistenteRelacion * AsistenteRelacion::instancia = NULL;
 
-AsistenteEntidad::AsistenteEntidad(BaseObjectType* cobject,
+AsistenteRelacion::AsistenteRelacion(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& builder) :
 		Gtk::Window(cobject), m_builder(builder) {
-	this->ventidad = NULL;
-	this->enlazarWidgets();
+	/*this->ventidad = NULL;
+	this->enlazarWidgets();*/
 	this->diagramaActual = Ide::getInstance()->getDiagActual();
 }
 
-AsistenteEntidad::~AsistenteEntidad() {
+AsistenteRelacion::~AsistenteRelacion() {
 
 }
 
-void AsistenteEntidad::setEntidad(VistaEntidadNueva* ent) {
-	this->ventidad = ent;
-	this->inicializarAsistente();
+void AsistenteRelacion::setRelacion(VistaRelacion* rel) {
+	this->vrelacion = rel;
+	//this->inicializarAsistente();
 }
 
 /*
- void AsistenteEntidad::setDiagrama(VistaDiagrama* diag) {
+ void AsistenteRelacion::setDiagrama(VistaDiagrama* diag) {
  this->vdiagrama = diag;
  }*/
 
-void AsistenteEntidad::enlazarWidgets() {
-	Gtk::Button* bAceptar = 0;
+void AsistenteRelacion::enlazarWidgets() {
+	/*Gtk::Button* bAceptar = 0;
 	Gtk::Button* bCancelar = 0;
 	Gtk::Button *bAAtributo = 0, *bMAtributo = 0, *bEAtributo = 0;
 	Gtk::ScrolledWindow* scrollLista = 0;
@@ -46,16 +46,16 @@ void AsistenteEntidad::enlazarWidgets() {
 	this->m_builder->get_widget("entryNombreEntidad", entryNombreEntidad);
 
 	bAceptar->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteEntidad::on_botonAceptar_click));
+			sigc::mem_fun(*this, &AsistenteRelacion::on_botonAceptar_click));
 	bCancelar->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteEntidad::on_botonCancelar_click));
+			sigc::mem_fun(*this, &AsistenteRelacion::on_botonCancelar_click));
 	bAAtributo->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteEntidad::on_botonAgregarAtributo_click));
+			sigc::mem_fun(*this, &AsistenteRelacion::on_botonAgregarAtributo_click));
 	bMAtributo->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteEntidad::on_botonModificarAtributo_click));
+			sigc::mem_fun(*this, &AsistenteRelacion::on_botonModificarAtributo_click));
 	bEAtributo->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteEntidad::on_botonEliminarAtributo_click));
-	this->signal_hide().connect(sigc::mem_fun(*this, &AsistenteEntidad::on_about_hide));
+			sigc::mem_fun(*this, &AsistenteRelacion::on_botonEliminarAtributo_click));
+	this->signal_hide().connect(sigc::mem_fun(*this, &AsistenteRelacion::on_about_hide));
 
 	//Lista
 	this->m_builder->get_widget("scrollLista", scrollLista);
@@ -65,11 +65,11 @@ void AsistenteEntidad::enlazarWidgets() {
 	//Agrego modelo a treeview
 	this->treeView.set_model(this->refTreeModel);
 	this->treeView.append_column("Nombre", this->m_Columnas.m_col_Nombre);
-	this->treeView.show();
+	this->treeView.show();*/
 }
 
-void AsistenteEntidad::on_botonAceptar_click() {
-	string nombre = this->entryNombreEntidad->get_text();
+void AsistenteRelacion::on_botonAceptar_click() {
+	/*string nombre = this->entryNombreEntidad->get_text();
 	if (nombre == ""){
 		Gtk::MessageDialog err_dialog(*this, "Entidad sin nombre", false,
 								Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
@@ -80,17 +80,18 @@ void AsistenteEntidad::on_botonAceptar_click() {
 		this->ventidad->ajustarTamanioAlTexto();
 		this->ventidad->resetearLanzarProp();
 		this->hide();
-	}
+	}*/
 }
 
-void AsistenteEntidad::on_botonCancelar_click() {
+void AsistenteRelacion::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
-	this->ventidad->resetearLanzarProp();
+	this->vrelacion->resetearLanzarProp();
 
 	this->hide();
 }
 
-void AsistenteEntidad::on_botonAgregarAtributo_click() {
+void AsistenteRelacion::on_botonAgregarAtributo_click() {
+	/*
 	//creo el nuevo atributo
 	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(
 			this->diagramaActual, this->ventidad, NULL);
@@ -101,10 +102,11 @@ void AsistenteEntidad::on_botonAgregarAtributo_click() {
 	if (atrib->lanzarProp()) {
 	} else {
 		delete atrib;
-	}
+	}*/
 }
 
-void AsistenteEntidad::on_botonModificarAtributo_click() {
+void AsistenteRelacion::on_botonModificarAtributo_click() {
+	/*
 	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
@@ -114,10 +116,11 @@ void AsistenteEntidad::on_botonModificarAtributo_click() {
 		atrib->lanzarProp();
 	}
 
-	this->inicializarAsistente();
+	this->inicializarAsistente();*/
 }
 
-void AsistenteEntidad::on_botonEliminarAtributo_click() {
+void AsistenteRelacion::on_botonEliminarAtributo_click() {
+	/*
 	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
@@ -126,10 +129,11 @@ void AsistenteEntidad::on_botonEliminarAtributo_click() {
 		VistaAtributo *atrib = row[this->m_Columnas.m_col_Atrib_Pointer];
 		//TODO Borro el atributo Mediante El builder
 		this->refTreeModel->erase(iter);
-	}
+	}*/
 }
 
-void AsistenteEntidad::inicializarAsistente() {
+void AsistenteRelacion::inicializarAsistente() {
+	/*
 	this->entryNombreEntidad->set_text(this->ventidad->getNombre());
 	//Cargo la lista;
 	limpiarLista();
@@ -140,14 +144,14 @@ void AsistenteEntidad::inicializarAsistente() {
 		row[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
 		row[this->m_Columnas.m_col_Atrib_Pointer] = *it1;
 		it1++;
-	}
+	}*/
 }
 
-void AsistenteEntidad::limpiarLista() {
+void AsistenteRelacion::limpiarLista() {
 	this->refTreeModel->clear();
 }
 
-void AsistenteEntidad::on_about_hide() {
-	this->ventidad->resetearLanzarProp();
+void AsistenteRelacion::on_about_hide() {
+	this->vrelacion->resetearLanzarProp();
 }
 
