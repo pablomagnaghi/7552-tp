@@ -190,6 +190,7 @@ bool VistaJerarquia::obtenerInterseccionConLinea(double pos_ini_x, double pos_in
 void VistaJerarquia::agregarEntidadEspecializada(VistaEntidadNueva * hijoNuevo) {
 	//if ! esta en el vector
 	this->hijos.push_back(hijoNuevo);
+	this->jerarquia->agregarEntidadEspecializada(hijoNuevo->getEntidadNueva());
 }
 
 void VistaJerarquia::removerEntidadEspecializada(VistaEntidadNueva * entidadEliminada) {
@@ -207,6 +208,7 @@ std::vector<VistaEntidadNueva *>::iterator VistaJerarquia::entidadesEspecializad
 
 void VistaJerarquia::setEntidadPadre(VistaEntidad * vistaEntidad) {
 	this->padre = vistaEntidad;
+	this->jerarquia->setEntidadGeneral(vistaEntidad->getEntidad());
 }
 
 VistaEntidad * VistaJerarquia::getEntidadPadre() {

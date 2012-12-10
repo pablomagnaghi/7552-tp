@@ -106,6 +106,9 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaDiagrama *diagra
 
 VistaJerarquia* ComponentsBuilder::crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual,
 		Jerarquia *j) {
+	if (diagramaActual == NULL) {
+		diagramaActual = Ide::getInstance()->getDiagActual();
+	}
 	if (j == NULL) {
 		j = new Jerarquia();
 		j->setCodigo(GeneradorCodigo::getInstance()->siguienteCodigo());
