@@ -9,7 +9,7 @@
 
 class VistaAtributo: public VistaComponente {
 private:
-	std::vector<VistaAtributo*> vistaAtributos;
+	std::vector<VistaAtributo*> atributosHijos;
 	Atributo * atributo;
 	bool prop_lanzada;
 	bool esIdentificador;
@@ -69,6 +69,8 @@ public:
 	void setLinea(VistaLinea *);
 
 	void getPuntoMedioLinea(double &x, double &y);
+
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAATRIBUTO_H_ */

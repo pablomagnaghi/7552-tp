@@ -129,7 +129,6 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/vista/Interfaces"/>
 						<entry excluding="src/vista/Interfaces|Interfaces|src/vista/componentes/XmlNodo.h|src/vista/componentes/XmlNodo.cpp|src/vista/componentes/XmlNodeSet.h|src/vista/componentes/XmlNodeSet.cpp|src/vista/componentes/Xml.h|src/vista/componentes/Xml.cpp|src/vista/componentes/Exceptions.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>

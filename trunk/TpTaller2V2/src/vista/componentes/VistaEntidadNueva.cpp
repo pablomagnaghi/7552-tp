@@ -328,3 +328,7 @@ EntidadNueva * VistaEntidadNueva::getEntidadNueva() {
 	return this->entidad;
 }
 
+void VistaEntidadNueva::eliminarComponentesAdyacentes(
+		std::vector<VistaComponente *> & componentes) {
+
+}

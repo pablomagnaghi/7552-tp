@@ -40,6 +40,8 @@ public:
 	bool quitarAtributo(VistaAtributo* atrib);
 	std::vector<VistaAtributo*>::iterator atributosBegin();
 	std::vector<VistaAtributo*>::iterator atributosEnd();
+
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTARELACION_H_ */

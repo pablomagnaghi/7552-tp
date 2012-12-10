@@ -127,3 +127,7 @@ std::string VistaLinea::getTexto() {
 
 void VistaLinea::setNombre(const std::string & nombre) {
 }
+
+void VistaLinea::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+
+}

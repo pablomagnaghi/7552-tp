@@ -331,3 +331,7 @@ std::vector<VistaAtributo*>::iterator VistaRelacion::atributosEnd() {
 	return this->vistaAtributos.end();
 }
 
+void VistaRelacion::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+
+}
+

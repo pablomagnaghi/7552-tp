@@ -50,6 +50,8 @@ public:
 	void getPuntoMedioLinea(double&, double &);
 
 	UnionEntidadRelacion * getUnion();
+
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAUNIONENTIDADRELACION_H_ */

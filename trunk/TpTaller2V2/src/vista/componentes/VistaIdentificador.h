@@ -63,6 +63,8 @@ public:
 	virtual void setNombre(const std::string &);
 
 	Identificador * getIdentificador();
+
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAIDENTIFICADOR_H_ */

@@ -368,3 +368,7 @@ Identificador * VistaIdentificador::getIdentificador(){
 
 void VistaIdentificador::setNombre(const std::string & nombre) {
 }
+
+void VistaIdentificador::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+
+}

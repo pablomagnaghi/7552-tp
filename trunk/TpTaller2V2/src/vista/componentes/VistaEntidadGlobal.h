@@ -40,6 +40,8 @@ public:
 	virtual std::string getNombre() const;
 
 	virtual Entidad * getEntidad();
+
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAENTIDADGLOBAL_H_ */

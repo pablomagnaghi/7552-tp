@@ -46,6 +46,8 @@ public:
 	VistaEntidad * getEntidadPadre();
 
 	Jerarquia * getJerarquia();
+
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAJERARQUIA_H_ */

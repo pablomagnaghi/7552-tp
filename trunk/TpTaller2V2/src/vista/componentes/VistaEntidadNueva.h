@@ -61,6 +61,8 @@ public:
 
 	virtual Entidad * getEntidad();
 	EntidadNueva * getEntidadNueva();
+
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAENTIDADNUEVA_H_ */

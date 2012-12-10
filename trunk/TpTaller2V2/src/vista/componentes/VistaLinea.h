@@ -51,6 +51,8 @@ public:
 	void setTexto(const std::string &);
 	std::string getTexto();
 
+	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
+
 };
 
 #endif /* VISTALINEA_H_ */

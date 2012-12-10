@@ -247,3 +247,7 @@ void VistaEntidadGlobal::redimensionar(double x, double y) {
 Entidad * VistaEntidadGlobal::getEntidad(){
 	return this->entidad;
 }
+
+void VistaEntidadGlobal::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+
+}
