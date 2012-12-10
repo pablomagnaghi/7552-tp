@@ -169,6 +169,7 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 		err_dialog.run();
 	}
 	if (musthide==true){
+		this->vjerarquia->resetearLanzarProp();
 		this->hide();
 	}
 }

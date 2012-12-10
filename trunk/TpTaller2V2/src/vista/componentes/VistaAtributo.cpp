@@ -24,7 +24,11 @@ bool VistaAtributo::lanzarProp() {
 		nHbuilder->get_widget_derived("PropAtributo", nuevaProp);
 		nuevaProp->setAtributo(this);
 		this->prop_lanzada = true;
+		try {
 		nuevaProp->show();
+		}catch(int e){
+			cout<<"ERROR"<<endl;
+		}
 		return true;
 	}
 	return false;

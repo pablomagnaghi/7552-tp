@@ -52,7 +52,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
 	cout << "Agregar Relacion" << endl;
 #endif
 	VistaRelacion * nuevaRelacion = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(
-			Ide::getInstance()->getDiagActual());
+			Ide::getInstance()->getDiagActual(),NULL);
 
 	if (nuevaRelacion->lanzarProp()) {
 

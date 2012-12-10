@@ -1,7 +1,7 @@
 #ifndef VISTARELACION_H_
 #define VISTARELACION_H_
 #include "../../modelo/componentes/Relacion.h"
-//#include "../../controlador/AsistenteRelacion.h"
+#include "../../controlador/AsistenteRelacion.h"
 #include "VistaComponente.h"
 #include "VistaAtributo.h"
 
@@ -12,6 +12,7 @@ private:
 
 	Relacion * relacion;
 	std::vector<VistaAtributo * >vistaAtributos;
+	bool prop_lanzada;
 
 	void dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr);
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
@@ -19,6 +20,7 @@ private:
 public:
 	VistaRelacion(Relacion * relacionModelo);
 	virtual ~VistaRelacion();
+	void resetearLanzarProp();
 
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
 	virtual bool lanzarProp();
