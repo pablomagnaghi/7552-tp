@@ -98,10 +98,13 @@ void AsistenteJerarquia::llenarComboBox(){
 	std::vector<VistaEntidadNueva *>::iterator it1 =  this->diagrama->vEntidadesBegin();
 	std::vector<VistaEntidadNueva *>::iterator it2 =  this->diagrama->vEntidadesEnd();
 	while (it1 != it2){
-		Gtk::TreeModel::Row row = *(this->refTreeModelCombo->append());
-		row[this->m_ColumnasCombo.m_col_Nombre] = (*it1)->getNombre();
-		row[this->m_ColumnasCombo.m_col_vEnt_Pointer] = *it1;
-		it1++;
+		//Veo que la entidad ya no tenga
+		if ((*it1)->getEntidad()->getJerarquiaHija()!=NULL){
+			Gtk::TreeModel::Row row = *(this->refTreeModelCombo->append());
+			row[this->m_ColumnasCombo.m_col_Nombre] = (*it1)->getNombre();
+			row[this->m_ColumnasCombo.m_col_vEnt_Pointer] = *it1;
+			it1++;
+		}
 	}
 }
 
@@ -130,6 +133,7 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 			Gtk::TreeModel::Row row = *iter;
 			entidadPadre = row[this->m_ColumnasCombo.m_col_vEnt_Pointer];
 			this->vjerarquia->setEntidadPadre(entidadPadre);
+			entidadPadre->getEntidad()->setJerarquiaHija(this->vjerarquia->getJerarquia());
 			//Ahora seteo las entidades hijas
 			typedef Gtk::TreeModel::Children type_children;
 			type_children children = this->refTreeModel->children();
@@ -141,6 +145,7 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 				if (row[this->m_Columnas.m_col_selected] == true) {
 					entidad = row[this->m_Columnas.m_col_vEnt_Pointer];
 					this->vjerarquia->agregarEntidadEspecializada(entidad);
+					entidad->getEntidadNueva()->agregarJerarquiaPadre(this->vjerarquia->getJerarquia());
 				}
 				iter++;
 			}
