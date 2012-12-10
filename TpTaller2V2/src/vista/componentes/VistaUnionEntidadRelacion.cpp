@@ -158,3 +158,8 @@ void VistaUnionEntidadRelacion::setNombre(const std::string & nombre) {
 UnionEntidadRelacion * VistaUnionEntidadRelacion::getUnion(){
 	return this->unionModelo;
 }
+
+
+void VistaUnionEntidadRelacion::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+
+}

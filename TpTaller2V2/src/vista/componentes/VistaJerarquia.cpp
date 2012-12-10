@@ -225,4 +225,6 @@ Jerarquia * VistaJerarquia::getJerarquia(){
 	return this->jerarquia;
 }
 
+void VistaJerarquia::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
 
+}

@@ -33,7 +33,7 @@ bool VistaAtributo::lanzarProp() {
 void VistaAtributo::actualizar_coordenadas() {
 	double radio;
 	double centro_x, centro_y;
-	if (this->vistaAtributos.empty()) {
+	if (this->atributosHijos.empty()) {
 		radio = 3;
 		centro_x = this->pos_ini_x + radio;
 		centro_y = this->pos_ini_y + radio;
@@ -45,7 +45,7 @@ void VistaAtributo::actualizar_coordenadas() {
 
 void VistaAtributo::setposini(double x, double y) {
 	this->pos_ini_x = x;
-	this->pos_ini_y=y;
+	this->pos_ini_y = y;
 	this->actualizar_coordenadas();
 }
 
@@ -73,14 +73,12 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	double centro_x, centro_y;
 	this->actualizar_coordenadas();
 
-	if (this->vistaAtributos.empty()) {
+	if (this->atributosHijos.empty()) {
 		double radio;
 		double x_texto, y_texto;
 		radio = 3;
 		centro_x = this->pos_ini_x + radio;
 		centro_y = this->pos_ini_y + radio;
-
-
 
 		cr->arc(centro_x, centro_y, radio, 0, 2 * M_PI);
 		if (this->esIdentificador) {
@@ -95,8 +93,8 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		this->lineaConEntidad->getposini(x0, y0);
 		this->lineaConEntidad->getposfin(x1, y1);
 		cout << "X0=" << x0 << " Y0=" << y0 << " X1=" << x1 << " Y1=" << y1 << endl;
-		if (x0 < this->pos_ini_x || x0 > this->pos_fin_x || y0 < this->pos_ini_y || y0
-				> this->pos_fin_y) {
+		if (x0 < this->pos_ini_x || x0 > this->pos_fin_x || y0 < this->pos_ini_y
+				|| y0 > this->pos_fin_y) {
 			Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(x1, y1, x0, y0, textExtents.width,
 					textExtents.height, x_texto, y_texto);
 		} else {
@@ -119,7 +117,7 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		delta_y = centro_y - this->pos_ini_y;
 
 		cr->save();
-		cr->set_line_width(2 / MAX(delta_x, delta_y));// make (centro_x, centro_y) == (0, 0)
+		cr->set_line_width(2 / MAX(delta_x, delta_y)); // make (centro_x, centro_y) == (0, 0)
 		cr->translate(centro_x, centro_y);
 		cr->scale(delta_x, delta_y);
 		cr->arc(0.0, 0.0, 1.0, 0.0, 2 * M_PI);
@@ -169,7 +167,7 @@ void VistaAtributo::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textE
 
 bool VistaAtributo::esPuntoDeRedimension(double x, double y) {
 
-	if (this->vistaAtributos.empty()) {
+	if (this->atributosHijos.empty()) {
 		return false;
 	}
 	// Considero los circulos de las puntas como cuadrados para que sea mas facil la comparacion
@@ -190,7 +188,7 @@ bool VistaAtributo::esPuntoDeRedimension(double x, double y) {
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
 		//cout << "abajo a la izquierda" << endl;
 		return true;
-	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) {// Circulo arriba a la derecha
+	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) { // Circulo arriba a la derecha
 		//cout << "arriba a la derecha" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
@@ -217,7 +215,7 @@ void VistaAtributo::setMouseArriba(double x, double y) {
 		this->mouseArribaDePuntoDeRedimension = 1;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
 		this->mouseArribaDePuntoDeRedimension = 2;
-	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) {// Circulo arriba a la derecha
+	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) { // Circulo arriba a la derecha
 		this->mouseArribaDePuntoDeRedimension = 3;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
 		this->mouseArribaDePuntoDeRedimension = 4;
@@ -274,7 +272,7 @@ bool VistaAtributo::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 	centro_x = (this->pos_fin_x + this->pos_ini_x) / 2;
 	centro_y = (this->pos_fin_y + this->pos_ini_y) / 2;
 
-	if (this->vistaAtributos.empty()) {
+	if (this->atributosHijos.empty()) {
 
 		radio = this->pos_fin_x - centro_x;
 
@@ -307,11 +305,11 @@ bool VistaAtributo::agregarAtributo(VistaAtributo* atributo) {
 		return false;
 	}
 	// Para que se recalcule el tamaño
-	if(this->vistaAtributos.empty()){
+	if (this->atributosHijos.empty()) {
 		this->pos_fin_y = 0;
 		this->pos_fin_x = 0;
 	}
-	this->vistaAtributos.push_back(atributo);
+	this->atributosHijos.push_back(atributo);
 	return true;
 }
 
@@ -319,16 +317,16 @@ bool VistaAtributo::quitarAtributo(VistaAtributo* atributo) {
 	if (atributo == NULL) {
 		return false;
 	}
-	remove(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
+	remove(this->atributosHijos.begin(), this->atributosHijos.end(), atributo);
 	return true;
 }
 
 std::vector<VistaAtributo*>::iterator VistaAtributo::atributosBegin() {
-	return this->vistaAtributos.begin();
+	return this->atributosHijos.begin();
 }
 
 std::vector<VistaAtributo*>::iterator VistaAtributo::atributosEnd() {
-	return this->vistaAtributos.end();
+	return this->atributosHijos.end();
 }
 
 Atributo* VistaAtributo::getAtributo() {
@@ -342,7 +340,8 @@ void VistaAtributo::resetearLanzarProp() {
 void VistaAtributo::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(2);
 	//  Dibujo los circulos en las puntas
-	cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(), colorBlanco.get_blue_p());
+	cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(),
+			colorBlanco.get_blue_p());
 	cr->set_line_width(1);
 	cr->arc(this->pos_ini_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
 	cr->move_to(this->pos_ini_x + RADIO_CIRCULOS_REDIMENSION, this->pos_fin_y);
@@ -400,4 +399,16 @@ void VistaAtributo::getPuntoMedioLinea(double &x, double &y) {
 
 void VistaAtributo::setNombre(const std::string & nombre) {
 	this->atributo->setNombre(nombre);
+}
+
+void VistaAtributo::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes) {
+	std::vector<VistaAtributo*>::iterator i;
+
+	for (i = this->atributosHijos.begin(); i != this->atributosHijos.end(); ++i) {
+		(*i)->eliminarComponentesAdyacentes(componentes);
+		componentes.push_back(*i);
+		delete (*i);
+	}
+	componentes.push_back(this->lineaConEntidad);
+
 }

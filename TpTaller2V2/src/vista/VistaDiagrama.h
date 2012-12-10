@@ -30,10 +30,10 @@ private:
 
 	std::vector<VistaComponente *> componentes;
 	std::vector<VistaComponente *> componentes_seleccionados;
+
 	std::vector<VistaDiagrama *> diagramas;
 	std::vector<VistaEntidadNueva *> vistaEntidades;
 	std::vector<VistaEntidad*> vEnt;
-
 	std::vector<VistaIdentificador*> vIdentificador;
 	std::vector<VistaUnionEntidadRelacion*> vUnionEntidadRelacion;
 
@@ -132,6 +132,8 @@ private:
 
 	void eliminar();
 
+	void lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventButton* event);
+
 public:
 
 	VistaDiagrama(Diagrama * diagramaModelo, int a = 0);
@@ -166,7 +168,7 @@ public:
 			std::string & nombreDiagramaAncestro);
 
 	//*****     GRAFICOS     *****//
-	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context,bool dibujarSeleccionado);
+	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context, bool dibujarSeleccionado);
 	void aumentarZoom();
 	void disminuirZoom();
 	void restablecerZoom();

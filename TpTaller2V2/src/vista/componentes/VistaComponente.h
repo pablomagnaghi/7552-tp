@@ -41,10 +41,7 @@ protected:
 	bool ajustarTamanioPorTexto;
 	bool prop_lanzada;
 
-	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr,
-			const std::string nombre);
-
-	void on_popup_boton_propiedades();
+	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
 	// PERSISTENCIA REP
 	int codigoREP;
@@ -64,7 +61,7 @@ public:
 	void getposfin(double&x, double&y) const;
 	virtual void setposfin(double x, double y);
 	void getposcentro(double &x, double&y) const;
-	void getposseleccion(double &x, double &y)const;
+	void getposseleccion(double &x, double &y) const;
 
 	void setDibujable(bool d);
 	bool getDibujable();
@@ -93,8 +90,7 @@ public:
 	virtual void redimensionar(double x, double y)=0;
 
 	// Calcula las dimensiones del componente a partir de las dimensiones del nombre
-	virtual void calcularDimensionesAPartirDeTexto(
-			Cairo::TextExtents * textExtents)=0;
+	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents)=0;
 
 	// Verifica si el punto cae dentro de un punto para redimensionar el elemento
 	virtual bool esPuntoDeRedimension(double x, double y) = 0;
@@ -102,18 +98,21 @@ public:
 	void ajustarTamanioAlTexto();
 
 	virtual std::string getNombre() const = 0;
-	virtual void setNombre(const std::string &)  = 0;
+	virtual void setNombre(const std::string &) = 0;
 
 	// Menu Pop Up
 	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager);
+	void on_popup_boton_propiedades();
 
 	virtual bool contieneEsteComponente(Componente *)=0;
 
-	virtual bool obtenerInterseccionConLinea(double pos_ini_x,
-			double pos_ini_y, double pos_fin_x, double pos_fin_y, double & x,
-			double & y)=0;
+	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
+			double pos_fin_y, double & x, double & y)=0;
 
 	bool estaSeleccionado();
+
+	virtual void eliminarComponentesAdyacentes(
+			std::vector<VistaComponente *> & componentes_a_eliminar) = 0;
 
 	// PERSISTENCIA REP
 	int getCodigoREP();
