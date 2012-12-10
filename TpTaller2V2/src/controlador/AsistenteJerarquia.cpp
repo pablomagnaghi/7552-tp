@@ -99,12 +99,12 @@ void AsistenteJerarquia::llenarComboBox(){
 	std::vector<VistaEntidadNueva *>::iterator it2 =  this->diagrama->vEntidadesEnd();
 	while (it1 != it2){
 		//Veo que la entidad ya no tenga
-		if ((*it1)->getEntidad()->getJerarquiaHija()!=NULL){
+		if ((*it1)->getEntidad()->getJerarquiaHija()==NULL){
 			Gtk::TreeModel::Row row = *(this->refTreeModelCombo->append());
 			row[this->m_ColumnasCombo.m_col_Nombre] = (*it1)->getNombre();
 			row[this->m_ColumnasCombo.m_col_vEnt_Pointer] = *it1;
-			it1++;
 		}
+		it1++;
 	}
 }
 
@@ -121,6 +121,8 @@ void AsistenteJerarquia::on_ComboBox_click(){
 void AsistenteJerarquia::on_botonAceptar_click() {
 	VistaEntidadNueva* entidadPadre = NULL;
 	VistaEntidadNueva* entidad = NULL;
+	bool musthide = false;
+	int countSelected=0;
 	Gtk::Entry *entryNombre = 0;
 	this->m_builder->get_widget("entryNombre", entryNombre);
 	string nom =entryNombre->get_text();
@@ -129,7 +131,6 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 		Gtk::TreeModel::iterator iter = this->comboBox.get_active();
 		if (iter) {
 			this->m_builder->get_widget("entryNombre", entryNombre);
-
 			Gtk::TreeModel::Row row = *iter;
 			entidadPadre = row[this->m_ColumnasCombo.m_col_vEnt_Pointer];
 			this->vjerarquia->setEntidadPadre(entidadPadre);
@@ -143,18 +144,33 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 				Gtk::TreeModel::Row row = *iter;
 				// si esta seleccionada la agrego
 				if (row[this->m_Columnas.m_col_selected] == true) {
+					countSelected++;
 					entidad = row[this->m_Columnas.m_col_vEnt_Pointer];
 					this->vjerarquia->agregarEntidadEspecializada(entidad);
 					entidad->getEntidadNueva()->agregarJerarquiaPadre(this->vjerarquia->getJerarquia());
 				}
 				iter++;
 			}
+			if (countSelected>0){
+				musthide = true;
+			}else{
+				Gtk::MessageDialog err_dialog1(*this, "Select at least one children", false,
+										Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+				err_dialog1.run();
+			}
+		}else{
+			Gtk::MessageDialog err_dialog2(*this, "Select the father", false,
+													Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+							err_dialog2.run();
 		}
 	} else {
-		//NOMBRe VACIO
-		entryNombre->set_text("Ingrese un nombre");
+		Gtk::MessageDialog err_dialog(*this, "No name", false,
+						Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		err_dialog.run();
 	}
-	this->hide();
+	if (musthide==true){
+		this->hide();
+	}
 }
 
 void AsistenteJerarquia::on_botonCancelar_click() {
