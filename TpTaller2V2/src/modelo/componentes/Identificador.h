@@ -31,6 +31,8 @@ public:
 
 	std::vector<int>::iterator codigoRelacionesBegin();
 	std::vector<int>::iterator codigoRelacionesEnd();
+
+	void accept(ModeloVisitor*);
 };
 
 #endif /* IDENTIFICADOR_H_ */

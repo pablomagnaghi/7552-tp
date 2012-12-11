@@ -1,4 +1,5 @@
 #include "EntidadNueva.h"
+#include "../validacion/ModeloVisitor.h"
 
 EntidadNueva::EntidadNueva() {
 	this->nombre = "Entidad Nueva";
@@ -135,6 +136,20 @@ bool EntidadNueva::existeAtributo(const std::string& nombre){
 		it++;
 	}
 	return false;
+}
+
+void EntidadNueva::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
+	std::vector<Atributo*>::iterator itAtributos = this->atributosBegin();
+	while(itAtributos != this->atributosEnd()){
+		(*itAtributos)->accept(modeloVisitor);
+		itAtributos++;
+	}
+	std::vector<Identificador*>::iterator itIdentificadores = this->identificadoresBegin();
+	while(itIdentificadores != this->identificadoresEnd()){
+		(*itIdentificadores)->accept(modeloVisitor);
+		itIdentificadores++;
+	}
 }
 
 // PERSISTENCIA COMP

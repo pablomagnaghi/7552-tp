@@ -71,6 +71,8 @@ public:
 
 	int getCodigoEntidadGeneral();
 
+	void accept(ModeloVisitor*);
+
 	// PERSISTENCIA COMP
 	// CARGAR
 	Jerarquia(XmlNodo*);

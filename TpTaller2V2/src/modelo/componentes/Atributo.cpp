@@ -1,4 +1,5 @@
 #include "Atributo.h"
+#include "../validacion/ModeloVisitor.h"
 
 Atributo::Atributo() :
 	cardinalidadMinima ("1"),
@@ -84,6 +85,15 @@ bool Atributo::existeAtributo(const std::string& nombre){
 		it++;
 	}
 	return false;
+}
+
+void Atributo::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
+	std::vector<Atributo*>::iterator it = this->atributosBegin();
+	while(it != this->atributosEnd()){
+		(*it)->accept(modeloVisitor);
+		it++;
+	}
 }
 
 // PERSISTENCIA COMP

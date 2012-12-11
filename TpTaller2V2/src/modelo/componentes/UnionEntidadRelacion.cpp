@@ -1,4 +1,5 @@
 #include "UnionEntidadRelacion.h"
+#include "../validacion/ModeloVisitor.h"
 
 UnionEntidadRelacion::UnionEntidadRelacion(Entidad * e, Relacion * r) :
 		entidad(e), relacion(r), cardinalidadMinima("1"), cardinalidadMaxima("1"){
@@ -55,6 +56,10 @@ void UnionEntidadRelacion::setRelacion(Relacion* relacion) {
 
 int UnionEntidadRelacion::getCodigoEntidad() {
 	return this->codigoEntidad;
+}
+
+void UnionEntidadRelacion::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
 }
 
 // PERSISTENCIA COMP

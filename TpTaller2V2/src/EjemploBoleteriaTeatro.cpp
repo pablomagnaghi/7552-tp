@@ -5,6 +5,7 @@
  */
 
 #include "modelo/HeadersModelo.h"
+#include "modelo/validacion/ValidacionVisitor.h"
 #include <iostream>
 
 EntidadNueva* crearSeccionSala(){
@@ -291,12 +292,8 @@ Relacion* crearFO(EntidadNueva* obra, EntidadNueva* funcion){
 	return fO;
 }
 
-int main1(int argc, char* argv[]){
-
-	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
-
+Diagrama* crearDiagramaPrincipal(){
 	Diagrama* diagramaPrincipal = new Diagrama("boleteria teatro");
-	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
 	EntidadNueva* seccionSala = crearSeccionSala();
 	diagramaPrincipal->agregarEntidadNueva(seccionSala);
@@ -319,12 +316,27 @@ int main1(int argc, char* argv[]){
 	Relacion* fO = crearFO(obra, funcion);
 	diagramaPrincipal->agregarRelacion(fO);
 
-	// prueba persistencia
-	diagramaPrincipal->guardarDiagramaXmlCOMP("boleteria teatro.xml");
+	return diagramaPrincipal;
+}
 
-	std::cout << "Generacion del xml OK" << std::endl;
+int main348(int argc, char* argv[]){
+
+	Proyecto* proyecto = new Proyecto("BoleteriaTeatro");
+
+	Diagrama* diagramaPrincipal = crearDiagramaPrincipal();
+	proyecto->setDiagramaPrincipal(diagramaPrincipal);
+
+	// prueba persistencia
+//	diagramaPrincipal->guardarDiagramaXmlCOMP("boleteria teatro.xml");
+//	std::cout << "Generacion del xml OK" << std::endl;
+
+	// prueba validacion
+	ValidacionVisitor* validacionVisitor = new ValidacionVisitor();
+	diagramaPrincipal->accept(validacionVisitor);
+	std::cout << "Validación finalizada." << std::endl;
 
 	delete proyecto;
+	delete validacionVisitor;
 
 	GeneradorCodigo::destruir();
 

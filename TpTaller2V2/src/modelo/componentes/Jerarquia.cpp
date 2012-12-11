@@ -1,4 +1,5 @@
 #include "Jerarquia.h"
+#include "../validacion/ModeloVisitor.h"
 
 Jerarquia::Jerarquia() :
 	entidadGeneral (NULL) {
@@ -95,6 +96,10 @@ void Jerarquia::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 		}
 		*nodo = nodo->getHermano();
 	}
+}
+
+void Jerarquia::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
 }
 
 // GUARDAR

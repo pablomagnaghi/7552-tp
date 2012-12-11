@@ -131,6 +131,8 @@ public:
 	bool existeEntidadNueva(const std::string&);
 	bool existeEntidadGlobal(const std::string&);
 
+	void accept(ModeloVisitor*);
+
 	// PERSITENCIA COMP
 	bool isOpenXmlCOMP() const;
 

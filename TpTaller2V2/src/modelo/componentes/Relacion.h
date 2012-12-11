@@ -61,6 +61,8 @@ public:
 	std::vector<Atributo*>::iterator atributosBegin();
 	std::vector<Atributo*>::iterator atributosEnd();
 
+	void accept(ModeloVisitor*);
+
 	// PERSISTENCIA COMP
 	// CARGAR
 	Relacion(XmlNodo*);

@@ -35,6 +35,8 @@ public:
 
 	virtual bool getEsDebil();
 
+	void accept(ModeloVisitor*);
+
 	// PERSISTENCIA COMP
 	int getCodigoEntidadNueva();
 	// CARGAR

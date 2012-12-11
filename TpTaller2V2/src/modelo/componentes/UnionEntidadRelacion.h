@@ -44,6 +44,9 @@ public:
 	void setRelacion(Relacion*);
 
 	int getCodigoEntidad();
+
+	void accept(ModeloVisitor*);
+
 	// PERSISTENCIA COMP
 	// CARGAR
 	UnionEntidadRelacion(XmlNodo*);

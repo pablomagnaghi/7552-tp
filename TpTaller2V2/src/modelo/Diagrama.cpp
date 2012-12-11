@@ -1,4 +1,5 @@
 #include "Diagrama.h"
+#include "validacion/ModeloVisitor.h"
 
 #include <algorithm>
 
@@ -383,6 +384,15 @@ bool Diagrama::existeEntidadGlobal(const std::string& nombre) {
 		it++;
 	}
 	return false;
+}
+
+void Diagrama::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
+	std::vector<Componente*>::iterator it = this->componentesBegin();
+	while(it != this->componentesEnd()){
+		(*it)->accept(modeloVisitor);
+		it++;
+	}
 }
 
 // PERSISTENCIA COMP

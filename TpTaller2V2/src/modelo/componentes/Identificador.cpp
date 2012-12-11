@@ -1,4 +1,5 @@
 #include "Identificador.h"
+#include "../validacion/ModeloVisitor.h"
 
 Identificador::Identificador() {
 
@@ -47,3 +48,8 @@ std::vector<int>::iterator Identificador::codigoRelacionesBegin(){
 std::vector<int>::iterator Identificador::codigoRelacionesEnd(){
 	return this->codigoRelaciones.end();
 }
+
+void Identificador::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
+}
+
