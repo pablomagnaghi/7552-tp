@@ -330,5 +330,9 @@ EntidadNueva * VistaEntidadNueva::getEntidadNueva() {
 
 void VistaEntidadNueva::eliminarComponentesAdyacentes(
 		std::vector<VistaComponente *> & componentes) {
-
+	std::vector<VistaAtributo *>::iterator it_atributo;
+	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
+		(*it_atributo)->eliminarComponentesAdyacentes(componentes);
+		componentes.push_back((*it_atributo));
+	}
 }

@@ -19,6 +19,7 @@ private:
 	void dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr);
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 	bool prop_lanzada;
+
 public:
 	VistaEntidadNueva(EntidadNueva *);
 	virtual ~VistaEntidadNueva();

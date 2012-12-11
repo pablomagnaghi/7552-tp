@@ -1,5 +1,7 @@
 #include "Diagrama.h"
 
+#include <algorithm>
+
 Diagrama::Diagrama() :
 		estado(DIAGRAMA_SIN_VALIDAR), diagramaAncestro(NULL), diagramaValidoCOMP(false) {
 
@@ -66,13 +68,6 @@ void Diagrama::agregarComponente(Componente* componente) {
 	this->componentes.push_back(componente);
 }
 
-void Diagrama::quitarComponente(Componente* componente) {
-	std::vector<Componente*>::iterator e;
-	e = find(this->componentes.begin(), this->componentes.end(), componente);
-	if (*e == componente) {
-		this->componentes.erase(e);
-	}
-}
 
 void Diagrama::agregarEntidad(Entidad* entidad) {
 	this->entidades.push_back(entidad);
@@ -144,6 +139,21 @@ void Diagrama::quitarJerarquia(Jerarquia* jerarquia) {
 		this->jerarquias.erase(e);
 	}
 	this->quitarComponente(jerarquia);
+}
+
+void Diagrama::quitarComponente(Componente * componente) {
+	if (componente != NULL) {
+		remove(this->componentes.begin(), this->componentes.end(), componente);
+		remove(this->entidades.begin(), this->entidades.end(), static_cast<Entidad *>(componente));
+		remove(this->entidadesNuevas.begin(), this->entidadesNuevas.end(),
+				static_cast<EntidadNueva *>(componente));
+		remove(this->entidadesGlobales.begin(), this->entidadesGlobales.end(),
+				static_cast<EntidadGlobal *>(componente));
+		remove(this->relaciones.begin(), this->relaciones.end(),
+				static_cast<Relacion *>(componente));
+		remove(this->jerarquias.begin(), this->jerarquias.end(),
+				static_cast<Jerarquia *>(componente));
+	}
 }
 
 std::vector<Diagrama*>::iterator Diagrama::diagramasHijosBegin() {

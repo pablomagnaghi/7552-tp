@@ -44,7 +44,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	this->zoom = 1;
 	//test_1_builder();
 	if (a == 0) {
-		test_3_builder();
+		test_2_builder();
 		//test_6_builder();
 		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
@@ -106,51 +106,51 @@ void VistaDiagrama::test_2_builder() {
 	va22->setNombre("Atributo 2:2");
 
 	/************ POR PERSISTENCIA *************/
-	VistaEntidadNueva * ve2;
-	Atributo * a3;
-	Atributo * a4;
-	Atributo * a41;
-	Atributo * a42;
-	VistaAtributo * va3;
-	VistaAtributo * va4;
-	VistaAtributo * va41;
-	VistaAtributo * va42;
+	/*VistaEntidadNueva * ve2;
+	 Atributo * a3;
+	 Atributo * a4;
+	 Atributo * a41;
+	 Atributo * a42;
+	 VistaAtributo * va3;
+	 VistaAtributo * va4;
+	 VistaAtributo * va41;
+	 VistaAtributo * va42;
 
-	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
+	 ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this);
 
-	ve2->setposini(150, 200);
-	ve2->setposfin(220, 225);
-	ve2->setNombre("Entidad 2");
+	 ve2->setposini(150, 200);
+	 ve2->setposfin(220, 225);
+	 ve2->setNombre("Entidad 2");
 
-	// CREO EL MODELO A MANO
-	a3 = new Atributo();
-	a3->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	a4 = new Atributo();
-	a4->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	a41 = new Atributo();
-	a41->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	a42 = new Atributo();
-	a42->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	ve2->getEntidadNueva()->agregarAtributo(a3);
-	ve2->getEntidadNueva()->agregarAtributo(a4);
-	a4->agregarAtributo(a41);
-	a4->agregarAtributo(a42);
+	 // CREO EL MODELO A MANO
+	 a3 = new Atributo();
+	 a3->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	 a4 = new Atributo();
+	 a4->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	 a41 = new Atributo();
+	 a41->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	 a42 = new Atributo();
+	 a42->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	 ve2->getEntidadNueva()->agregarAtributo(a3);
+	 ve2->getEntidadNueva()->agregarAtributo(a4);
+	 a4->agregarAtributo(a41);
+	 a4->agregarAtributo(a42);
 
-	va3 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve2, a3);
-	va3->setposini(80, 215);
-	va3->setNombre("Atributo 3");
+	 va3 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve2, a3);
+	 va3->setposini(80, 215);
+	 va3->setNombre("Atributo 3");
 
-	va4 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve2, a4);
-	va4->setposini(280, 215);
-	va4->setNombre("Atributo 4");
+	 va4 = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this, ve2, a4);
+	 va4->setposini(280, 215);
+	 va4->setNombre("Atributo 4");
 
-	va41 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a41);
-	va41->setposini(350, 250);
-	va41->setNombre("Atributo 4:1");
+	 va41 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a41);
+	 va41->setposini(350, 250);
+	 va41->setNombre("Atributo 4:1");
 
-	va42 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a42);
-	va42->setposini(380, 230);
-	va42->setNombre("Atributo 4:2");
+	 va42 = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, va4, a42);
+	 va42->setposini(380, 230);
+	 va42->setNombre("Atributo 4:2");*/
 
 }
 
@@ -180,7 +180,6 @@ void VistaDiagrama::test_3_builder() {
 	vr2->setposini(251, 140);
 	vr2->setposfin(330, 180);
 	vr2->setNombre("Relacion");
-
 	vu1 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve1, vr2);
 
 	vu2 = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this, ve2, vr2);
@@ -217,6 +216,7 @@ void VistaDiagrama::test_3_builder() {
 	ve4->setNombre("Entidad 2");
 
 	vr1 = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(this, r2);
+	diagrama->agregarRelacion(r2);
 
 	vr1->setposini(251, 190);
 	vr1->setposfin(330, 230);
@@ -521,6 +521,10 @@ void VistaDiagrama::test_6_builder() {
 	ve6->setposfin(270, 375);
 	ve6->setNombre("Entidad 3");
 	vj2 = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, j2);
+	diagrama->agregarEntidadNueva(e4);
+	diagrama->agregarEntidadNueva(e5);
+	diagrama->agregarEntidadNueva(e6);
+	diagrama->agregarJerarquia(j2);
 
 	ComponentsBuilder::getInstance()->agregarJerarquiaHijaDeEntidad(vj2, ve4);
 	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj2, ve5);
@@ -576,8 +580,6 @@ void VistaDiagrama::obtenerVistaAPartirDeRelacion(VistaRelacion * vRelacion,
 	}
 }
 
-
-
 bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	this->set_size_request(this->ancho, this->alto);
 	Cairo::RefPtr<Cairo::Context> context;
@@ -585,6 +587,8 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	context->set_source_rgba(1, 1, 1, 1); // white
 	context->paint();
 	context->scale(this->zoom, this->zoom);
+
+	std::cout << "Cantidad componentes: " << componentes.size() << std::endl;
 
 	this->dibujarComponentes(context, true);
 
@@ -926,10 +930,78 @@ void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 	}
 }
 
+void VistaDiagrama::quitarComponenteDeVectores(VistaComponente * componente) {
+	std::vector<VistaComponente *>::iterator it_componentes;
+	std::vector<VistaEntidad *>::iterator it_entidades;
+	std::vector<VistaEntidadNueva *>::iterator it_entidades_nuevas;
+	std::vector<VistaIdentificador *>::iterator it_identificadores;
+	std::vector<VistaUnionEntidadRelacion *>::iterator it_uniones;
+
+	it_componentes = find(componentes.begin(), componentes.end(), componente);
+	if (it_componentes != componentes.end()) {
+		componentes.erase(it_componentes);
+	}
+
+	it_entidades = find(vEnt.begin(), vEnt.end(), static_cast<VistaEntidad *>(componente));
+	if (it_entidades != vEnt.end()) {
+		vEnt.erase(it_entidades);
+	}
+
+	it_entidades_nuevas = find(vistaEntidades.begin(), vistaEntidades.end(),
+			static_cast<VistaEntidadNueva *>(componente));
+	if (it_entidades_nuevas != vistaEntidades.end()) {
+		vistaEntidades.erase(it_entidades_nuevas);
+	}
+
+	it_identificadores = find(vIdentificador.begin(), vIdentificador.end(),
+			static_cast<VistaIdentificador *>(componente));
+	if (it_identificadores != vIdentificador.end()) {
+		vIdentificador.erase(it_identificadores);
+	}
+
+	it_uniones = find(vUnionEntidadRelacion.begin(), vUnionEntidadRelacion.end(),
+			static_cast<VistaUnionEntidadRelacion *>(componente));
+	if (it_uniones != vUnionEntidadRelacion.end()) {
+		vUnionEntidadRelacion.erase(it_uniones);
+	}
+}
+
 void VistaDiagrama::quitarComponente(VistaComponente *componente) {
+	std::vector<VistaComponente *> componentes_a_eliminar;
+	std::vector<VistaComponente *>::iterator it_componentes;
 	if (componente != NULL) {
 
-		remove(componentes.begin(), componentes.end(), componente);
+		quitarComponenteDeVectores(componente);
+
+		componente->eliminarComponentesAdyacentes(componentes_a_eliminar);
+		for (it_componentes = componentes_a_eliminar.begin();
+				it_componentes != componentes_a_eliminar.end(); it_componentes++) {
+			quitarComponenteDeVectores((*it_componentes));
+		}
+		/*if (find(vEnt.begin(), vEnt.end(), static_cast<VistaEntidad *>(componente)) != vEnt.end()) {
+		 remove(vEnt.begin(), vEnt.end(), static_cast<VistaEntidad *>(componente));
+		 vEnt.pop_back();
+		 }
+
+		 if (find(vistaEntidades.begin(), vistaEntidades.end(),
+		 static_cast<VistaEntidadNueva *>(componente)) != vistaEntidades.end()) {
+		 remove(vistaEntidades.begin(), vistaEntidades.end(),
+		 static_cast<VistaEntidadNueva *>(componente));
+		 vistaEntidades.pop_back();
+		 }
+		 if (find(vIdentificador.begin(), vIdentificador.end(),
+		 static_cast<VistaIdentificador *>(componente)) != vIdentificador.end()) {
+		 remove(vIdentificador.begin(), vIdentificador.end(),
+		 static_cast<VistaIdentificador *>(componente));
+		 vIdentificador.pop_back();
+		 }
+		 if (find(vUnionEntidadRelacion.begin(), vUnionEntidadRelacion.end(),
+		 static_cast<VistaUnionEntidadRelacion *>(componente))
+		 != vUnionEntidadRelacion.end()) {
+		 remove(vUnionEntidadRelacion.begin(), vUnionEntidadRelacion.end(),
+		 static_cast<VistaUnionEntidadRelacion *>(componente));
+		 vUnionEntidadRelacion.pop_back();
+		 }*/
 		this->queue_draw();
 	}
 }
@@ -1104,15 +1176,15 @@ bool VistaDiagrama::isOpenXmlREP() const {
 // a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
 
 void VistaDiagrama::abrirXml(const std::string& path) {
-	// se creo el modelo con todos los diagramas
+// se creo el modelo con todos los diagramas
 	Diagrama *diagrama = new Diagrama(path);
 	this->diagrama = diagrama;
 	std::string diagramaCOMP = path + EXTENSION_COMP;
 
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
 
-	// se crean las vistas de ese diagrama
-	// todo ACA HAY PROBLEMAS
+// se crean las vistas de ese diagrama
+// todo ACA HAY PROBLEMAS
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->abrirXmlREP(diagramaREP);
@@ -1301,7 +1373,7 @@ void VistaDiagrama::abrirXmlREP(const std::string& path) {
 }
 
 void VistaDiagrama::cargarXmlREP(XmlNodo* nodoRaiz) {
-	// archivo listo para cargar los componentes del diagrama
+// archivo listo para cargar los componentes del diagrama
 	this->obtenerPropiedadesXmlREP(nodoRaiz);
 	XmlNodo nodo = nodoRaiz->getHijo();
 	this->obtenerComponentesXmlREP(&nodo);
@@ -1334,7 +1406,7 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 }
 
 void VistaDiagrama::cargarVistaDiagramasHijos() {
-	// para cada diagrama hijo se setean los datos de las vistas
+// para cada diagrama hijo se setean los datos de las vistas
 
 	std::vector<Diagrama*>::iterator it = this->getDiagrama()->diagramasHijosBegin();
 

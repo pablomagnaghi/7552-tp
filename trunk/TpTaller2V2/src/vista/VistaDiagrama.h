@@ -134,6 +134,7 @@ private:
 
 	void lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventButton* event);
 
+	void quitarComponenteDeVectores(VistaComponente * componente);
 public:
 
 	VistaDiagrama(Diagrama * diagramaModelo, int a = 0);
