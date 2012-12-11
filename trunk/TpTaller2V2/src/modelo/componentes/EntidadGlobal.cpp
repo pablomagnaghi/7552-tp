@@ -1,4 +1,5 @@
 #include "EntidadGlobal.h"
+#include "../validacion/ModeloVisitor.h"
 
 EntidadGlobal::EntidadGlobal() {
 
@@ -33,6 +34,10 @@ bool EntidadGlobal::getEsDebil(){
 
 int EntidadGlobal::getCodigoEntidadNueva() {
 	return this->codigoEntidadNueva;
+}
+
+void EntidadGlobal::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
 }
 
 // PERSISTENCIA COMP

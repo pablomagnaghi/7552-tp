@@ -85,8 +85,9 @@ public:
 
 	// Devuelve true si la entidad tiene un atributo con ese nombre.
 	// No tiene en cuenta los subatributos.
-
 	bool existeAtributo(const std::string&);
+
+	void accept(ModeloVisitor*);
 
 	// PERSISTENCIA COMP
 	// CARGAR

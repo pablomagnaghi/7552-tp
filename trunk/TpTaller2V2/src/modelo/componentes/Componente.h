@@ -11,6 +11,9 @@
 // Generador Codigo
 #include "../GeneradorCodigo.h"
 
+// ModeloVisitor, no se hace include por referencia ciclica
+class ModeloVisitor;
+
 class Componente {
 
 protected:
@@ -40,6 +43,9 @@ public:
 
 	std::string getNombre() const;
 	void setNombre(const std::string &);
+
+ 	virtual void accept(ModeloVisitor*) = 0;
+
 };
 
 #endif /* COMPONENTE_H_ */

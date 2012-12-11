@@ -82,3 +82,22 @@ std::string Utils::getCurrentDirectory() {
 	return cwd;
 }
 
+std::string Utils::fillNumber(int numero){
+	std::stringstream ss;
+	ss << numero;
+	std::string s = ss.str();
+	if (s.length() == 1){
+		s = "0" + s;
+	}
+	return s;
+}
+
+std::string Utils::getDate(){
+	time_t t = time(0);
+	struct tm* now = localtime(&t);
+	std::stringstream ss;
+	ss 	<< (now->tm_year + 1900)
+		<< Utils::fillNumber(now->tm_mon + 1)
+		<< Utils::fillNumber(now->tm_mday);
+	return ss.str();
+}

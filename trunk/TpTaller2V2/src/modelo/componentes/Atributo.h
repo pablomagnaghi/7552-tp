@@ -4,9 +4,10 @@
 #include <vector>
 #include <algorithm>
 #include "Componente.h"
-#include "../../utils/Utils.h"
 #include "../ConstantesModelo.h"
+#include "../../utils/Utils.h"
 #include "../../excepciones/NullPointer.h"
+
 
 class Atributo : public Componente {
 
@@ -61,6 +62,8 @@ public:
 
 	// Devuelve true si tiene un atributo componente con ese nombre.
 	bool existeAtributo(const std::string&);
+
+	void accept(ModeloVisitor*);
 
 	// PERSISTENCIA COMP
 

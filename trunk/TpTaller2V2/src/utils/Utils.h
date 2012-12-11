@@ -3,6 +3,7 @@
 #define UTILS_H_
 
 #include <string>
+#include <sstream>
 
 class Utils {
 private:
@@ -18,6 +19,10 @@ public:
 	static std::string getBasename(const std::string & path);
 
 	static std::string getCurrentDirectory();
+
+	static std::string fillNumber(int);
+	static std::string getDate();
+
 };
 
 

@@ -1,4 +1,5 @@
 #include "Relacion.h"
+#include "../validacion/ModeloVisitor.h"
 
 #include <algorithm>
 
@@ -79,6 +80,15 @@ void Relacion::borrarUnionesAEntidad() {
 		it++;
 	}
 	this->unionesAEntidad.clear();
+}
+
+void Relacion::accept(ModeloVisitor* modeloVisitor){
+	modeloVisitor->visit(this);
+	std::vector<Atributo*>::iterator it = this->atributosBegin();
+	while(it != this->atributosEnd()){
+		(*it)->accept(modeloVisitor);
+		it++;
+	}
 }
 
 // PERSISTENCIA COMP
