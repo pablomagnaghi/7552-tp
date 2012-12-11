@@ -29,7 +29,6 @@ private:
 	bool diagramaValidoCOMP;
 
 	void agregarComponente(Componente*);
-	void quitarComponente(Componente*);
 
 	void agregarEntidad(Entidad*);
 	void quitarEntidad(Entidad*);
@@ -40,7 +39,7 @@ private:
 	void borrarJerarquias();
 	void borrarRelaciones();
 
-	// PERSISTENCIA COMP
+	//*****     PERSISTENCIA COMP     *****//
 	// CARGAR
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 	void obtenerComponentesXmlCOMP(XmlNodo*);
@@ -93,6 +92,8 @@ public:
 
 	void agregarJerarquia(Jerarquia*);
 	void quitarJerarquia(Jerarquia*);
+
+	void quitarComponente(Componente *);
 
 	std::vector<Diagrama*>::iterator diagramasHijosBegin();
 	std::vector<Diagrama*>::iterator diagramasHijosEnd();

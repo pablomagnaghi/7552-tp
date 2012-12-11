@@ -5,9 +5,6 @@
 #include "../../modelo/componentes/Entidad.h"
 
 class VistaEntidad: public VistaComponente {
-protected:
-
-
 public:
 	VistaEntidad();
 	virtual ~VistaEntidad();

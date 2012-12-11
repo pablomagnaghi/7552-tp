@@ -13,7 +13,7 @@ private:
 	Atributo * atributo;
 	bool prop_lanzada;
 	bool esIdentificador;
-	VistaLinea * lineaConEntidad;
+	VistaLinea * linea;
 	bool dibujar_cardinalidad;
 
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);

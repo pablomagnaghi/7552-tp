@@ -93,9 +93,9 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 
 		//Dibujo el nombre
 		double x0, y0, x1, y1;
-		this->lineaConEntidad->actualizar_coordenadas();
-		this->lineaConEntidad->getposini(x0, y0);
-		this->lineaConEntidad->getposfin(x1, y1);
+		this->linea->actualizar_coordenadas();
+		this->linea->getposini(x0, y0);
+		this->linea->getposfin(x1, y1);
 		cout << "X0=" << x0 << " Y0=" << y0 << " X1=" << x1 << " Y1=" << y1 << endl;
 		if (x0 < this->pos_ini_x || x0 > this->pos_fin_x || y0 < this->pos_ini_y
 				|| y0 > this->pos_fin_y) {
@@ -390,13 +390,13 @@ void VistaAtributo::setEsIdentificador(bool id) {
 }
 
 void VistaAtributo::setLinea(VistaLinea * linea) {
-	this->lineaConEntidad = linea;
+	this->linea = linea;
 }
 
 void VistaAtributo::getPuntoMedioLinea(double &x, double &y) {
 	double x0, y0, x1, y1;
-	this->lineaConEntidad->getposini(x0, y0);
-	this->lineaConEntidad->getposfin(x1, y1);
+	this->linea->getposini(x0, y0);
+	this->linea->getposfin(x1, y1);
 	x = (x0 + x1) / 2;
 	y = (y0 + y1) / 2;
 }
@@ -408,11 +408,12 @@ void VistaAtributo::setNombre(const std::string & nombre) {
 void VistaAtributo::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes) {
 	std::vector<VistaAtributo*>::iterator i;
 
-	for (i = this->atributosHijos.begin(); i != this->atributosHijos.end(); ++i) {
+	std::cout << "Cantidad Hijos Atributo: "<<this->atributosHijos.size() << std::endl;
+	for (i = this->atributosHijos.begin(); i != this->atributosHijos.end(); i++) {
 		(*i)->eliminarComponentesAdyacentes(componentes);
 		componentes.push_back(*i);
-		delete (*i);
+		//delete (*i);
 	}
-	componentes.push_back(this->lineaConEntidad);
+	componentes.push_back(this->linea);
 
 }
