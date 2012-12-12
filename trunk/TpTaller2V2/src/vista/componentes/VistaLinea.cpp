@@ -109,7 +109,7 @@ std::string VistaLinea::getNombre() const {
 	return "Linea";
 }
 
-bool VistaLinea::contieneEsteComponente(Componente *) {
+bool VistaLinea::contieneEsteComponente(VistaComponente *) {
 	return false;
 }
 
@@ -128,6 +128,6 @@ std::string VistaLinea::getTexto() {
 void VistaLinea::setNombre(const std::string & nombre) {
 }
 
-void VistaLinea::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+void VistaLinea::eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes){
 
 }

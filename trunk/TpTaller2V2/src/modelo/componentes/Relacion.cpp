@@ -31,7 +31,9 @@ void Relacion::quitarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) throw 
 	if (entidadRelacion == NULL) {
 		throw NullPointer("Puntero nulo en quitarUnionAEntidad en Relacion");
 	}
-	remove(this->unionesAEntidad.begin(), this->unionesAEntidad.end(), entidadRelacion);
+	std::vector<UnionEntidadRelacion *>::iterator it_entidad;
+	it_entidad = find(this->unionesAEntidad.begin(), this->unionesAEntidad.end(), entidadRelacion);
+	this->unionesAEntidad.erase(it_entidad);
 }
 
 void Relacion::agregarAtributo(Atributo* atributo) throw (NullPointer) {
@@ -45,7 +47,9 @@ void Relacion::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
 		throw NullPointer("Puntero nulo en quitarAtributo en Relacion");
 	}
-	remove(this->atributos.begin(), this->atributos.end(), atributo);
+	std::vector<Atributo *>::iterator it_atributo;
+	it_atributo = find(this->atributos.begin(), this->atributos.end(), atributo);
+	this->atributos.erase(it_atributo);
 }
 
 std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesAEntidadBegin() {
@@ -82,10 +86,10 @@ void Relacion::borrarUnionesAEntidad() {
 	this->unionesAEntidad.clear();
 }
 
-void Relacion::accept(ModeloVisitor* modeloVisitor){
+void Relacion::accept(ModeloVisitor* modeloVisitor) {
 	modeloVisitor->visit(this);
 	std::vector<Atributo*>::iterator it = this->atributosBegin();
-	while(it != this->atributosEnd()){
+	while (it != this->atributosEnd()) {
 		(*it)->accept(modeloVisitor);
 		it++;
 	}
@@ -134,19 +138,19 @@ XmlNodo Relacion::guardarXmlCOMP() {
 void Relacion::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	Componente::agregarPropiedadesXmlCOMP(nodo);
 	if (this->tipo.size())
-		nodo->setPropiedad("tipo",this->tipo);
+		nodo->setPropiedad("tipo", this->tipo);
 }
 
 void Relacion::guardarUnionEntidadRelacionXmlCOMP(XmlNodo *nodo) {
 	std::vector<UnionEntidadRelacion*>::iterator i;
 
-	for(i = this->unionesAEntidadBegin(); i != this->unionesAEntidadEnd(); ++i)
+	for (i = this->unionesAEntidadBegin(); i != this->unionesAEntidadEnd(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
 
 void Relacion::guardarAtributosXmlCOMP(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
-	for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
+	for (i = this->atributosBegin(); i != this->atributosEnd(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }

@@ -43,7 +43,7 @@ public:
 	virtual void setNombre(const std::string & nombre);
 	virtual std::string getNombre() const;
 
-	virtual bool contieneEsteComponente(Componente *);
+	virtual bool contieneEsteComponente(VistaComponente *);
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
@@ -51,7 +51,7 @@ public:
 	void setTexto(const std::string &);
 	std::string getTexto();
 
-	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
 
 };
 

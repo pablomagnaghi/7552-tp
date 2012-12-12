@@ -19,8 +19,8 @@ void VistaEntidadGlobal::setNombre(const std::string & nombre) {
 	this->entidad->setNombre(nombre);
 }
 
-bool VistaEntidadGlobal::contieneEsteComponente(Componente * c) {
-	return this->entidad == c;
+bool VistaEntidadGlobal::contieneEsteComponente(VistaComponente * c) {
+	return false;
 }
 
 bool VistaEntidadGlobal::lanzarProp() {
@@ -248,6 +248,6 @@ Entidad * VistaEntidadGlobal::getEntidad(){
 	return this->entidad;
 }
 
-void VistaEntidadGlobal::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+void VistaEntidadGlobal::eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes){
 
 }

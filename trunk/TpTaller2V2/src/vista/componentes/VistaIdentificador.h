@@ -54,7 +54,7 @@ public:
 
 	virtual void redimensionar(double x, double y);
 
-	virtual bool contieneEsteComponente(Componente *);
+	virtual bool contieneEsteComponente(VistaComponente *);
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
@@ -64,7 +64,7 @@ public:
 
 	Identificador * getIdentificador();
 
-	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAIDENTIFICADOR_H_ */

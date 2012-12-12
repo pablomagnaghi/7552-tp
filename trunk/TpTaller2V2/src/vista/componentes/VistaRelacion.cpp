@@ -13,7 +13,9 @@ VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
 
 VistaRelacion::~VistaRelacion() {
 	// TODO Auto-generated destructor stub
-
+	if(this->eliminarModelo){
+		delete this->relacion;
+	}
 }
 
 bool VistaRelacion::lanzarProp() {
@@ -266,8 +268,8 @@ std::vector<UnionEntidadRelacion *> VistaRelacion::getUniones() {
 	return uniones;
 }
 
-bool VistaRelacion::contieneEsteComponente(Componente * c) {
-	return this->relacion == c;
+bool VistaRelacion::contieneEsteComponente(VistaComponente * c) {
+	return false;
 }
 
 bool VistaRelacion::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y,
@@ -315,11 +317,12 @@ bool VistaRelacion::agregarAtributo(VistaAtributo* atributo) {
 }
 
 bool VistaRelacion::quitarAtributo(VistaAtributo* atributo) {
-	if (atributo == NULL) {
+	if (atributo == NULL || this->eliminando) {
 		return false;
 	}
-	remove(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
-	// TODO VERIFICAR RETORNO DE remove()
+	std::vector<VistaAtributo *>::iterator it_atributos;
+	it_atributos = find(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
+	this->vistaAtributos.erase(it_atributos);
 	return true;
 }
 
@@ -331,8 +334,18 @@ std::vector<VistaAtributo*>::iterator VistaRelacion::atributosEnd() {
 	return this->vistaAtributos.end();
 }
 
-void VistaRelacion::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
-
+void VistaRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
+		std::vector<VistaComponente *> & componentes) {
+	std::vector<VistaAtributo *>::iterator it_atributo;
+	this->eliminando = true;
+	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
+		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes);
+		componentes.push_back((*it_atributo));
+		this->relacion->quitarAtributo((*it_atributo)->getAtributo());
+		delete (*it_atributo);
+	}
+	diagrama->quitarComponente(this->relacion);
+	this->eliminarModelo = true;
 }
 
 void VistaRelacion::resetearLanzarProp() {

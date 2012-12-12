@@ -283,8 +283,8 @@ std::string VistaEntidadNueva::getNombre() const {
 	return this->entidad->getNombre();
 }
 
-bool VistaEntidadNueva::contieneEsteComponente(Componente * c) {
-	return this->entidad == c;
+bool VistaEntidadNueva::contieneEsteComponente(VistaComponente * c) {
+	return false;
 }
 
 bool VistaEntidadNueva::esDebil() {
@@ -304,10 +304,16 @@ bool VistaEntidadNueva::agregarAtributo(VistaAtributo* atributo) {
 }
 
 bool VistaEntidadNueva::quitarAtributo(VistaAtributo* atributo) {
-	if (atributo == NULL) {
+	if (atributo == NULL || this->eliminando) {
 		return false;
 	}
-	remove(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
+	std::vector<VistaAtributo *>::iterator it_atributo;
+
+	it_atributo = find(vistaAtributos.begin(), vistaAtributos.end(), atributo);
+	if (it_atributo != vistaAtributos.end()) {
+		vistaAtributos.erase(it_atributo);
+	}
+	this->entidad->quitarAtributo(atributo->getAtributo());
 	// TODO VERIFICAR RETORNO DE remove()
 	return true;
 }
@@ -328,11 +334,16 @@ EntidadNueva * VistaEntidadNueva::getEntidadNueva() {
 	return this->entidad;
 }
 
-void VistaEntidadNueva::eliminarComponentesAdyacentes(
+void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		std::vector<VistaComponente *> & componentes) {
 	std::vector<VistaAtributo *>::iterator it_atributo;
+	this->eliminando = true;
 	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
-		(*it_atributo)->eliminarComponentesAdyacentes(componentes);
+		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes);
 		componentes.push_back((*it_atributo));
+		this->entidad->quitarAtributo((*it_atributo)->getAtributo());
+		delete (*it_atributo);
 	}
+	diagrama->quitarComponente(this->entidad);
+	this->eliminarModelo = true;
 }

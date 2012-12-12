@@ -15,6 +15,9 @@ VistaAtributo::VistaAtributo(Atributo * atributoModelo) {
 
 VistaAtributo::~VistaAtributo() {
 	// TODO Auto-generated destructor stub
+	if(this->eliminarModelo){
+		delete this->atributo;
+	}
 }
 
 bool VistaAtributo::lanzarProp() {
@@ -25,9 +28,9 @@ bool VistaAtributo::lanzarProp() {
 		nuevaProp->setAtributo(this);
 		this->prop_lanzada = true;
 		try {
-		nuevaProp->show();
-		}catch(int e){
-			cout<<"ERROR"<<endl;
+			nuevaProp->show();
+		} catch (int e) {
+			cout << "ERROR" << endl;
 		}
 		return true;
 	}
@@ -264,8 +267,8 @@ std::string VistaAtributo::getNombre() const {
 	return this->atributo->getNombre();
 }
 
-bool VistaAtributo::contieneEsteComponente(Componente * c) {
-	return this->atributo == c;
+bool VistaAtributo::contieneEsteComponente(VistaComponente * c) {
+	return false;
 }
 
 bool VistaAtributo::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y,
@@ -318,10 +321,16 @@ bool VistaAtributo::agregarAtributo(VistaAtributo* atributo) {
 }
 
 bool VistaAtributo::quitarAtributo(VistaAtributo* atributo) {
-	if (atributo == NULL) {
+	if (atributo == NULL || this->eliminando) {
 		return false;
 	}
-	remove(this->atributosHijos.begin(), this->atributosHijos.end(), atributo);
+	std::vector<VistaAtributo *>::iterator it_atributo;
+
+	it_atributo = find(atributosHijos.begin(), atributosHijos.end(), atributo);
+	if (it_atributo != atributosHijos.end()) {
+		atributosHijos.erase(it_atributo);
+	}
+	this->atributo->quitarAtributo(atributo->getAtributo());
 	return true;
 }
 
@@ -335,6 +344,10 @@ std::vector<VistaAtributo*>::iterator VistaAtributo::atributosEnd() {
 
 Atributo* VistaAtributo::getAtributo() {
 	return this->atributo;
+}
+
+void VistaAtributo::setPadre(InterfazRemoverAtributo * padre) {
+	this->padre = padre;
 }
 
 void VistaAtributo::resetearLanzarProp() {
@@ -405,15 +418,20 @@ void VistaAtributo::setNombre(const std::string & nombre) {
 	this->atributo->setNombre(nombre);
 }
 
-void VistaAtributo::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes) {
+void VistaAtributo::eliminarComponentesAdyacentes(Diagrama * diagrama,
+		std::vector<VistaComponente *> & componentes) {
+	VistaAtributo * elemento;
 	std::vector<VistaAtributo*>::iterator i;
-
-	std::cout << "Cantidad Hijos Atributo: "<<this->atributosHijos.size() << std::endl;
+	this->eliminando = true;
 	for (i = this->atributosHijos.begin(); i != this->atributosHijos.end(); i++) {
-		(*i)->eliminarComponentesAdyacentes(componentes);
-		componentes.push_back(*i);
-		//delete (*i);
+		elemento = (*i);
+		componentes.push_back(elemento);
+		elemento->eliminarComponentesAdyacentes(diagrama, componentes);
+		this->atributo->quitarAtributo((*i)->getAtributo());
+		delete (*i);
 	}
+	diagrama->quitarComponente(this->atributo);
+	this->eliminarModelo = true;
 	componentes.push_back(this->linea);
-
+	this->padre->quitarAtributo(this);
 }

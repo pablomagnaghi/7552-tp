@@ -10,6 +10,7 @@
 
 // Persistencia
 #include "../../modelo/persistencia/Persistencia.h"
+#include "../../modelo/Diagrama.h"
 
 using namespace std;
 
@@ -40,6 +41,9 @@ protected:
 	int mouseArribaDePuntoDeRedimension;
 	bool ajustarTamanioPorTexto;
 	bool prop_lanzada;
+
+	bool eliminando;
+	bool eliminarModelo;
 
 	void dibujarNombreCentrado(Cairo::RefPtr<Cairo::Context> cr, const std::string nombre);
 
@@ -104,14 +108,14 @@ public:
 	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager);
 	void on_popup_boton_propiedades();
 
-	virtual bool contieneEsteComponente(Componente *)=0;
+	virtual bool contieneEsteComponente(VistaComponente *)=0;
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y)=0;
 
 	bool estaSeleccionado();
 
-	virtual void eliminarComponentesAdyacentes(
+	virtual void eliminarComponentesAdyacentes(Diagrama * diagrama,
 			std::vector<VistaComponente *> & componentes_a_eliminar) = 0;
 
 	// PERSISTENCIA REP
