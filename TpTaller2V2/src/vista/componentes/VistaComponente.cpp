@@ -20,6 +20,8 @@ VistaComponente::VistaComponente() {
 	VistaComponente::colorVerde.set_rgb_p(0, 1, 0);
 	this->seleccionado = false;
 	this->ajustarTamanioPorTexto = false;
+	this->eliminando = false;
+	this->eliminarModelo = false;
 	//this->estaMouseArriba = false;
 }
 

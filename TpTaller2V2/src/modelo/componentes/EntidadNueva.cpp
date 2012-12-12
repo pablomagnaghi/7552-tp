@@ -30,9 +30,10 @@ void EntidadNueva::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
 		throw NullPointer("Puntero nulo en quitarAtributo en EntidadNueva");
 	}
-	remove(this->atributos.begin(), this->atributos.end(), atributo);
+	std::vector<Atributo *>::iterator it_atributos;
+	it_atributos = find(this->atributos.begin(), this->atributos.end(), atributo);
+	this->atributos.erase(it_atributos);
 }
-
 
 void EntidadNueva::agregarJerarquiaPadre(Jerarquia *j) throw (NullPointer) {
 	if (j == NULL) {
@@ -45,7 +46,9 @@ void EntidadNueva::quitarJerarquiaPadre(Jerarquia *j) throw (NullPointer) {
 	if (j == NULL) {
 		throw NullPointer("Puntero nulo en quitarJerarquiaPadre en EntidadNueva");
 	}
-	remove(this->jerarquiasPadre.begin(), this->jerarquiasPadre.end(), j);
+	std::vector<Jerarquia *>::iterator it_jerarquias;
+	it_jerarquias = find(this->jerarquiasPadre.begin(), this->jerarquiasPadre.end(), j);
+	this->jerarquiasPadre.erase(it_jerarquias);
 }
 
 void EntidadNueva::agregarIdentificador(Identificador *identificador) throw (NullPointer) {
@@ -59,7 +62,9 @@ void EntidadNueva::quitarIdentificador(Identificador *identificador) throw (Null
 	if (identificador == NULL) {
 		throw NullPointer("Puntero nulo en quitarIdentificador en EntidadNueva");
 	}
-	remove(this->identificadores.begin(), this->identificadores.end(), identificador);
+	std::vector<Identificador *>::iterator it_identificador;
+	it_identificador = find(this->identificadores.begin(), this->identificadores.end(), identificador);
+	this->identificadores.erase(it_identificador);
 }
 
 std::string EntidadNueva::getTipo() const {
@@ -80,11 +85,11 @@ std::vector<Atributo*>::iterator EntidadNueva::atributosEnd() {
 	return this->atributos.end();
 }
 
-std::vector<Jerarquia*>::iterator EntidadNueva::jerarquiasPadreBegin(){
+std::vector<Jerarquia*>::iterator EntidadNueva::jerarquiasPadreBegin() {
 	return this->jerarquiasPadre.begin();
 }
 
-std::vector<Jerarquia*>::iterator EntidadNueva::jerarquiasPadreEnd(){
+std::vector<Jerarquia*>::iterator EntidadNueva::jerarquiasPadreEnd() {
 	return this->jerarquiasPadre.end();
 }
 
@@ -126,7 +131,7 @@ Atributo* EntidadNueva::getAtributoByCodigo(int codigo) {
 	return atributo;
 }
 
-bool EntidadNueva::existeAtributo(const std::string& nombre){
+bool EntidadNueva::existeAtributo(const std::string& nombre) {
 	std::string nombreMin = Utils::toLowerCase(nombre);
 	std::vector<Atributo*>::iterator it = this->atributos.begin();
 	while (it != this->atributos.end()) {
@@ -138,15 +143,15 @@ bool EntidadNueva::existeAtributo(const std::string& nombre){
 	return false;
 }
 
-void EntidadNueva::accept(ModeloVisitor* modeloVisitor){
+void EntidadNueva::accept(ModeloVisitor* modeloVisitor) {
 	modeloVisitor->visit(this);
 	std::vector<Atributo*>::iterator itAtributos = this->atributosBegin();
-	while(itAtributos != this->atributosEnd()){
+	while (itAtributos != this->atributosEnd()) {
 		(*itAtributos)->accept(modeloVisitor);
 		itAtributos++;
 	}
 	std::vector<Identificador*>::iterator itIdentificadores = this->identificadoresBegin();
-	while(itIdentificadores != this->identificadoresEnd()){
+	while (itIdentificadores != this->identificadoresEnd()) {
 		(*itIdentificadores)->accept(modeloVisitor);
 		itIdentificadores++;
 	}
@@ -169,14 +174,15 @@ void EntidadNueva::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->tipo = nodo->getPropiedad("tipo");
 }
 
-void EntidadNueva::obtenerComponentesIdentificadorXmlCOMP(XmlNodo* nodo, Identificador* identificador) {
+void EntidadNueva::obtenerComponentesIdentificadorXmlCOMP(XmlNodo* nodo,
+		Identificador* identificador) {
 	XmlNodo nodoAux = nodo->getHijo();
 
 	while (nodoAux.esValido()) {
 		if (nodoAux.getNombre() == "atributo") {
 			identificador->agregarCodigoAtributo(nodoAux.getContenidoInt());
 		}
-		if (nodoAux.getNombre() == "relacion")	{
+		if (nodoAux.getNombre() == "relacion") {
 			identificador->agregarCodigoRelacion(nodoAux.getContenidoInt());
 		}
 		nodoAux = nodoAux.getHermano();
@@ -202,32 +208,32 @@ void EntidadNueva::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 // GUARDAR
 
 XmlNodo EntidadNueva::guardarXmlCOMP() {
-	 XmlNodo nodo("entidad_nueva");
+	XmlNodo nodo("entidad_nueva");
 
-	 this->agregarPropiedadesXmlCOMP(&nodo);
+	this->agregarPropiedadesXmlCOMP(&nodo);
 
-	 this->guardarAtributosXmlCOMP(&nodo);
-	 this->guardarIdentificadoresXmlCOMP(&nodo);
+	this->guardarAtributosXmlCOMP(&nodo);
+	this->guardarIdentificadoresXmlCOMP(&nodo);
 
-	 return nodo;
+	return nodo;
 }
 
 void EntidadNueva::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	Componente::agregarPropiedadesXmlCOMP(nodo);
-	nodo->setPropiedad("tipo",this->tipo);
+	nodo->setPropiedad("tipo", this->tipo);
 }
 
 void EntidadNueva::guardarAtributosXmlCOMP(XmlNodo *nodo) {
 	std::vector<Atributo*>::iterator i;
 
-	for(i = this->atributos.begin(); i != this->atributos.end(); ++i)
+	for (i = this->atributos.begin(); i != this->atributos.end(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }
 
 void EntidadNueva::guardarIdentificadoresXmlCOMP(XmlNodo *nodo) {
 	std::vector<Identificador*>::iterator i;
 
-	for(i = this->identificadores.begin(); i != this->identificadores.end(); ++i) {
+	for (i = this->identificadores.begin(); i != this->identificadores.end(); ++i) {
 		XmlNodo nodoIdentificador("identificador");
 
 		this->guardarAtributosIdentificadorXmlCOMP(&nodoIdentificador, (*i));
@@ -237,19 +243,22 @@ void EntidadNueva::guardarIdentificadoresXmlCOMP(XmlNodo *nodo) {
 	}
 }
 
-void EntidadNueva::guardarAtributosIdentificadorXmlCOMP(XmlNodo *nodo, Identificador *identificador) {
+void EntidadNueva::guardarAtributosIdentificadorXmlCOMP(XmlNodo *nodo,
+		Identificador *identificador) {
 	std::vector<int>::iterator i;
 
-	for(i = identificador->codigoAtributosBegin(); i != identificador->codigoAtributosEnd(); ++i) {
+	for (i = identificador->codigoAtributosBegin(); i != identificador->codigoAtributosEnd(); ++i) {
 		XmlNodo nodoAtributo("atributo");
 		nodoAtributo.setContenido(*i);
 		nodo->agregarHijo(nodoAtributo);
 	}
 }
 
-void EntidadNueva::guardarRelacionesIdentificadorXmlCOMP(XmlNodo *nodo, Identificador *identificador) {
+void EntidadNueva::guardarRelacionesIdentificadorXmlCOMP(XmlNodo *nodo,
+		Identificador *identificador) {
 	std::vector<int>::iterator i;
-	for(i = identificador->codigoRelacionesBegin(); i != identificador->codigoRelacionesEnd(); ++i) {
+	for (i = identificador->codigoRelacionesBegin(); i != identificador->codigoRelacionesEnd();
+			++i) {
 		XmlNodo nodoRelacion("relacion");
 		nodoRelacion.setContenido(*i);
 		nodo->agregarHijo(nodoRelacion);

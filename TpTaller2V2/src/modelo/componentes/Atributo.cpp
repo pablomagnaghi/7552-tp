@@ -2,8 +2,7 @@
 #include "../validacion/ModeloVisitor.h"
 
 Atributo::Atributo() :
-	cardinalidadMinima ("1"),
-	cardinalidadMaxima ("1") {
+		cardinalidadMinima("1"), cardinalidadMaxima("1") {
 	this->nombre = "Atributo";
 }
 
@@ -55,7 +54,9 @@ void Atributo::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
 		throw NullPointer("Puntero nulo en quitarAtributo en Atributo");
 	}
-	remove(this->atributos.begin(), this->atributos.end(), atributo);
+	std::vector<Atributo *>::iterator it_atributos;
+	it_atributos = find(this->atributos.begin(), this->atributos.end(), atributo);
+	this->atributos.erase(it_atributos);
 }
 
 std::vector<Atributo*>::iterator Atributo::atributosBegin() {
@@ -68,14 +69,14 @@ std::vector<Atributo*>::iterator Atributo::atributosEnd() {
 
 void Atributo::borrarAtributos() {
 	std::vector<Atributo*>::iterator it = this->atributos.begin();
-	while ( it != this->atributos.end() ) {
+	while (it != this->atributos.end()) {
 		delete (*it);
 		it++;
 	}
 	this->atributos.clear();
 }
 
-bool Atributo::existeAtributo(const std::string& nombre){
+bool Atributo::existeAtributo(const std::string& nombre) {
 	std::string nombreMin = Utils::toLowerCase(nombre);
 	std::vector<Atributo*>::iterator it = this->atributos.begin();
 	while (it != this->atributos.end()) {
@@ -87,10 +88,10 @@ bool Atributo::existeAtributo(const std::string& nombre){
 	return false;
 }
 
-void Atributo::accept(ModeloVisitor* modeloVisitor){
+void Atributo::accept(ModeloVisitor* modeloVisitor) {
 	modeloVisitor->visit(this);
 	std::vector<Atributo*>::iterator it = this->atributosBegin();
-	while(it != this->atributosEnd()){
+	while (it != this->atributosEnd()) {
 		(*it)->accept(modeloVisitor);
 		it++;
 	}
@@ -116,7 +117,7 @@ void Atributo::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 void Atributo::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
 	while (nodo->esValido()) {
 		if (nodo->getNombre() == "atributo") {
-	  		Atributo *atributo = new Atributo (nodo);
+			Atributo *atributo = new Atributo(nodo);
 			this->agregarAtributo(atributo);
 		}
 		*nodo = nodo->getHermano();
@@ -135,20 +136,21 @@ XmlNodo Atributo::guardarXmlCOMP() {
 
 void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	Componente::agregarPropiedadesXmlCOMP(nodo);
-	nodo->setPropiedad("tipo",this->tipo);
+	nodo->setPropiedad("tipo", this->tipo);
 	// si son nulos los siguientes atributos, no se ponen
 	if (this->expresion.size())
-		nodo->setPropiedad("expresion",this->expresion);
+		nodo->setPropiedad("expresion", this->expresion);
 	if (this->cardinalidadMinima.size() && this->cardinalidadMaxima.size())
-		if (this->cardinalidadMinima != CARDINALIDAD_MINIMA || this->cardinalidadMaxima != CARDINALIDAD_MINIMA) {
-			nodo->setPropiedad("cardinalidad_minima",this->cardinalidadMinima);
-			nodo->setPropiedad("cardinalidad_maxima",this->cardinalidadMaxima);
+		if (this->cardinalidadMinima != CARDINALIDAD_MINIMA
+				|| this->cardinalidadMaxima != CARDINALIDAD_MINIMA) {
+			nodo->setPropiedad("cardinalidad_minima", this->cardinalidadMinima);
+			nodo->setPropiedad("cardinalidad_maxima", this->cardinalidadMaxima);
 		}
 }
 
 void Atributo::guardarAtributosDerivablesXmlCOMP(XmlNodo* nodo) {
 	std::vector<Atributo*>::iterator i;
 
-	for(i = this->atributosBegin(); i != this->atributosEnd(); ++i)
+	for (i = this->atributosBegin(); i != this->atributosEnd(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
 }

@@ -4,10 +4,11 @@
 #include "../../controlador/AsistenteRelacion.h"
 #include "VistaComponente.h"
 #include "VistaAtributo.h"
+#include "InterfazRemoverAtributo.h"
 
 class VistaAtributo;
 
-class VistaRelacion: public VistaComponente {
+class VistaRelacion: public VistaComponente , public InterfazRemoverAtributo{
 private:
 
 	Relacion * relacion;
@@ -31,7 +32,7 @@ public:
 	virtual void redimensionar(double x, double y);
 	virtual std::string getNombre() const;
 	virtual void setNombre(const std::string &);
-	virtual bool contieneEsteComponente(Componente *);
+	virtual bool contieneEsteComponente(VistaComponente *);
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
 
@@ -39,11 +40,11 @@ public:
 	std::vector<UnionEntidadRelacion *> getUniones();
 
 	bool agregarAtributo(VistaAtributo* atrib);
-	bool quitarAtributo(VistaAtributo* atrib);
+	virtual bool quitarAtributo(VistaAtributo* atrib);
 	std::vector<VistaAtributo*>::iterator atributosBegin();
 	std::vector<VistaAtributo*>::iterator atributosEnd();
 
-	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTARELACION_H_ */

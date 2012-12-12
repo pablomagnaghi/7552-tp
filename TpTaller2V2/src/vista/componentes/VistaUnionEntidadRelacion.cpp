@@ -136,7 +136,11 @@ void VistaUnionEntidadRelacion::redimensionar(double x, double y) {
 
 }
 
-bool VistaUnionEntidadRelacion::contieneEsteComponente(Componente *) {
+bool VistaUnionEntidadRelacion::contieneEsteComponente(VistaComponente * comp) {
+	if (static_cast<VistaComponente *>(this->relacion) == comp
+			|| static_cast<VistaComponente *>(this->entidad) == comp) {
+		return true;
+	}
 	return false;
 }
 
@@ -155,11 +159,17 @@ void VistaUnionEntidadRelacion::setNombre(const std::string & nombre) {
 	this->unionModelo->setNombre(nombre);
 }
 
-UnionEntidadRelacion * VistaUnionEntidadRelacion::getUnion(){
+UnionEntidadRelacion * VistaUnionEntidadRelacion::getUnion() {
 	return this->unionModelo;
 }
 
+void VistaUnionEntidadRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
+		std::vector<VistaComponente *> & componentes) {
+	this->eliminando = true;
 
-void VistaUnionEntidadRelacion::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+	diagrama->quitarComponente(this->unionModelo);
+	this->unionModelo->getRelacion()->quitarUnionAEntidad(this->unionModelo);
+	this->unionModelo->getEntidad()->removerUnionARelacion(this->unionModelo);
 
+	this->eliminarModelo = true;
 }

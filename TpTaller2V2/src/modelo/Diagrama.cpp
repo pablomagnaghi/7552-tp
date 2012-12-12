@@ -69,7 +69,6 @@ void Diagrama::agregarComponente(Componente* componente) {
 	this->componentes.push_back(componente);
 }
 
-
 void Diagrama::agregarEntidad(Entidad* entidad) {
 	this->entidades.push_back(entidad);
 }
@@ -144,16 +143,46 @@ void Diagrama::quitarJerarquia(Jerarquia* jerarquia) {
 
 void Diagrama::quitarComponente(Componente * componente) {
 	if (componente != NULL) {
-		remove(this->componentes.begin(), this->componentes.end(), componente);
-		remove(this->entidades.begin(), this->entidades.end(), static_cast<Entidad *>(componente));
-		remove(this->entidadesNuevas.begin(), this->entidadesNuevas.end(),
+		std::vector<Componente *>::iterator it_componentes;
+		std::vector<Entidad *>::iterator it_entidades;
+		std::vector<EntidadNueva *>::iterator it_entidades_nuevas;
+		std::vector<EntidadGlobal *>::iterator it_entidades_globales;
+		std::vector<Relacion *>::iterator it_relaciones;
+		std::vector<Jerarquia *>::iterator it_jerarquias;
+
+		it_componentes = find(componentes.begin(), componentes.end(), componente);
+		if (it_componentes != componentes.end()) {
+			componentes.erase(it_componentes);
+		}
+
+		it_entidades = find(entidades.begin(), entidades.end(), static_cast<Entidad *>(componente));
+		if (it_entidades != entidades.end()) {
+			entidades.erase(it_entidades);
+		}
+
+		it_entidades_nuevas = find(entidadesNuevas.begin(), entidadesNuevas.end(),
 				static_cast<EntidadNueva *>(componente));
-		remove(this->entidadesGlobales.begin(), this->entidadesGlobales.end(),
+		if (it_entidades_nuevas != entidadesNuevas.end()) {
+			entidadesNuevas.erase(it_entidades_nuevas);
+		}
+
+		it_entidades_globales = find(entidadesGlobales.begin(), entidadesGlobales.end(),
 				static_cast<EntidadGlobal *>(componente));
-		remove(this->relaciones.begin(), this->relaciones.end(),
+		if (it_entidades_globales != entidadesGlobales.end()) {
+			entidadesGlobales.erase(it_entidades_globales);
+		}
+
+		it_relaciones = find(relaciones.begin(), relaciones.end(),
 				static_cast<Relacion *>(componente));
-		remove(this->jerarquias.begin(), this->jerarquias.end(),
+		if (it_relaciones != relaciones.end()) {
+			relaciones.erase(it_relaciones);
+		}
+
+		it_jerarquias = find(jerarquias.begin(), jerarquias.end(),
 				static_cast<Jerarquia *>(componente));
+		if (it_jerarquias != jerarquias.end()) {
+			jerarquias.erase(it_jerarquias);
+		}
 	}
 }
 
@@ -386,10 +415,10 @@ bool Diagrama::existeEntidadGlobal(const std::string& nombre) {
 	return false;
 }
 
-void Diagrama::accept(ModeloVisitor* modeloVisitor){
+void Diagrama::accept(ModeloVisitor* modeloVisitor) {
 	modeloVisitor->visit(this);
 	std::vector<Componente*>::iterator it = this->componentesBegin();
-	while(it != this->componentesEnd()){
+	while (it != this->componentesEnd()) {
 		(*it)->accept(modeloVisitor);
 		it++;
 	}

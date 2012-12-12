@@ -177,7 +177,7 @@ std::string VistaJerarquia::getNombre() const {
 	return "VistaJerarquia";
 }
 
-bool VistaJerarquia::contieneEsteComponente(Componente * comp) {
+bool VistaJerarquia::contieneEsteComponente(VistaComponente * comp) {
 	return false;
 }
 
@@ -194,8 +194,9 @@ void VistaJerarquia::agregarEntidadEspecializada(VistaEntidadNueva * hijoNuevo) 
 }
 
 void VistaJerarquia::removerEntidadEspecializada(VistaEntidadNueva * entidadEliminada) {
-
-	remove(this->hijos.begin(), this->hijos.end(), entidadEliminada);
+	std::vector<VistaEntidadNueva *>::iterator it_entidades;
+	it_entidades = find(this->hijos.begin(), this->hijos.end(), entidadEliminada);
+	this->hijos.erase(it_entidades);
 }
 
 std::vector<VistaEntidadNueva *>::iterator VistaJerarquia::entidadesEspecializadasBegin() {
@@ -227,6 +228,6 @@ Jerarquia * VistaJerarquia::getJerarquia(){
 	return this->jerarquia;
 }
 
-void VistaJerarquia::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+void VistaJerarquia::eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes){
 
 }

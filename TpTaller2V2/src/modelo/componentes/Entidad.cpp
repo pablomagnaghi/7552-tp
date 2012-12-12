@@ -23,7 +23,9 @@ void Entidad::removerUnionARelacion(UnionEntidadRelacion *u) throw (NullPointer)
 	if (u == NULL) {
 		throw NullPointer("Puntero nulo en removerUnionARelacion de Entidad");
 	}
-	remove(this->unionesARelacion.begin(), this->unionesARelacion.end(), u);
+	std::vector<UnionEntidadRelacion *>::iterator it_uniones;
+	it_uniones = find(this->unionesARelacion.begin(), this->unionesARelacion.end(), u);
+	this->unionesARelacion.erase(it_uniones);
 }
 
 std::vector<UnionEntidadRelacion *>::iterator Entidad::unionesARelacionBegin() {

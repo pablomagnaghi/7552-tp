@@ -11,6 +11,9 @@ VistaIdentificador::VistaIdentificador(Identificador * id) {
 }
 
 VistaIdentificador::~VistaIdentificador() {
+	if(this->eliminarModelo){
+		delete this->identificador;
+	}
 	// TODO Auto-generated destructor stub
 }
 
@@ -50,7 +53,8 @@ void VistaIdentificador::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 			cr->arc(x0, y0, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
 			cr->fill();
 			cr->move_to(x0, y0);
-			for (j = this->vistasEntidadesFuertes.begin(); j != this->vistasEntidadesFuertes.end(); j++) {
+			for (j = this->vistasEntidadesFuertes.begin(); j != this->vistasEntidadesFuertes.end();
+					j++) {
 				(*j)->getPuntoMedioLinea(x1, y1);
 				cr->line_to(x1, y1);
 				cr->stroke();
@@ -77,7 +81,8 @@ void VistaIdentificador::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		cr->stroke();
 		if (!this->vistasEntidadesFuertes.empty()) {
 			cr->move_to(x0, y0);
-			for (j = this->vistasEntidadesFuertes.begin(); j != this->vistasEntidadesFuertes.end(); j++) {
+			for (j = this->vistasEntidadesFuertes.begin(); j != this->vistasEntidadesFuertes.end();
+					j++) {
 				(*j)->getPuntoMedioLinea(x1, y1);
 				cr->line_to(x1, y1);
 				cout << "X1=" << x1 << " Y1=" << y1 << endl;
@@ -154,7 +159,6 @@ std::vector<VistaUnionEntidadRelacion*>::iterator VistaIdentificador::entidadesF
 std::vector<VistaUnionEntidadRelacion*>::iterator VistaIdentificador::entidadesFuertesEnd() {
 	return this->vistasEntidadesFuertes.end();
 }
-
 
 bool VistaIdentificador::contieneAEstePunto(double x, double y) {
 	/*double limiteX1, limiteX4;
@@ -274,8 +278,17 @@ std::string VistaIdentificador::getNombre() const {
 	return nombre;
 }
 
-bool VistaIdentificador::contieneEsteComponente(Componente * c) {
-	return (void *) this->identificador == (void *) c;
+bool VistaIdentificador::contieneEsteComponente(VistaComponente * c) {
+	if (find(vistasAtributo.begin(), vistasAtributo.end(), static_cast<VistaAtributo *>(c))
+			!= vistasAtributo.end()) {
+		return true;
+	}
+	if (find(vistasEntidadesFuertes.begin(), vistasEntidadesFuertes.end(),
+			static_cast<VistaUnionEntidadRelacion *>(c)) != vistasEntidadesFuertes.end()) {
+		return true;
+	}
+
+	return false;
 }
 
 bool VistaIdentificador::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y,
@@ -362,13 +375,18 @@ void VistaIdentificador::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Conte
 	 }*/
 }
 
-Identificador * VistaIdentificador::getIdentificador(){
+Identificador * VistaIdentificador::getIdentificador() {
 	return this->identificador;
 }
 
 void VistaIdentificador::setNombre(const std::string & nombre) {
 }
 
-void VistaIdentificador::eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes){
+void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
+		std::vector<VistaComponente *> & componentes) {
+
+	this->eliminando = true;
+
+	this->eliminarModelo = true;
 
 }

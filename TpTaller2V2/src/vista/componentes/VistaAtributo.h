@@ -6,8 +6,9 @@
 #include <list>
 #include "../VistaConstantes.h"
 #include "VistaLinea.h"
+#include "InterfazRemoverAtributo.h"
 
-class VistaAtributo: public VistaComponente {
+class VistaAtributo: public VistaComponente, public InterfazRemoverAtributo {
 private:
 	std::vector<VistaAtributo*> atributosHijos;
 	Atributo * atributo;
@@ -15,6 +16,7 @@ private:
 	bool esIdentificador;
 	VistaLinea * linea;
 	bool dibujar_cardinalidad;
+	InterfazRemoverAtributo * padre;
 
 	void dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr);
 
@@ -35,11 +37,12 @@ public:
 
 	// Solo se puede agregar y sacar atributos a la entidad nueva
 	bool agregarAtributo(VistaAtributo* atrib);
-	bool quitarAtributo(VistaAtributo* atrib);
+	virtual bool quitarAtributo(VistaAtributo* atrib);
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
 
+	void setPadre(InterfazRemoverAtributo * padre);
 
 	//Lanza el asistente de prpiedades del objeto en cuestion.
 	virtual bool lanzarProp();
@@ -56,7 +59,7 @@ public:
 
 	virtual void redimensionar(double x, double y);
 
-	virtual bool contieneEsteComponente(Componente *);
+	virtual bool contieneEsteComponente(VistaComponente *);
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
@@ -70,7 +73,7 @@ public:
 
 	void getPuntoMedioLinea(double &x, double &y);
 
-	void eliminarComponentesAdyacentes(std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
 };
 
 #endif /* VISTAATRIBUTO_H_ */

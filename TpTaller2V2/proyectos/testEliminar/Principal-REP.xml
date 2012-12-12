@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="representacion.xsd" estado="sin_validar"><componente codigo="1"><posicion_incial x="259" y="179"/><posicion_final x="329" y="204"/><color r="0" g="0" b="0"/></componente><componente codigo="2"><posicion_incial x="360" y="150"/><posicion_final x="430" y="175"/><color r="0" g="0" b="0"/></componente></diagrama>

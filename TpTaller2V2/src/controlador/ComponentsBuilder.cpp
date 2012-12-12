@@ -62,6 +62,7 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaDiagrama *diagram
 	//enlazar con la entidad crear union, poner en diagrama actual,etc.
 	VistaAtributo *vatrib = new VistaAtributo(atrib);
 	ventidad->agregarAtributo(vatrib);
+	vatrib->setPadre(ventidad);
 	VistaLinea * lineaEntidadAtributo = new VistaLinea();
 	lineaEntidadAtributo->setComponenteDesde(ventidad);
 	lineaEntidadAtributo->setComponenteHasta(vatrib);
@@ -92,6 +93,7 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaDiagrama *diagra
 
 	VistaAtributo *vatrib = new VistaAtributo(atrib);
 	vatribPadre->agregarAtributo(vatrib);
+	vatrib->setPadre(vatribPadre);
 	VistaLinea * lineaAtributoAtributo = new VistaLinea();
 	lineaAtributoAtributo->setComponenteDesde(vatribPadre);
 	lineaAtributoAtributo->setComponenteHasta(vatrib);

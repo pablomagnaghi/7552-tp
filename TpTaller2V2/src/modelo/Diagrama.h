@@ -16,12 +16,12 @@ private:
 	std::string estado;
 	Diagrama* diagramaAncestro;
 	std::vector<Diagrama*> diagramasHijos;
+	std::vector<Entidad*> entidades; // No se persiste, es solo para iterarla desde afuera.
 	std::vector<EntidadNueva*> entidadesNuevas;
 	std::vector<EntidadGlobal*> entidadesGlobales;
 	std::vector<Relacion*> relaciones;
 	std::vector<Jerarquia*> jerarquias;
 	std::vector<Componente*> componentes; // No se persiste, es solo para iterarla desde afuera.
-	std::vector<Entidad*> entidades; // No se persiste, es solo para iterarla desde afuera.
 	std::vector<std::string> nombreDiagramasHijos;
 	std::string nombreDiagramaAncestro;
 
