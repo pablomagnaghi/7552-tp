@@ -15,6 +15,7 @@ EntidadNueva* crearSeccionSala(){
 	seccionSala->setTipo(TIPO_ENTIDAD_COSA);
 
 	Atributo* nroSecc = new Atributo();
+
 	nroSecc->setNombre("nroSecc");
 	nroSecc->setCodigo(GeneradorCodigo::siguienteCodigo());
 	nroSecc->setTipo(TIPO_ATRIBUTO_CARACTERIZACION);
