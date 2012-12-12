@@ -902,8 +902,11 @@ void VistaDiagrama::drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
 
 void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 	if (componente != NULL) {
+		cout<<"llego21"<<endl;
 		this->componentes.push_back(componente);
+		cout<<"llego22"<<endl;
 		this->queue_draw();
+		cout<<"llego23"<<endl;
 	}
 }
 

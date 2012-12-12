@@ -11,29 +11,29 @@
 #include "../modelo/componentes/Relacion.h"
 #include "../vista/componentes/VistaRelacion.h"
 #include "../vista/componentes/VistaEntidadNueva.h"
+#include "../vista/componentes/VistaAtributo.h"
 #include "ComponentsBuilder.h"
-#include <vector>
 
 class VistaRelacion;
 class VistaEntidadNueva;
-//class VistaAtributo;
+class VistaAtributo;
 class VistaDiagrama;
 
 class AsistenteRelacion: public Gtk::Window {
 private:
 	friend class Gtk::Builder;
 	VistaRelacion * vrelacion;
-	//VistaDiagrama * vdiagrama;
+	VistaDiagrama * vdiagrama;
 	Glib::RefPtr<Gtk::Builder> m_builder;
 	Gtk::Entry * entryNombreRelacion;
 	VistaDiagrama *diagramaActual;
 
 	static AsistenteRelacion * instancia;
 
-	//Tree model columns:
-	class ModeloColumnas: public Gtk::TreeModel::ColumnRecord {
+	//Tree modelEntidades columns:
+	class ModeloColumnasEntidades: public Gtk::TreeModel::ColumnRecord {
 	public:
-		ModeloColumnas() {
+		ModeloColumnasEntidades() {
 			add(m_col_Nombre);
 			add(m_col_selected);
 			add(m_col_vEnt_Pointer);
@@ -44,9 +44,25 @@ private:
 		Gtk::TreeModelColumn<VistaEntidadNueva*> m_col_vEnt_Pointer;
 	};
 
-	ModeloColumnas m_Columnas;
-	Gtk::TreeView treeView;
-	Glib::RefPtr<Gtk::ListStore> refTreeModel;
+	ModeloColumnasEntidades m_ColumnasEntidades;
+	Gtk::TreeView treeViewEntidades;
+	Glib::RefPtr<Gtk::ListStore> refTreeModelEntidades;
+
+	//Tree model Atributes columns:
+	class ModeloColumnasAtrib: public Gtk::TreeModel::ColumnRecord {
+	public:
+
+		ModeloColumnasAtrib() {
+			add(m_col_Nombre);
+			add(m_col_Atrib_Pointer);
+		}
+
+		Gtk::TreeModelColumn<string> m_col_Nombre;
+		Gtk::TreeModelColumn<VistaAtributo*> m_col_Atrib_Pointer;
+	};
+	ModeloColumnasAtrib m_ColumnasAtrib;
+	Gtk::TreeView treeViewAtrib;
+	Glib::RefPtr<Gtk::ListStore> refTreeModelAtrib;
 
 	void on_botonAceptar_click();
 	void on_botonCancelar_click();
@@ -56,7 +72,9 @@ private:
 	void enlazarWidgets();
 
 	void inicializarAsistente();
-	void limpiarLista();
+	void limpiarListaEntidades();
+	void setDiagrama(VistaDiagrama * diag);
+	void llenarListaEntidades();
 protected:
 	virtual void on_about_hide();
 

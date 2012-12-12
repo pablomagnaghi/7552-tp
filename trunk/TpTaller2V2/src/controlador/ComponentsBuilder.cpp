@@ -198,27 +198,33 @@ VistaUnionEntidadRelacion * ComponentsBuilder::crearUnionEntidadRelacion(
 
 VistaAtributo * ComponentsBuilder::crearAtributoEnRelacion(VistaDiagrama *diagramaActual,
 		VistaRelacion * relacion, Atributo * atributo) {
-
+	VistaAtributo *vistaAtributo = NULL;
+	cout<<"llego11"<<endl;
 	if (relacion == NULL) {
 		throw NullPointer("NullPointer: El atributo padre no puede ser nulo");
 	}
-
+	cout<<"llego12"<<endl;
 	if (atributo == NULL) {
+		cout<<"llego13"<<endl;
 		// crea el atributo y lo agrega al atributo compuesto del modelo
 		atributo = new Atributo();
 		atributo->setCodigo(GeneradorCodigo::getInstance()->siguienteCodigo());
 		relacion->getRelacion()->agregarAtributo(atributo);
+		cout<<"llego14"<<endl;
 	}
 
-	VistaAtributo *vistaAtributo = new VistaAtributo(atributo);
+	cout<<"llego15"<<endl;
+	vistaAtributo = new VistaAtributo(atributo);
 	relacion->agregarAtributo(vistaAtributo);
 	VistaLinea * lineaAtributoAtributo = new VistaLinea();
 	lineaAtributoAtributo->setComponenteDesde(relacion);
 	lineaAtributoAtributo->setComponenteHasta(vistaAtributo);
-
+	cout<<"llego16"<<endl;
 	//Agrego vatributo y vlinea a el diag
 	diagramaActual->agregarComponente(vistaAtributo);
+	cout<<"llego17"<<endl;
 	diagramaActual->agregarComponente(lineaAtributoAtributo);
+	cout<<"llego18"<<endl;
 	return vistaAtributo;
 
 }

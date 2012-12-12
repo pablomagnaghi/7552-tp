@@ -13,9 +13,9 @@ AsistenteRelacion * AsistenteRelacion::instancia = NULL;
 AsistenteRelacion::AsistenteRelacion(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& builder) :
 		Gtk::Window(cobject), m_builder(builder) {
-	/*this->ventidad = NULL;
-	this->enlazarWidgets();*/
-	this->diagramaActual = Ide::getInstance()->getDiagActual();
+	this->vrelacion = NULL;
+	this->enlazarWidgets();
+	this->setDiagrama(Ide::getInstance()->getDiagActual());
 }
 
 AsistenteRelacion::~AsistenteRelacion() {
@@ -27,23 +27,18 @@ void AsistenteRelacion::setRelacion(VistaRelacion* rel) {
 	//this->inicializarAsistente();
 }
 
-/*
- void AsistenteRelacion::setDiagrama(VistaDiagrama* diag) {
- this->vdiagrama = diag;
- }*/
-
 void AsistenteRelacion::enlazarWidgets() {
-	/*Gtk::Button* bAceptar = 0;
+	Gtk::Button* bAceptar = 0;
 	Gtk::Button* bCancelar = 0;
 	Gtk::Button *bAAtributo = 0, *bMAtributo = 0, *bEAtributo = 0;
-	Gtk::ScrolledWindow* scrollLista = 0;
+	Gtk::ScrolledWindow *scrollEntidades = 0, *scrollAtributos = 0;
 
 	this->m_builder->get_widget("bAceptar", bAceptar);
 	this->m_builder->get_widget("bCancelar", bCancelar);
 	this->m_builder->get_widget("bAAtributo", bAAtributo);
 	this->m_builder->get_widget("bMAtributo", bMAtributo);
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
-	this->m_builder->get_widget("entryNombreEntidad", entryNombreEntidad);
+	this->m_builder->get_widget("entryNombreRelacion", entryNombreRelacion);
 
 	bAceptar->signal_clicked().connect(
 			sigc::mem_fun(*this, &AsistenteRelacion::on_botonAceptar_click));
@@ -57,30 +52,88 @@ void AsistenteRelacion::enlazarWidgets() {
 			sigc::mem_fun(*this, &AsistenteRelacion::on_botonEliminarAtributo_click));
 	this->signal_hide().connect(sigc::mem_fun(*this, &AsistenteRelacion::on_about_hide));
 
-	//Lista
-	this->m_builder->get_widget("scrollLista", scrollLista);
-	scrollLista->add(this->treeView);
-	this->refTreeModel = Gtk::ListStore::create(this->m_Columnas);
+	//ListaEntidades
+	this->m_builder->get_widget("scrollEntidades", scrollEntidades);
+	scrollEntidades->add(this->treeViewEntidades);
+	this->refTreeModelEntidades = Gtk::ListStore::create(this->m_ColumnasEntidades);
+
+	//Agrego modelo a treeviewEntidades
+	this->treeViewEntidades.set_model(this->refTreeModelEntidades);
+	this->treeViewEntidades.append_column("Nombre", this->m_ColumnasEntidades.m_col_Nombre);
+	this->treeViewEntidades.append_column_editable("Selected",
+				this->m_ColumnasEntidades.m_col_selected);
+
+	//ListaAtributos
+	this->m_builder->get_widget("scrollAtributos", scrollAtributos);
+	scrollAtributos->add(this->treeViewAtrib);
+	this->refTreeModelAtrib = Gtk::ListStore::create(this->m_ColumnasAtrib);
 
 	//Agrego modelo a treeview
-	this->treeView.set_model(this->refTreeModel);
-	this->treeView.append_column("Nombre", this->m_Columnas.m_col_Nombre);
-	this->treeView.show();*/
+	this->treeViewAtrib.set_model(this->refTreeModelAtrib);
+	this->treeViewAtrib.append_column("Nombre", this->m_ColumnasAtrib.m_col_Nombre);
+
+	this->treeViewEntidades.show();
+	this->treeViewAtrib.show();
+
 }
 
 void AsistenteRelacion::on_botonAceptar_click() {
-	/*string nombre = this->entryNombreEntidad->get_text();
-	if (nombre == ""){
-		Gtk::MessageDialog err_dialog(*this, "Entidad sin nombre", false,
+	VistaEntidadNueva* ventidad = NULL;
+	bool musthide = false;
+	int countSelected=0;
+	Gtk::Entry *entryNombre = 0;
+
+	this->m_builder->get_widget("entryNombreRelacion", entryNombre);
+	string nom =entryNombre->get_text();
+
+	if ( nom != "") {
+		this->vrelacion->setNombre(nom);
+		//Cuento mas de 2 entidades seleccionadas al menos
+		typedef Gtk::TreeModel::Children type_children;
+		type_children children = this->refTreeModelEntidades->children();
+		type_children::iterator iter = children.begin();
+		type_children::iterator iter1 = children.end();
+		while ((iter != iter1) && (countSelected<2)) {
+			Gtk::TreeModel::Row row = *iter;
+			// si esta seleccionada la agrego
+			if (row[this->m_ColumnasEntidades.m_col_selected] == true) {
+				countSelected++;
+			}
+			iter++;
+		}
+		if (countSelected >= 2){
+			//cargo las entidades a la relacion
+			children = this->refTreeModelEntidades->children();
+			iter = children.begin();
+			iter1 = children.end();
+			while (iter != iter1){
+				Gtk::TreeModel::Row row = *iter;
+				// si esta seleccionada la agrego
+				//TODO SI fui a propiedades de una relacion(no es una nueva) hay que verificar y hacer un abm
+				if (row[this->m_ColumnasEntidades.m_col_selected] == true) {
+					//Genero la union
+					ventidad = row[this->m_ColumnasEntidades.m_col_vEnt_Pointer];
+					ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this->vdiagrama,ventidad,this->vrelacion,NULL);
+					this->vrelacion->setposini(360, 150);
+					this->vrelacion->setposfin(430, 175);
+				}
+				iter++;
+			}
+
+		}else{
+			Gtk::MessageDialog err_dialog(*this, "Seleccionar al menos 2 entidades", false,
+											Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+					err_dialog.run();
+		}
+	}else{
+		Gtk::MessageDialog err_dialog(*this, "No name", false,
 								Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
 		err_dialog.run();
-	}else{
-		this->ventidad->setNombre(this->entryNombreEntidad->get_text());
-		//this->ventidad->setposini(20, 20);
-		this->ventidad->ajustarTamanioAlTexto();
-		this->ventidad->resetearLanzarProp();
+	}
+	if (musthide==true){
+		this->vrelacion->resetearLanzarProp();
 		this->hide();
-	}*/
+	}
 }
 
 void AsistenteRelacion::on_botonCancelar_click() {
@@ -91,45 +144,44 @@ void AsistenteRelacion::on_botonCancelar_click() {
 }
 
 void AsistenteRelacion::on_botonAgregarAtributo_click() {
-	/*
 	//creo el nuevo atributo
-	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(
-			this->diagramaActual, this->ventidad, NULL);
+	cout<<"llego1"<<endl;
+	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnRelacion(
+			this->diagramaActual, this->vrelacion, NULL);
+	cout<<"llego2"<<endl;
 	//Lo incormoramos en la lista
-	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
-	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();
-	row[this->m_Columnas.m_col_Atrib_Pointer] = atrib;
+	Gtk::TreeModel::Row row = *(this->refTreeModelAtrib->append());
+	row[this->m_ColumnasAtrib.m_col_Nombre] = atrib->getNombre();
+	row[this->m_ColumnasAtrib.m_col_Atrib_Pointer] = atrib;
+	cout<<"llego3"<<endl;
 	if (atrib->lanzarProp()) {
 	} else {
 		delete atrib;
-	}*/
+	}
 }
 
 void AsistenteRelacion::on_botonModificarAtributo_click() {
-	/*
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeViewAtrib.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
 	{
 		Gtk::TreeModel::Row row = *iter;
-		VistaAtributo *atrib = row[this->m_Columnas.m_col_Atrib_Pointer];
+		VistaAtributo *atrib = row[this->m_ColumnasAtrib.m_col_Atrib_Pointer];
 		atrib->lanzarProp();
 	}
-
-	this->inicializarAsistente();*/
 }
 
 void AsistenteRelacion::on_botonEliminarAtributo_click() {
-	/*
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeView.get_selection();
+
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeViewAtrib.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
 	{
 		Gtk::TreeModel::Row row = *iter;
-		VistaAtributo *atrib = row[this->m_Columnas.m_col_Atrib_Pointer];
+		VistaAtributo *atrib = row[this->m_ColumnasAtrib.m_col_Atrib_Pointer];
 		//TODO Borro el atributo Mediante El builder
-		this->refTreeModel->erase(iter);
-	}*/
+		this->refTreeModelAtrib->erase(iter);
+	}
 }
 
 void AsistenteRelacion::inicializarAsistente() {
@@ -147,11 +199,29 @@ void AsistenteRelacion::inicializarAsistente() {
 	}*/
 }
 
-void AsistenteRelacion::limpiarLista() {
-	this->refTreeModel->clear();
+void AsistenteRelacion::limpiarListaEntidades() {
+	this->refTreeModelEntidades->clear();
 }
 
 void AsistenteRelacion::on_about_hide() {
 	this->vrelacion->resetearLanzarProp();
+}
+
+void AsistenteRelacion::setDiagrama(VistaDiagrama * diag){
+	this->vdiagrama = diag;
+	this->llenarListaEntidades();
+}
+
+void AsistenteRelacion::llenarListaEntidades(){
+	this->limpiarListaEntidades();
+	std::vector<VistaEntidadNueva *>::iterator it1 =  this->vdiagrama->vEntidadesBegin();
+	std::vector<VistaEntidadNueva *>::iterator it2 =  this->vdiagrama->vEntidadesEnd();
+	while (it1 != it2){
+		Gtk::TreeModel::Row row = *(this->refTreeModelEntidades->append());
+		row[this->m_ColumnasEntidades.m_col_Nombre] = (*it1)->getNombre();
+		row[this->m_ColumnasEntidades.m_col_selected] = false;
+		row[this->m_ColumnasEntidades.m_col_vEnt_Pointer] = *it1;
+		it1++;
+	}
 }
 
