@@ -3,7 +3,10 @@
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkDialog" id="PropRelacion">
+    <property name="width_request">520</property>
+    <property name="height_request">470</property>
     <property name="border_width">5</property>
+    <property name="window_position">center-always</property>
     <property name="type_hint">normal</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
@@ -25,7 +28,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entry1">
+              <object class="GtkEntry" id="entryNombreRelacion">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">&#x25CF;</property>
@@ -53,9 +56,10 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkScrolledWindow" id="scrolledwindow1">
+                      <object class="GtkScrolledWindow" id="scrollEntidades">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="border_width">8</property>
                         <property name="hscrollbar_policy">automatic</property>
                         <property name="vscrollbar_policy">automatic</property>
                         <child>
@@ -86,9 +90,10 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkScrolledWindow" id="scrolledwindow2">
+                      <object class="GtkScrolledWindow" id="scrollAtributos">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="border_width">8</property>
                         <property name="hscrollbar_policy">automatic</property>
                         <property name="vscrollbar_policy">automatic</property>
                         <child>
@@ -96,7 +101,7 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="position">1</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                   </object>
@@ -110,7 +115,7 @@
                     <property name="orientation">vertical</property>
                     <property name="layout_style">spread</property>
                     <child>
-                      <object class="GtkButton" id="button6">
+                      <object class="GtkButton" id="bAAtributo">
                         <property name="label" translatable="yes">Agregar Atributo</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -123,7 +128,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button7">
+                      <object class="GtkButton" id="bMAtributo">
                         <property name="label" translatable="yes">Modificar Atributo</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -136,7 +141,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button8">
+                      <object class="GtkButton" id="bEAtributo">
                         <property name="label" translatable="yes">Quitar Atributo</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -169,7 +174,7 @@
             <property name="visible">True</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="button1">
+              <object class="GtkButton" id="bCancelar">
                 <property name="label" translatable="yes">Cancelar</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -182,7 +187,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button2">
+              <object class="GtkButton" id="bAceptar">
                 <property name="label" translatable="yes">Aceptar</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -204,8 +209,8 @@
       </object>
     </child>
     <action-widgets>
-      <action-widget response="0">button1</action-widget>
-      <action-widget response="0">button2</action-widget>
+      <action-widget response="0">bCancelar</action-widget>
+      <action-widget response="0">bAceptar</action-widget>
     </action-widgets>
   </object>
 </interface>
