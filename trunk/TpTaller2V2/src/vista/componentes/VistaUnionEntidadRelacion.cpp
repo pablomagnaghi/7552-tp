@@ -173,3 +173,24 @@ void VistaUnionEntidadRelacion::eliminarComponentesAdyacentes(Diagrama * diagram
 
 	this->eliminarModelo = true;
 }
+
+const std::string VistaUnionEntidadRelacion::getCardinalidadMinima() const {
+	return this->unionModelo->getCardinalidadMinima();
+}
+
+void VistaUnionEntidadRelacion::setCardinalidadMinima(const std::string & cardinalidad) {
+	return this->unionModelo->setCardinalidadMinima(cardinalidad);
+}
+
+const std::string VistaUnionEntidadRelacion::getCardinalidadMaxima() const {
+	return this->unionModelo->getCardinalidadMaxima();
+}
+
+void VistaUnionEntidadRelacion::setCardinalidadMaxima(const std::string & cardinalidad) {
+	this->unionModelo->setCardinalidadMaxima(cardinalidad);
+}
+
+VistaEntidad * VistaUnionEntidadRelacion::getEntidad(){
+	return this->entidad;
+}
+

@@ -188,8 +188,13 @@ VistaUnionEntidadRelacion * ComponentsBuilder::crearUnionEntidadRelacion(
 		unionEntidadRelacion = new UnionEntidadRelacion(entidad->getEntidad(),
 				relacion->getRelacion());
 		unionEntidadRelacion->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+		//TODO NO. faltaba asociar los modelos
+		relacion->getRelacion()->agregarUnionAEntidad(unionEntidadRelacion);
 	}
 	vistaUnion = new VistaUnionEntidadRelacion(unionEntidadRelacion, entidad, relacion);
+	//TODO NO. faltaba asociar los vistamodelos
+	relacion->agregarUnion(vistaUnion);
+
 	diagramaActual->agregarComponente(vistaUnion);
 	// Para el cargar de la persistencia
 	diagramaActual->agregarVistaUnionEntidadRelacion(vistaUnion);

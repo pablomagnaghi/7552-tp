@@ -57,6 +57,7 @@
                     </child>
                     <child>
                       <object class="GtkScrolledWindow" id="scrollEntidades">
+                        <property name="width_request">200</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="border_width">8</property>
