@@ -260,7 +260,7 @@ void ComponentsBuilder::agregarAtributoAIdentificador(VistaIdentificador * vista
 	if (vistaAtributo == NULL) {
 		throw NullPointer("NullPointer: vistaAtributo no puede ser nulo");
 	}
-
+	// todo VERRRR guarda 2 veces lo mismo
 	vistaIdentificador->getIdentificador()->agregarCodigoAtributo(
 			vistaAtributo->getAtributo()->getCodigo());
 	vistaIdentificador->agregarAtributo(vistaAtributo);
@@ -280,6 +280,8 @@ void ComponentsBuilder::agregarEntidadFuerteAIdentificador(VistaIdentificador * 
 			vistaUnion->getUnion()->getRelacion()->getCodigo());
 	vistaIdentificador->agregarEntidadFuerte(vistaUnion);
 }
+
+// todo verrrr guarda 2 veces
 
 void ComponentsBuilder::agregarJerarquiaHijaDeEntidad(VistaJerarquia * vistaJerarquia, VistaEntidad*vistaEntidad) {
 	if (vistaJerarquia == NULL) {
@@ -301,6 +303,7 @@ void ComponentsBuilder::agregarJerarquiaPadreDeEntidad(VistaJerarquia *vistaJera
 	if (vistaEntidadNueva == NULL) {
 		throw NullPointer("NullPointer: vistaEntidad no puede ser nulo");
 	}
+
 	vistaEntidadNueva->getEntidadNueva()->agregarJerarquiaPadre(vistaJerarquia->getJerarquia());
 	vistaJerarquia->getJerarquia()->agregarEntidadEspecializada(
 			vistaEntidadNueva->getEntidadNueva());

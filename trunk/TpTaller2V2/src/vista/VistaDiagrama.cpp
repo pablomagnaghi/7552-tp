@@ -1216,33 +1216,25 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 			// agrego la vista de atributos al identificador
 			std::vector<int>::iterator itCodAtribIden = (*itIden)->codigoAtributosBegin();
 
-			// todo ver carga doble
-
-			//std::cout << "TAM: " << (*itIden)->getCantDeAtributos() << std::endl;
-
-			for (int i = 0; i < (*itIden)->getCantDeAtributos();++i) {
-				//std::cout << "Nueva tanda: " << i << std::endl;
+			// todo
+			// si no se usa la variable j hace una pasada de mas
+			int j = (*itIden)->getCantDeAtributos();
+			for (int i = 0; i < j;i++) {
 				std::vector<VistaAtributo*>::iterator itVatri = vEntNueva->atributosBegin();
 				while (itVatri != vEntNueva->atributosEnd()) {
-
-					//std::cout << "atributo: " << (*itVatri)->getAtributo()->getCodigo()<< std::endl;
 					if ((*itCodAtribIden) == (*itVatri)->getAtributo()->getCodigo()) {
 						ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vIden,
 								(*itVatri));
-						//std::cout << "agregado" << std::endl;
 					}
 					itVatri++;
 				}
-
 				itCodAtribIden++;
 			}
-
 			itIden++;
 		}
 		itEnt++;
 	}
 }
-
 
 void VistaDiagrama::crearVistasEntidadGlobal() {
 	std::vector<EntidadGlobal*>::iterator it = this->getDiagrama()->entidadesGlobalesBegin();
