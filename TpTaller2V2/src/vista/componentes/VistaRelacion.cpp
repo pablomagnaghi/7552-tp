@@ -264,7 +264,6 @@ std::vector<UnionEntidadRelacion *> VistaRelacion::getUniones() {
 			i++) {
 		uniones.push_back(*i);
 	}
-
 	return uniones;
 }
 
@@ -316,6 +315,13 @@ bool VistaRelacion::agregarAtributo(VistaAtributo* atributo) {
 	return true;
 }
 
+bool VistaRelacion::agregarUnion(VistaUnionEntidadRelacion* vuer){
+	if (vuer == NULL){
+		return false;
+	}
+	this->vistaUniones.push_back(vuer);
+}
+
 bool VistaRelacion::quitarAtributo(VistaAtributo* atributo) {
 	if (atributo == NULL || this->eliminando) {
 		return false;
@@ -334,6 +340,14 @@ std::vector<VistaAtributo*>::iterator VistaRelacion::atributosEnd() {
 	return this->vistaAtributos.end();
 }
 
+std::vector<VistaUnionEntidadRelacion*>::iterator VistaRelacion::unionesBegin() {
+	return this->vistaUniones.begin();
+}
+
+std::vector<VistaUnionEntidadRelacion*>::iterator VistaRelacion::unionesEnd() {
+	return this->vistaUniones.end();
+}
+
 void VistaRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		std::vector<VistaComponente *> & componentes) {
 	std::vector<VistaAtributo *>::iterator it_atributo;
@@ -350,5 +364,20 @@ void VistaRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 void VistaRelacion::resetearLanzarProp() {
 	this->prop_lanzada = false;
+}
+
+VistaUnionEntidadRelacion* VistaRelacion::unidaConEntidad(VistaEntidad *ve){
+	//Verifico en cada union si alguna tiene esa entidad
+	std::vector<VistaUnionEntidadRelacion*>::iterator it1 = this->unionesBegin();
+	std::vector<VistaUnionEntidadRelacion*>::iterator it2 = this->unionesEnd();
+	VistaUnionEntidadRelacion * v = NULL;
+	while(it1 != it2){
+		v = *it1;
+		if (v->getEntidad() == ve){
+			return v;
+		}
+		it1++;
+	}
+	return NULL;
 }
 

@@ -24,7 +24,7 @@ AsistenteRelacion::~AsistenteRelacion() {
 
 void AsistenteRelacion::setRelacion(VistaRelacion* rel) {
 	this->vrelacion = rel;
-	//this->inicializarAsistente();
+	this->inicializarAsistente();
 }
 
 void AsistenteRelacion::enlazarWidgets() {
@@ -62,6 +62,10 @@ void AsistenteRelacion::enlazarWidgets() {
 	this->treeViewEntidades.append_column("Nombre", this->m_ColumnasEntidades.m_col_Nombre);
 	this->treeViewEntidades.append_column_editable("Selected",
 				this->m_ColumnasEntidades.m_col_selected);
+	this->treeViewEntidades.append_column_editable("Car Min",
+					this->m_ColumnasEntidades.m_col_CMin);
+	this->treeViewEntidades.append_column_editable("Car Max",
+						this->m_ColumnasEntidades.m_col_CMax);
 
 	//ListaAtributos
 	this->m_builder->get_widget("scrollAtributos", scrollAtributos);
@@ -79,6 +83,7 @@ void AsistenteRelacion::enlazarWidgets() {
 
 void AsistenteRelacion::on_botonAceptar_click() {
 	VistaEntidadNueva* ventidad = NULL;
+	VistaUnionEntidadRelacion *vuer=NULL;
 	bool musthide = false;
 	int countSelected=0;
 	Gtk::Entry *entryNombre = 0;
@@ -109,17 +114,40 @@ void AsistenteRelacion::on_botonAceptar_click() {
 			while (iter != iter1){
 				Gtk::TreeModel::Row row = *iter;
 				// si esta seleccionada la agrego
-				//TODO SI fui a propiedades de una relacion(no es una nueva) hay que verificar y hacer un abm
 				if (row[this->m_ColumnasEntidades.m_col_selected] == true) {
-					//Genero la union
 					ventidad = row[this->m_ColumnasEntidades.m_col_vEnt_Pointer];
-					ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this->vdiagrama,ventidad,this->vrelacion,NULL);
-					this->vrelacion->setposini(360, 150);
-					this->vrelacion->setposfin(430, 175);
+					//Verifico si la union ya esta creada en cuyo caso actualizare
+					vuer = this->vrelacion->unidaConEntidad(ventidad);
+					if (vuer == NULL){
+						//Genero la union
+						vuer = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this->vdiagrama,ventidad,this->vrelacion,NULL);
+						string cardMax = row[this->m_ColumnasEntidades.m_col_CMax];
+						string cardMin = row[this->m_ColumnasEntidades.m_col_CMin];
+						vuer->setCardinalidadMaxima(cardMax);
+						vuer->setCardinalidadMinima(cardMin);
+					}else{
+						//Actualizo
+						vuer->setCardinalidadMaxima(row[this->m_ColumnasEntidades.m_col_CMax]);
+						vuer->setCardinalidadMinima(row[this->m_ColumnasEntidades.m_col_CMin]);
+					}
+					double x,y;
+					this->vrelacion->getposini(x,y);
+					if (x==0 or y==0){
+						this->vrelacion->setposini(30, 30);
+						this->vrelacion->setposfin(80, 120);
+					}
+
+
+				}else{
+					//Si no esta seleccionada tengo que ver que = no exista la union por que podia estar de antes
+					vuer = this->vrelacion->unidaConEntidad(ventidad);
+					if (vuer != NULL){
+						//TODO ELMINAR VistaunionEntidadRelacion
+					}
 				}
 				iter++;
 			}
-
+			musthide = true;
 		}else{
 			Gtk::MessageDialog err_dialog(*this, "Seleccionar al menos 2 entidades", false,
 											Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
@@ -185,18 +213,30 @@ void AsistenteRelacion::on_botonEliminarAtributo_click() {
 }
 
 void AsistenteRelacion::inicializarAsistente() {
-	/*
-	this->entryNombreEntidad->set_text(this->ventidad->getNombre());
-	//Cargo la lista;
-	limpiarLista();
-	std::vector<VistaAtributo*>::iterator it1 = this->ventidad->atributosBegin();
-	std::vector<VistaAtributo*>::iterator it2 = this->ventidad->atributosEnd();
-	while (it1 != it2) {
-		Gtk::TreeModel::Row row = *(this->refTreeModel->append());
-		row[this->m_Columnas.m_col_Nombre] = (*it1)->getNombre();
-		row[this->m_Columnas.m_col_Atrib_Pointer] = *it1;
-		it1++;
-	}*/
+	this->entryNombreRelacion->set_text(this->vrelacion->getNombre());
+	this->inicializarListaEntidades();
+}
+
+void AsistenteRelacion::inicializarListaEntidades(){
+	VistaEntidad * ve;
+	Gtk::TreeModel::Row row;
+	VistaUnionEntidadRelacion *vu = NULL;
+	typedef Gtk::TreeModel::Children type_children;
+	type_children children = this->refTreeModelEntidades->children();
+	type_children::iterator iter = children.begin();
+	type_children::iterator iter1 = children.end();
+	while (iter != iter1) {
+		row = *iter;
+		ve = row[this->m_ColumnasEntidades.m_col_vEnt_Pointer];
+		vu = this->vrelacion->unidaConEntidad(ve);
+		if (vu!=NULL){
+			row[this->m_ColumnasEntidades.m_col_selected] = true;
+			row[this->m_ColumnasEntidades.m_col_CMax] = vu->getCardinalidadMaxima();
+			row[this->m_ColumnasEntidades.m_col_CMin] = vu->getCardinalidadMinima();
+		}
+		vu = NULL;
+		iter++;
+	}
 }
 
 void AsistenteRelacion::limpiarListaEntidades() {

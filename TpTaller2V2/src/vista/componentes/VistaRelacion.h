@@ -5,6 +5,7 @@
 #include "VistaComponente.h"
 #include "VistaAtributo.h"
 #include "InterfazRemoverAtributo.h"
+#include "VistaUnionEntidadRelacion.h"
 
 class VistaAtributo;
 
@@ -13,6 +14,7 @@ private:
 
 	Relacion * relacion;
 	std::vector<VistaAtributo * >vistaAtributos;
+	std::vector<VistaUnionEntidadRelacion * >vistaUniones;
 	bool prop_lanzada;
 
 	void dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr);
@@ -40,9 +42,14 @@ public:
 	std::vector<UnionEntidadRelacion *> getUniones();
 
 	bool agregarAtributo(VistaAtributo* atrib);
+	bool agregarUnion(VistaUnionEntidadRelacion* vuer);
 	virtual bool quitarAtributo(VistaAtributo* atrib);
 	std::vector<VistaAtributo*>::iterator atributosBegin();
 	std::vector<VistaAtributo*>::iterator atributosEnd();
+
+	std::vector<VistaUnionEntidadRelacion*>::iterator unionesBegin();
+	std::vector<VistaUnionEntidadRelacion*>::iterator unionesEnd();
+	VistaUnionEntidadRelacion* unidaConEntidad(VistaEntidad *ve);
 
 	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
 };

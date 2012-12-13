@@ -35,11 +35,15 @@ private:
 	public:
 		ModeloColumnasEntidades() {
 			add(m_col_Nombre);
+			add(m_col_CMin);
+			add(m_col_CMax);
 			add(m_col_selected);
 			add(m_col_vEnt_Pointer);
 		}
 
 		Gtk::TreeModelColumn<string> m_col_Nombre;
+		Gtk::TreeModelColumn<string> m_col_CMin;
+		Gtk::TreeModelColumn<string> m_col_CMax;
 		Gtk::TreeModelColumn<bool> m_col_selected;
 		Gtk::TreeModelColumn<VistaEntidadNueva*> m_col_vEnt_Pointer;
 	};
@@ -75,6 +79,7 @@ private:
 	void limpiarListaEntidades();
 	void setDiagrama(VistaDiagrama * diag);
 	void llenarListaEntidades();
+	void inicializarListaEntidades();
 protected:
 	virtual void on_about_hide();
 
