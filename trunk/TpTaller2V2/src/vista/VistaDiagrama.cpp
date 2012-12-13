@@ -44,7 +44,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	this->zoom = 1;
 	//test_1_builder();
 	if (a == 0) {
-		test_3_builder();
+		//test_3_builder();
 		//test_6_builder();
 		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
@@ -1162,7 +1162,7 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
 
 // se crean las vistas de ese diagrama
-// todo ACA HAY PROBLEMAS
+// todo
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->abrirXmlREP(diagramaREP);
@@ -1173,11 +1173,13 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 void VistaDiagrama::crearVistasDelModelo() {
 
 	this->crearVistasEntidadNueva();
+
 	this->crearVistasEntidadGlobal();
 
 	this->crearVistasRelacion();
 
 	this->crearVistasJerarquia();
+
 	this->agregarEntidadFuerteAlIdentificador();
 }
 
@@ -1202,29 +1204,45 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 			}
 			itAtrib++;
 		}
+
 		// identificadores
 		std::vector<Identificador*>::iterator itIden = (*itEnt)->identificadoresBegin();
+
 		while (itIden != (*itEnt)->identificadoresEnd()) {
+
 			VistaIdentificador *vIden =
 					ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this, vEntNueva,
 							(*itIden));
 			// agrego la vista de atributos al identificador
 			std::vector<int>::iterator itCodAtribIden = (*itIden)->codigoAtributosBegin();
-			while (itCodAtribIden != (*itIden)->codigoAtributosEnd()) {
+
+			// todo ver carga doble
+
+			//std::cout << "TAM: " << (*itIden)->getCantDeAtributos() << std::endl;
+
+			for (int i = 0; i < (*itIden)->getCantDeAtributos();++i) {
+				//std::cout << "Nueva tanda: " << i << std::endl;
 				std::vector<VistaAtributo*>::iterator itVatri = vEntNueva->atributosBegin();
 				while (itVatri != vEntNueva->atributosEnd()) {
-					if ((*itCodAtribIden) == (*itVatri)->getAtributo()->getCodigo())
+
+					//std::cout << "atributo: " << (*itVatri)->getAtributo()->getCodigo()<< std::endl;
+					if ((*itCodAtribIden) == (*itVatri)->getAtributo()->getCodigo()) {
 						ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vIden,
 								(*itVatri));
+						//std::cout << "agregado" << std::endl;
+					}
 					itVatri++;
 				}
+
 				itCodAtribIden++;
 			}
+
 			itIden++;
 		}
 		itEnt++;
 	}
 }
+
 
 void VistaDiagrama::crearVistasEntidadGlobal() {
 	std::vector<EntidadGlobal*>::iterator it = this->getDiagrama()->entidadesGlobalesBegin();

@@ -33,6 +33,10 @@ public:
 	std::vector<int>::iterator codigoRelacionesEnd();
 
 	void accept(ModeloVisitor*);
+
+	// Para el cargar de la vista
+	int getCantDeAtributos();
+	int getCantDeRelaciones();
 };
 
 #endif /* IDENTIFICADOR_H_ */
