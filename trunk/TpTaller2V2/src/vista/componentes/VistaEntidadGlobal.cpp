@@ -192,7 +192,7 @@ void VistaEntidadGlobal::setMouseArriba(double x, double y) {
 		this->mouseArribaDePuntoDeRedimension = 0;
 	}
 
-#ifdef DEBUG
+#if DEBUG_SELECCION==1
 	cout << "Punto Seleccionado " << this->mouseArribaDePuntoDeRedimension << endl;
 
 	if (this->seleccionado) {
@@ -214,7 +214,9 @@ void VistaEntidadGlobal::setMouseArriba(double x, double y) {
 
 void VistaEntidadGlobal::redimensionar(double x, double y) {
 	if (this->seleccionado) {
+#if DEBUG_REDIMENSION==1
 		cout << "Elemento Redimensionado " << this->mouseArribaDePuntoDeRedimension << endl;
+#endif
 		switch (this->mouseArribaDePuntoDeRedimension) {
 		case 1:
 			if (x < this->pos_fin_x && y < this->pos_fin_y) {

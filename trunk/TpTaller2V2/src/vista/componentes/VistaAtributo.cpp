@@ -11,11 +11,15 @@ VistaAtributo::VistaAtributo(Atributo * atributoModelo) {
 	this->dibujar_cardinalidad = true;
 	// Persistencia REP
 	this->codigoREP = atributoModelo->getCodigo();
+	this->padre = NULL;
 }
 
 VistaAtributo::~VistaAtributo() {
 	// TODO Auto-generated destructor stub
-	if(this->eliminarModelo){
+#if DEBUG_QUITAR==1
+	std::cout << "delete Atributo(" << this->atributo->getNombre() << ")" << std::endl;
+#endif
+	if (this->eliminarModelo) {
 		delete this->atributo;
 	}
 }
@@ -99,7 +103,9 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		this->linea->actualizar_coordenadas();
 		this->linea->getposini(x0, y0);
 		this->linea->getposfin(x1, y1);
+#if DEBUG_DIBUJAR==1
 		cout << "X0=" << x0 << " Y0=" << y0 << " X1=" << x1 << " Y1=" << y1 << endl;
+#endif
 		if (x0 < this->pos_ini_x || x0 > this->pos_fin_x || y0 < this->pos_ini_y
 				|| y0 > this->pos_fin_y) {
 			Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(x1, y1, x0, y0, textExtents.width,
@@ -233,7 +239,9 @@ void VistaAtributo::setMouseArriba(double x, double y) {
 
 void VistaAtributo::redimensionar(double x, double y) {
 	if (this->seleccionado) {
+#if DEBUG_REDIMENSION==1
 		cout << "Elemento Redimensionado " << this->mouseArribaDePuntoDeRedimension << endl;
+#endif
 		switch (this->mouseArribaDePuntoDeRedimension) {
 		case 1:
 			if (x < this->pos_fin_x && y < this->pos_fin_y) {
@@ -268,6 +276,9 @@ std::string VistaAtributo::getNombre() const {
 }
 
 bool VistaAtributo::contieneEsteComponente(VistaComponente * c) {
+	if (static_cast<VistaEntidadNueva *>(this->padre) == static_cast<VistaEntidadNueva *>(c)) {
+		return true;
+	}
 	return false;
 }
 
@@ -420,18 +431,31 @@ void VistaAtributo::setNombre(const std::string & nombre) {
 
 void VistaAtributo::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		std::vector<VistaComponente *> & componentes) {
-	VistaAtributo * elemento;
 	std::vector<VistaAtributo*>::iterator i;
+
+	if (this->eliminando) {
+		return;
+	}
+
 	this->eliminando = true;
 	for (i = this->atributosHijos.begin(); i != this->atributosHijos.end(); i++) {
-		elemento = (*i);
-		componentes.push_back(elemento);
-		elemento->eliminarComponentesAdyacentes(diagrama, componentes);
+#if DEBUG_QUITAR==1
+		std::cout << "Atributo(" << this->atributo->getNombre() << "): Agrego Atributo "
+				<< (*i)->getNombre() << " a componentes_a_eliminar" << std::endl;
+#endif
+
+		componentes.push_back((*i));
+		(*i)->eliminarComponentesAdyacentes(diagrama, componentes);
 		this->atributo->quitarAtributo((*i)->getAtributo());
-		delete (*i);
+		//delete (*i);
 	}
 	diagrama->quitarComponente(this->atributo);
 	this->eliminarModelo = true;
+
+#if DEBUG_QUITAR==1
+	std::cout << "Atributo(" << this->atributo->getNombre() << "): Agrego VistaLinea "
+			<< " a componentes_a_eliminar" << std::endl;
+#endif
 	componentes.push_back(this->linea);
 	this->padre->quitarAtributo(this);
 }

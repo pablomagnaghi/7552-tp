@@ -18,6 +18,11 @@ using namespace std;
 #define LONGITUD_LINEAS_REDIMENSION 2
 #define RADIO_CIRCULOS_REDIMENSION 3
 
+#define DEBUG_QUITAR 1
+#define DEBUG_DIBUJAR 0
+#define DEBUG_SELECCION 0
+#define DEBUG_REDIMENSION 0
+
 class VistaComponente {
 protected:
 	double pos_ini_x;

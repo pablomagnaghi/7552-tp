@@ -51,6 +51,11 @@ void EntidadNueva::quitarJerarquiaPadre(Jerarquia *j) throw (NullPointer) {
 	this->jerarquiasPadre.erase(it_jerarquias);
 }
 
+
+void EntidadNueva::quitarJerarquiaHija(){
+	this->jerarquiaHija = NULL;
+}
+
 void EntidadNueva::agregarIdentificador(Identificador *identificador) throw (NullPointer) {
 	if (identificador == NULL) {
 		throw NullPointer("Puntero nulo en agregarIdentificador en EntidadNueva");
@@ -91,6 +96,15 @@ std::vector<Jerarquia*>::iterator EntidadNueva::jerarquiasPadreBegin() {
 
 std::vector<Jerarquia*>::iterator EntidadNueva::jerarquiasPadreEnd() {
 	return this->jerarquiasPadre.end();
+}
+
+
+void EntidadNueva::quitarJerarquiasPadre(){
+	this->jerarquiasPadre.clear();
+}
+
+void EntidadNueva::quitarIdentificadores(){
+	this->identificadores.clear();
 }
 
 std::vector<Identificador*>::iterator EntidadNueva::identificadoresBegin() {

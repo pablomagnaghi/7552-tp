@@ -67,9 +67,12 @@ public:
 
 	void agregarJerarquiaPadre(Jerarquia *) throw (NullPointer);
 	void quitarJerarquiaPadre(Jerarquia *) throw (NullPointer);
+	void quitarJerarquiasPadre();
+	void quitarJerarquiaHija();
 
 	void agregarIdentificador(Identificador*) throw (NullPointer);
 	void quitarIdentificador(Identificador*) throw (NullPointer);
+	void quitarIdentificadores();
 
 	std::string getTipo() const;
 	void setTipo(const std::string&);

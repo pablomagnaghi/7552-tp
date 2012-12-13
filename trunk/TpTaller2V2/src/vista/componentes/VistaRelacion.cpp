@@ -153,21 +153,21 @@ bool VistaRelacion::esPuntoDeRedimension(double x, double y) {
 	limiteY2 = this->pos_ini_y + RADIO_CIRCULOS_REDIMENSION + LONGITUD_LINEAS_REDIMENSION;
 	limiteY3 = this->pos_fin_y - RADIO_CIRCULOS_REDIMENSION - LONGITUD_LINEAS_REDIMENSION;
 	limiteY4 = this->pos_fin_y + RADIO_CIRCULOS_REDIMENSION + LONGITUD_LINEAS_REDIMENSION;
-#ifdef DEBUG
+
 	if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY1, limiteX2, limiteY2)) { // Circulo arriba a la izquierda
-		cout << "arriba a la izquierda" << endl;
+		//cout << "arriba a la izquierda" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX1, limiteY3, limiteX2, limiteY4)) { // Circulo abajo a la izquierda
-		cout << "abajo a la izquierda" << endl;
+		//cout << "abajo a la izquierda" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY1, limiteX4, limiteY2)) { // Circulo arriba a la derecha
-		cout << "arriba a la derecha" << endl;
+		//cout << "arriba a la derecha" << endl;
 		return true;
 	} else if (Geometria::estaContenidoEnRectangulo(x, y, limiteX3, limiteY3, limiteX4, limiteY4)) { // Circulo arriba a la derecha
-		cout << "abajo a la derecha" << endl;
+		//cout << "abajo a la derecha" << endl;
 		return true;
 	}
-#endif
+
 	return false;
 }
 
@@ -194,7 +194,7 @@ void VistaRelacion::setMouseArriba(double x, double y) {
 	} else {
 		this->mouseArribaDePuntoDeRedimension = 0;
 	}
-#ifdef DEBUG
+#if DEBUG_SELECCION==1
 	cout << "Punto Seleccionado " << this->mouseArribaDePuntoDeRedimension << endl;
 
 	if (this->seleccionado) {
@@ -216,7 +216,7 @@ void VistaRelacion::setMouseArriba(double x, double y) {
 
 void VistaRelacion::redimensionar(double x, double y) {
 	if (this->seleccionado) {
-#ifdef DEBUG
+#if DEBUG_REDIMENSION==1
 		cout << "Elemento Redimensionado " << this->mouseArribaDePuntoDeRedimension << endl;
 #endif
 		switch (this->mouseArribaDePuntoDeRedimension) {
@@ -320,6 +320,7 @@ bool VistaRelacion::agregarUnion(VistaUnionEntidadRelacion* vuer){
 		return false;
 	}
 	this->vistaUniones.push_back(vuer);
+	return true;
 }
 
 bool VistaRelacion::quitarAtributo(VistaAtributo* atributo) {

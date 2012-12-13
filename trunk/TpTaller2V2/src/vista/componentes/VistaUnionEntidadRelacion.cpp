@@ -17,6 +17,12 @@ VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(UnionEntidadRelacion * unio
 
 VistaUnionEntidadRelacion::~VistaUnionEntidadRelacion() {
 	// TODO Auto-generated destructor stub
+#if DEBUG_QUITAR==1
+	std::cout << "delete VistaUnion" << std::endl;
+#endif
+	if(eliminarModelo){
+		delete this->unionModelo;
+	}
 }
 
 void VistaUnionEntidadRelacion::actualizar_coordenadas() {
@@ -167,6 +173,11 @@ void VistaUnionEntidadRelacion::eliminarComponentesAdyacentes(Diagrama * diagram
 		std::vector<VistaComponente *> & componentes) {
 	this->eliminando = true;
 
+#if DEBUG_QUITAR==1
+	std::cout << "VistaUnion(" << this->unionModelo->getNombre() << "): marcada para eliminar"
+			<< std::endl;
+#endif
+
 	diagrama->quitarComponente(this->unionModelo);
 	this->unionModelo->getRelacion()->quitarUnionAEntidad(this->unionModelo);
 	this->unionModelo->getEntidad()->removerUnionARelacion(this->unionModelo);
@@ -190,7 +201,7 @@ void VistaUnionEntidadRelacion::setCardinalidadMaxima(const std::string & cardin
 	this->unionModelo->setCardinalidadMaxima(cardinalidad);
 }
 
-VistaEntidad * VistaUnionEntidadRelacion::getEntidad(){
+VistaEntidad * VistaUnionEntidadRelacion::getEntidad() {
 	return this->entidad;
 }
 

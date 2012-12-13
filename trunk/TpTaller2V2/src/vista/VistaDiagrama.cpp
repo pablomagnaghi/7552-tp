@@ -6,7 +6,13 @@
 
 using namespace std;
 
-double VistaDiagrama::paso_zoom = 0.1;
+#define DEBUG_MOUSE 0
+#define DEBUG_DRAG 0
+#define DEBUG_REDIMENSION 0
+#define DEBUG_ZOOM 0
+#define DEBUG_DIMENSIONES_DIAGRAMA 0
+
+double VistaDiagrama::paso_zoom = 0.05;
 
 VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
@@ -48,6 +54,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 		//test_6_builder();
 		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
+		test_5_builder_interfaz_grafica();
 	}
 }
 
@@ -743,7 +750,7 @@ bool VistaDiagrama::on_mouse_motion_event(GdkEventMotion * event) {
 			(*componenteActual)->setMouseArriba(event->x / this->zoom, event->y / this->zoom);
 		}
 	}
-#ifdef DEBUG
+#if DEBUG_MOUSE==1
 	cout << "Mouse Motion X= " << event->x << " Y= " << event->y << endl;
 #endif
 	this->queue_draw();
@@ -793,7 +800,7 @@ void VistaDiagrama::drag_begin(const Glib::RefPtr<Gdk::DragContext>&context) {
 			Gdk::COLORSPACE_RGB, false, 8, 1, 1, imSur->get_stride());
 
 	context->set_icon(pixbuf, 0, 0);
-#ifdef DEBUG
+#if DEBUG_DRAG==1
 	cout << "DRAG_BEGIN " << seleccion << endl;
 #endif
 }
@@ -815,14 +822,14 @@ bool VistaDiagrama::drag_motion(const Glib::RefPtr<Gdk::DragContext>& context, g
 			//(*componenteSeleccionado)->setposini(x_actual, y_actual);
 			//(*componenteSeleccionado)->setposfin(x_actual + 50, y_actual + 40);
 		}
-#ifdef DEBUG
+#if DEBUG_DRAG==1
 		cout << "Arrastrando X= " << x_actual << " Y= " << y_actual << endl;
 #endif
 	} else {
 		this->componentes_seleccionados[0]->redimensionar(x_actual / this->zoom,
 				y_actual / this->zoom);
 		//context->drag_finish(true, true, timestamp);
-#ifdef DEBUG
+#if DEBUG_REDIMENSION==1
 		cout << "Redimensionando X= " << x_actual << " Y= " << y_actual << endl;
 #endif
 	}
@@ -837,14 +844,14 @@ void VistaDiagrama::drag_data_get(const Glib::RefPtr<Gdk::DragContext>&context,
 	// 8 bits format
 	// 9 the length of I'm Data! in bytes
 	selection_data.set(selection_data.get_target(), 8, (const guchar*) "I'm Data!", 9);
-#ifdef DEBUG
+#if DEBUG_DRAG==1
 	cout << "DRAG_DATA_GET " << endl;
 #endif
 }
 
 bool VistaDiagrama::drag_drop(const Glib::RefPtr<Gdk::DragContext>& context, int x, int y,
 		guint timestamp) {
-#ifdef DEBUG
+#if DEBUG_DRAG==1
 	cout << "DRAG_DROP" << endl;
 #endif
 	return true;
@@ -902,11 +909,11 @@ void VistaDiagrama::drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
 
 void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 	if (componente != NULL) {
-		cout<<"llego21"<<endl;
+		cout << "llego21" << endl;
 		this->componentes.push_back(componente);
-		cout<<"llego22"<<endl;
+		cout << "llego22" << endl;
 		this->queue_draw();
-		cout<<"llego23"<<endl;
+		cout << "llego23" << endl;
 	}
 }
 
@@ -949,6 +956,7 @@ void VistaDiagrama::quitarComponenteDeVectores(VistaComponente * componente) {
 void VistaDiagrama::quitarComponente(VistaComponente *componente) {
 	std::vector<VistaComponente *> componentes_a_eliminar;
 	std::vector<VistaComponente *>::iterator it_componentes;
+	std::vector<VistaComponente *>::iterator it_componentes_aux;
 	std::vector<VistaUnionEntidadRelacion *>::iterator it_uniones;
 	std::vector<VistaIdentificador *>::iterator it_identificadores;
 	if (componente != NULL) {
@@ -961,14 +969,24 @@ void VistaDiagrama::quitarComponente(VistaComponente *componente) {
 				it_componentes != componentes_a_eliminar.end(); it_componentes++) {
 			quitarComponenteDeVectores((*it_componentes));
 		}
-		componentes_a_eliminar.clear();
 
 		for (it_componentes = componentes.begin(); it_componentes != componentes.end();
 				it_componentes++) {
 			if ((*it_componentes)->contieneEsteComponente(componente)) {
+#if DEBUG_QUITAR==1
+				std::cout << (*it_componentes)->getNombre() << " contiene A "
+						<< componente->getNombre() << std::endl;
+#endif
 				componentes_a_eliminar.push_back((*it_componentes));
 			}
+#if DEBUG_QUITAR==1
+			else {
+			std::cout << (*it_componentes)->getNombre() << " No contiene A "
+					<< componente->getNombre() << std::endl;
+			}
+#endif
 		}
+
 
 		for (it_componentes = componentes_a_eliminar.begin();
 				it_componentes != componentes_a_eliminar.end(); it_componentes++) {
@@ -1219,7 +1237,7 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 			// todo
 			// si no se usa la variable j hace una pasada de mas
 			int j = (*itIden)->getCantDeAtributos();
-			for (int i = 0; i < j;i++) {
+			for (int i = 0; i < j; i++) {
 				std::vector<VistaAtributo*>::iterator itVatri = vEntNueva->atributosBegin();
 				while (itVatri != vEntNueva->atributosEnd()) {
 					if ((*itCodAtribIden) == (*itVatri)->getAtributo()->getCodigo()) {
@@ -1463,7 +1481,7 @@ void VistaDiagrama::restablecerZoom() {
 	this->zoom = 1;
 	this->set_size_request(this->ancho, this->alto);
 	this->get_parent()->set_size_request(this->ancho, this->alto);
-#ifdef DEBUG
+#if DEBUG_ZOOM==1
 	std::cout << "Zoom: " << this->zoom << std::endl;
 #endif
 	this->queue_draw();
@@ -1478,7 +1496,7 @@ void VistaDiagrama::aumentarZoom() {
 	this->set_size_request(this->ancho, this->alto);
 	this->get_parent()->set_size_request(this->ancho, this->alto);
 
-#ifdef DEBUG
+#if DEBUG_ZOOM==1
 	std::cout << "Zoom: " << this->zoom << std::endl;
 	std::cout << "Ancho: " << this->ancho << " Alto: " << this->alto << std::endl;
 #endif
@@ -1494,7 +1512,7 @@ void VistaDiagrama::disminuirZoom() {
 		this->ancho *= this->zoom;
 		this->set_size_request(this->ancho, this->alto);
 		this->get_parent()->set_size_request(this->ancho, this->alto);
-#ifdef DEBUG
+#if DEBUG_ZOOM==1
 		std::cout << "Zoom: " << this->zoom << std::endl;
 #endif
 	}
@@ -1538,7 +1556,7 @@ void VistaDiagrama::getDimensionesDelDiagrama(double &offset_x, double& offset_y
 		ancho = 0;
 		alto = 0;
 	}
-#ifdef DEBUG
+#if DEBUG_DIMENSIONES_DIAGRAMA==1
 	std::cout << "Offset (" << offset_x << ":" << offset_y << ") ";
 	std::cout << "Dimensiones (" << ancho << ":" << alto << ") " << std::endl;
 #endif

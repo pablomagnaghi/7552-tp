@@ -318,7 +318,7 @@ void Ide::debugInformarValorVariable(const std::string & nombreVariable,
 }
 
 void Ide::on_boton_esconder_panel_toggle() {
-	//int w, h;
+	int w, h;
 	//this->fijacionTreePanel->get_size_request(w, h);
 	if (this->expandido) {
 		this->posicion_anterior = this->panelHorizontal->get_position();
@@ -334,6 +334,8 @@ void Ide::on_boton_esconder_panel_toggle() {
 		this->botonEsconderPanel->set_image(*this->flecha_izquierda);
 		//this->fijacionTreePanel->set_size_request(this->posicion_anterior, h);
 		this->panelHorizontal->set_position(this->posicion_anterior);
+		this->panelHorizontal->get_size_request(w,h);
+		this->treePanel.set_size_request(this->posicion_anterior-15,h);
 		this->treePanel.set_visible(true);
 	}
 	this->panelHorizontal->check_resize();
@@ -349,15 +351,18 @@ void Ide::on_panel_horizontal_size_request(Gtk::Requisition* const & requisition
 	if (this->expandido == false) {
 		this->panelHorizontal->set_position(24);
 	}
-	this->treePanel.set_size_request(this->panelHorizontal->get_position(), h);
+	this->treePanel.set_size_request(this->panelHorizontal->get_position(), -1);
 
 	this->panelHorizontal->get_size_request(w, h);
+	Gtk::Allocation alloc = this->panelHorizontal->get_allocation();
 	std::cout << "hpaned1 w: " << w << " h: " << h << endl;
 	this->fijacionTreePanel->get_size_request(w, h);
 	std::cout << "fixed1 w: " << w << " h: " << h << endl;
 	this->treePanel.get_size_request(w, h);
 	std::cout << "treePanel w: " << w << " h: " << h << endl;
+	this->scrolledTreePanel->set_size_request(w , alloc.get_height() - 25);
 	this->scrolledTreePanel->get_size_request(w, h);
 	std::cout << "scrolledTreePanel w: " << w << " h: " << h << endl;
 	std::cout << "posicion: " << this->panelHorizontal->get_position() << std::endl;
 }
+

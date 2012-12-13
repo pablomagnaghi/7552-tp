@@ -21,6 +21,14 @@ VistaEntidadNueva::VistaEntidadNueva(EntidadNueva * entidadDelModelo) {
 
 VistaEntidadNueva::~VistaEntidadNueva() {
 	// TODO Auto-generated destructor stub
+
+#if DEBUG_QUITAR==1
+	std::cout << "delete EntidadNueva(" << this->entidad->getNombre() << ")" << std::endl;
+#endif
+
+	if (eliminarModelo) {
+		delete this->entidad;
+	}
 }
 
 bool VistaEntidadNueva::lanzarProp() {
@@ -219,29 +227,31 @@ void VistaEntidadNueva::setMouseArriba(double x, double y) {
 		this->mouseArribaDePuntoDeRedimension = 0;
 	}
 
-#ifdef DEBUG
+#if DEBUG_SELECCION==1
 	cout << "Punto Seleccionado " << this->mouseArribaDePuntoDeRedimension << endl;
 
 	if (this->seleccionado) {
 		cout << "Dimensiones: (" << this->pos_fin_x - this->pos_ini_x << ";"
-				<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
+		<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
 		cout << "Posicion: inicial=(" << this->pos_ini_x << ";" << this->pos_ini_y << ")  final=("
-				<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
+		<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
 		cout << "Circulo arriba izq: (" << limiteX1 << ";" << limiteY1 << ") (" << limiteX2 << ";"
-				<< limiteY2 << ")" << endl;
+		<< limiteY2 << ")" << endl;
 		cout << "Circulo abajo izq: (" << limiteX1 << ";" << limiteY3 << ") (" << limiteX2 << ";"
-				<< limiteY4 << ")" << endl;
+		<< limiteY4 << ")" << endl;
 		cout << "Circulo arriba der: (" << limiteX3 << ";" << limiteY1 << ") (" << limiteX4 << ";"
-				<< limiteY2 << ")" << endl;
+		<< limiteY2 << ")" << endl;
 		cout << "Circulo abajo der: (" << limiteX3 << ";" << limiteY3 << ") (" << limiteX4 << ";"
-				<< limiteY4 << ")" << endl;
+		<< limiteY4 << ")" << endl;
 	}
 #endif
 }
 
 void VistaEntidadNueva::redimensionar(double x, double y) {
 	if (this->seleccionado) {
+#if DEBUG_REDIMENSION==1
 		cout << "Elemento Redimensionado " << this->mouseArribaDePuntoDeRedimension << endl;
+#endif
 		switch (this->mouseArribaDePuntoDeRedimension) {
 		case 1:
 			if (x < this->pos_fin_x && y < this->pos_fin_y) {
@@ -337,13 +347,27 @@ EntidadNueva * VistaEntidadNueva::getEntidadNueva() {
 void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		std::vector<VistaComponente *> & componentes) {
 	std::vector<VistaAtributo *>::iterator it_atributo;
+	std::vector<Jerarquia *>::iterator it_jerarquia;
+
+	if (this->eliminando) {
+		return;
+	}
+
 	this->eliminando = true;
 	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
 		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes);
+#if DEBUG_QUITAR==1
+		std::cout << "EntidadNueva: Agrego Atributo " << (*it_atributo)->getNombre()
+				<< " a componentes_a_eliminar" << std::endl;
+#endif
 		componentes.push_back((*it_atributo));
 		this->entidad->quitarAtributo((*it_atributo)->getAtributo());
-		delete (*it_atributo);
+		//delete (*it_atributo);
 	}
+	this->entidad->quitarJerarquiaHija();
+	this->entidad->quitarJerarquiasPadre();
+	this->entidad->quitarIdentificadores();
+
 	diagrama->quitarComponente(this->entidad);
 	this->eliminarModelo = true;
 }
