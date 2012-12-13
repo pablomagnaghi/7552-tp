@@ -53,3 +53,11 @@ void Identificador::accept(ModeloVisitor* modeloVisitor){
 	modeloVisitor->visit(this);
 }
 
+// Para el cargar de la vista
+int Identificador::getCantDeAtributos(){
+	return this->codigoAtributos.size();
+}
+
+int Identificador::getCantDeRelaciones(){
+	return this->codigoRelaciones.size();
+}
