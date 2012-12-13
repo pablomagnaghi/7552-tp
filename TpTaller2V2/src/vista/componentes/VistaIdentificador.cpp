@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+#define DEBUG_QUITAR 1
+
 VistaIdentificador::VistaIdentificador(Identificador * id) {
 	// TODO Auto-generated constructor stub
 	//this->atributo = atributoModelo;
@@ -11,7 +13,10 @@ VistaIdentificador::VistaIdentificador(Identificador * id) {
 }
 
 VistaIdentificador::~VistaIdentificador() {
-	if(this->eliminarModelo){
+#if DEBUG_QUITAR==1
+	std::cout << "delete Identificador" << std::endl;
+#endif
+	if (this->eliminarModelo) {
 		delete this->identificador;
 	}
 	// TODO Auto-generated destructor stub
@@ -85,7 +90,9 @@ void VistaIdentificador::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 					j++) {
 				(*j)->getPuntoMedioLinea(x1, y1);
 				cr->line_to(x1, y1);
+#if DEBUG_DIBUJAR==1
 				cout << "X1=" << x1 << " Y1=" << y1 << endl;
+#endif
 				cr->stroke();
 				cr->arc(x1, y1, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
 				cr->fill();
@@ -279,6 +286,8 @@ std::string VistaIdentificador::getNombre() const {
 }
 
 bool VistaIdentificador::contieneEsteComponente(VistaComponente * c) {
+	std::vector<VistaUnionEntidadRelacion *>::iterator it_uniones;
+	std::vector<VistaAtributo *>::iterator it_atributos;
 	if (find(vistasAtributo.begin(), vistasAtributo.end(), static_cast<VistaAtributo *>(c))
 			!= vistasAtributo.end()) {
 		return true;
@@ -286,6 +295,18 @@ bool VistaIdentificador::contieneEsteComponente(VistaComponente * c) {
 	if (find(vistasEntidadesFuertes.begin(), vistasEntidadesFuertes.end(),
 			static_cast<VistaUnionEntidadRelacion *>(c)) != vistasEntidadesFuertes.end()) {
 		return true;
+	}
+	for (it_atributos = vistasAtributo.begin(); it_atributos != vistasAtributo.end();
+			++it_atributos) {
+		if ((*it_atributos)->contieneEsteComponente(c)) {
+			return true;
+		}
+	}
+	for (it_uniones = vistasEntidadesFuertes.begin(); it_uniones != vistasEntidadesFuertes.end();
+			++it_uniones) {
+		if ((*it_uniones)->contieneEsteComponente(c)) {
+			return true;
+		}
 	}
 
 	return false;
@@ -300,31 +321,6 @@ bool VistaIdentificador::obtenerInterseccionConLinea(double pos_ini_x, double po
 	centro_x = (this->pos_fin_x + this->pos_ini_x) / 2;
 	centro_y = (this->pos_fin_y + this->pos_ini_y) / 2;
 
-	/*if (this->vistaAtributos.empty()) {
-
-	 radio = this->pos_fin_x - centro_x;
-
-	 if (Geometria::hayInterseccionDeLineaConCirculo(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-	 centro_x, centro_y, radio, xInterseccion, yInterseccion)) {
-	 x = xInterseccion;
-	 y = yInterseccion;
-	 return true;
-	 }
-	 } else {
-	 double delta_x, delta_y;
-	 // Dibujo una elipse
-	 delta_x = centro_x - this->pos_ini_x;
-	 delta_y = centro_y - this->pos_ini_y;
-
-	 if (Geometria::hayInterseccionDeLineaConElipse(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
-	 centro_x, centro_y, delta_x, delta_y, xInterseccion, yInterseccion)) {
-	 x = xInterseccion;
-	 y = yInterseccion;
-	 return true;
-	 }
-
-	 }*/
-
 	return false;
 }
 
@@ -333,46 +329,7 @@ void VistaIdentificador::resetearLanzarProp() {
 }
 
 void VistaIdentificador::dibujarCirculosDeRedimension(Cairo::RefPtr<Cairo::Context> cr) {
-	/*cr->set_line_width(2);
-	 //  Dibujo los circulos en las puntas
-	 cr->set_source_rgb(colorBlanco.get_red_p(), colorBlanco.get_green_p(), colorBlanco.get_blue_p());
-	 cr->set_line_width(1);
-	 cr->arc(this->pos_ini_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->move_to(this->pos_ini_x + RADIO_CIRCULOS_REDIMENSION, this->pos_fin_y);
-	 cr->arc(this->pos_ini_x, this->pos_fin_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->move_to(this->pos_fin_x + RADIO_CIRCULOS_REDIMENSION, this->pos_ini_y);
-	 cr->arc(this->pos_fin_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->move_to(this->pos_fin_x + RADIO_CIRCULOS_REDIMENSION, this->pos_fin_y);
-	 cr->arc(this->pos_fin_x, this->pos_fin_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->fill();
-	 cr->set_source_rgb(colorDeSeleccion.get_red_p(), colorDeSeleccion.get_green_p(),
-	 colorDeSeleccion.get_blue_p());
-	 cr->arc(this->pos_ini_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->move_to(this->pos_ini_x + RADIO_CIRCULOS_REDIMENSION, this->pos_fin_y);
-	 cr->arc(this->pos_ini_x, this->pos_fin_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->move_to(this->pos_fin_x + RADIO_CIRCULOS_REDIMENSION, this->pos_ini_y);
-	 cr->arc(this->pos_fin_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->move_to(this->pos_fin_x + RADIO_CIRCULOS_REDIMENSION, this->pos_fin_y);
-	 cr->arc(this->pos_fin_x, this->pos_fin_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->stroke();
-	 switch (this->mouseArribaDePuntoDeRedimension) {
-	 case 1:
-	 cr->arc(this->pos_ini_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->fill();
-	 break;
-	 case 2:
-	 cr->arc(this->pos_ini_x, this->pos_fin_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->fill();
-	 break;
-	 case 3:
-	 cr->arc(this->pos_fin_x, this->pos_ini_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->fill();
-	 break;
-	 case 4:
-	 cr->arc(this->pos_fin_x, this->pos_fin_y, RADIO_CIRCULOS_REDIMENSION, 0, 2 * M_PI);
-	 cr->fill();
-	 break;
-	 }*/
+
 }
 
 Identificador * VistaIdentificador::getIdentificador() {
@@ -385,7 +342,15 @@ void VistaIdentificador::setNombre(const std::string & nombre) {
 void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		std::vector<VistaComponente *> & componentes) {
 
+	if (this->eliminando) {
+		return;
+	}
 	this->eliminando = true;
+
+
+#if DEBUG_QUITAR==1
+	std::cout << "VistaIdentificador: marcado para eliminar" << std::endl;
+#endif
 
 	this->eliminarModelo = true;
 

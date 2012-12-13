@@ -3,6 +3,12 @@
 
 #include <algorithm>
 
+#define DEBUG_QUITAR 1
+
+#if DEBUG_QUITAR==1
+#include <iostream>
+#endif
+
 Relacion::Relacion() {
 
 }
@@ -31,9 +37,20 @@ void Relacion::quitarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) throw 
 	if (entidadRelacion == NULL) {
 		throw NullPointer("Puntero nulo en quitarUnionAEntidad en Relacion");
 	}
-	std::vector<UnionEntidadRelacion *>::iterator it_entidad;
-	it_entidad = find(this->unionesAEntidad.begin(), this->unionesAEntidad.end(), entidadRelacion);
-	this->unionesAEntidad.erase(it_entidad);
+#if DEBUG_QUITAR==1
+	size_t cant_uniones;
+	cant_uniones = this->unionesAEntidad.size();
+#endif
+	std::vector<UnionEntidadRelacion *>::iterator it_union;
+	it_union = find(this->unionesAEntidad.begin(), this->unionesAEntidad.end(), entidadRelacion);
+	this->unionesAEntidad.erase(it_union);
+#if DEBUG_QUITAR==1
+	if (cant_uniones == this->unionesAEntidad.size() + 1) {
+		std::cout << "Borrado OK, cant_uniones= " << cant_uniones - 1 << std::endl;
+	} else {
+		std::cout << "Borrado ERROR" << std::endl;
+	}
+#endif
 }
 
 void Relacion::agregarAtributo(Atributo* atributo) throw (NullPointer) {
@@ -47,6 +64,7 @@ void Relacion::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	if (atributo == NULL) {
 		throw NullPointer("Puntero nulo en quitarAtributo en Relacion");
 	}
+
 	std::vector<Atributo *>::iterator it_atributo;
 	it_atributo = find(this->atributos.begin(), this->atributos.end(), atributo);
 	this->atributos.erase(it_atributo);

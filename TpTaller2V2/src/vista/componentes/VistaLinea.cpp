@@ -13,6 +13,9 @@ VistaLinea::VistaLinea() {
 
 VistaLinea::~VistaLinea() {
 	// TODO Auto-generated destructor stub
+#if DEBUG_QUITAR==1
+	std::cout << "delete VistaLinea" << std::endl;
+#endif
 }
 
 void VistaLinea::actualizar_coordenadas() {
@@ -76,8 +79,6 @@ void VistaLinea::setComponenteHasta(VistaComponente *comp) {
 	this->actualizar_coordenadas();
 }
 
-
-
 //Lanza el asistente de prpiedades del objeto en cuestion.
 bool VistaLinea::lanzarProp() {
 	return false;
@@ -128,6 +129,7 @@ std::string VistaLinea::getTexto() {
 void VistaLinea::setNombre(const std::string & nombre) {
 }
 
-void VistaLinea::eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes){
+void VistaLinea::eliminarComponentesAdyacentes(Diagrama * diagrama,
+		std::vector<VistaComponente *> & componentes) {
 
 }

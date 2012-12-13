@@ -61,9 +61,6 @@ private:
 
 	VistaComponente * obtenerComponenteEnPos(gdouble x, gdouble y);
 
-	void
-	obtenerVistaAPartirDeRelacion(VistaRelacion *, std::vector<VistaEntidadNueva *>&,
-			std::vector<UnionEntidadRelacion *>&);
 
 	void configurar_drag_and_drop();
 

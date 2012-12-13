@@ -97,6 +97,7 @@ public:
 	}
 	VistaDiagrama* getDiagActual();
 
+
 };
 
 #endif /* IDE_H_ */
