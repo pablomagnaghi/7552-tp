@@ -158,6 +158,7 @@ VistaEntidadGlobal * ComponentsBuilder::crearEntidadGlobalEnDiagrama(VistaDiagra
 	vistaEntidadGlobal = new VistaEntidadGlobal(entidadGlobal);
 
 	diagramaActual->agregarComponente(vistaEntidadGlobal);
+	vistaEntidadGlobal->setPadre(vistaEntidadNueva);
 	// Para la carga de la persistencia, necesito guardar todas las vistaEntidadGLobal como VistaEntidad
 	diagramaActual->agregarVistaEntidad(vistaEntidadGlobal);
 	return vistaEntidadGlobal;

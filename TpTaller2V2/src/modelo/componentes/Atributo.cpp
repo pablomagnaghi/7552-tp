@@ -56,7 +56,9 @@ void Atributo::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	}
 	std::vector<Atributo *>::iterator it_atributos;
 	it_atributos = find(this->atributos.begin(), this->atributos.end(), atributo);
-	this->atributos.erase(it_atributos);
+	if (it_atributos != this->atributos.end()) {
+		this->atributos.erase(it_atributos);
+	}
 }
 
 std::vector<Atributo*>::iterator Atributo::atributosBegin() {

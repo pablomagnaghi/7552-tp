@@ -35,6 +35,7 @@ public:
 	// Todas las entidades pueden ser padres
 	void setJerarquiaHija(Jerarquia *) throw (NullPointer);
 	Jerarquia * getJerarquiaHija()const;
+	void quitarJerarquiaHija();
 
 };
 

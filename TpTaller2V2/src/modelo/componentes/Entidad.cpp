@@ -11,6 +11,9 @@ Entidad::~Entidad() {
 		delete this->jerarquiaHija;
 	}
 }
+void Entidad::quitarJerarquiaHija() {
+	this->jerarquiaHija = NULL;
+}
 
 void Entidad::agregarUnionARelacion(UnionEntidadRelacion *u) throw (NullPointer) {
 	if (u == NULL) {
@@ -25,7 +28,9 @@ void Entidad::removerUnionARelacion(UnionEntidadRelacion *u) throw (NullPointer)
 	}
 	std::vector<UnionEntidadRelacion *>::iterator it_uniones;
 	it_uniones = find(this->unionesARelacion.begin(), this->unionesARelacion.end(), u);
-	this->unionesARelacion.erase(it_uniones);
+	if (it_uniones != this->unionesARelacion.end()) {
+		this->unionesARelacion.erase(it_uniones);
+	}
 }
 
 std::vector<UnionEntidadRelacion *>::iterator Entidad::unionesARelacionBegin() {

@@ -329,7 +329,9 @@ bool VistaRelacion::quitarAtributo(VistaAtributo* atributo) {
 	}
 	std::vector<VistaAtributo *>::iterator it_atributos;
 	it_atributos = find(this->vistaAtributos.begin(), this->vistaAtributos.end(), atributo);
-	this->vistaAtributos.erase(it_atributos);
+	if (it_atributos != vistaAtributos.end()) {
+		this->vistaAtributos.erase(it_atributos);
+	}
 	return true;
 }
 
@@ -350,17 +352,21 @@ std::vector<VistaUnionEntidadRelacion*>::iterator VistaRelacion::unionesEnd() {
 }
 
 void VistaRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
-		std::vector<VistaComponente *> & componentes) {
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
 	std::vector<VistaAtributo *>::iterator it_atributo;
 	this->eliminando = true;
 	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
-		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes);
+		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes,componenteEliminado);
 		componentes.push_back((*it_atributo));
 		this->relacion->quitarAtributo((*it_atributo)->getAtributo());
 		delete (*it_atributo);
 	}
 	diagrama->quitarComponente(this->relacion);
 	this->eliminarModelo = true;
+}
+
+bool VistaRelacion::hayQueEliminarlo(){
+	return this->eliminando;
 }
 
 void VistaRelacion::resetearLanzarProp() {

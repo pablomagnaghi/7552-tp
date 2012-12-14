@@ -51,7 +51,7 @@ public:
 
 	UnionEntidadRelacion * getUnion();
 
-	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	const std::string getCardinalidadMinima() const;
 	void setCardinalidadMinima(const std::string &);
@@ -60,6 +60,8 @@ public:
 	void setCardinalidadMaxima(const std::string &);
 
 	VistaEntidad * getEntidad();
+
+	virtual bool hayQueEliminarlo();
 };
 
 #endif /* VISTAUNIONENTIDADRELACION_H_ */

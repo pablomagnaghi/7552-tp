@@ -430,7 +430,7 @@ void VistaAtributo::setNombre(const std::string & nombre) {
 }
 
 void VistaAtributo::eliminarComponentesAdyacentes(Diagrama * diagrama,
-		std::vector<VistaComponente *> & componentes) {
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
 	std::vector<VistaAtributo*>::iterator i;
 
 	if (this->eliminando) {
@@ -445,7 +445,7 @@ void VistaAtributo::eliminarComponentesAdyacentes(Diagrama * diagrama,
 #endif
 
 		componentes.push_back((*i));
-		(*i)->eliminarComponentesAdyacentes(diagrama, componentes);
+		(*i)->eliminarComponentesAdyacentes(diagrama, componentes,componenteEliminado);
 		this->atributo->quitarAtributo((*i)->getAtributo());
 		//delete (*i);
 	}
@@ -458,4 +458,8 @@ void VistaAtributo::eliminarComponentesAdyacentes(Diagrama * diagrama,
 #endif
 	componentes.push_back(this->linea);
 	this->padre->quitarAtributo(this);
+}
+
+bool VistaAtributo::hayQueEliminarlo(){
+	return this->eliminando;
 }

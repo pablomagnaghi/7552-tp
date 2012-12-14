@@ -130,6 +130,10 @@ void VistaLinea::setNombre(const std::string & nombre) {
 }
 
 void VistaLinea::eliminarComponentesAdyacentes(Diagrama * diagrama,
-		std::vector<VistaComponente *> & componentes) {
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
+this->eliminando = true;
+}
 
+bool VistaLinea::hayQueEliminarlo(){
+	return this->eliminando;
 }

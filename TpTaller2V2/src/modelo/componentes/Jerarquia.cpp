@@ -71,7 +71,9 @@ void Jerarquia::quitarEntidadEspecializada(EntidadNueva * entidadEspecializada) 
 	std::vector<EntidadNueva *>::iterator it_entidad;
 	it_entidad = find(this->entidadesEspecializadas.begin(), this->entidadesEspecializadas.end(),
 			entidadEspecializada);
-	this->entidadesEspecializadas.erase(it_entidad);
+	if (it_entidad != this->entidadesEspecializadas.end()) {
+		this->entidadesEspecializadas.erase(it_entidad);
+	}
 }
 
 // PERSISTENCIA COMP

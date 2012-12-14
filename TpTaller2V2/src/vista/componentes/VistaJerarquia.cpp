@@ -15,6 +15,9 @@ VistaJerarquia::VistaJerarquia(Jerarquia * jerarquiaModelo) {
 }
 
 VistaJerarquia::~VistaJerarquia() {
+	if (eliminarModelo) {
+		delete this->jerarquia;
+	}
 }
 
 void VistaJerarquia::dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double ymin, double ymax) {
@@ -62,85 +65,84 @@ void VistaJerarquia::dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double 
 
 // TODO REFACTORIZAR
 void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
-  if (this->padre != NULL){
-	double x0, x1, x2, x3, y0, y1, y2, y3;
-	double xmin, xmax, ymin, ymax;
-	cr->set_line_width(1);
-	cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(), colorNegro.get_blue_p());
+	if (this->padre != NULL) {
+		double x0, x1, x2, x3, y0, y1, y2, y3;
+		double xmin, xmax, ymin, ymax;
+		cr->set_line_width(1);
+		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
+				colorNegro.get_blue_p());
 
-	this->padre->getposini(x0, y0);
-	this->padre->getposfin(x1, y1);
-	this->pos_fin_x = (x0 + x1) / 2;
-	this->pos_fin_y = (y0 + y1) / 2;
+		this->padre->getposini(x0, y0);
+		this->padre->getposfin(x1, y1);
+		this->pos_fin_x = (x0 + x1) / 2;
+		this->pos_fin_y = (y0 + y1) / 2;
 
-	if (this->hijos.size() == 1) {
-		this->hijos[0]->getposini(x0, y0);
-		this->hijos[0]->getposfin(x1, y1);
-		this->pos_ini_x = (x0 + x1) / 2;
-		this->pos_ini_y = (y0 + y1) / 2;
+		if (this->hijos.size() == 1) {
+			this->hijos[0]->getposini(x0, y0);
+			this->hijos[0]->getposfin(x1, y1);
+			this->pos_ini_x = (x0 + x1) / 2;
+			this->pos_ini_y = (y0 + y1) / 2;
 
-		this->hijos[0]->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
-				this->pos_fin_x, this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
-		this->padre->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-				this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
+			this->hijos[0]->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
+					this->pos_fin_x, this->pos_fin_y, this->pos_ini_x, this->pos_ini_y);
+			this->padre->obtenerInterseccionConLinea(this->pos_ini_x, this->pos_ini_y,
+					this->pos_fin_x, this->pos_fin_y, this->pos_fin_x, this->pos_fin_y);
 
-		Geometria::obtenerPuntosDeTriangulo(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
-				this->pos_fin_y, 16, 8, x2, y2, x3, y3);
+			Geometria::obtenerPuntosDeTriangulo(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+					this->pos_fin_y, 16, 8, x2, y2, x3, y3);
 
-		cr->move_to(this->pos_ini_x, this->pos_ini_y);
-		cr->line_to(this->pos_fin_x, this->pos_fin_y);
-		cr->stroke();
-		cr->line_to(x2, y2);
-		cr->line_to(x3, y3);
-		cr->line_to(this->pos_fin_x, this->pos_fin_y);
-		cr->fill();
+			cr->move_to(this->pos_ini_x, this->pos_ini_y);
+			cr->line_to(this->pos_fin_x, this->pos_fin_y);
+			cr->stroke();
+			cr->line_to(x2, y2);
+			cr->line_to(x3, y3);
+			cr->line_to(this->pos_fin_x, this->pos_fin_y);
+			cr->fill();
 
-	} else {
-		std::vector<VistaEntidadNueva *>::iterator i;
-		this->padre->getposcentro(xmax, y0);
-		xmin = xmax;
-		ymin = 999999;
-		ymax = -1;
-		for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
-			(*i)->getposcentro(x2, y2);
-			(*i)->getposini(x0, y2);
-			(*i)->getposfin(x0, y3);
-			if (x2 < xmin) {
-				xmin = x2;
+		} else {
+			std::vector<VistaEntidadNueva *>::iterator i;
+			this->padre->getposcentro(xmax, y0);
+			xmin = xmax;
+			ymin = 999999;
+			ymax = -1;
+			for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
+				(*i)->getposcentro(x2, y2);
+				(*i)->getposini(x0, y2);
+				(*i)->getposfin(x0, y3);
+				if (x2 < xmin) {
+					xmin = x2;
+				}
+				if (y2 < ymin) {
+					ymin = y2;
+				}
+				if (x2 > xmax) {
+					xmax = x2;
+				}
+				if (y3 > ymax) {
+					ymax = y3;
+				}
 			}
-			if (y2 < ymin) {
-				ymin = y2;
-			}
-			if (x2 > xmax) {
-				xmax = x2;
-			}
-			if (y3 > ymax) {
-				ymax = y3;
+			this->pos_ini_x = xmin;
+			this->pos_fin_x = xmax;
+
+			dibujarLineaMedia(cr, ymin, ymax);
+
+			for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
+				(*i)->getposcentro(x0, y0);
+				(*i)->obtenerInterseccionConLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
+				cr->move_to(x0, this->pos_ini_y);
+				cr->line_to(x1, y1);
+				cr->stroke();
 			}
 		}
-		this->pos_ini_x = xmin;
-		this->pos_fin_x = xmax;
-
-		dibujarLineaMedia(cr, ymin, ymax);
-
-
-		 for (i = this->hijos.begin(); i != this->hijos.end(); i++) {
-		 (*i)->getposcentro(x0, y0);
-		 (*i)->obtenerInterseccionConLinea(x0, this->pos_ini_y, x0, y0, x1, y1);
-		 cr->move_to(x0, this->pos_ini_y);
-		 cr->line_to(x1, y1);
-		 cr->stroke();
-		 }
 	}
-  }
 }
 
 //Lanza el asistente de prpiedades del objeto en cuestion.
 bool VistaJerarquia::lanzarProp() {
 	if (!this->prop_lanzada) {
 		AsistenteJerarquia* nuevaProp;
-		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(
-				ARCH_GLADE_JERAR);
+		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_JERAR);
 		nHbuilder->get_widget_derived("PropJerarquia", nuevaProp);
 		nuevaProp->setJerarquia(this);
 		nuevaProp->setDiagrama(Ide::getInstance()->getDiagActual());
@@ -178,6 +180,13 @@ std::string VistaJerarquia::getNombre() const {
 }
 
 bool VistaJerarquia::contieneEsteComponente(VistaComponente * comp) {
+	if (static_cast<VistaComponente*>(this->padre) == comp) {
+		return true;
+	}
+	if (find(this->hijos.begin(), this->hijos.end(), static_cast<VistaEntidadNueva*>(comp))
+			!= this->hijos.end()) {
+		return true;
+	}
 	return false;
 }
 
@@ -196,7 +205,9 @@ void VistaJerarquia::agregarEntidadEspecializada(VistaEntidadNueva * hijoNuevo) 
 void VistaJerarquia::removerEntidadEspecializada(VistaEntidadNueva * entidadEliminada) {
 	std::vector<VistaEntidadNueva *>::iterator it_entidades;
 	it_entidades = find(this->hijos.begin(), this->hijos.end(), entidadEliminada);
-	this->hijos.erase(it_entidades);
+	if (it_entidades != this->hijos.end()) {
+		this->hijos.erase(it_entidades);
+	}
 }
 
 std::vector<VistaEntidadNueva *>::iterator VistaJerarquia::entidadesEspecializadasBegin() {
@@ -216,7 +227,7 @@ VistaEntidad * VistaJerarquia::getEntidadPadre() {
 	return this->padre;
 }
 
-void VistaJerarquia::resetearLanzarProp(){
+void VistaJerarquia::resetearLanzarProp() {
 	this->prop_lanzada = false;
 }
 
@@ -224,10 +235,41 @@ void VistaJerarquia::setNombre(const std::string & nombre) {
 	this->jerarquia->setNombre(nombre);
 }
 
-Jerarquia * VistaJerarquia::getJerarquia(){
+Jerarquia * VistaJerarquia::getJerarquia() {
 	return this->jerarquia;
 }
 
-void VistaJerarquia::eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes){
+void VistaJerarquia::eliminarComponentesAdyacentes(Diagrama * diagrama,
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
+	std::vector<VistaEntidadNueva *>::iterator it_entidades;
+	if (static_cast<VistaComponente*>(this->padre) == componenteEliminado) {
+		this->eliminando = true;
+		diagrama->quitarComponente(this->jerarquia);
+		for (it_entidades = this->hijos.begin(); it_entidades != this->hijos.end();
+				++it_entidades) {
+			this->jerarquia->quitarEntidadEspecializada((*it_entidades)->getEntidadNueva());
+			(*it_entidades)->getEntidadNueva()->quitarJerarquiaPadre(this->jerarquia);
+		}
+		this->jerarquia->getEntidadGeneral()->quitarJerarquiaHija();
+		this->eliminarModelo = true;
+	} else {
+		it_entidades = find(this->hijos.begin(), this->hijos.end(),
+				static_cast<VistaEntidadNueva*>(componenteEliminado));
+		if (it_entidades != this->hijos.end()) {
+			this->jerarquia->quitarEntidadEspecializada((*it_entidades)->getEntidadNueva());
+			(*it_entidades)->getEntidadNueva()->quitarJerarquiaPadre(this->jerarquia);
+			this->hijos.erase(it_entidades);
+		}
+		if(this->hijos.empty()){
+			this->eliminando = true;
+			diagrama->quitarComponente(this->jerarquia);
+			this->jerarquia->getEntidadGeneral()->quitarJerarquiaHija();
+			this->eliminarModelo = true;
+		}
+	}
 
+}
+
+bool VistaJerarquia::hayQueEliminarlo() {
+	return this->eliminando;
 }

@@ -121,7 +121,9 @@ public:
 	bool estaSeleccionado();
 
 	virtual void eliminarComponentesAdyacentes(Diagrama * diagrama,
-			std::vector<VistaComponente *> & componentes_a_eliminar) = 0;
+			std::vector<VistaComponente *> & componentes_a_eliminar,
+			VistaComponente * componenteEliminado) = 0;
+	virtual bool hayQueEliminarlo()=0;
 
 	// PERSISTENCIA REP
 	int getCodigoREP();

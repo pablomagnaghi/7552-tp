@@ -51,7 +51,9 @@ public:
 	std::vector<VistaUnionEntidadRelacion*>::iterator unionesEnd();
 	VistaUnionEntidadRelacion* unidaConEntidad(VistaEntidad *ve);
 
-	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
+
+	virtual bool hayQueEliminarlo();
 };
 
 #endif /* VISTARELACION_H_ */

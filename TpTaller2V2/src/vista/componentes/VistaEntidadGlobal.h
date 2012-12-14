@@ -7,6 +7,7 @@
 class VistaEntidadGlobal: public VistaEntidad {
 private:
 	EntidadGlobal * entidad;
+	VistaEntidad * padre;
 
 	void calcular_ancho_a_partir_del_nombre();
 	void dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr);
@@ -41,7 +42,11 @@ public:
 
 	virtual Entidad * getEntidad();
 
-	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
+
+	virtual bool hayQueEliminarlo();
+
+	void setPadre(VistaEntidad *);
 };
 
 #endif /* VISTAENTIDADGLOBAL_H_ */

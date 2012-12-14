@@ -32,7 +32,9 @@ void EntidadNueva::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 	}
 	std::vector<Atributo *>::iterator it_atributos;
 	it_atributos = find(this->atributos.begin(), this->atributos.end(), atributo);
-	this->atributos.erase(it_atributos);
+	if (it_atributos != this->atributos.end()) {
+		this->atributos.erase(it_atributos);
+	}
 }
 
 void EntidadNueva::agregarJerarquiaPadre(Jerarquia *j) throw (NullPointer) {
@@ -48,13 +50,12 @@ void EntidadNueva::quitarJerarquiaPadre(Jerarquia *j) throw (NullPointer) {
 	}
 	std::vector<Jerarquia *>::iterator it_jerarquias;
 	it_jerarquias = find(this->jerarquiasPadre.begin(), this->jerarquiasPadre.end(), j);
-	this->jerarquiasPadre.erase(it_jerarquias);
+	if (it_jerarquias != this->jerarquiasPadre.end()) {
+		this->jerarquiasPadre.erase(it_jerarquias);
+	}
 }
 
 
-void EntidadNueva::quitarJerarquiaHija(){
-	this->jerarquiaHija = NULL;
-}
 
 void EntidadNueva::agregarIdentificador(Identificador *identificador) throw (NullPointer) {
 	if (identificador == NULL) {
@@ -68,8 +69,11 @@ void EntidadNueva::quitarIdentificador(Identificador *identificador) throw (Null
 		throw NullPointer("Puntero nulo en quitarIdentificador en EntidadNueva");
 	}
 	std::vector<Identificador *>::iterator it_identificador;
-	it_identificador = find(this->identificadores.begin(), this->identificadores.end(), identificador);
-	this->identificadores.erase(it_identificador);
+	it_identificador = find(this->identificadores.begin(), this->identificadores.end(),
+			identificador);
+	if (it_identificador != this->identificadores.end()) {
+		this->identificadores.erase(it_identificador);
+	}
 }
 
 std::string EntidadNueva::getTipo() const {
@@ -98,12 +102,11 @@ std::vector<Jerarquia*>::iterator EntidadNueva::jerarquiasPadreEnd() {
 	return this->jerarquiasPadre.end();
 }
 
-
-void EntidadNueva::quitarJerarquiasPadre(){
+void EntidadNueva::quitarJerarquiasPadre() {
 	this->jerarquiasPadre.clear();
 }
 
-void EntidadNueva::quitarIdentificadores(){
+void EntidadNueva::quitarIdentificadores() {
 	this->identificadores.clear();
 }
 
