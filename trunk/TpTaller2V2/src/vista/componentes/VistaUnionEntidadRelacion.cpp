@@ -170,7 +170,7 @@ UnionEntidadRelacion * VistaUnionEntidadRelacion::getUnion() {
 }
 
 void VistaUnionEntidadRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
-		std::vector<VistaComponente *> & componentes) {
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
 	this->eliminando = true;
 
 #if DEBUG_QUITAR==1
@@ -203,5 +203,9 @@ void VistaUnionEntidadRelacion::setCardinalidadMaxima(const std::string & cardin
 
 VistaEntidad * VistaUnionEntidadRelacion::getEntidad() {
 	return this->entidad;
+}
+
+bool VistaUnionEntidadRelacion::hayQueEliminarlo(){
+	return this->eliminando;
 }
 

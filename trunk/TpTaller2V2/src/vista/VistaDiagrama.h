@@ -61,7 +61,6 @@ private:
 
 	VistaComponente * obtenerComponenteEnPos(gdouble x, gdouble y);
 
-
 	void configurar_drag_and_drop();
 
 	// Señales para Drag and Drop
@@ -137,8 +136,8 @@ public:
 	VistaDiagrama(Diagrama * diagramaModelo, int a = 0);
 	virtual ~VistaDiagrama();
 
+	//*****     Alta-Baja-Modificacion     *****//
 	virtual VistaDiagrama* crearDiagramaHijo(string nombre);
-
 	void agregarComponente(VistaComponente *componente);
 	void quitarComponente(VistaComponente *componente);
 	void agregarVistaEntidadNueva(VistaEntidadNueva *ven);
@@ -150,6 +149,8 @@ public:
 
 	void agregarDiagramaHijo(VistaDiagrama *vDiagrama);
 	VistaDiagrama * buscarDiagrama(const std::string & nombreDiagrama);
+
+	void quitarComponentesRelacionadosConDiagramaPadre(VistaComponente *);
 
 	std::string getNombre() const;
 

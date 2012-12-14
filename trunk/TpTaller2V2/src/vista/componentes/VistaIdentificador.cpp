@@ -340,7 +340,7 @@ void VistaIdentificador::setNombre(const std::string & nombre) {
 }
 
 void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
-		std::vector<VistaComponente *> & componentes) {
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
 
 	if (this->eliminando) {
 		return;
@@ -354,4 +354,8 @@ void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 	this->eliminarModelo = true;
 
+}
+
+bool VistaIdentificador::hayQueEliminarlo(){
+	return this->eliminando;
 }

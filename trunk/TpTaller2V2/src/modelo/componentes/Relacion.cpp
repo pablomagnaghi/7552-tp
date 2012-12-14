@@ -43,7 +43,9 @@ void Relacion::quitarUnionAEntidad(UnionEntidadRelacion* entidadRelacion) throw 
 #endif
 	std::vector<UnionEntidadRelacion *>::iterator it_union;
 	it_union = find(this->unionesAEntidad.begin(), this->unionesAEntidad.end(), entidadRelacion);
-	this->unionesAEntidad.erase(it_union);
+	if (it_union != this->unionesAEntidad.end()) {
+		this->unionesAEntidad.erase(it_union);
+	}
 #if DEBUG_QUITAR==1
 	if (cant_uniones == this->unionesAEntidad.size() + 1) {
 		std::cout << "Borrado OK, cant_uniones= " << cant_uniones - 1 << std::endl;
@@ -67,7 +69,9 @@ void Relacion::quitarAtributo(Atributo* atributo) throw (NullPointer) {
 
 	std::vector<Atributo *>::iterator it_atributo;
 	it_atributo = find(this->atributos.begin(), this->atributos.end(), atributo);
-	this->atributos.erase(it_atributo);
+	if (it_atributo != this->atributos.end()) {
+		this->atributos.erase(it_atributo);
+	}
 }
 
 std::vector<UnionEntidadRelacion*>::iterator Relacion::unionesAEntidadBegin() {

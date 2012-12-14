@@ -52,9 +52,10 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	if (a == 0) {
 		//test_3_builder();
 		//test_6_builder();
+		test_4_builder();
 		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
-		test_5_builder_interfaz_grafica();
+		//test_5_builder_interfaz_grafica();
 	}
 }
 
@@ -261,26 +262,26 @@ void VistaDiagrama::test_4_builder() {
 
 	/************ POR PERSISTENCIA *************/
 	// CREO EL MODELO A MANO
-	EntidadNueva * e2 = new EntidadNueva();
-	e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	EntidadGlobal * g2 = new EntidadGlobal();
-	g2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	g2->setEntidadNueva(e2);
+	/*EntidadNueva * e2 = new EntidadNueva();
+	 e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	 EntidadGlobal * g2 = new EntidadGlobal();
+	 g2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	 g2->setEntidadNueva(e2);
 
-	VistaEntidadNueva * ve2;
-	VistaEntidadGlobal * vg2;
+	 VistaEntidadNueva * ve2;
+	 VistaEntidadGlobal * vg2;
 
-	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
+	 ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
 
-	ve2->setposini(150, 150);
-	ve2->setposfin(220, 175);
-	ve2->setNombre("Entidad 2");
+	 ve2->setposini(150, 150);
+	 ve2->setposfin(220, 175);
+	 ve2->setNombre("Entidad 2");
 
-	vg2 = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(vistaDiagramaHijo,
-			"Entidad 2", g2);
-	vg2->setposini(140, 150);
-	vg2->setposfin(230, 175);
-	vg2->setNombre("Entidad Global 2");
+	 vg2 = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(vistaDiagramaHijo,
+	 "Entidad 2", g2);
+	 vg2->setposini(140, 150);
+	 vg2->setposfin(230, 175);
+	 vg2->setNombre("Entidad Global 2");*/
 
 }
 
@@ -499,43 +500,43 @@ void VistaDiagrama::test_6_builder() {
 
 	/************ POR PERSISTENCIA *************/
 	// CREO EL MODELO A MANO
-	EntidadNueva * e4 = new EntidadNueva();
-	EntidadNueva * e5 = new EntidadNueva();
-	EntidadNueva * e6 = new EntidadNueva();
-	Jerarquia * j2 = new Jerarquia();
-	j2->setEntidadGeneral(e4);
-	j2->agregarEntidadEspecializada(e5);
-	j2->agregarEntidadEspecializada(e6);
-	e4->setJerarquiaHija(j2);
-	e5->agregarJerarquiaPadre(j2);
-	e6->agregarJerarquiaPadre(j2);
+	/*EntidadNueva * e4 = new EntidadNueva();
+	 EntidadNueva * e5 = new EntidadNueva();
+	 EntidadNueva * e6 = new EntidadNueva();
+	 Jerarquia * j2 = new Jerarquia();
+	 j2->setEntidadGeneral(e4);
+	 j2->agregarEntidadEspecializada(e5);
+	 j2->agregarEntidadEspecializada(e6);
+	 e4->setJerarquiaHija(j2);
+	 e5->agregarJerarquiaPadre(j2);
+	 e6->agregarJerarquiaPadre(j2);
 
-	VistaEntidadNueva * ve4;
-	VistaEntidadNueva * ve5;
-	VistaEntidadNueva * ve6;
-	VistaJerarquia * vj2;
+	 VistaEntidadNueva * ve4;
+	 VistaEntidadNueva * ve5;
+	 VistaEntidadNueva * ve6;
+	 VistaJerarquia * vj2;
 
-	ve4 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e4);
-	ve4->setposini(150, 250);
-	ve4->setposfin(220, 275);
-	ve4->setNombre("Entidad 1");
-	ve5 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e5);
-	ve5->setposini(100, 350);
-	ve5->setposfin(170, 375);
-	ve5->setNombre("Entidad 2");
-	ve6 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e6);
-	ve6->setposini(200, 350);
-	ve6->setposfin(270, 375);
-	ve6->setNombre("Entidad 3");
-	vj2 = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, j2);
-	diagrama->agregarEntidadNueva(e4);
-	diagrama->agregarEntidadNueva(e5);
-	diagrama->agregarEntidadNueva(e6);
-	diagrama->agregarJerarquia(j2);
+	 ve4 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e4);
+	 ve4->setposini(150, 250);
+	 ve4->setposfin(220, 275);
+	 ve4->setNombre("Entidad 1");
+	 ve5 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e5);
+	 ve5->setposini(100, 350);
+	 ve5->setposfin(170, 375);
+	 ve5->setNombre("Entidad 2");
+	 ve6 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e6);
+	 ve6->setposini(200, 350);
+	 ve6->setposfin(270, 375);
+	 ve6->setNombre("Entidad 3");
+	 vj2 = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this, j2);
+	 diagrama->agregarEntidadNueva(e4);
+	 diagrama->agregarEntidadNueva(e5);
+	 diagrama->agregarEntidadNueva(e6);
+	 diagrama->agregarJerarquia(j2);
 
-	ComponentsBuilder::getInstance()->agregarJerarquiaHijaDeEntidad(vj2, ve4);
-	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj2, ve5);
-	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj2, ve6);
+	 ComponentsBuilder::getInstance()->agregarJerarquiaHijaDeEntidad(vj2, ve4);
+	 ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj2, ve5);
+	 ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj2, ve6);*/
 }
 
 VistaDiagrama::~VistaDiagrama() {
@@ -953,17 +954,29 @@ void VistaDiagrama::quitarComponenteDeVectores(VistaComponente * componente) {
 	}
 }
 
+void VistaDiagrama::quitarComponentesRelacionadosConDiagramaPadre(
+		VistaComponente * componentePadre) {
+	std::vector<VistaComponente *>::iterator it_componentes;
+	std::vector<VistaComponente *> copia_componentes;
+	copia_componentes = this->componentes;
+	for (it_componentes = copia_componentes.begin(); it_componentes != copia_componentes.end();
+			++it_componentes) {
+		if ((*it_componentes)->contieneEsteComponente(componentePadre)) {
+			this->quitarComponente((*it_componentes));
+		}
+	}
+}
+
 void VistaDiagrama::quitarComponente(VistaComponente *componente) {
 	std::vector<VistaComponente *> componentes_a_eliminar;
 	std::vector<VistaComponente *>::iterator it_componentes;
-	std::vector<VistaComponente *>::iterator it_componentes_aux;
-	std::vector<VistaUnionEntidadRelacion *>::iterator it_uniones;
-	std::vector<VistaIdentificador *>::iterator it_identificadores;
+	std::vector<VistaDiagrama *>::iterator it_diagramas;
 	if (componente != NULL) {
 
 		quitarComponenteDeVectores(componente);
 
-		componente->eliminarComponentesAdyacentes(this->diagrama, componentes_a_eliminar);
+		componente->eliminarComponentesAdyacentes(this->diagrama, componentes_a_eliminar,
+				componente);
 
 		for (it_componentes = componentes_a_eliminar.begin();
 				it_componentes != componentes_a_eliminar.end(); it_componentes++) {
@@ -981,19 +994,25 @@ void VistaDiagrama::quitarComponente(VistaComponente *componente) {
 			}
 #if DEBUG_QUITAR==1
 			else {
-			std::cout << (*it_componentes)->getNombre() << " No contiene A "
-					<< componente->getNombre() << std::endl;
+				std::cout << (*it_componentes)->getNombre() << " No contiene A "
+						<< componente->getNombre() << std::endl;
 			}
 #endif
 		}
 
-
 		for (it_componentes = componentes_a_eliminar.begin();
 				it_componentes != componentes_a_eliminar.end(); it_componentes++) {
-			(*it_componentes)->eliminarComponentesAdyacentes(this->diagrama,
-					componentes_a_eliminar);
-			quitarComponenteDeVectores((*it_componentes));
-			delete (*it_componentes);
+			(*it_componentes)->eliminarComponentesAdyacentes(this->diagrama, componentes_a_eliminar,
+					componente);
+			if ((*it_componentes)->hayQueEliminarlo()) {
+				quitarComponenteDeVectores((*it_componentes));
+				delete (*it_componentes);
+			}
+		}
+
+		for (it_diagramas = this->diagramas.begin(); it_diagramas != this->diagramas.end();
+				++it_diagramas) {
+			(*it_diagramas)->quitarComponentesRelacionadosConDiagramaPadre(componente);
 		}
 
 		delete componente;

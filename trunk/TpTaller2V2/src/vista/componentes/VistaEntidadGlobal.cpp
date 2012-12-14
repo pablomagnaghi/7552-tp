@@ -19,7 +19,14 @@ void VistaEntidadGlobal::setNombre(const std::string & nombre) {
 	this->entidad->setNombre(nombre);
 }
 
+void VistaEntidadGlobal::setPadre(VistaEntidad * p) {
+	this->padre = p;
+}
+
 bool VistaEntidadGlobal::contieneEsteComponente(VistaComponente * c) {
+	if (static_cast<VistaComponente *>(this->padre) == c) {
+		return true;
+	}
 	return false;
 }
 
@@ -197,17 +204,17 @@ void VistaEntidadGlobal::setMouseArriba(double x, double y) {
 
 	if (this->seleccionado) {
 		cout << "Dimensiones: (" << this->pos_fin_x - this->pos_ini_x << ";"
-				<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
+		<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
 		cout << "Posicion: inicial=(" << this->pos_ini_x << ";" << this->pos_ini_y << ")  final=("
-				<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
+		<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
 		cout << "Circulo arriba izq: (" << limiteX1 << ";" << limiteY1 << ") (" << limiteX2 << ";"
-				<< limiteY2 << ")" << endl;
+		<< limiteY2 << ")" << endl;
 		cout << "Circulo abajo izq: (" << limiteX1 << ";" << limiteY3 << ") (" << limiteX2 << ";"
-				<< limiteY4 << ")" << endl;
+		<< limiteY4 << ")" << endl;
 		cout << "Circulo arriba der: (" << limiteX3 << ";" << limiteY1 << ") (" << limiteX4 << ";"
-				<< limiteY2 << ")" << endl;
+		<< limiteY2 << ")" << endl;
 		cout << "Circulo abajo der: (" << limiteX3 << ";" << limiteY3 << ") (" << limiteX4 << ";"
-				<< limiteY4 << ")" << endl;
+		<< limiteY4 << ")" << endl;
 	}
 #endif
 }
@@ -246,10 +253,18 @@ void VistaEntidadGlobal::redimensionar(double x, double y) {
 	}
 }
 
-Entidad * VistaEntidadGlobal::getEntidad(){
+Entidad * VistaEntidadGlobal::getEntidad() {
 	return this->entidad;
 }
 
-void VistaEntidadGlobal::eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes){
+void VistaEntidadGlobal::eliminarComponentesAdyacentes(Diagrama * diagrama,
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
+	this->eliminando = true;
+	this->entidad->quitarJerarquiaHija();
+	diagrama->quitarComponente(this->entidad);
+	this->eliminarModelo = true;
+}
 
+bool VistaEntidadGlobal::hayQueEliminarlo() {
+	return this->eliminando;
 }

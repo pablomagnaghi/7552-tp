@@ -345,9 +345,8 @@ EntidadNueva * VistaEntidadNueva::getEntidadNueva() {
 }
 
 void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
-		std::vector<VistaComponente *> & componentes) {
+		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
 	std::vector<VistaAtributo *>::iterator it_atributo;
-	std::vector<Jerarquia *>::iterator it_jerarquia;
 
 	if (this->eliminando) {
 		return;
@@ -355,14 +354,15 @@ void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 	this->eliminando = true;
 	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
-		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes);
+		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes,componenteEliminado);
+
 #if DEBUG_QUITAR==1
 		std::cout << "EntidadNueva: Agrego Atributo " << (*it_atributo)->getNombre()
 				<< " a componentes_a_eliminar" << std::endl;
 #endif
+
 		componentes.push_back((*it_atributo));
 		this->entidad->quitarAtributo((*it_atributo)->getAtributo());
-		//delete (*it_atributo);
 	}
 	this->entidad->quitarJerarquiaHija();
 	this->entidad->quitarJerarquiasPadre();
@@ -370,4 +370,8 @@ void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 	diagrama->quitarComponente(this->entidad);
 	this->eliminarModelo = true;
+}
+
+bool VistaEntidadNueva::hayQueEliminarlo(){
+	return this->eliminando;
 }

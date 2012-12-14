@@ -64,7 +64,9 @@ public:
 
 	Identificador * getIdentificador();
 
-	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
+
+	virtual bool hayQueEliminarlo();
 };
 
 #endif /* VISTAIDENTIFICADOR_H_ */
