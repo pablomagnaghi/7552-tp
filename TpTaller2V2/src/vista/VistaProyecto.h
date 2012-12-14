@@ -23,11 +23,15 @@ private:
 	VistaDiagrama * diagramaPrincipal;
 	Proyecto * proyecto;
 
+	void diagramas_recur(VistaDiagrama* diag, list<VistaDiagrama*> & lista);
+
 public:
 	VistaProyecto(Proyecto * proyectoModelo);
 	virtual ~VistaProyecto();
 	void testCargarDiagramas();
 	VistaDiagrama* getDiagramaPrincipal();
+
+	void get_diagramas(list<VistaDiagrama*> & lista);
 
 	void eliminarModelo();
 

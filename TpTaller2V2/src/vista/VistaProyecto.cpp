@@ -44,3 +44,18 @@ VistaDiagrama* VistaProyecto::getDiagramaPrincipal() {
 void VistaProyecto::setNombre(const std::string & nombre) {
 	this->proyecto->setNombre(nombre);
 }
+
+void VistaProyecto::get_diagramas(list<VistaDiagrama*> & lista){
+	diagramas_recur(this->diagramaPrincipal, lista);
+}
+
+void VistaProyecto::diagramas_recur(VistaDiagrama* diag, list<VistaDiagrama*> & lista){
+	lista.push_back(diag);
+	std::vector<VistaDiagrama*>::iterator it = diag->vdiagramasBegin();
+	std::vector<VistaDiagrama*>::iterator it1 = diag->vdiagramasEnd();
+	while (it != it1){
+		diagramas_recur(*it,lista);
+		it++;
+	}
+
+}

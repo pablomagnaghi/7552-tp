@@ -86,6 +86,16 @@ void ControladorPanelHerramientas::on_boton_Agregar_Union_click() {
 #endif
 }
 
+void ControladorPanelHerramientas::on_boton_Agregar_EntidadGlobal_click(){
+#ifdef DEBUG
+	cout << "Agregar EntidadGlobal" << endl;
+#endif
+	AsistenteEntGlobal* nuevaProp;
+	Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_ENTGLOB);
+	nHbuilder->get_widget_derived("PropEntGlob", nuevaProp);
+	nuevaProp->show();
+}
+
 void ControladorPanelHerramientas::on_boton_Agregar_Comentario_click() {
 #ifdef DEBUG
 	cout << "Agregar Comentario" << endl;
@@ -121,6 +131,9 @@ void ControladorPanelHerramientas::enlazar_botones_de_menu(
 	builder->get_widget("TBAgregarJerarquia", botonAgregarJerarquia);
 	botonAgregarJerarquia->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click));
+	builder->get_widget("TBAgregarEntidadGlobal", botonAgregarEntidadGlobal);
+	botonAgregarEntidadGlobal->signal_clicked().connect(
+				sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_EntidadGlobal_click));
 	builder->get_widget("TBAgregarUnion", botonAgregarUnion);
 	botonAgregarUnion->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Union_click));
@@ -144,6 +157,7 @@ void ControladorPanelHerramientas::activarBotones() {
 	botonAgregarJerarquia->set_sensitive(true);
 	botonAgregarUnion->set_sensitive(true);
 	botonAgregarComentario->set_sensitive(true);
+	botonAgregarEntidadGlobal->set_sensitive(true);
 }
 
 void ControladorPanelHerramientas::desactivarBotones() {
@@ -152,4 +166,5 @@ void ControladorPanelHerramientas::desactivarBotones() {
 	botonAgregarJerarquia->set_sensitive(false);
 	botonAgregarUnion->set_sensitive(false);
 	botonAgregarComentario->set_sensitive(false);
+	botonAgregarEntidadGlobal->set_sensitive(false);
 }
