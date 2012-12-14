@@ -72,14 +72,6 @@ void VistaEntidadNueva::dibujarFiguraDeEntidad(Cairo::RefPtr<Cairo::Context> cr)
 				colorDeSeleccion.get_blue_p());
 	}
 
-	if (!this->seleccionado) {
-		cr->set_source_rgb(colorNegro.get_red_p(), colorNegro.get_green_p(),
-				colorNegro.get_blue_p());
-	} else {
-		cr->set_source_rgb(colorDeSeleccion.get_red_p(), colorDeSeleccion.get_green_p(),
-				colorDeSeleccion.get_blue_p());
-	}
-
 	if (this->ajustarTamanioPorTexto) {
 		cr->get_text_extents(this->entidad->getNombre(), textExtents);
 		this->calcularDimensionesAPartirDeTexto(&textExtents);

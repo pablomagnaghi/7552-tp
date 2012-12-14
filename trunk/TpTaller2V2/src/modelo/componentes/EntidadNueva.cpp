@@ -180,6 +180,7 @@ void EntidadNueva::accept(ModeloVisitor* modeloVisitor) {
 
 EntidadNueva::EntidadNueva(XmlNodo* nodo) {
 	this->obtenerPropiedadesXmlCOMP(nodo);
+	this->esDebil = false;
 
 	XmlNodo nodoAux = nodo->getHijo();
 

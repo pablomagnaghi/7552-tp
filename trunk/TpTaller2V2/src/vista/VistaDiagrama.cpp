@@ -48,14 +48,15 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	// NO SACAR EL IF SI PRUEBAN EL TEST 4
 	this->zoom = 1;
-	//test_1_builder();
+
 	if (a == 0) {
+		//test_1_builder();
+		//test_2_builder();
 		//test_3_builder();
-		//test_6_builder();
-		test_4_builder();
+		//test_4_builder();
 		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
-		//test_5_builder_interfaz_grafica();
+		//test_6_builder();
 	}
 }
 
@@ -71,7 +72,7 @@ void VistaDiagrama::test_1_builder() {
 
 	/************ POR PERSISTENCIA *************/
 	// CREO EL MODELO A MANO
-	EntidadNueva * e2 = new EntidadNueva();
+	/*EntidadNueva * e2 = new EntidadNueva();
 	e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
 	VistaEntidadNueva * ve2;
 
@@ -79,7 +80,7 @@ void VistaDiagrama::test_1_builder() {
 
 	ve2->setposini(200, 1);
 	ve2->setposfin(500, 50);
-	ve2->setNombre("Entidad");
+	ve2->setNombre("Entidad");*/
 }
 
 // ATRIBUTOS
@@ -572,9 +573,9 @@ bool VistaDiagrama::on_expose_event(GdkEventExpose* e) {
 	context->set_source_rgba(1, 1, 1, 1); // white
 	context->paint();
 	context->scale(this->zoom, this->zoom);
-
-	std::cout << "Cantidad componentes: " << componentes.size() << std::endl;
-
+#if DEBUG_QUITAR==1
+	//std::cout << "Cantidad componentes: " << componentes.size() << std::endl;
+#endif
 	this->dibujarComponentes(context, true);
 
 	//Glib::RefPtr < Pango::Layout > layout = this->create_pango_layout("Hola");
