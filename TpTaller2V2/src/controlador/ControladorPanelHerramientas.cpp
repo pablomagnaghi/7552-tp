@@ -30,6 +30,14 @@ ControladorPanelHerramientas::~ControladorPanelHerramientas() {
 	// TODO Auto-generated destructor stub
 }
 
+void ControladorPanelHerramientas::on_boton_Agregar_Diagrama_click(){
+
+}
+
+void ControladorPanelHerramientas::on_boton_Eliminar_Diagrama_click(){
+
+}
+
 void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #ifdef DEBUG
 	cout << "Agregar Entidad" << endl;
@@ -52,7 +60,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
 	cout << "Agregar Relacion" << endl;
 #endif
 	VistaRelacion * nuevaRelacion = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(
-			Ide::getInstance()->getDiagActual(),NULL);
+			Ide::getInstance()->getDiagActual(), NULL);
 
 	if (nuevaRelacion->lanzarProp()) {
 
@@ -92,15 +100,21 @@ void ControladorPanelHerramientas::on_boton_Reducir_Zoom_click() {
 	Ide::getInstance()->getDiagActual()->disminuirZoom();
 }
 
-void ControladorPanelHerramientas::on_boton_Restablecer_Zoom_click(){
+void ControladorPanelHerramientas::on_boton_Restablecer_Zoom_click() {
 	Ide::getInstance()->getDiagActual()->restablecerZoom();
 }
 
 void ControladorPanelHerramientas::enlazar_botones_de_menu(
 		const Glib::RefPtr<Gtk::Builder>& builder) {
+	builder->get_widget("TBAgregarDiagrama", botonAgregarDiagrama);
+	botonAgregarDiagrama->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Diagrama_click));
+	builder->get_widget("TBEliminarDiagrama", botonEliminarDiagrama);
+	botonEliminarDiagrama->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Restablecer_Zoom_click));
 	builder->get_widget("TBAgregarEntidad", botonAgregarEntidad);
 	botonAgregarEntidad->signal_clicked().connect(
-			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Entidad_click));
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Eliminar_Diagrama_click));
 	builder->get_widget("TBAgregarRelacion", botonAgregarRelacion);
 	botonAgregarRelacion->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Agregar_Relacion_click));

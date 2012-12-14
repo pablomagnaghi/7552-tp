@@ -66,6 +66,7 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnEntidad(VistaDiagrama *diagram
 	VistaLinea * lineaEntidadAtributo = new VistaLinea();
 	lineaEntidadAtributo->setComponenteDesde(ventidad);
 	lineaEntidadAtributo->setComponenteHasta(vatrib);
+	lineaEntidadAtributo->setCodigoREP(GeneradorCodigo::getInstance()->getSiguienteCodigo());
 	vatrib->setLinea(lineaEntidadAtributo);
 
 	//Agrego vatributo y vlinea al diag
@@ -97,6 +98,7 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaDiagrama *diagra
 	VistaLinea * lineaAtributoAtributo = new VistaLinea();
 	lineaAtributoAtributo->setComponenteDesde(vatribPadre);
 	lineaAtributoAtributo->setComponenteHasta(vatrib);
+	lineaAtributoAtributo->setCodigoREP(GeneradorCodigo::getInstance()->getSiguienteCodigo());
 	vatrib->setLinea(lineaAtributoAtributo);
 
 	//Agrego vatributo y vlinea a el diag
@@ -223,6 +225,7 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnRelacion(VistaDiagrama *diagra
 	VistaLinea * lineaAtributoAtributo = new VistaLinea();
 	lineaAtributoAtributo->setComponenteDesde(relacion);
 	lineaAtributoAtributo->setComponenteHasta(vistaAtributo);
+	lineaAtributoAtributo->setCodigoREP(GeneradorCodigo::getInstance()->getSiguienteCodigo());
 	cout<<"llego16"<<endl;
 	//Agrego vatributo y vlinea a el diag
 	diagramaActual->agregarComponente(vistaAtributo);

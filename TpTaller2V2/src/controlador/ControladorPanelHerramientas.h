@@ -11,6 +11,9 @@ private:
 	Gtk::Window * ventanaPrincipal;
 	Glib::RefPtr<Gtk::Builder> m_builder;
 
+	Gtk::ToolButton * botonAgregarDiagrama;
+	Gtk::ToolButton * botonEliminarDiagrama;
+
 	Gtk::ToolButton * botonAgregarEntidad;
 	Gtk::ToolButton * botonAgregarRelacion;
 	Gtk::ToolButton * botonAgregarJerarquia;
@@ -20,6 +23,9 @@ private:
 	Gtk::ToolButton * botonAumentarZoom;
 	Gtk::ToolButton * botonReducirZoom;
 	Gtk::ToolButton * botonRestablecerZoom;
+
+	void on_boton_Agregar_Diagrama_click();
+	void on_boton_Eliminar_Diagrama_click();
 
 	void on_boton_Agregar_Entidad_click();
 	void on_boton_Agregar_Relacion_click();
