@@ -13,6 +13,7 @@
 #define ARCH_GLADE_ATRIB "./src/vista/glade/PropAtrib.glade"
 #define ARCH_GLADE_JERAR "./src/vista/glade/PropJerarquia.glade"
 #define ARCH_GLADE_RELAC "./src/vista/glade/PropRelacion.glade"
+#define ARCH_GLADE_ENTGLOB "./src/vista/glade/PropEntGlob.glade"
 
 #define A4_ANCHO 794
 #define A4_ALTO 1123

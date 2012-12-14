@@ -163,8 +163,8 @@ public:
 
 	Diagrama * getDiagrama();
 	void setDiagramaAncestro(VistaDiagrama *);
-	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,
-			std::string & nombreDiagramaAncestro);
+	VistaDiagrama *getDiagramaAncestro();
+	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,std::string & nombreDiagramaAncestro);
 
 	//*****     GRAFICOS     *****//
 	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context, bool dibujarSeleccionado);

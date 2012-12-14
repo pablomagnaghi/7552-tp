@@ -5,6 +5,7 @@
 #include "../vista/VistaDiagrama.h"
 #include "../vista/VistaProyecto.h"
 #include "ComponentsBuilder.h"
+#include "AsistenteEntGlobal.h"
 
 class ControladorPanelHerramientas {
 private:
@@ -17,6 +18,7 @@ private:
 	Gtk::ToolButton * botonAgregarEntidad;
 	Gtk::ToolButton * botonAgregarRelacion;
 	Gtk::ToolButton * botonAgregarJerarquia;
+	Gtk::ToolButton * botonAgregarEntidadGlobal;
 	Gtk::ToolButton * botonAgregarUnion;
 	Gtk::ToolButton * botonAgregarComentario;
 
@@ -31,6 +33,7 @@ private:
 	void on_boton_Agregar_Relacion_click();
 	void on_boton_Agregar_Jerarquia_click();
 	void on_boton_Agregar_Union_click();
+	void on_boton_Agregar_EntidadGlobal_click();
 	void on_boton_Agregar_Comentario_click();
 
 	void on_boton_Aumentar_Zoom_click();

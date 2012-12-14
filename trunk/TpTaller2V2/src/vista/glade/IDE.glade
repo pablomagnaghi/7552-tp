@@ -235,6 +235,18 @@
               </packing>
             </child>
             <child>
+              <object class="GtkToolButton" id="TBAgregarEntidadGlobal">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Entidad Global</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToolButton" id="TBAgregarUnion">
                 <property name="visible">True</property>
                 <property name="is_important">True</property>
