@@ -1307,8 +1307,7 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 				std::vector<VistaAtributo*>::iterator itVatri = vEntNueva->atributosBegin();
 				while (itVatri != vEntNueva->atributosEnd()) {
 					if ((*itCodAtribIden) == (*itVatri)->getAtributo()->getCodigo()) {
-						ComponentsBuilder::getInstance()->agregarAtributoAIdentificador(vIden,
-								(*itVatri));
+						vIden->agregarAtributo((*itVatri));
 					}
 					itVatri++;
 				}
