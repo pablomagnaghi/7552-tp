@@ -6,11 +6,13 @@ using namespace std;
 #endif
 #include "../vista/Ide.h"
 
+#define DEBUG_CREACION 1
+
 ControladorPanelHerramientas::ControladorPanelHerramientas(
 		const Glib::RefPtr<Gtk::Builder> & builder, Gtk::Window * ventana) :
 		m_builder(builder) {
 
-#ifdef DEBUG
+#if DEBUG_CREACION==1
 	cout << "Creando ControladorPanelHerramientas" << endl;
 #endif
 
@@ -20,9 +22,13 @@ ControladorPanelHerramientas::ControladorPanelHerramientas(
 
 	this->ventanaPrincipal = ventana;
 
+
 	this->enlazar_botones_de_menu(builder);
 
 	this->desactivarBotones();
+
+
+
 
 }
 
@@ -124,6 +130,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #endif
 	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(
 			NULL, NULL);
+	nuevaEntidad->setposini(30,30);
 #ifdef DEBUG
 	cout << "Vuelve" << endl;
 #endif
@@ -142,6 +149,8 @@ void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
 	VistaRelacion * nuevaRelacion = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(
 			Ide::getInstance()->getDiagActual(), NULL);
 
+	nuevaRelacion->setposini(30,30);
+	nuevaRelacion->ajustarTamanioAlTexto();
 	if (nuevaRelacion->lanzarProp()) {
 
 	} else {

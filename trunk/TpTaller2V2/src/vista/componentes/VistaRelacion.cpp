@@ -1,6 +1,7 @@
 #include "VistaRelacion.h"
+
+
 #include <iostream>
-#include "../Ide.h"
 using namespace std;
 
 VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
@@ -53,6 +54,7 @@ void VistaRelacion::dibujarFiguraDeRelacion(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(2); // Ancho de linea arbitrario
 
 	if (this->ajustarTamanioPorTexto) {
+		cout << "Calculando Tamaño" << endl;
 		cr->get_text_extents(this->relacion->getNombre(), textExtents);
 		this->calcularDimensionesAPartirDeTexto(&textExtents);
 		this->ajustarTamanioPorTexto = false;
@@ -137,8 +139,8 @@ void VistaRelacion::calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textE
 	ancho = textExtents->width;
 	alto = textExtents->height;
 
-	this->pos_fin_x = this->pos_ini_x + ancho + 6 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
-	this->pos_fin_y = this->pos_ini_y + alto + 6 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
+	this->pos_fin_x = this->pos_ini_x + ancho + 7 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
+	this->pos_fin_y = this->pos_ini_y + alto + 7 * ESPACIO_ENTRE_TEXTO_Y_BORDE;
 
 }
 

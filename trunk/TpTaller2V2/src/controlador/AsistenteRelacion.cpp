@@ -93,6 +93,7 @@ void AsistenteRelacion::on_botonAceptar_click() {
 
 	if ( nom != "") {
 		this->vrelacion->setNombre(nom);
+		this->vrelacion->ajustarTamanioAlTexto();
 		//Cuento mas de 2 entidades seleccionadas al menos
 		typedef Gtk::TreeModel::Children type_children;
 		type_children children = this->refTreeModelEntidades->children();
@@ -173,19 +174,27 @@ void AsistenteRelacion::on_botonCancelar_click() {
 
 void AsistenteRelacion::on_botonAgregarAtributo_click() {
 	//creo el nuevo atributo
-	cout<<"llego1"<<endl;
+	double xi, yi, xf, yf;
+	//cout<<"llego1"<<endl;
 	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnRelacion(
-			this->diagramaActual, this->vrelacion, NULL);
-	cout<<"llego2"<<endl;
+			Ide::getInstance()->getDiagActual(), this->vrelacion, NULL);
+	if (this->vrelacion != NULL) {
+		this->vrelacion->getposini(xi, yi);
+		this->vrelacion->getposfin(xf, yf);
+		atrib->mover(xf + 15, yi);
+	}
+
+	//cout<<"llego2"<<endl;
 	//Lo incormoramos en la lista
 	Gtk::TreeModel::Row row = *(this->refTreeModelAtrib->append());
 	row[this->m_ColumnasAtrib.m_col_Nombre] = atrib->getNombre();
 	row[this->m_ColumnasAtrib.m_col_Atrib_Pointer] = atrib;
-	cout<<"llego3"<<endl;
+	//cout<<"llego3"<<endl;
 	if (atrib->lanzarProp()) {
 	} else {
 		delete atrib;
 	}
+	//cout<<"llego4"<<endl;
 }
 
 void AsistenteRelacion::on_botonModificarAtributo_click() {

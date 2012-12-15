@@ -63,6 +63,8 @@ void VistaAtributo::setposini(double x, double y) {
 void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(1);
 	Cairo::TextExtents textExtents;
+
+
 	std::string texto(this->atributo->getNombre());
 	if (this->dibujar_cardinalidad) {
 		texto.append("(");
@@ -71,6 +73,7 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		texto.append(this->atributo->getCardinalidadMaxima());
 		texto.append(")");
 	}
+
 	cr->get_text_extents(texto, textExtents);
 
 	if (!this->seleccionado) {
@@ -130,9 +133,18 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		delta_y = centro_y - this->pos_ini_y;
 
 		cr->save();
+		cerr<<"llego5"<<endl;
 		cr->set_line_width(2 / MAX(delta_x, delta_y)); // make (centro_x, centro_y) == (0, 0)
+		cerr<<"llego6"<<endl;
 		cr->translate(centro_x, centro_y);
+		cerr<<"llego7"<<endl;
+		cerr << "delta (" << delta_x << ":" << delta_y  << ")"<< endl;
+		if(delta_x == 0 || delta_y == 0){
+			delta_x = 2;
+			delta_y = 1;
+		}
 		cr->scale(delta_x, delta_y);
+		cerr<<"llego8"<<endl;
 		cr->arc(0.0, 0.0, 1.0, 0.0, 2 * M_PI);
 		if (this->esIdentificador) {
 			cr->fill();

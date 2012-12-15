@@ -27,6 +27,7 @@ int aplicacion_principal(int argc, char *argv[]) {
 	Ide* ide = 0;
 	ControladorMenu * menu;
 
+
 	builder->get_widget_derived("IDE", ide);
 
 #ifdef DEBUG

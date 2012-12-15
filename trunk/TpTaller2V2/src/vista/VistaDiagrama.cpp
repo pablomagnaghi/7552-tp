@@ -54,7 +54,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 		//test_2_builder();
 		//test_3_builder();
 		//test_4_builder();
-		test_5_builder_interfaz_grafica();
+		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
 		//test_6_builder();
 	}
@@ -932,12 +932,12 @@ void VistaDiagrama::drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
 
 void VistaDiagrama::agregarComponente(VistaComponente *componente) {
 	if (componente != NULL) {
-		cout << "llego21" << endl;
+		//cout << "llego21" << endl;
 		VistaComponente *c = componente;
 		this->componentes.push_back(c);
-		cout << "llego22" << endl;
+		//cout << "llego22" << endl;
 		this->queue_draw();
-		cout << "llego23" << endl;
+		//cout << "llego23" << endl;
 	}
 }
 
