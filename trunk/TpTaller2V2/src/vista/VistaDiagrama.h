@@ -129,7 +129,7 @@ private:
 	void obtenerNombresDiagramaCOMPYREP(const std::string& path, std::string& diagramaCOMP,
 			std::string& diagramaREP, const std::string& nombre);
 	bool tieneHijos();
-	void guardarDiagramasHijosXml(const std::string& path);
+	void guardarDiagramasHijosXml(const std::string& path, VistaDiagrama* vDiagrama);
 	void guardarDiagramaXmlREP(const std::string& path);
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
 	void guardarComponentesXmlREP(XmlNodo *nodo);
