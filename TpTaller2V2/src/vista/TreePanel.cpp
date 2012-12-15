@@ -106,7 +106,7 @@ bool TreePanel::on_button_press_event(GdkEventButton* event) {
 		Gtk::TreeModel::Path seleccion;
 		if (this->get_path_at_pos(event->x, event->y, seleccion)) {
 			//
-			this->lanzarPopup(event);
+			//this->lanzarPopup(event);
 		}
 	}
 	return true;

@@ -36,6 +36,7 @@ public:
 	void eliminarModelo();
 
 	void setNombre(const std::string & nombre);
+	std::string getNombre();
 };
 
 #endif /* VISTAPROYECTO_H_ */

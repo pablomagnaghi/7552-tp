@@ -57,5 +57,8 @@ void VistaProyecto::diagramas_recur(VistaDiagrama* diag, list<VistaDiagrama*> & 
 		diagramas_recur(*it,lista);
 		it++;
 	}
+}
 
+std::string VistaProyecto::getNombre(){
+	return this->proyecto->getNombre();
 }
