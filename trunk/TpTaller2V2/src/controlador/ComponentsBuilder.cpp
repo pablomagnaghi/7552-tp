@@ -307,7 +307,10 @@ void ComponentsBuilder::agregarJerarquiaPadreDeEntidad(VistaJerarquia *vistaJera
 	}
 
 	vistaEntidadNueva->getEntidadNueva()->agregarJerarquiaPadre(vistaJerarquia->getJerarquia());
+
+	// todo
 	vistaJerarquia->getJerarquia()->agregarEntidadEspecializada(
 			vistaEntidadNueva->getEntidadNueva());
+
 	vistaJerarquia->agregarEntidadEspecializada(vistaEntidadNueva);
 }
