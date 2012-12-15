@@ -41,7 +41,6 @@ private:
 	void on_boton_Restablecer_Zoom_click();
 
 
-
 	void enlazar_botones_de_menu(const Glib::RefPtr<Gtk::Builder>& builder);
 public:
 	ControladorPanelHerramientas(const Glib::RefPtr<Gtk::Builder>& builder, Gtk::Window * ventana);

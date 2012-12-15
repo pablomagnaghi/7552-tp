@@ -16,6 +16,7 @@ bool TreePanel::regenerar() {
 		return false;
 	}
 
+
 	VistaDiagrama * principal = this->ide->getProyecto()->getDiagramaPrincipal();
 
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
@@ -23,6 +24,7 @@ bool TreePanel::regenerar() {
 	row[this->m_Columnas.m_col_vDiag_Pointer] = principal;
 	row[this->m_Columnas.m_col_esDiag] = true;
 	this->regenerarRecur(principal, &row);
+
 	return true;
 }
 
@@ -66,11 +68,14 @@ TreePanel::~TreePanel() {
 
 void TreePanel::enlazarWidgets() {
 	Gtk::ScrolledWindow* sTpanel;
+
 	this->Ide_builder->get_widget("scroll_treePanel", sTpanel);
 	this->refTreeModel = Gtk::TreeStore::create(this->m_Columnas);
 	this->set_model(this->refTreeModel);
+
 	this->append_column("Componentes", this->m_Columnas.m_col_Nombre);
 	sTpanel->add(*this);
+
 }
 
 bool TreePanel::on_button_press_event(GdkEventButton* event) {

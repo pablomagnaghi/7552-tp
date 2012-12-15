@@ -163,7 +163,6 @@ void Ide::regenerarTreePanel() {
 bool Ide::crearNuevoProyecto() {
 	if (this->vproyecto == NULL) {
 		this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Principal")));
-		this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
 		this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 		this->controladorPanelHerramientas.activarBotones();
 		this->treePanel.regenerar();
@@ -182,7 +181,7 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 
 	//Primero tengo que sacar el diag actual
 	if (diagramaActual != NULL) {
-		this->contenedorDiag->remove(*(diagramaActual));
+		this->contenedorDiag->remove(*diagramaActual);
 	}
 
 #if DEBUG_IDE==1
@@ -193,7 +192,7 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 	this->contenedorDiag->set_size_request(diagrama->getAncho(), diagrama->getAlto());
 	this->contenedorDiag->put(*diagrama, 0, 0);
 	diagramaActual = diagrama;
-	diagrama->set_parent(*this->contenedorDiag);
+	//diagrama->set_parent(*this->contenedorDiag);
 
 	//diagrama->show();
 	this->contenedorDiag->show_all();
@@ -357,6 +356,7 @@ void Ide::on_panel_horizontal_size_request(Gtk::Requisition* const & requisition
 	if (this->expandido == false) {
 		this->panelHorizontal->set_position(24);
 	}
+
 	this->treePanel.set_size_request(this->panelHorizontal->get_position(), -1);
 
 	this->panelHorizontal->get_size_request(w, h);
@@ -370,7 +370,9 @@ void Ide::on_panel_horizontal_size_request(Gtk::Requisition* const & requisition
 #if DEBUG_IDE==1
 	std::cout << "treePanel w: " << w << " h: " << h << endl;
 #endif
-	this->scrolledTreePanel->set_size_request(w, alloc.get_height() - 25);
+	if (alloc.get_height() >= 25) {
+		this->scrolledTreePanel->set_size_request(w, alloc.get_height() - 25);
+	}
 #if DEBUG_IDE==1
 	this->scrolledTreePanel->get_size_request(w, h);
 	std::cout << "scrolledTreePanel w: " << w << " h: " << h << endl;

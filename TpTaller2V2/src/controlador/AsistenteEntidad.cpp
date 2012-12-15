@@ -70,11 +70,11 @@ void AsistenteEntidad::enlazarWidgets() {
 
 void AsistenteEntidad::on_botonAceptar_click() {
 	string nombre = this->entryNombreEntidad->get_text();
-	if (nombre == ""){
-		Gtk::MessageDialog err_dialog(*this, "Entidad sin nombre", false,
-								Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+	if (nombre == "") {
+		Gtk::MessageDialog err_dialog(*this, "Entidad sin nombre", false, Gtk::MESSAGE_ERROR,
+				Gtk::BUTTONS_OK, true);
 		err_dialog.run();
-	}else{
+	} else {
 		this->ventidad->setNombre(this->entryNombreEntidad->get_text());
 		//this->ventidad->setposini(20, 20);
 		this->ventidad->ajustarTamanioAlTexto();
@@ -92,8 +92,14 @@ void AsistenteEntidad::on_botonCancelar_click() {
 
 void AsistenteEntidad::on_botonAgregarAtributo_click() {
 	//creo el nuevo atributo
+	double xi, yi, xf, yf;
 	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(
 			this->diagramaActual, this->ventidad, NULL);
+	if (this->ventidad != NULL) {
+		this->ventidad->getposini(xi, yi);
+		this->ventidad->getposfin(xf, yf);
+		atrib->mover(xf + 15, yi);
+	}
 	//Lo incormoramos en la lista
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();

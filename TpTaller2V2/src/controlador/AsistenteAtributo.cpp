@@ -97,7 +97,7 @@ void AsistenteAtributo::on_botonAceptar_click() {
 	cardmin = entryCardMin->get_text();
 	cardmax = entryCardMax->get_text();
 
-	if (nombre!="" && cardmin!="" && cardmax!=""){
+	if (nombre != "" && cardmin != "" && cardmax != "") {
 		this->vatributo->getAtributo()->setNombre(this->entryNombre->get_text());
 		this->vatributo->getAtributo()->setCardinalidadMinima(entryCardMin->get_text());
 		this->vatributo->getAtributo()->setCardinalidadMaxima(entryCardMax->get_text());
@@ -105,10 +105,10 @@ void AsistenteAtributo::on_botonAceptar_click() {
 		this->vatributo->getAtributo()->setTipo(this->comboTipo->get_active_text());
 		this->vatributo->resetearLanzarProp();
 		this->hide();
-	}else{
+	} else {
 		Gtk::MessageDialog err_dialog(*this, "Debe ingresar un nombre y las cardinalidades", false,
-										Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-				err_dialog.run();
+				Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		err_dialog.run();
 	}
 }
 
@@ -120,15 +120,24 @@ void AsistenteAtributo::on_botonCancelar_click() {
 
 void AsistenteAtributo::on_botonAgregarAtributo_click() {
 	//creo el nuevo atributo
+	// Para ponerlo a la izquierda del atributo padre en el dibujo
+	double xi, yi, xf, yf;
 
 	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(
 			this->diagramaActual, this->vatributo, NULL);
 	//Lo incormoramos en la lista
+	if (this->vatributo != NULL) {
+		this->vatributo->getposini(xi, yi);
+		this->vatributo->getposfin(xf, yf);
+		atrib->mover((xi + xf) / 2, yi - 15);
+	}
 
 	Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 	row[this->m_Columnas.m_col_Nombre] = atrib->getNombre();
 	row[this->m_Columnas.m_col_Atrib_Pointer] = atrib;
+	//cerr<<"llego3"<<endl;
 	atrib->lanzarProp();
+	//cerr<<"llego4"<<endl;
 }
 
 void AsistenteAtributo::on_botonModificarAtributo_click() {
