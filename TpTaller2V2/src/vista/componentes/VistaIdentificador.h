@@ -67,6 +67,10 @@ public:
 	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	virtual bool hayQueEliminarlo();
+
+	bool contieneAtrib(VistaAtributo * atrib);
+
+	std::string to_s();
 };
 
 #endif /* VISTAIDENTIFICADOR_H_ */

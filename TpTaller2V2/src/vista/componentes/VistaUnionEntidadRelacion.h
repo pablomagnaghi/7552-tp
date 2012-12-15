@@ -61,7 +61,11 @@ public:
 
 	VistaEntidad * getEntidad();
 
+	VistaRelacion * getRelacion();
+
 	virtual bool hayQueEliminarlo();
+
+	string to_s();
 };
 
 #endif /* VISTAUNIONENTIDADRELACION_H_ */

@@ -14,6 +14,7 @@ VistaEntidadNueva::VistaEntidadNueva(EntidadNueva * entidadDelModelo) {
 	this->pos_ini_y = 0;
 	this->pos_fin_y = 0;
 	this->prop_lanzada = false;
+	this->ident_lanzada = false;
 
 	// Persistencia REP
 	this->codigoREP = entidadDelModelo->getCodigo();
@@ -320,12 +321,43 @@ bool VistaEntidadNueva::quitarAtributo(VistaAtributo* atributo) {
 	return true;
 }
 
+bool VistaEntidadNueva::agregarIdentificador(VistaIdentificador* ident){
+	if (ident == NULL) {
+		return false;
+	}
+	this->vistaIdentificadores.push_back(ident);
+	return true;
+}
+
+bool VistaEntidadNueva::quitarIdentificador(VistaIdentificador* ident){
+	if (ident == NULL || this->eliminando) {
+		return false;
+	}
+	std::vector<VistaIdentificador *>::iterator it_ident;
+
+	it_ident = find(vistaIdentificadores.begin(), vistaIdentificadores.end(), ident);
+	if (it_ident != vistaIdentificadores.end()) {
+		vistaIdentificadores.erase(it_ident);
+	}
+	this->entidad->quitarIdentificador(ident->getIdentificador());
+	// TODO VERIFICAR RETORNO DE remove()
+	return true;
+}
+
 std::vector<VistaAtributo*>::iterator VistaEntidadNueva::atributosBegin() {
 	return this->vistaAtributos.begin();
 }
 
 std::vector<VistaAtributo*>::iterator VistaEntidadNueva::atributosEnd() {
 	return this->vistaAtributos.end();
+}
+
+std::vector<VistaIdentificador*>::iterator VistaEntidadNueva::identificadoresBegin() {
+	return this->vistaIdentificadores.begin();
+}
+
+std::vector<VistaIdentificador*>::iterator VistaEntidadNueva::identificadoresEnd() {
+	return this->vistaIdentificadores.end();
 }
 
 void VistaEntidadNueva::resetearLanzarProp() {
@@ -366,4 +398,20 @@ void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 bool VistaEntidadNueva::hayQueEliminarlo(){
 	return this->eliminando;
+}
+
+bool VistaEntidadNueva::identificador_en_popup(){
+	return true;
+}
+
+void VistaEntidadNueva::on_popup_boton_Identificadores(){
+	cout<<"Solo hago algo para entidad nueva"<<endl;
+	if (!this->ident_lanzada) {
+		AsistenteIdentificador* nuevaProp;
+		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_IDENT);
+		nHbuilder->get_widget_derived("PropIdent", nuevaProp);
+		nuevaProp->setEntidad(this);
+		this->ident_lanzada = true;
+		nuevaProp->show();
+	}
 }

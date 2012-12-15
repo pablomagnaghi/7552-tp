@@ -54,7 +54,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 		//test_2_builder();
 		//test_3_builder();
 		//test_4_builder();
-		//test_5_builder_interfaz_grafica();
+		test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
 		//test_6_builder();
 	}
@@ -630,16 +630,32 @@ void VistaDiagrama::lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventB
 			sigc::bind<VistaComponente *>(sigc::mem_fun(*this, &VistaDiagrama::quitarComponente),
 					vistaComponente));
 
+	if (vistaComponente->identificador_en_popup()){
+		actionGroup->add(Gtk::Action::create("ContextIdentificador", "Identificadores"),
+					sigc::mem_fun(*vistaComponente, &VistaComponente::on_popup_boton_Identificadores));
+	}
+
 	userInterfaceManager = Gtk::UIManager::create();
 	userInterfaceManager->insert_action_group(actionGroup);
 
 	//Layout the actions in a menubar and toolbar:
-	Glib::ustring ui_info = "<ui>"
-			"  <popup name='PopupMenu'>"
-			"    <menuitem action='ContextEliminar'/>"
-			"    <menuitem action='ContextPropiedades'/>"
-			"  </popup>"
-			"</ui>";
+	Glib::ustring ui_info;
+	if (vistaComponente->identificador_en_popup()){
+		ui_info = "<ui>"
+				"  <popup name='PopupMenu'>"
+				"    <menuitem action='ContextEliminar'/>"
+				"    <menuitem action='ContextPropiedades'/>"
+				"    <menuitem action='ContextIdentificador'/>"
+				"  </popup>"
+				"</ui>";
+	}else{
+		ui_info = "<ui>"
+				"  <popup name='PopupMenu'>"
+				"    <menuitem action='ContextEliminar'/>"
+				"    <menuitem action='ContextPropiedades'/>"
+				"  </popup>"
+				"</ui>";
+	}
 	try {
 		userInterfaceManager->add_ui_from_string(ui_info);
 
