@@ -147,6 +147,10 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 					countSelected++;
 					entidad = row[this->m_Columnas.m_col_vEnt_Pointer];
 					this->vjerarquia->agregarEntidadEspecializada(entidad);
+
+					// todo agreagado
+					this->vjerarquia->getJerarquia()->agregarEntidadEspecializada(entidad->getEntidadNueva());
+
 					entidad->getEntidadNueva()->agregarJerarquiaPadre(this->vjerarquia->getJerarquia());
 				}
 				iter++;
