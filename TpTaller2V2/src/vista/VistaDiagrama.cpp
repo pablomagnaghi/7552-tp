@@ -1355,17 +1355,18 @@ void VistaDiagrama::crearVistasRelacion() {
 
 void VistaDiagrama::crearVistasJerarquia() {
 	std::vector<Jerarquia*>::iterator itJer = this->getDiagrama()->jerarquiasBegin();
+
 	while (itJer != this->getDiagrama()->jerarquiasEnd()) {
 		// el builder crea la vista jerarquia
 		VistaJerarquia *vJer = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this,
 				(*itJer));
-
 		VistaEntidad *vEnt = this->obtenerVistaEntidadbyCodigo((*itJer)->getCodigoEntidadGeneral());
 
 		vJer->setEntidadPadre(vEnt);
 
 		std::vector<int>::iterator itEntNueva = (*itJer)->codigosEntidadesEspecializadasBegin();
 		// Para cada jerarquia agrego la entidad nueva a traves de una busqueda por su codigo
+
 		while (itEntNueva != (*itJer)->codigosEntidadesEspecializadasEnd()) {
 			VistaEntidadNueva *vEntNueva = this->obtenerVistaEntidadNuevabyCodigo((*itEntNueva));
 
@@ -1373,7 +1374,6 @@ void VistaDiagrama::crearVistasJerarquia() {
 
 			itEntNueva++;
 		}
-
 		itJer++;
 	}
 }

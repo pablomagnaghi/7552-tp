@@ -7,6 +7,9 @@
 
 #include "../../modelo/componentes/Jerarquia.h"
 
+// INCLUDE PARA METODO PARCHE
+#include "../../modelo/componentes/EntidadNueva.h"
+
 #include <vector>
 
 class VistaEntidadNueva;
@@ -19,6 +22,9 @@ private:
 	std::vector<VistaEntidadNueva *> hijos;
 
 	void dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double ymin, double ymax);
+
+	// METODO PARCHE A EVALUAR
+	bool existeEntidadNueva(EntidadNueva *entidad);
 public:
 	VistaJerarquia(Jerarquia * jerarquiaModelo);
 	virtual ~VistaJerarquia();

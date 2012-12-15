@@ -195,11 +195,29 @@ bool VistaJerarquia::obtenerInterseccionConLinea(double pos_ini_x, double pos_in
 	return false;
 }
 
+// todo ACA PONGO EL METODO PROVISORIO
+
+bool VistaJerarquia::existeEntidadNueva(EntidadNueva *entidad) {
+	std::vector<EntidadNueva *>::iterator it;
+
+	it = find(this->jerarquia->entidadesEspecializadasBegin(), this->jerarquia->entidadesEspecializadasEnd(), entidad);
+	if (it != this->jerarquia->entidadesEspecializadasEnd()) {
+		return true;
+	}
+	return false;
+}
+
 // TODO Implementar las modificaciones en el modelo
+// Aca se da el caso de que guarda de vuelta la entidad con la cual esta cargando el modelo
 void VistaJerarquia::agregarEntidadEspecializada(VistaEntidadNueva * hijoNuevo) {
 	//if ! esta en el vector
 	this->hijos.push_back(hijoNuevo);
-	this->jerarquia->agregarEntidadEspecializada(hijoNuevo->getEntidadNueva());
+
+
+	//todo PARCHE PROVISORIO A EVALUACION MAÑANA
+	if (!existeEntidadNueva(hijoNuevo->getEntidadNueva())) {
+		 this->jerarquia->agregarEntidadEspecializada(hijoNuevo->getEntidadNueva());
+	}
 }
 
 void VistaJerarquia::removerEntidadEspecializada(VistaEntidadNueva * entidadEliminada) {
