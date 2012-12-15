@@ -143,8 +143,8 @@ void Atributo::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	if (this->expresion.size())
 		nodo->setPropiedad("expresion", this->expresion);
 	if (this->cardinalidadMinima.size() && this->cardinalidadMaxima.size())
-		if (this->cardinalidadMinima != CARDINALIDAD_MINIMA
-				|| this->cardinalidadMaxima != CARDINALIDAD_MINIMA) {
+		/*if (this->cardinalidadMinima != CARDINALIDAD_MINIMA
+				|| this->cardinalidadMaxima != CARDINALIDAD_MINIMA) */{
 			nodo->setPropiedad("cardinalidad_minima", this->cardinalidadMinima);
 			nodo->setPropiedad("cardinalidad_maxima", this->cardinalidadMaxima);
 		}
