@@ -123,7 +123,7 @@ private:
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerComponentesXmlREP(XmlNodo* nodo);
 	VistaComponente* obtenerComponente(int codigo);
-	void cargarVistaDiagramasHijos();
+	void cargarVistaDiagramasHijos(const std::string& path, VistaDiagrama* vDiagrama);
 
 	// GUARDAR
 	void obtenerNombresDiagramaCOMPYREP(const std::string& path, std::string& diagramaCOMP,
