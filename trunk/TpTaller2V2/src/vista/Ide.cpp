@@ -7,6 +7,8 @@ Ide * Ide::instancia = NULL;
 using namespace std;
 #endif
 
+#define DEBUG_IDE 0
+
 Ide::Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 		Gtk::Window(cobject), m_builder(builder), treePanel(builder, this), controladorPanelHerramientas(
 				builder, static_cast<Gtk::Window *>(this)) {
@@ -166,6 +168,7 @@ bool Ide::crearNuevoProyecto() {
 		this->controladorPanelHerramientas.activarBotones();
 		this->treePanel.regenerar();
 		this->set_title("*Nuevo Proyecto");
+		this->vproyecto->setNombre("*Nuevo Proyecto");
 	} else {
 		Gtk::MessageDialog mensaje(*this, "Error", false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK);
 		mensaje.set_secondary_text("Ya existe un proyecto");
@@ -182,7 +185,7 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 		this->contenedorDiag->remove(*(diagramaActual));
 	}
 
-#ifdef DEBUG
+#if DEBUG_IDE==1
 	cout << "ANCHO:" << diagrama->getAncho();
 	cout << "ALTO:" << diagrama->getAlto() << endl;
 #endif
@@ -194,6 +197,8 @@ void Ide::cargarDiagrama(VistaDiagrama* diagrama) {
 
 	//diagrama->show();
 	this->contenedorDiag->show_all();
+	diagramaActual->setPanel(&this->treePanel);
+	this->set_title(this->vproyecto->getNombre() + " : " + diagramaActual->getNombre());
 }
 
 VistaDiagrama* Ide::getDiagActual() {
@@ -223,6 +228,8 @@ bool Ide::cerrarProyecto() {
 		this->diagramaActual = NULL;
 
 		this->treePanel.regenerar();
+
+		this->controladorPanelHerramientas.desactivarBotones();
 	}
 
 	return true;
@@ -354,14 +361,20 @@ void Ide::on_panel_horizontal_size_request(Gtk::Requisition* const & requisition
 
 	this->panelHorizontal->get_size_request(w, h);
 	Gtk::Allocation alloc = this->panelHorizontal->get_allocation();
+#if DEBUG_IDE==1
 	std::cout << "hpaned1 w: " << w << " h: " << h << endl;
 	this->fijacionTreePanel->get_size_request(w, h);
 	std::cout << "fixed1 w: " << w << " h: " << h << endl;
+#endif
 	this->treePanel.get_size_request(w, h);
+#if DEBUG_IDE==1
 	std::cout << "treePanel w: " << w << " h: " << h << endl;
+#endif
 	this->scrolledTreePanel->set_size_request(w, alloc.get_height() - 25);
+#if DEBUG_IDE==1
 	this->scrolledTreePanel->get_size_request(w, h);
 	std::cout << "scrolledTreePanel w: " << w << " h: " << h << endl;
 	std::cout << "posicion: " << this->panelHorizontal->get_position() << std::endl;
+#endif
 }
 

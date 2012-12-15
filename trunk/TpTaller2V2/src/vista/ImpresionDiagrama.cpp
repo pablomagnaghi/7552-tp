@@ -5,6 +5,8 @@
 #include <iostream>
 using namespace std;
 
+#define DEBUG_IMPRESION 0
+
 Glib::RefPtr<ImpresionDiagrama> ImpresionDiagrama::create() {
 	return Glib::RefPtr<ImpresionDiagrama>(new ImpresionDiagrama());
 }
@@ -23,7 +25,7 @@ void ImpresionDiagrama::set_diagrama(VistaDiagrama & diag) {
 void ImpresionDiagrama::on_begin_print(const Glib::RefPtr<Gtk::PrintContext>& print_context) {
 	context_width = print_context->get_width();
 	context_height = print_context->get_height();
-#ifdef DEBUG
+#if DEBUG_IMPRESION==1
 	std::cout << "Dimensiones Hoja = (" << context_width << ":";
 	std::cout << context_height << ")" << std::endl;
 #endif
@@ -40,10 +42,23 @@ void ImpresionDiagrama::on_draw_page(const Glib::RefPtr<Gtk::PrintContext>& prin
 
 	diagrama->getDimensionesDelDiagrama(offset_x, offset_y, ancho_diagrama, alto_diagrama);
 
-	Geometria::calcularAjusteDiagrama(offset_x, offset_y, ancho_diagrama, alto_diagrama, rotacion, zoom,
-			traslacion_x, traslacion_y,this->context_width, this->context_height);
+#if DEBUG_IMPRESION==1
+	std::cout << "offset (" << offset_x << ":" << offset_y << ") dimensiones ( " << ancho_diagrama;
+	std::cout << ":" << alto_diagrama << ")" << std::endl;
+#endif
 
-	std::cout << "on_draw_page" << endl;
+	if(ancho_diagrama == offset_x || alto_diagrama == offset_y){
+		return;
+	}
+
+	Geometria::calcularAjusteDiagrama(offset_x, offset_y, ancho_diagrama, alto_diagrama, rotacion,
+			zoom, traslacion_x, traslacion_y, this->context_width, this->context_height);
+
+#if DEBUG_IMPRESION==1
+	std::cout << "traslacion (" << traslacion_x << ":" << traslacion_y << ") zoom: " << zoom;
+	std::cout << " rotacion: " << rotacion << std::endl;
+#endif
+
 	Cairo::RefPtr<Cairo::Context> cairo_ctx = print_context->get_cairo_context();
 
 	/*cairo_ctx->set_source_rgb(0, 1, 0);
@@ -72,7 +87,6 @@ void ImpresionDiagrama::on_draw_page(const Glib::RefPtr<Gtk::PrintContext>& prin
 	 cairo_ctx->rectangle(offset_x, offset_y, ancho_diagrama, alto_diagrama);
 	 cairo_ctx->stroke();*/
 
-	std::cout << "on_draw_page" << endl;
 }
 
 Gtk::Widget* ImpresionDiagrama::on_create_custom_widget() {

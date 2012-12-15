@@ -43,7 +43,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	configurar_drag_and_drop();
 
 	this->diagramaAncestro = NULL;
-
+	this->panel = NULL;
 	// TEST
 
 	// NO SACAR EL IF SI PRUEBAN EL TEST 4
@@ -73,14 +73,14 @@ void VistaDiagrama::test_1_builder() {
 	/************ POR PERSISTENCIA *************/
 	// CREO EL MODELO A MANO
 	/*EntidadNueva * e2 = new EntidadNueva();
-	e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
-	VistaEntidadNueva * ve2;
+	 e2->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
+	 VistaEntidadNueva * ve2;
 
-	ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
+	 ve2 = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(this, e2);
 
-	ve2->setposini(200, 1);
-	ve2->setposfin(500, 50);
-	ve2->setNombre("Entidad");*/
+	 ve2->setposini(200, 1);
+	 ve2->setposfin(500, 50);
+	 ve2->setNombre("Entidad");*/
 }
 
 // ATRIBUTOS
@@ -553,7 +553,7 @@ void VistaDiagrama::eliminar() {
 	std::vector<VistaComponente *>::iterator i;
 	std::vector<VistaDiagrama *>::iterator j;
 
-	for (i = this->componentesBegin(); i != this->componentesEnd(); i++) {
+	for (i = this->componentes.begin(); i != this->componentes.end(); i++) {
 		delete (*i);
 	}
 
@@ -656,8 +656,10 @@ void VistaDiagrama::lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventB
 
 bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 	VistaComponente * componente;
+#if DEBUG_MOUSE==1
 	cout << "X= " << event->x << " Y=" << event->y << endl;
 	cout << "Event button: " << event->button << endl;
+#endif
 
 	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3)) {
 		componente = obtenerComponenteEnPos(event->x / this->zoom, event->y / this->zoom);
@@ -690,8 +692,9 @@ bool VistaDiagrama::on_button_press_event(GdkEventButton* event) {
 bool VistaDiagrama::on_button_release_event(GdkEventButton* event) {
 
 	this->estaRedimensionandoElemento = false;
+#if DEBUG_MOUSE==1
 	cout << "Release X= " << event->x << " Y= " << event->y << endl;
-
+#endif
 	this->queue_draw();
 	return true;
 }
@@ -879,7 +882,9 @@ void VistaDiagrama::drag_end(const Glib::RefPtr<Gdk::DragContext>&context) {
 		this->set_size_request(this->ancho, this->alto);
 		this->get_parent()->set_size_request(this->ancho, this->alto);
 	}
+#if DEBUG_DRAG==1
 	cout << "DRAG_END" << endl;
+#endif
 }
 
 void VistaDiagrama::drag_data_delete(const Glib::RefPtr<Gdk::DragContext>&context) {
@@ -1020,6 +1025,9 @@ void VistaDiagrama::quitarComponente(VistaComponente *componente) {
 		delete componente;
 
 		this->queue_draw();
+		if(this->panel){
+			this->panel->regenerar();
+		}
 	}
 }
 
@@ -1054,8 +1062,23 @@ void VistaDiagrama::agregarVistaUnionEntidadRelacion(VistaUnionEntidadRelacion *
 
 void VistaDiagrama::agregarDiagramaHijo(VistaDiagrama *vDiagrama) {
 	if (vDiagrama != NULL) {
-		this->diagramas.push_back(vDiagrama);
 		vDiagrama->setDiagramaAncestro(this);
+		vDiagrama->getDiagrama()->setDiagramaAncestro(this->diagrama);
+		this->diagramas.push_back(vDiagrama);
+		this->diagrama->agregarDiagramaHijo(vDiagrama->diagrama);
+	}
+}
+
+void VistaDiagrama::quitarDiagramaHijo(VistaDiagrama *vDiagrama) {
+	std::vector<VistaDiagrama *>::iterator it_diagramas;
+	if (vDiagrama != NULL) {
+		//vDiagrama->setDiagramaAncestro(this);
+		//vDiagrama->getDiagrama()->setDiagramaAncestro(this->diagrama);
+		it_diagramas = find(diagramas.begin(), diagramas.end(), vDiagrama);
+		if (it_diagramas != diagramas.end()) {
+			diagramas.erase(it_diagramas);
+		}
+		this->diagrama->quitarDiagramaHijo(vDiagrama->diagrama);
 	}
 }
 
@@ -1586,4 +1609,25 @@ void VistaDiagrama::getDimensionesDelDiagrama(double &offset_x, double& offset_y
 	std::cout << "Dimensiones (" << ancho << ":" << alto << ") " << std::endl;
 #endif
 
+}
+
+bool VistaDiagrama::existeEsteDiagrama(const std::string & nombre) {
+	std::vector<VistaDiagrama *>::iterator it_diagramas;
+
+	if (this->diagrama->getNombre() == nombre) {
+		return true;
+	}
+
+	for (it_diagramas = this->diagramas.begin(); it_diagramas != this->diagramas.end();
+			++it_diagramas) {
+		if ((*it_diagramas)->existeEsteDiagrama(nombre)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void VistaDiagrama::setPanel(TreePanel * panel){
+	this->panel = panel;
 }

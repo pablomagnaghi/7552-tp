@@ -9,6 +9,7 @@
 #include "VistaConstantes.h"
 #include "./componentes/VistasDeComponentes.h"
 #include "../controlador/ComponentsBuilder.h"
+#include "TreePanel.h"
 
 class VistaRelacion;
 class VistaEntidad;
@@ -16,6 +17,7 @@ class VistaEntidadNueva;
 class VistaEntidadGlobal;
 class VistaIdentificador;
 class VistaUnionEntidadRelacion;
+class TreePanel;
 
 class VistaDiagrama: public Gtk::DrawingArea {
 private:
@@ -47,6 +49,9 @@ private:
 	// Para controlar el menu de pop up
 	bool menu_popup_activo;
 	VistaComponente * componenteMenuActivo;
+
+	// Para regenerar cuando se borra un componente
+	TreePanel * panel;
 
 	// Redefinicion del metodo de Gtk::DrawingArea q se llama cada vez q debe dibujarse la hoja.
 	bool on_expose_event(GdkEventExpose* e);
@@ -149,11 +154,13 @@ public:
 
 	void agregarDiagramaHijo(VistaDiagrama *vDiagrama);
 	VistaDiagrama * buscarDiagrama(const std::string & nombreDiagrama);
+	void quitarDiagramaHijo(VistaDiagrama *vDiagrama);
 
 	void quitarComponentesRelacionadosConDiagramaPadre(VistaComponente *);
 
 	std::string getNombre() const;
 
+	void setPanel(TreePanel * panel);
 	//*****     MODELO     *****//
 	int getAlto();
 	int getAncho();
@@ -165,6 +172,8 @@ public:
 	void setDiagramaAncestro(VistaDiagrama *);
 	VistaDiagrama *getDiagramaAncestro();
 	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,std::string & nombreDiagramaAncestro);
+
+	bool existeEsteDiagrama(const std::string & nombre);
 
 	//*****     GRAFICOS     *****//
 	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context, bool dibujarSeleccionado);

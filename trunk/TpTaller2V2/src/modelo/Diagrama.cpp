@@ -54,7 +54,10 @@ std::string Diagrama::getNombreDiagramaAncestro() const {
 }
 
 void Diagrama::agregarDiagramaHijo(Diagrama* diagramaHijo) {
-	this->diagramasHijos.push_back(diagramaHijo);
+	if (find(this->diagramasHijos.begin(), this->diagramasHijos.end(), diagramaHijo)
+			== this->diagramasHijos.end()) {
+		this->diagramasHijos.push_back(diagramaHijo);
+	}
 }
 
 void Diagrama::quitarDiagramaHijo(Diagrama* diagramaHijo) {
