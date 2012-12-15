@@ -205,7 +205,21 @@ VistaEntidad * VistaUnionEntidadRelacion::getEntidad() {
 	return this->entidad;
 }
 
+VistaRelacion * VistaUnionEntidadRelacion::getRelacion(){
+	return this->relacion;
+}
+
 bool VistaUnionEntidadRelacion::hayQueEliminarlo(){
 	return this->eliminando;
+}
+
+string VistaUnionEntidadRelacion::to_s(){
+	string text;
+	text+="[";
+	text+=this->entidad->getNombre();
+	//text+=",";
+	//text+=this->relacion->getNombre();
+	text+="]";
+	return text;
 }
 

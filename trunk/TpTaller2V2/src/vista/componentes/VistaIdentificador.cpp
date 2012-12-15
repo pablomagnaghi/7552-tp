@@ -359,3 +359,43 @@ void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
 bool VistaIdentificador::hayQueEliminarlo(){
 	return this->eliminando;
 }
+
+bool VistaIdentificador::contieneAtrib(VistaAtributo * atrib){
+	std::vector<VistaAtributo*>::iterator it = this->atributosBegin();
+	std::vector<VistaAtributo*>::iterator it1 = this->atributosEnd();
+	VistaAtributo *ident_atrib= NULL;
+	while (it != it1){
+		ident_atrib = *it;
+		if (ident_atrib == atrib){
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+
+std::string VistaIdentificador::to_s(){
+	std::vector<VistaAtributo*>::iterator it = this->atributosBegin();
+	std::vector<VistaAtributo*>::iterator it1 = this->atributosEnd();
+	std::vector<VistaUnionEntidadRelacion*>::iterator it2 = this->vistasEntidadesFuertes.begin();
+	std::vector<VistaUnionEntidadRelacion*>::iterator it3 = this->vistasEntidadesFuertes.end();
+	VistaAtributo *ident_atrib= NULL;
+	VistaUnionEntidadRelacion *vuer = NULL;
+	string text;
+	text = "(";
+	while (it != it1){
+		ident_atrib = *it;
+		text+=ident_atrib->getNombre();
+		text+=",";
+		it++;
+	}
+	while (it2!= it3){
+		vuer = *it2;
+		text+= vuer->to_s();
+		text+=",";
+		it2++;
+	}
+
+	text+=")";
+	return text;
+}

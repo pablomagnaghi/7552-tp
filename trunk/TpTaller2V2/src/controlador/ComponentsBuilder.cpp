@@ -248,6 +248,10 @@ VistaIdentificador * ComponentsBuilder::crearIdentificadorEnEntidad(VistaDiagram
 	}
 
 	VistaIdentificador * vistaIdentificador = new VistaIdentificador(identificador);
+
+	//TODO NO.Agregue una lista de vistaIdentificadores a vistaEntidad
+	entidad->agregarIdentificador(vistaIdentificador);
+
 	diagramaActual->agregarComponente(vistaIdentificador);
 	diagramaActual->agregarVistaIdentificador(vistaIdentificador);
 

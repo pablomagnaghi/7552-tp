@@ -158,7 +158,6 @@ void VistaComponente::ajustarTamanioAlTexto() {
 
 void VistaComponente::crear_menu(Glib::RefPtr<Gtk::UIManager> & manager) {
 	Glib::RefPtr<Gtk::ActionGroup> actionGroup;
-
 	actionGroup = Gtk::ActionGroup::create();
 
 	//actionGroup->add(Gtk::Action::create("ContextMenu", "Context Menu"));
@@ -278,4 +277,13 @@ XmlNodo VistaComponente::guardarXmlREP() {
 
 void VistaComponente::agregarPropiedadesXmlREP(XmlNodo* nodo) {
 	nodo->setPropiedad("codigo", this->codigoREP);
+}
+
+bool VistaComponente::identificador_en_popup(){
+	return false;
+}
+
+
+void VistaComponente::on_popup_boton_Identificadores(){
+	cout<<"Solo hago algo para entidad nueva"<<endl;
 }

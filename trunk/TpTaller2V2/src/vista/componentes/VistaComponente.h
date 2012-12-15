@@ -110,8 +110,10 @@ public:
 	virtual void setNombre(const std::string &) = 0;
 
 	// Menu Pop Up
-	void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager);
+	virtual void crear_menu(Glib::RefPtr<Gtk::UIManager> & userInterfaceManager);
 	void on_popup_boton_propiedades();
+
+	virtual void on_popup_boton_Identificadores();
 
 	virtual bool contieneEsteComponente(VistaComponente *)=0;
 
@@ -132,6 +134,8 @@ public:
 	void cargarDatosXmlRep(XmlNodo*);
 	// GUARDAR
 	XmlNodo guardarXmlREP();
+
+	virtual bool identificador_en_popup();
 };
 
 #endif /* VISTACOMPONENTE_H_ */
