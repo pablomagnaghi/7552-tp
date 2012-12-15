@@ -23,7 +23,6 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	this->zoom = ZOOM_DEFECTO;
 	this->ancho = 800;
 	this->alto = 600;
-
 	//this->get_parent()->get_size_request(this->ancho,this->alto);
 
 	this->set_size_request(this->ancho, this->alto);
@@ -1520,23 +1519,27 @@ void VistaDiagrama::guardarDiagramaXml(const std::string& path) {
 
 	this->diagrama->guardarDiagramaXmlCOMP(diagramaCOMP);
 	this->guardarDiagramaXmlREP(diagramaREP);
-	this->guardarDiagramasHijosXml(path);
+	this->guardarDiagramasHijosXml(path, this);
 }
 
-void VistaDiagrama::guardarDiagramasHijosXml(const std::string& path) {
-	std::vector<VistaDiagrama*>::iterator i;
+void VistaDiagrama::guardarDiagramasHijosXml(const std::string& path, VistaDiagrama* vDiagrama) {
+	std::vector<VistaDiagrama*>::iterator it = vDiagrama->vdiagramasBegin();
 
-	for (i = this->vdiagramasBegin(); i != this->vdiagramasEnd(); ++i) {
+	while (it != vDiagrama->vdiagramasEnd()) {
 		std::string diagramaCOMP;
 		std::string diagramaREP;
 
-		obtenerNombresDiagramaCOMPYREP(path, diagramaCOMP, diagramaREP, (*i)->getDiagrama()->getNombre());
+		obtenerNombresDiagramaCOMPYREP(path, diagramaCOMP, diagramaREP, (*it)->getDiagrama()->getNombre());
 
-		(*i)->getDiagrama()->guardarDiagramaXmlCOMP(diagramaCOMP);
-		(*i)->guardarDiagramaXmlREP(diagramaREP);
-		if (this->tieneHijos()) {
-			this->guardarDiagramasHijosXml(path);
+		(*it)->getDiagrama()->guardarDiagramaXmlCOMP(diagramaCOMP);
+		(*it)->guardarDiagramaXmlREP(diagramaREP);
+		std::cout << "NOmbre del diagrama hijo: " << (*it)->getDiagrama()->getNombre() << std::endl;
+
+		if ((*it)->tieneHijos()) {
+			std::cout << (*it)->getDiagrama()->getNombre() << " tiene HIJOS" << std::endl;
+			this->guardarDiagramasHijosXml(path, (*it));
 		}
+		it++;
 	}
 }
 
