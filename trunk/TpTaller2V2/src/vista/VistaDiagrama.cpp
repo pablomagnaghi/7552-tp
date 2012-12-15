@@ -1242,15 +1242,13 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
 
-
-
 // se crean las vistas de ese diagrama
 // todo
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
 	this->abrirXmlREP(diagramaREP);
 
-	//this->cargarVistaDiagramasHijos();
+	//this->cargarVistaDiagramasHijos(path, this);
 }
 
 void VistaDiagrama::crearVistasDelModelo() {
@@ -1475,15 +1473,18 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 	return NULL;
 }
 
-void VistaDiagrama::cargarVistaDiagramasHijos() {
+//todo
+void VistaDiagrama::cargarVistaDiagramasHijos(const std::string& path, VistaDiagrama* vDiagrama) {
 // para cada diagrama hijo se setean los datos de las vistas
 
-	std::vector<Diagrama*>::iterator it = this->diagrama->diagramasHijosBegin();
-	while (it != this->diagrama->diagramasHijosEnd()) {
+	std::cout << "CARGAR DIAGRAMAS HIJOS DEL DIAGRAMA: " << vDiagrama->getDiagrama()->getNombre() << std::endl;
+
+	std::vector<Diagrama*>::iterator it = vDiagrama->getDiagrama()->diagramasHijosBegin();
+	while (it != vDiagrama->getDiagrama()->diagramasHijosEnd()) {
 		std::string nombre = (*it)->getNombre();
 		VistaDiagrama *vDiagrama = new VistaDiagrama(*it);
-		vDiagrama->abrirXml(nombre);
-		// todo this->diagramas.push_back(vDiagrama);
+		//vDiagrama->abrirXml(path);
+		//vDiagrama->agregarDiagramaHijo(vDiagrama);
 		it++;
 	}
 }
@@ -1491,7 +1492,7 @@ void VistaDiagrama::cargarVistaDiagramasHijos() {
 // GUARDAR
 
 void VistaDiagrama::obtenerNombresDiagramaCOMPYREP(const std::string& path, std::string& diagramaCOMP,
-		std::string& diagramaREP, const std::string& nombre) {
+	std::string& diagramaREP, const std::string& nombre) {
 
 	if (path.find("/", path.size() - 1, 1) == std::string::npos) {
 		diagramaCOMP = path + "/" + nombre + EXTENSION_COMP;
@@ -1533,10 +1534,13 @@ void VistaDiagrama::guardarDiagramasHijosXml(const std::string& path, VistaDiagr
 
 		(*it)->getDiagrama()->guardarDiagramaXmlCOMP(diagramaCOMP);
 		(*it)->guardarDiagramaXmlREP(diagramaREP);
-		std::cout << "NOmbre del diagrama hijo: " << (*it)->getDiagrama()->getNombre() << std::endl;
+		//std::cout << "NOmbre del diagrama hijo: " << (*it)->getDiagrama()->getNombre() << std::endl;
+
+		//std::cout << "NOmbre del diagrama hijo COMP: " << diagramaCOMP << std::endl;
+		//std::cout << "NOmbre del diagrama hijo REP: " << diagramaREP << std::endl;
 
 		if ((*it)->tieneHijos()) {
-			std::cout << (*it)->getDiagrama()->getNombre() << " tiene HIJOS" << std::endl;
+			//std::cout << (*it)->getDiagrama()->getNombre() << " tiene HIJOS" << std::endl;
 			this->guardarDiagramasHijosXml(path, (*it));
 		}
 		it++;
