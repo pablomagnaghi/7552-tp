@@ -68,6 +68,12 @@ void ValidacionVisitor::visit(EntidadNueva* entidadNueva){
 	if (entidadNueva->getTipo().compare("") == 0){
 		this->imprimirMensaje("La entidad nueva " + entidadNueva->getNombre() + " no tiene asignado un tipo.");
 		this->invalidarDiagrama();
+	} else if (entidadNueva->getTipo().compare(TIPO_ENTIDAD_COSA) != 0 &&
+			entidadNueva->getTipo().compare(TIPO_ENTIDAD_DOMINIO) != 0 &&
+			entidadNueva->getTipo().compare(TIPO_ENTIDAD_HISTORICA) != 0 &&
+			entidadNueva->getTipo().compare(TIPO_ENTIDAD_PROGRAMADA) != 0){
+		this->imprimirMensaje("La entidad nueva " + entidadNueva->getNombre() + " no tiene asignado un tipo válido.");
+		this->invalidarDiagrama();
 	}
 }
 
@@ -107,11 +113,11 @@ void ValidacionVisitor::visit(Atributo* atributo){
 
 	// Cardinalidades
 	if (atributo->getCardinalidadMinima().compare("") == 0){
-		this->imprimirMensaje("El atributo " + atributo->getNombre() + " no tiene asignado una cardinalidad mínima.");
+		this->imprimirMensaje("El atributo " + atributo->getNombre() + " no tiene asignada la cardinalidad mínima.");
 		this->invalidarDiagrama();
 	}
 	if (atributo->getCardinalidadMaxima().compare("") == 0){
-		this->imprimirMensaje("El atributo " + atributo->getNombre() + " no tiene asignado una cardinalidad máxima.");
+		this->imprimirMensaje("El atributo " + atributo->getNombre() + " no tiene asignada la cardinalidad máxima.");
 		this->invalidarDiagrama();
 	}
 
@@ -119,8 +125,13 @@ void ValidacionVisitor::visit(Atributo* atributo){
 	if (atributo->getTipo().compare("") == 0){
 		this->imprimirMensaje("El atributo " + atributo->getNombre() + " no tiene asignado un tipo.");
 		this->invalidarDiagrama();
-	} else if (atributo->getTipo() == TIPO_ATRIBUTO_CALCULADO && atributo->getExpresion().compare("") == 0){
-		this->imprimirMensaje("El atributo " + atributo->getNombre() + " es calculado y no tiene asignado la expresión.");
+	} else if (atributo->getTipo().compare(TIPO_ATRIBUTO_CALCULADO) != 0 &&
+			atributo->getTipo().compare(TIPO_ATRIBUTO_CARACTERIZACION) != 0 &&
+			atributo->getTipo().compare(TIPO_ATRIBUTO_COPIADO) != 0){
+		this->imprimirMensaje("El atributo " + atributo->getNombre() + " no tiene asignado un tipo válido.");
+		this->invalidarDiagrama();
+	} else if (atributo->getTipo().compare(TIPO_ATRIBUTO_CALCULADO) == 0 && atributo->getExpresion().compare("") == 0){
+		this->imprimirMensaje("El atributo " + atributo->getNombre() + " es calculado y no tiene asignada la expresión.");
 		this->invalidarDiagrama();
 	}
 }
@@ -138,7 +149,23 @@ void ValidacionVisitor::visit(Relacion* relacion){
 
 	// Tipo
 	if (relacion->getTipo().compare("") == 0){
-		this->imprimirMensaje("La relación " + relacion->getNombre() + " no tiene asignada un tipo.");
+		this->imprimirMensaje("La relación " + relacion->getNombre() + " no tiene asignado un tipo.");
+		this->invalidarDiagrama();
+	} else if (relacion->getTipo().compare(TIPO_RELACION_ASOCIACION) != 0 &&
+			relacion->getTipo().compare(TIPO_RELACION_COMPOSICION) != 0) {
+		this->imprimirMensaje("La relación " + relacion->getNombre() + " no tiene asignado un tipo válido.");
+		this->invalidarDiagrama();
+	}
+
+	// Uniones
+	int cantidadEntidades = 0;
+	std::vector<UnionEntidadRelacion*>::iterator itUniones = relacion->unionesAEntidadBegin();
+	while (itUniones != relacion->unionesAEntidadEnd()){
+		cantidadEntidades++;
+		itUniones++;
+	}
+	if (cantidadEntidades < 2){
+		this->imprimirMensaje("La relación " + relacion->getNombre() + " debe tener 2 o más entidades asociadas.");
 		this->invalidarDiagrama();
 	}
 }
@@ -149,10 +176,65 @@ void ValidacionVisitor::visit(Jerarquia* jerarquia){
 		this->imprimirMensaje("Una de las jerarquías no tiene un nombre asignado.");
 		this->invalidarDiagrama();
 	}
+
+	// Entidad general
+	if (jerarquia->getEntidadGeneral() == NULL){
+		this->imprimirMensaje("La jerarquía " + jerarquia->getNombre() + " no tiene una entidad general asignada.");
+		this->invalidarDiagrama();
+	}
+
+	// Entidades especializadas
+	if (jerarquia->entidadesEspecializadasBegin() == jerarquia->entidadesEspecializadasEnd()){
+		this->imprimirMensaje("La jerarquía " + jerarquia->getNombre() + " no tiene asignada ninguna entidad especializada.");
+		this->invalidarDiagrama();
+	}
+
+	// Cobertura
+	if (jerarquia->getCobertura().compare(TIPO_COBERTURA_PARCIAL) != 0 &&
+			jerarquia->getCobertura().compare(TIPO_COBERTURA_TOTAL) != 0){
+		this->imprimirMensaje("La jerarquía " + jerarquia->getNombre() + " no tiene asignada una cobertura válida.");
+		this->invalidarDiagrama();
+	}
+
+	// Intersección
+	if (jerarquia->getInterseccion().compare(TIPO_INTERSECCION_EXCLUSIVA) != 0 &&
+			jerarquia->getInterseccion().compare(TIPO_INTERSECCION_SUPERPUESTA) != 0){
+		this->imprimirMensaje("La jerarquía " + jerarquia->getNombre() + " no tiene asignada una intersección válida.");
+		this->invalidarDiagrama();
+	}
 }
 
 void ValidacionVisitor::visit(UnionEntidadRelacion* unionEntidadRelacion){
-	// Se validan en la misma relación.
-}
+	// Relación
+	if (unionEntidadRelacion->getRelacion() == NULL){
+		this->imprimirMensaje("Hay una unión entidad relación que no pertenecea ninguna relación.");
+		this->invalidarDiagrama();
+	} else {
 
-// TODO: Falta validar que los tipos sean algunos de los definidos en las constantes, falta validar las relaciones y las jerarquias.
+		// Entidad
+		if (unionEntidadRelacion->getEntidad() == NULL){
+			this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre()
+					+ "no tiene una entidad asociada.");
+			this->invalidarDiagrama();
+		}
+	}
+
+	// Cardinalidades
+	if (unionEntidadRelacion->getCardinalidadMinima().compare("") == 0){
+		this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre()
+				+ " no tiene asignada la cardinalidad mínima.");
+		this->invalidarDiagrama();
+	}
+	if (unionEntidadRelacion->getCardinalidadMaxima().compare("") == 0){
+		this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre()
+				+ " no tiene asignada la cardinalidad máxima.");
+		this->invalidarDiagrama();
+	}
+
+	// Rol
+	if (unionEntidadRelacion->getRol().compare("") == 0){
+		this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre() +
+				" no tiene asignado el rol.");
+		// No se invalida el diagrama porque el rol no es obligatorio.
+	}
+}

@@ -110,10 +110,15 @@ void Relacion::borrarUnionesAEntidad() {
 
 void Relacion::accept(ModeloVisitor* modeloVisitor) {
 	modeloVisitor->visit(this);
-	std::vector<Atributo*>::iterator it = this->atributosBegin();
-	while (it != this->atributosEnd()) {
-		(*it)->accept(modeloVisitor);
-		it++;
+	std::vector<Atributo*>::iterator itAtributos = this->atributosBegin();
+	while (itAtributos != this->atributosEnd()) {
+		(*itAtributos)->accept(modeloVisitor);
+		itAtributos++;
+	}
+	std::vector<UnionEntidadRelacion*>::iterator itUniones = this->unionesAEntidadBegin();
+	while (itUniones != this->unionesAEntidadEnd()) {
+		(*itUniones)->accept(modeloVisitor);
+		itUniones++;
 	}
 }
 
