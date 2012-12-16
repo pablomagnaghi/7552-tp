@@ -1330,17 +1330,13 @@ void VistaDiagrama::crearVistasEntidadGlobal() {
 		std::cout << "codigo entidad global: " << (*it)->getCodigo() << std::endl;
 		std::cout << "Diagrama ancestro: " << (*it)->getDiagramaAncestro() << std::endl;
 		std::cout << "nombre entidad global: " << (*it)->getNombre() << std::endl;
+		std::cout << "nombre entidad nueva: " << (*it)->getCodigoEntidadNueva() << std::endl;
 
 		int codigoEntidadNueva = (*it)->getCodigoEntidadNueva();
-		EntidadNueva* entNueva = this->getDiagrama()->getEntidadNuevaByCodigo(codigoEntidadNueva);
-
 		// todo Gonza
-		//std::string nombreEntidadNueva = entNueva->getNombre();
 
 		// el builder crea la vista entidad global
-		/*ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, nombreEntidadNueva,
-		 (*it));*/
-		//ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, codigoEntidadNueva, (*it));
+		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, codigoEntidadNueva, (*it));
 		it++;
 	}
 }
@@ -1503,9 +1499,10 @@ void VistaDiagrama::cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const st
 			std::cout<< "nombre del diagrama: " << nombre << std::endl;
 
 			VistaDiagrama *vDiagramaHijo = new VistaDiagrama(*it);
+			vDiagrama->agregarDiagramaHijo(vDiagramaHijo);
 			vDiagramaHijo->crearVistasDelModelo();
 			vDiagramaHijo->abrirXmlREP(nombre);
-			vDiagrama->agregarDiagramaHijo(vDiagramaHijo);
+
 			vDiagramaHijo->cargarVistaDiagramasHijos(vDiagramaHijo, carpeta);
 			it++;
 		}
