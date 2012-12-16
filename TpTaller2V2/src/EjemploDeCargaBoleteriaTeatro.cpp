@@ -4,7 +4,7 @@
  *  Created on: 18/06/2012
  *      Author: pablo
  */
-
+/*
 #include "modelo/HeadersModelo.h"
 #include <iostream>
 
@@ -26,3 +26,4 @@ int main3(int argc, char* argv[]){
 
 	return 0;
 }
+*/

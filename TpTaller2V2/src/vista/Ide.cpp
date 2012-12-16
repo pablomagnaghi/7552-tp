@@ -136,14 +136,12 @@ bool Ide::abrir_proyecto() {
 
 	this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
 
-	std::cout << "carpeta proyecto: " << this->carpetaProyecto << std::endl;
-
 	// todo (Gonzalo)
 
 	//nombres_diagramas = obtener_nombres_diagramas_en_carpeta(this->carpetaProyecto);
 
 	//this->diagramaActual->abrirXmlDiagramas(this->carpetaProyecto, nombres_diagramas);
-	this->diagramaActual->abrirXml(diagrama_principal);
+	this->diagramaActual->abrirXml(diagrama_principal, this->carpetaProyecto);
 
 	// todo (Pablo)
 

@@ -436,29 +436,32 @@ bool Diagrama::isOpenXmlCOMP() const {
 
 // CARGAR
 
+bool Diagrama::tieneHijos() {
+	if (this->diagramasHijos.size())
+		return true;
+	return false;
+}
+
 // Abre un archivo xml, y carga un diagrama con la informacion que contenga.
-void Diagrama::abrirXmlCOMP(const std::string& path) {
+void Diagrama::abrirXmlCOMP(const std::string& path, const std::string& carpeta) {
 	try {
 		// Abro el archivo
+		std::cout << "archivo abierto en el modelo con el nombre: " << path << std::endl;
 		Xml docXml(path);
 		this->diagramaValidoCOMP = true;
 
 		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
-		std::cerr << "llego111" << std::endl;
 		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz);
-		std::cerr << "llego112" << std::endl;
-		this->cargarXmlCOMP(nodoRaiz);
-		std::cerr << "llego113" << std::endl;
+		this->cargarXmlCOMP(nodoRaiz, carpeta);
 	} catch (XmlArchivoInexistenteExc* ex) {
 		delete ex;
 		throw new DiagramaArchivoInexistenteExc(path);
 	} catch (XmlArchivoInvalidoExc & ex) {
-		std::cerr << "llegoex114" << std::endl;
 		throw new DiagramaInvalidoExc(path);
 	}
 }
 
-void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz) {
+void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz, const std::string& carpeta) {
 	// archivo listo para cargar los componentes del diagrama
 	this->obtenerPropiedadesXmlCOMP(nodoRaiz);
 
@@ -467,7 +470,7 @@ void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz) {
 
 	this->cargarComponentes();
 
-	this->cargarDiagramasHijos();
+	this->cargarDiagramasHijos(this, carpeta);
 }
 
 void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
@@ -572,15 +575,17 @@ void Diagrama::cargarEntidadesYJerarquias() {
 	}
 }
 
-void Diagrama::cargarDiagramasHijos() {
-	std::vector<std::string>::iterator it = this->nombresDiagramasHijosBegin();
-	while (it != this->nombresDiagramasHijosEnd()) {
-		std::string nombre = (*it);
+// todo
+void Diagrama::cargarDiagramasHijos(Diagrama* diagrama, const std::string& carpeta) {
+	std::vector<std::string>::iterator it = diagrama->nombresDiagramasHijosBegin();
+
+	while (it != diagrama->nombresDiagramasHijosEnd()) {
+		std::string nombre = carpeta + "/" + (*it);
 		Diagrama *diagramaHijo = new Diagrama(nombre);
-		diagramaHijo->setDiagramaAncestro(this);
+		diagramaHijo->setDiagramaAncestro(diagrama);
 		nombre += EXTENSION_COMP;
-		diagramaHijo->abrirXmlCOMP(nombre);
-		this->agregarDiagramaHijo(diagramaHijo);
+		diagramaHijo->abrirXmlCOMP(nombre, carpeta);
+		diagrama->agregarDiagramaHijo(diagramaHijo);
 		it++;
 		nombre.clear();
 	}

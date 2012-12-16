@@ -123,7 +123,7 @@ private:
 	void obtenerPropiedadesXmlREP(XmlNodo* nodo);
 	void obtenerComponentesXmlREP(XmlNodo* nodo);
 	VistaComponente* obtenerComponente(int codigo);
-	void cargarVistaDiagramasHijos(const std::string& path, VistaDiagrama* vDiagrama);
+	void cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const std::string& carpeta);
 
 	// GUARDAR
 	void obtenerNombresDiagramaCOMPYREP(const std::string& path, std::string& diagramaCOMP,
@@ -207,7 +207,7 @@ public:
 	//*****     PERSISTENCIA REP     *****//
 	bool isOpenXmlREP() const;
 	// CARGAR
-	void abrirXml(const std::string& path);
+	void abrirXml(const std::string& path, const std::string& carpeta);
 	void abrirXmlDiagramas(const std::string carpeta,const std::vector<std::string> & nombres);
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);

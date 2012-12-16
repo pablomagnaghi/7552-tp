@@ -1238,23 +1238,18 @@ bool VistaDiagrama::isOpenXmlREP() const {
 // Ejemplo: el nombre del diagrama es Principal
 // a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
 
-void VistaDiagrama::abrirXml(const std::string& path) {
+void VistaDiagrama::abrirXml(const std::string& path, const std::string& carpeta) {
 // se creo el modelo con todos los diagramas
 	Diagrama *diagrama = new Diagrama(path);
 	this->diagrama = diagrama;
 	std::string diagramaCOMP = path + EXTENSION_COMP;
-	std::cerr << "llego11" << std::endl;
-	this->diagrama->abrirXmlCOMP(diagramaCOMP);
-	std::cerr << "llego12" << std::endl;
+	this->diagrama->abrirXmlCOMP(diagramaCOMP, carpeta);
 // se crean las vistas de ese diagrama
-// todo
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
-	std::cerr << "llego13" << std::endl;
 	this->abrirXmlREP(diagramaREP);
-	std::cerr << "llego14" << std::endl;
 
-	//this->cargarVistaDiagramasHijos(path, this);
+	this->cargarVistaDiagramasHijos(this, carpeta);
 }
 
 void VistaDiagrama::abrirXmlDiagramas(const std::string carpeta, const std::vector<std::string> & nombres) {
@@ -1325,8 +1320,16 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 }
 
 void VistaDiagrama::crearVistasEntidadGlobal() {
+
+	std::cout << "entidad global" << std::endl;
+
 	std::vector<EntidadGlobal*>::iterator it = this->getDiagrama()->entidadesGlobalesBegin();
 	while (it != this->getDiagrama()->entidadesGlobalesEnd()) {
+
+		std::cout << "codigo entidad global: " << (*it)->getCodigo() << std::endl;
+		std::cout << "Diagrama ancestro: " << (*it)->getDiagramaAncestro() << std::endl;
+		std::cout << "nombre entidad global: " << (*it)->getNombre() << std::endl;
+
 		int codigoEntidadNueva = (*it)->getCodigoEntidadNueva();
 		EntidadNueva* entNueva = this->getDiagrama()->getEntidadNuevaByCodigo(codigoEntidadNueva);
 
@@ -1336,7 +1339,7 @@ void VistaDiagrama::crearVistasEntidadGlobal() {
 		// el builder crea la vista entidad global
 		/*ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, nombreEntidadNueva,
 		 (*it));*/
-		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, codigoEntidadNueva, (*it));
+		//ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, codigoEntidadNueva, (*it));
 		it++;
 	}
 }
@@ -1432,6 +1435,8 @@ void VistaDiagrama::abrirXmlREP(const std::string& path) {
 	this->diagramaValidoREP = false;
 
 	try {
+
+		std::cout << "abrir el archivo rep con el nombre: " << path << std::endl;
 		// Abro el archivo
 		Xml docXml(path);
 		this->diagramaValidoREP = true;
@@ -1482,19 +1487,27 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 }
 
 //todo
-void VistaDiagrama::cargarVistaDiagramasHijos(const std::string& path, VistaDiagrama* vDiagrama) {
+void VistaDiagrama::cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const std::string& carpeta) {
 // para cada diagrama hijo se setean los datos de las vistas
 
 	std::cout << "CARGAR DIAGRAMAS HIJOS DEL DIAGRAMA: " << vDiagrama->getDiagrama()->getNombre()
 			<< std::endl;
 
-	std::vector<Diagrama*>::iterator it = vDiagrama->getDiagrama()->diagramasHijosBegin();
-	while (it != vDiagrama->getDiagrama()->diagramasHijosEnd()) {
-		std::string nombre = (*it)->getNombre();
-		VistaDiagrama *vDiagrama = new VistaDiagrama(*it);
-		//vDiagrama->abrirXml(path);
-		//vDiagrama->agregarDiagramaHijo(vDiagrama);
-		it++;
+	if (vDiagrama->getDiagrama()->tieneHijos()) {
+		std::cout << "tiene hijos" << std::endl;
+		std::vector<Diagrama*>::iterator it = vDiagrama->getDiagrama()->diagramasHijosBegin();
+		while (it != vDiagrama->getDiagrama()->diagramasHijosEnd()) {
+			std::string nombre = carpeta + "/" + (*it)->getNombre();
+
+			std::cout<< "nombre del diagrama: " << nombre << std::endl;
+
+			VistaDiagrama *vDiagramaHijo = new VistaDiagrama(*it);
+			vDiagramaHijo->abrirXml(nombre, carpeta);
+			vDiagrama->agregarDiagramaHijo(vDiagramaHijo);
+			it++;
+		}
+	} else {
+		std::cout << "NO tiene hijos" << std::endl;
 	}
 }
 
