@@ -56,7 +56,7 @@ bool Ide::hayProyecto() {
 	}
 	return true;
 }
-
+/*
 std::vector<std::string> Ide::obtener_nombres_diagramas_en_carpeta(const std::string & carpeta) {
 	std::vector<std::string> nombres;
 	std::vector<std::string> archivos;
@@ -75,13 +75,13 @@ std::vector<std::string> Ide::obtener_nombres_diagramas_en_carpeta(const std::st
 		}
 	}
 	return nombres;
-}
+}*/
 
 bool Ide::abrir_proyecto() {
 	std::string diagrama_principal;
 	std::vector<std::string>::iterator it_nombres_diagramas;
 	std::vector<std::string> nombres_diagramas;
-	VistaDiagrama * nuevo_diagrama;
+	//VistaDiagrama * nuevo_diagrama;
 
 	// Pedir Carpeta donde se guarda el proyecto
 	Gtk::FileChooserDialog selector("Seleccione la carpeta del proyecto",
