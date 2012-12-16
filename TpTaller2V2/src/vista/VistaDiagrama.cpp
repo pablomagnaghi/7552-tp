@@ -1238,6 +1238,7 @@ bool VistaDiagrama::isOpenXmlREP() const {
 // Ejemplo: el nombre del diagrama es Principal
 // a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
 
+// todo
 void VistaDiagrama::abrirXml(const std::string& path, const std::string& carpeta) {
 // se creo el modelo con todos los diagramas
 	Diagrama *diagrama = new Diagrama(path);
@@ -1497,12 +1498,13 @@ void VistaDiagrama::cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const st
 		std::cout << "tiene hijos" << std::endl;
 		std::vector<Diagrama*>::iterator it = vDiagrama->getDiagrama()->diagramasHijosBegin();
 		while (it != vDiagrama->getDiagrama()->diagramasHijosEnd()) {
-			std::string nombre = carpeta + "/" + (*it)->getNombre();
+			std::string nombre = carpeta + "/" + (*it)->getNombre() + EXTENSION_REP;;
 
 			std::cout<< "nombre del diagrama: " << nombre << std::endl;
 
 			VistaDiagrama *vDiagramaHijo = new VistaDiagrama(*it);
-			vDiagramaHijo->abrirXml(nombre, carpeta);
+			vDiagramaHijo->crearVistasDelModelo();
+			vDiagramaHijo->abrirXmlREP(nombre);
 			vDiagrama->agregarDiagramaHijo(vDiagramaHijo);
 			it++;
 		}
@@ -1556,13 +1558,8 @@ void VistaDiagrama::guardarDiagramasHijosXml(const std::string& path, VistaDiagr
 
 		(*it)->getDiagrama()->guardarDiagramaXmlCOMP(diagramaCOMP);
 		(*it)->guardarDiagramaXmlREP(diagramaREP);
-		//std::cout << "NOmbre del diagrama hijo: " << (*it)->getDiagrama()->getNombre() << std::endl;
-
-		//std::cout << "NOmbre del diagrama hijo COMP: " << diagramaCOMP << std::endl;
-		//std::cout << "NOmbre del diagrama hijo REP: " << diagramaREP << std::endl;
 
 		if ((*it)->tieneHijos()) {
-			//std::cout << (*it)->getDiagrama()->getNombre() << " tiene HIJOS" << std::endl;
 			this->guardarDiagramasHijosXml(path, (*it));
 		}
 		it++;
