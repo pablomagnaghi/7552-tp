@@ -51,7 +51,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 	if (a == 0) {
 		//test_1_builder();
 		//test_2_builder();
-		test_3_builder();
+		//test_3_builder();
 		//test_4_builder();
 		//test_5_builder_interfaz_grafica();
 		//test_5_builder_persistencia();
@@ -1239,14 +1239,16 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 	Diagrama *diagrama = new Diagrama(path);
 	this->diagrama = diagrama;
 	std::string diagramaCOMP = path + EXTENSION_COMP;
-
+	std::cerr << "llego11" << std::endl;
 	this->diagrama->abrirXmlCOMP(diagramaCOMP);
-
+	std::cerr << "llego12" << std::endl;
 // se crean las vistas de ese diagrama
 // todo
 	this->crearVistasDelModelo();
 	std::string diagramaREP = path + EXTENSION_REP;
+	std::cerr << "llego13" << std::endl;
 	this->abrirXmlREP(diagramaREP);
+	std::cerr << "llego14" << std::endl;
 
 	//this->cargarVistaDiagramasHijos(path, this);
 }

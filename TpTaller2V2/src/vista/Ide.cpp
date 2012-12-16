@@ -135,8 +135,9 @@ bool Ide::abrir_proyecto() {
 	this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Principal")));
 
 	this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
+	std::cerr << "llego1" << std::endl;
 	this->diagramaActual->abrirXml(this->carpetaProyecto);
-
+	std::cerr << "llego2" << std::endl;
 	nombres_diagramas = obtener_nombres_diagramas_en_carpeta(this->carpetaProyecto);
 
 	for (it_nombres_diagramas = nombres_diagramas.begin();
