@@ -1506,6 +1506,7 @@ void VistaDiagrama::cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const st
 			vDiagramaHijo->crearVistasDelModelo();
 			vDiagramaHijo->abrirXmlREP(nombre);
 			vDiagrama->agregarDiagramaHijo(vDiagramaHijo);
+			vDiagramaHijo->cargarVistaDiagramasHijos(vDiagramaHijo, carpeta);
 			it++;
 		}
 	} else {
