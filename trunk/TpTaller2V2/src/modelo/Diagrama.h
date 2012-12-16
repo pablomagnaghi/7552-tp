@@ -43,12 +43,12 @@ private:
 	// CARGAR
 	void obtenerPropiedadesXmlCOMP(XmlNodo*);
 	void obtenerComponentesXmlCOMP(XmlNodo*);
-	void cargarXmlCOMP(XmlNodo*);
+	void cargarXmlCOMP(XmlNodo*, const std::string&);
 	void cargarComponentes();
 	void cargarEntidadesGlobales();
 	void cargarUnionesEntidadRelacion();
 	void cargarEntidadesYJerarquias();
-	void cargarDiagramasHijos();
+	void cargarDiagramasHijos(Diagrama* diagrama, const std::string&);
 
 	// GUARDAR
 	void agregarPropiedadesXmlCOMP(XmlNodo*);
@@ -137,7 +137,8 @@ public:
 	bool isOpenXmlCOMP() const;
 
 	// CARGAR
-	void abrirXmlCOMP(const std::string&);
+	bool tieneHijos();
+	void abrirXmlCOMP(const std::string&, const std::string&);
 	// GUARDAR
 	void guardarDiagramaXmlCOMP(const std::string&);
 };
