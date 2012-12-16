@@ -1188,6 +1188,25 @@ VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(
 	return NULL;
 }
 
+VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(
+		int codigo_entidad, std::string & nombreDiagramaAncestro) {
+	VistaDiagrama * diagramaActual;
+	diagramaActual = this->diagramaAncestro;
+	std::vector<VistaEntidadNueva *>::iterator i;
+
+	while (diagramaActual != NULL) {
+		for (i = diagramaActual->vistaEntidades.begin(); i != diagramaActual->vistaEntidades.end();
+				i++) {
+			if ((*i)->getCodigoREP() == codigo_entidad) {
+				nombreDiagramaAncestro = diagramaActual->getNombre();
+				return (*i);
+			}
+		}
+		diagramaActual = diagramaActual->diagramaAncestro;
+	}
+	return NULL;
+}
+
 VistaDiagrama * VistaDiagrama::getDiagramaAncestro() {
 	return this->diagramaAncestro;
 }
@@ -1251,6 +1270,10 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 	std::cerr << "llego14" << std::endl;
 
 	//this->cargarVistaDiagramasHijos(path, this);
+}
+
+void VistaDiagrama::abrirXmlDiagramas(const std::string carpeta,const std::vector<std::string> & nombres){
+
 }
 
 void VistaDiagrama::crearVistasDelModelo() {

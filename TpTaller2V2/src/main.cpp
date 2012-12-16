@@ -67,7 +67,6 @@ int main(int argc, char *argv[]) {
 
 	aplicacion_principal(argc, argv);
 
-	double x, y;
 
 	return 0;
 }
