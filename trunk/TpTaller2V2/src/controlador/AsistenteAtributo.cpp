@@ -10,8 +10,7 @@
 
 AsistenteAtributo * AsistenteAtributo::instancia = NULL;
 
-AsistenteAtributo::AsistenteAtributo(BaseObjectType* cobject,
-		const Glib::RefPtr<Gtk::Builder>& builder) :
+AsistenteAtributo::AsistenteAtributo(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 		Gtk::Window(cobject), m_builder(builder) {
 	this->vatributo = NULL;
 	this->enlazarWidgets();
@@ -46,10 +45,8 @@ void AsistenteAtributo::enlazarWidgets() {
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
 	this->m_builder->get_widget("entryNombre", entryNombre);
 
-	bAceptar->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteAtributo::on_botonAceptar_click));
-	bCancelar->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteAtributo::on_botonCancelar_click));
+	bAceptar->signal_clicked().connect(sigc::mem_fun(*this, &AsistenteAtributo::on_botonAceptar_click));
+	bCancelar->signal_clicked().connect(sigc::mem_fun(*this, &AsistenteAtributo::on_botonCancelar_click));
 	bAAtributo->signal_clicked().connect(
 			sigc::mem_fun(*this, &AsistenteAtributo::on_botonAgregarAtributo_click));
 	bMAtributo->signal_clicked().connect(
@@ -123,8 +120,8 @@ void AsistenteAtributo::on_botonAgregarAtributo_click() {
 	// Para ponerlo a la izquierda del atributo padre en el dibujo
 	double xi, yi, xf, yf;
 
-	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(
-			this->diagramaActual, this->vatributo, NULL);
+	VistaAtributo *atrib = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this->diagramaActual,
+			this->vatributo, NULL);
 	//Lo incormoramos en la lista
 	if (this->vatributo != NULL) {
 		this->vatributo->getposini(xi, yi);

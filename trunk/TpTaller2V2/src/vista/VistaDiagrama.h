@@ -175,7 +175,7 @@ public:
 	Diagrama * getDiagrama();
 	void setDiagramaAncestro(VistaDiagrama *);
 	VistaDiagrama *getDiagramaAncestro();
-	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,std::string & nombreDiagramaAncestro);
+	//VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,std::string & nombreDiagramaAncestro);
 	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(int codigo_entidad,std::string & nombreDiagramaAncestro);
 
 	bool existeEsteDiagrama(const std::string & nombre);

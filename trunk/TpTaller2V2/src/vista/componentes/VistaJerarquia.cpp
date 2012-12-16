@@ -284,7 +284,7 @@ void VistaJerarquia::redimensionar(double x, double y) {
 }
 
 std::string VistaJerarquia::getNombre() const {
-	return "VistaJerarquia";
+	return this->jerarquia->getNombre();
 }
 
 bool VistaJerarquia::contieneEsteComponente(VistaComponente * comp) {

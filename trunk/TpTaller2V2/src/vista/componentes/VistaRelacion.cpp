@@ -361,7 +361,7 @@ void VistaRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes,componenteEliminado);
 		componentes.push_back((*it_atributo));
 		this->relacion->quitarAtributo((*it_atributo)->getAtributo());
-		delete (*it_atributo);
+		//delete (*it_atributo);
 	}
 	diagrama->quitarComponente(this->relacion);
 	this->eliminarModelo = true;
