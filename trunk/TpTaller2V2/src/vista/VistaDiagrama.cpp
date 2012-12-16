@@ -1298,6 +1298,10 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 
 			VistaIdentificador *vIden = ComponentsBuilder::getInstance()->crearIdentificadorEnEntidad(this,
 					vEntNueva, (*itIden));
+
+			// agrego el codigo de entidad nueva a identificador para la interfaz grafica
+			vIden->getIdentificador()->setCodigoEntidad(vEntNueva->getCodigoREP());
+
 			// agrego la vista de atributos al identificador
 			std::vector<int>::iterator itCodAtribIden = (*itIden)->codigoAtributosBegin();
 
@@ -1322,18 +1326,10 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 
 void VistaDiagrama::crearVistasEntidadGlobal() {
 
-	std::cout << "entidad global" << std::endl;
-
 	std::vector<EntidadGlobal*>::iterator it = this->getDiagrama()->entidadesGlobalesBegin();
 	while (it != this->getDiagrama()->entidadesGlobalesEnd()) {
 
-		std::cout << "codigo entidad global: " << (*it)->getCodigo() << std::endl;
-		std::cout << "Diagrama ancestro: " << (*it)->getDiagramaAncestro() << std::endl;
-		std::cout << "nombre entidad global: " << (*it)->getNombre() << std::endl;
-		std::cout << "nombre entidad nueva: " << (*it)->getCodigoEntidadNueva() << std::endl;
-
 		int codigoEntidadNueva = (*it)->getCodigoEntidadNueva();
-		// todo Gonza
 
 		// el builder crea la vista entidad global
 		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, codigoEntidadNueva, (*it));
@@ -1433,7 +1429,7 @@ void VistaDiagrama::abrirXmlREP(const std::string& path) {
 
 	try {
 
-		std::cout << "abrir el archivo rep con el nombre: " << path << std::endl;
+		//std::cout << "abrir el archivo rep con el nombre: " << path << std::endl;
 		// Abro el archivo
 		Xml docXml(path);
 		this->diagramaValidoREP = true;
@@ -1487,16 +1483,16 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 void VistaDiagrama::cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const std::string& carpeta) {
 // para cada diagrama hijo se setean los datos de las vistas
 
-	std::cout << "CARGAR DIAGRAMAS HIJOS DEL DIAGRAMA: " << vDiagrama->getDiagrama()->getNombre()
-			<< std::endl;
+	//std::cout << "CARGAR DIAGRAMAS HIJOS DEL DIAGRAMA: " << vDiagrama->getDiagrama()->getNombre()
+	//		<< std::endl;
 
 	if (vDiagrama->getDiagrama()->tieneHijos()) {
-		std::cout << "tiene hijos" << std::endl;
+		//std::cout << "tiene hijos" << std::endl;
 		std::vector<Diagrama*>::iterator it = vDiagrama->getDiagrama()->diagramasHijosBegin();
 		while (it != vDiagrama->getDiagrama()->diagramasHijosEnd()) {
 			std::string nombre = carpeta + "/" + (*it)->getNombre() + EXTENSION_REP;;
 
-			std::cout<< "nombre del diagrama: " << nombre << std::endl;
+			//std::cout<< "nombre del diagrama: " << nombre << std::endl;
 
 			VistaDiagrama *vDiagramaHijo = new VistaDiagrama(*it);
 			vDiagrama->agregarDiagramaHijo(vDiagramaHijo);
@@ -1506,8 +1502,6 @@ void VistaDiagrama::cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const st
 			vDiagramaHijo->cargarVistaDiagramasHijos(vDiagramaHijo, carpeta);
 			it++;
 		}
-	} else {
-		std::cout << "NO tiene hijos" << std::endl;
 	}
 }
 

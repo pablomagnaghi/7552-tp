@@ -446,7 +446,7 @@ bool Diagrama::tieneHijos() {
 void Diagrama::abrirXmlCOMP(const std::string& path, const std::string& carpeta) {
 	try {
 		// Abro el archivo
-		std::cout << "archivo abierto en el modelo con el nombre: " << path << std::endl;
+		//std::cout << "archivo abierto en el modelo con el nombre: " << path << std::endl;
 		Xml docXml(path);
 		this->diagramaValidoCOMP = true;
 
@@ -575,7 +575,6 @@ void Diagrama::cargarEntidadesYJerarquias() {
 	}
 }
 
-// todo
 void Diagrama::cargarDiagramasHijos(Diagrama* diagrama, const std::string& carpeta) {
 	std::vector<std::string>::iterator it = diagrama->nombresDiagramasHijosBegin();
 
