@@ -1,4 +1,4 @@
-src/modelo/Proyecto.d src/modelo/Proyecto.o: ../src/modelo/Proyecto.cpp \
+src/modelo/Proyecto.d: ../src/modelo/Proyecto.cpp \
  ../src/modelo/Proyecto.h ../src/modelo/Diagrama.h \
  ../src/modelo/./componentes/HeadersComponentes.h \
  ../src/modelo/./componentes/./Componente.h \

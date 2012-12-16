@@ -1,4 +1,4 @@
-src/EjemploDeCargaBoleteriaTeatro.d src/EjemploDeCargaBoleteriaTeatro.o: \
+src/EjemploDeCargaBoleteriaTeatro.d: \
  ../src/EjemploDeCargaBoleteriaTeatro.cpp ../src/modelo/HeadersModelo.h \
  ../src/modelo/Proyecto.h ../src/modelo/Diagrama.h \
  ../src/modelo/./componentes/HeadersComponentes.h \

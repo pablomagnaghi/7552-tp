@@ -1,5 +1,4 @@
-src/modelo/componentes/Relacion.d src/modelo/componentes/Relacion.o: \
- ../src/modelo/componentes/Relacion.cpp \
+src/modelo/componentes/Relacion.d: ../src/modelo/componentes/Relacion.cpp \
  ../src/modelo/componentes/Relacion.h \
  ../src/modelo/componentes/UnionEntidadRelacion.h \
  ../src/modelo/componentes/Entidad.h \

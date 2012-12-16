@@ -1,5 +1,4 @@
-src/modelo/validacion/ValidacionVisitor.d \
- src/modelo/validacion/ValidacionVisitor.o: \
+src/modelo/validacion/ValidacionVisitor.d: \
  ../src/modelo/validacion/ValidacionVisitor.cpp \
  ../src/modelo/validacion/ValidacionVisitor.h \
  ../src/modelo/validacion/ModeloVisitor.h \
