@@ -41,7 +41,8 @@ void VistaUnionEntidadRelacion::actualizar_coordenadas() {
 }
 
 std::string VistaUnionEntidadRelacion::getNombre() const {
-	return this->unionModelo->getNombre();
+	return (this->unionModelo->getNombre() + "(" + this->unionModelo->getEntidad()->getNombre()
+			+ ":" +this->unionModelo->getRelacion()->getNombre()+ ")");
 }
 
 bool VistaUnionEntidadRelacion::lanzarProp() {

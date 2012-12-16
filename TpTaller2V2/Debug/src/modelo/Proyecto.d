@@ -1,0 +1,96 @@
+src/modelo/Proyecto.d src/modelo/Proyecto.o: ../src/modelo/Proyecto.cpp \
+ ../src/modelo/Proyecto.h ../src/modelo/Diagrama.h \
+ ../src/modelo/./componentes/HeadersComponentes.h \
+ ../src/modelo/./componentes/./Componente.h \
+ ../src/modelo/./componentes/./../../excepciones/ArgumentoInvalido.h \
+ ../src/modelo/./componentes/./../persistencia/Persistencia.h \
+ ../src/modelo/./componentes/./../persistencia/Exceptions.h \
+ ../src/modelo/./componentes/./../persistencia/Xml.h \
+ ../src/modelo/./componentes/./../persistencia/XmlNodo.h \
+ ../src/modelo/./componentes/./../persistencia/XmlNodeSet.h \
+ ../src/modelo/./componentes/./../persistencia/ConstantesPersistencia.h \
+ ../src/modelo/./componentes/./../GeneradorCodigo.h \
+ ../src/modelo/./componentes/./Entidad.h \
+ ../src/modelo/./componentes/./Componente.h \
+ ../src/modelo/./componentes/./Atributo.h \
+ ../src/modelo/./componentes/./../ConstantesModelo.h \
+ ../src/modelo/./componentes/./../../utils/Utils.h \
+ ../src/modelo/./componentes/./../../excepciones/NullPointer.h \
+ ../src/modelo/./componentes/./EntidadNueva.h \
+ ../src/modelo/./componentes/./Entidad.h \
+ ../src/modelo/./componentes/./Identificador.h \
+ ../src/modelo/./componentes/./Relacion.h \
+ ../src/modelo/./componentes/./UnionEntidadRelacion.h \
+ ../src/modelo/./componentes/./Jerarquia.h \
+ ../src/modelo/./componentes/./EntidadNueva.h \
+ ../src/modelo/./componentes/./EntidadGlobal.h \
+ ../src/modelo/./componentes/./Relacion.h \
+ ../src/modelo/./componentes/./Jerarquia.h \
+ ../src/modelo/./componentes/./Atributo.h \
+ ../src/modelo/./componentes/./Identificador.h \
+ ../src/modelo/./componentes/./UnionEntidadRelacion.h \
+ ../src/modelo/persistencia/Persistencia.h
+
+../src/modelo/Proyecto.h:
+
+../src/modelo/Diagrama.h:
+
+../src/modelo/./componentes/HeadersComponentes.h:
+
+../src/modelo/./componentes/./Componente.h:
+
+../src/modelo/./componentes/./../../excepciones/ArgumentoInvalido.h:
+
+../src/modelo/./componentes/./../persistencia/Persistencia.h:
+
+../src/modelo/./componentes/./../persistencia/Exceptions.h:
+
+../src/modelo/./componentes/./../persistencia/Xml.h:
+
+../src/modelo/./componentes/./../persistencia/XmlNodo.h:
+
+../src/modelo/./componentes/./../persistencia/XmlNodeSet.h:
+
+../src/modelo/./componentes/./../persistencia/ConstantesPersistencia.h:
+
+../src/modelo/./componentes/./../GeneradorCodigo.h:
+
+../src/modelo/./componentes/./Entidad.h:
+
+../src/modelo/./componentes/./Componente.h:
+
+../src/modelo/./componentes/./Atributo.h:
+
+../src/modelo/./componentes/./../ConstantesModelo.h:
+
+../src/modelo/./componentes/./../../utils/Utils.h:
+
+../src/modelo/./componentes/./../../excepciones/NullPointer.h:
+
+../src/modelo/./componentes/./EntidadNueva.h:
+
+../src/modelo/./componentes/./Entidad.h:
+
+../src/modelo/./componentes/./Identificador.h:
+
+../src/modelo/./componentes/./Relacion.h:
+
+../src/modelo/./componentes/./UnionEntidadRelacion.h:
+
+../src/modelo/./componentes/./Jerarquia.h:
+
+../src/modelo/./componentes/./EntidadNueva.h:
+
+../src/modelo/./componentes/./EntidadGlobal.h:
+
+../src/modelo/./componentes/./Relacion.h:
+
+../src/modelo/./componentes/./Jerarquia.h:
+
+../src/modelo/./componentes/./Atributo.h:
+
+../src/modelo/./componentes/./Identificador.h:
+
+../src/modelo/./componentes/./UnionEntidadRelacion.h:
+
+../src/modelo/persistencia/Persistencia.h:

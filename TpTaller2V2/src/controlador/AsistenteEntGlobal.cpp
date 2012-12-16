@@ -11,7 +11,7 @@
 AsistenteEntGlobal * AsistenteEntGlobal::instancia = NULL;
 
 AsistenteEntGlobal::AsistenteEntGlobal(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
-	Gtk::Window(cobject), m_builder(builder) {
+		Gtk::Window(cobject), m_builder(builder) {
 	//this->hide();
 	this->enlazarWidgets();
 	this->setDiagrama(Ide::getInstance()->getDiagActual());
@@ -21,7 +21,7 @@ AsistenteEntGlobal::~AsistenteEntGlobal() {
 
 }
 
-void AsistenteEntGlobal::setDiagrama(VistaDiagrama * diag){
+void AsistenteEntGlobal::setDiagrama(VistaDiagrama * diag) {
 	this->vdiagrama = diag;
 	this->llenarListaDiagramas();
 }
@@ -36,15 +36,11 @@ void AsistenteEntGlobal::enlazarWidgets() {
 	this->m_builder->get_widget("bCancelar", bCancelar);
 	this->m_builder->get_widget("bSelecDiag", bSelecDiag);
 
-	bAceptar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntGlobal::on_botonAceptar_click));
-	bCancelar->signal_clicked().connect(sigc::mem_fun(*this,
-			&AsistenteEntGlobal::on_botonCancelar_click));
-	bSelecDiag->signal_clicked().connect(sigc::mem_fun(*this,
-				&AsistenteEntGlobal::on_bSelecDiag_click));
+	bAceptar->signal_clicked().connect(sigc::mem_fun(*this, &AsistenteEntGlobal::on_botonAceptar_click));
+	bCancelar->signal_clicked().connect(sigc::mem_fun(*this, &AsistenteEntGlobal::on_botonCancelar_click));
+	bSelecDiag->signal_clicked().connect(sigc::mem_fun(*this, &AsistenteEntGlobal::on_bSelecDiag_click));
 
-	this->signal_hide().connect(sigc::mem_fun(*this,
-						&AsistenteEntGlobal::on_about_hide));
+	this->signal_hide().connect(sigc::mem_fun(*this, &AsistenteEntGlobal::on_about_hide));
 
 	//Lista
 	this->m_builder->get_widget("scrollDiagramas", scrollLista);
@@ -53,8 +49,7 @@ void AsistenteEntGlobal::enlazarWidgets() {
 
 	//Agrego modelo a treeview
 	this->treeViewDiagramas.set_model(this->refTreeModelDiagramas);
-	this->treeViewDiagramas.append_column("Nombre",
-			this->m_ColumnasDiagramas.m_col_Nombre);
+	this->treeViewDiagramas.append_column("Nombre", this->m_ColumnasDiagramas.m_col_Nombre);
 
 	//ListaEntidades
 	this->m_builder->get_widget("scrollEntidades", scrollLista);
@@ -69,44 +64,43 @@ void AsistenteEntGlobal::enlazarWidgets() {
 	this->treeViewDiagramas.show();
 }
 
-void AsistenteEntGlobal::llenarListaEntidades(VistaDiagrama* diag){
+void AsistenteEntGlobal::llenarListaEntidades(VistaDiagrama* diag) {
 	this->limpiarListaEntidades();
-	std::vector<VistaEntidadNueva *>::iterator it1 =  diag->vEntidadesBegin();
-	std::vector<VistaEntidadNueva *>::iterator it2 =  diag->vEntidadesEnd();
-	while (it1 != it2){
-			Gtk::TreeModel::Row row = *(this->refTreeModelEntidades->append());
-			row[this->m_ColumnasEntidades.m_col_Nombre] = (*it1)->getNombre();
-			row[this->m_ColumnasEntidades.m_col_vEnt_Pointer] = *it1;
+	std::vector<VistaEntidadNueva *>::iterator it1 = diag->vEntidadesBegin();
+	std::vector<VistaEntidadNueva *>::iterator it2 = diag->vEntidadesEnd();
+	while (it1 != it2) {
+		Gtk::TreeModel::Row row = *(this->refTreeModelEntidades->append());
+		row[this->m_ColumnasEntidades.m_col_Nombre] = (*it1)->getNombre();
+		row[this->m_ColumnasEntidades.m_col_vEnt_Pointer] = *it1;
 		it1++;
 	}
 }
 
-void AsistenteEntGlobal::llenarListaDiagramas(){
+void AsistenteEntGlobal::llenarListaDiagramas() {
 	//Asi llena con todos los diagramas del proyecto
 	/*std::list<VistaDiagrama*> lista;
-	Ide::getInstance()->getProyecto()->get_diagramas(lista);
-	std::list<VistaDiagrama*>::iterator it = lista.begin();
-	std::list<VistaDiagrama*>::iterator it1 = lista.end();
-	while(it != it1){
-		cout<<"Diagrama:"<<(*it)->getNombre()<<endl;
-		//Agrego en la lista de diagramas
-		if ((*it) != this->vdiagrama){
-			Gtk::TreeModel::Row row = *(this->refTreeModelDiagramas->append());
-			row[this->m_ColumnasDiagramas.m_col_Nombre] = (*it)->getNombre();
-			row[this->m_ColumnasDiagramas.m_col_vDiag_Pointer] = *it;
-		}
-		it++;
-	}*/
+	 Ide::getInstance()->getProyecto()->get_diagramas(lista);
+	 std::list<VistaDiagrama*>::iterator it = lista.begin();
+	 std::list<VistaDiagrama*>::iterator it1 = lista.end();
+	 while(it != it1){
+	 cout<<"Diagrama:"<<(*it)->getNombre()<<endl;
+	 //Agrego en la lista de diagramas
+	 if ((*it) != this->vdiagrama){
+	 Gtk::TreeModel::Row row = *(this->refTreeModelDiagramas->append());
+	 row[this->m_ColumnasDiagramas.m_col_Nombre] = (*it)->getNombre();
+	 row[this->m_ColumnasDiagramas.m_col_vDiag_Pointer] = *it;
+	 }
+	 it++;
+	 }*/
 
 	VistaDiagrama *ancestro = this->vdiagrama->getDiagramaAncestro();
-	while (ancestro != NULL){
+	while (ancestro != NULL) {
 		Gtk::TreeModel::Row row = *(this->refTreeModelDiagramas->append());
 		row[this->m_ColumnasDiagramas.m_col_Nombre] = ancestro->getNombre();
 		row[this->m_ColumnasDiagramas.m_col_vDiag_Pointer] = ancestro;
 		ancestro = ancestro->getDiagramaAncestro();
 	}
 }
-
 
 void AsistenteEntGlobal::on_botonAceptar_click() {
 	bool musthide = false;
@@ -116,17 +110,20 @@ void AsistenteEntGlobal::on_botonAceptar_click() {
 	{
 		Gtk::TreeModel::Row row = *iter;
 		VistaEntidad *entidad = row[this->m_ColumnasEntidades.m_col_vEnt_Pointer];
-
-		VistaEntidadGlobal *v = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this->vdiagrama, entidad->getNombre(),NULL);
-		v->setposini(50,50);
-		v->setposfin(100,100);
-		musthide=true;
-	}else{
-		Gtk::MessageDialog err_dialog(*this, "Debe seleccionar una entidad.", false,
-								Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
+		// todo
+		//VistaEntidadGlobal *v = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(
+		//		this->vdiagrama, entidad->getNombre(), NULL);
+		VistaEntidadGlobal *v = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(
+				this->vdiagrama, entidad->getCodigoREP(), NULL);
+		v->setposini(50, 50);
+		v->setposfin(100, 100);
+		musthide = true;
+	} else {
+		Gtk::MessageDialog err_dialog(*this, "Debe seleccionar una entidad.", false, Gtk::MESSAGE_ERROR,
+				Gtk::BUTTONS_OK, true);
 		err_dialog.run();
 	}
-	if (musthide==true){
+	if (musthide == true) {
 		this->hide();
 	}
 }
@@ -135,7 +132,7 @@ void AsistenteEntGlobal::on_botonCancelar_click() {
 	this->hide();
 }
 
-void AsistenteEntGlobal::on_bSelecDiag_click(){
+void AsistenteEntGlobal::on_bSelecDiag_click() {
 	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = this->treeViewDiagramas.get_selection();
 	Gtk::TreeModel::iterator iter = refTreeSelection->get_selected();
 	if (iter) //If anything is selected
@@ -146,14 +143,11 @@ void AsistenteEntGlobal::on_bSelecDiag_click(){
 	}
 }
 
-
-
 void AsistenteEntGlobal::inicializarAsistente() {
 
 }
 
-void AsistenteEntGlobal::on_about_hide()
-{
+void AsistenteEntGlobal::on_about_hide() {
 
 }
 

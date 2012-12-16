@@ -108,8 +108,7 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnAtributo(VistaDiagrama *diagra
 
 }
 
-VistaJerarquia* ComponentsBuilder::crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual,
-		Jerarquia *j) {
+VistaJerarquia* ComponentsBuilder::crearJerarquiaEnDiagrama(VistaDiagrama *diagramaActual, Jerarquia *j) {
 	if (diagramaActual == NULL) {
 		diagramaActual = Ide::getInstance()->getDiagActual();
 	}
@@ -130,7 +129,7 @@ VistaJerarquia* ComponentsBuilder::crearJerarquiaEnDiagrama(VistaDiagrama *diagr
  VistaDiagrama* ComponentsBuilder::getDiagramaActual(){
  return this->ide->getDiagActual();
  }*/
-
+/*
 VistaEntidadGlobal * ComponentsBuilder::crearEntidadGlobalEnDiagrama(VistaDiagrama * diagramaActual,
 		const std::string & nombreEntidadNueva, EntidadGlobal * entidadGlobal) {
 
@@ -140,8 +139,41 @@ VistaEntidadGlobal * ComponentsBuilder::crearEntidadGlobalEnDiagrama(VistaDiagra
 	std::string nombreAncestro;
 
 	//BuscarDiagramaAncestroYEntidadNueva
-	vistaEntidadNueva = diagramaActual->buscarEntidadNuevaEnAncestro(nombreEntidadNueva,
-			nombreAncestro);
+	vistaEntidadNueva = diagramaActual->buscarEntidadNuevaEnAncestro(nombreEntidadNueva, nombreAncestro);
+
+	if (vistaEntidadNueva == NULL) {
+		throw NullPointer("NullPointer: no se encontró la Entidad Nueva");
+	}
+
+	if (!entidadGlobal) {
+		// Crea la entidad y la agrega al diagrama del modelo
+		entidadGlobal = new EntidadGlobal();
+		entidadGlobal->setCodigo(GeneradorCodigo::getInstance()->siguienteCodigo());
+		diagramaActual->getDiagrama()->agregarEntidadGlobal(entidadGlobal);
+	}
+
+	entidadGlobal->setDiagramaAncestro(nombreAncestro);
+	entidadGlobal->setEntidadNueva(vistaEntidadNueva->getEntidadNueva());
+
+	vistaEntidadGlobal = new VistaEntidadGlobal(entidadGlobal);
+
+	diagramaActual->agregarComponente(vistaEntidadGlobal);
+	vistaEntidadGlobal->setPadre(vistaEntidadNueva);
+	// Para la carga de la persistencia, necesito guardar todas las vistaEntidadGLobal como VistaEntidad
+	diagramaActual->agregarVistaEntidad(vistaEntidadGlobal);
+	return vistaEntidadGlobal;
+}*/
+
+VistaEntidadGlobal * ComponentsBuilder::crearEntidadGlobalEnDiagrama(VistaDiagrama * diagramaActual,
+		int codigoEntidadNueva, EntidadGlobal * entidadGlobal) {
+
+	// Variables Locales
+	VistaEntidadGlobal * vistaEntidadGlobal;
+	VistaEntidadNueva * vistaEntidadNueva;
+	std::string nombreAncestro;
+
+	//BuscarDiagramaAncestroYEntidadNueva
+	vistaEntidadNueva = diagramaActual->buscarEntidadNuevaEnAncestro(codigoEntidadNueva, nombreAncestro);
 
 	if (vistaEntidadNueva == NULL) {
 		throw NullPointer("NullPointer: no se encontró la Entidad Nueva");
@@ -182,14 +214,12 @@ VistaRelacion * ComponentsBuilder::crearRelacionEnDiagrama(VistaDiagrama *diagra
 	return vistaRelacion;
 }
 
-VistaUnionEntidadRelacion * ComponentsBuilder::crearUnionEntidadRelacion(
-		VistaDiagrama *diagramaActual, VistaEntidad * entidad, VistaRelacion *relacion,
-		UnionEntidadRelacion * unionEntidadRelacion) {
+VistaUnionEntidadRelacion * ComponentsBuilder::crearUnionEntidadRelacion(VistaDiagrama *diagramaActual,
+		VistaEntidad * entidad, VistaRelacion *relacion, UnionEntidadRelacion * unionEntidadRelacion) {
 	VistaUnionEntidadRelacion * vistaUnion;
 
 	if (unionEntidadRelacion == NULL) {
-		unionEntidadRelacion = new UnionEntidadRelacion(entidad->getEntidad(),
-				relacion->getRelacion());
+		unionEntidadRelacion = new UnionEntidadRelacion(entidad->getEntidad(), relacion->getRelacion());
 		unionEntidadRelacion->setCodigo(GeneradorCodigo::getInstance()->getSiguienteCodigo());
 	}
 	vistaUnion = new VistaUnionEntidadRelacion(unionEntidadRelacion, entidad, relacion);
@@ -222,7 +252,8 @@ VistaAtributo * ComponentsBuilder::crearAtributoEnRelacion(VistaDiagrama *diagra
 //	cout<<"llego15"<<endl;
 	vistaAtributo = new VistaAtributo(atributo);
 	relacion->agregarAtributo(vistaAtributo);
-	VistaLinea * lineaAtributoRelacion= new VistaLinea();
+	vistaAtributo->setPadre(relacion);
+	VistaLinea * lineaAtributoRelacion = new VistaLinea();
 	lineaAtributoRelacion->setComponenteDesde(relacion);
 	lineaAtributoRelacion->setComponenteHasta(vistaAtributo);
 	lineaAtributoRelacion->setCodigoREP(GeneradorCodigo::getInstance()->getSiguienteCodigo());
@@ -268,8 +299,7 @@ void ComponentsBuilder::agregarAtributoAIdentificador(VistaIdentificador * vista
 		throw NullPointer("NullPointer: vistaAtributo no puede ser nulo");
 	}
 	// todo VERRRR guarda 2 veces lo mismo
-	vistaIdentificador->getIdentificador()->agregarCodigoAtributo(
-			vistaAtributo->getAtributo()->getCodigo());
+	vistaIdentificador->getIdentificador()->agregarCodigoAtributo(vistaAtributo->getAtributo()->getCodigo());
 	vistaIdentificador->agregarAtributo(vistaAtributo);
 
 }
@@ -290,7 +320,8 @@ void ComponentsBuilder::agregarEntidadFuerteAIdentificador(VistaIdentificador * 
 
 // todo verrrr guarda 2 veces
 
-void ComponentsBuilder::agregarJerarquiaHijaDeEntidad(VistaJerarquia * vistaJerarquia, VistaEntidad*vistaEntidad) {
+void ComponentsBuilder::agregarJerarquiaHijaDeEntidad(VistaJerarquia * vistaJerarquia,
+		VistaEntidad*vistaEntidad) {
 	if (vistaJerarquia == NULL) {
 		throw NullPointer("NullPointer: vistaJerarquia no puede ser nulo");
 	}
@@ -314,8 +345,7 @@ void ComponentsBuilder::agregarJerarquiaPadreDeEntidad(VistaJerarquia *vistaJera
 	vistaEntidadNueva->getEntidadNueva()->agregarJerarquiaPadre(vistaJerarquia->getJerarquia());
 
 	// todo
-	vistaJerarquia->getJerarquia()->agregarEntidadEspecializada(
-			vistaEntidadNueva->getEntidadNueva());
+	vistaJerarquia->getJerarquia()->agregarEntidadEspecializada(vistaEntidadNueva->getEntidadNueva());
 
 	vistaJerarquia->agregarEntidadEspecializada(vistaEntidadNueva);
 }

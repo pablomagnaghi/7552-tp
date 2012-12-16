@@ -255,7 +255,7 @@ void VistaDiagrama::test_4_builder() {
 	ve1->setNombre("Entidad 1");
 
 	vg1 = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(vistaDiagramaHijo,
-			"Entidad 1");
+			ve1->getCodigoREP());
 	vg1->setposini(140, 100);
 	vg1->setposfin(230, 125);
 	vg1->setNombre("Entidad Global 1");
@@ -629,9 +629,9 @@ void VistaDiagrama::lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventB
 			sigc::bind<VistaComponente *>(sigc::mem_fun(*this, &VistaDiagrama::quitarComponente),
 					vistaComponente));
 
-	if (vistaComponente->identificador_en_popup()){
+	if (vistaComponente->identificador_en_popup()) {
 		actionGroup->add(Gtk::Action::create("ContextIdentificador", "Identificadores"),
-					sigc::mem_fun(*vistaComponente, &VistaComponente::on_popup_boton_Identificadores));
+				sigc::mem_fun(*vistaComponente, &VistaComponente::on_popup_boton_Identificadores));
 	}
 
 	userInterfaceManager = Gtk::UIManager::create();
@@ -639,7 +639,7 @@ void VistaDiagrama::lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventB
 
 	//Layout the actions in a menubar and toolbar:
 	Glib::ustring ui_info;
-	if (vistaComponente->identificador_en_popup()){
+	if (vistaComponente->identificador_en_popup()) {
 		ui_info = "<ui>"
 				"  <popup name='PopupMenu'>"
 				"    <menuitem action='ContextEliminar'/>"
@@ -647,7 +647,7 @@ void VistaDiagrama::lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventB
 				"    <menuitem action='ContextIdentificador'/>"
 				"  </popup>"
 				"</ui>";
-	}else{
+	} else {
 		ui_info = "<ui>"
 				"  <popup name='PopupMenu'>"
 				"    <menuitem action='ContextEliminar'/>"
@@ -1040,7 +1040,7 @@ void VistaDiagrama::quitarComponente(VistaComponente *componente) {
 		delete componente;
 
 		this->queue_draw();
-		if(this->panel){
+		if (this->panel) {
 			this->panel->regenerar();
 		}
 	}
@@ -1168,7 +1168,7 @@ void VistaDiagrama::setDiagramaAncestro(VistaDiagrama * ancestro) {
  * donde se encontro dicha entidad
  *
  * */
-
+/*
 VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(
 		const std::string & nombreEntidadNueva, std::string & nombreDiagramaAncestro) {
 	VistaDiagrama * diagramaActual;
@@ -1187,9 +1187,9 @@ VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(
 	}
 	return NULL;
 }
-
-VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(
-		int codigo_entidad, std::string & nombreDiagramaAncestro) {
+*/
+VistaEntidadNueva * VistaDiagrama::buscarEntidadNuevaEnAncestro(int codigo_entidad,
+		std::string & nombreDiagramaAncestro) {
 	VistaDiagrama * diagramaActual;
 	diagramaActual = this->diagramaAncestro;
 	std::vector<VistaEntidadNueva *>::iterator i;
@@ -1272,7 +1272,8 @@ void VistaDiagrama::abrirXml(const std::string& path) {
 	//this->cargarVistaDiagramasHijos(path, this);
 }
 
-void VistaDiagrama::abrirXmlDiagramas(const std::string carpeta,const std::vector<std::string> & nombres){
+void VistaDiagrama::abrirXmlDiagramas(const std::string carpeta,
+		const std::vector<std::string> & nombres) {
 
 }
 
@@ -1346,11 +1347,15 @@ void VistaDiagrama::crearVistasEntidadGlobal() {
 	while (it != this->getDiagrama()->entidadesGlobalesEnd()) {
 		int codigoEntidadNueva = (*it)->getCodigoEntidadNueva();
 		EntidadNueva* entNueva = this->getDiagrama()->getEntidadNuevaByCodigo(codigoEntidadNueva);
-		std::string nombreEntidadNueva = entNueva->getNombre();
+
+		// todo Gonza
+		//std::string nombreEntidadNueva = entNueva->getNombre();
 
 		// el builder crea la vista entidad global
-		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, nombreEntidadNueva,
-				(*it));
+		/*ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, nombreEntidadNueva,
+				(*it));*/
+		ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(this, codigoEntidadNueva,
+						(*it));
 		it++;
 	}
 }
@@ -1502,7 +1507,8 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 void VistaDiagrama::cargarVistaDiagramasHijos(const std::string& path, VistaDiagrama* vDiagrama) {
 // para cada diagrama hijo se setean los datos de las vistas
 
-	std::cout << "CARGAR DIAGRAMAS HIJOS DEL DIAGRAMA: " << vDiagrama->getDiagrama()->getNombre() << std::endl;
+	std::cout << "CARGAR DIAGRAMAS HIJOS DEL DIAGRAMA: " << vDiagrama->getDiagrama()->getNombre()
+			<< std::endl;
 
 	std::vector<Diagrama*>::iterator it = vDiagrama->getDiagrama()->diagramasHijosBegin();
 	while (it != vDiagrama->getDiagrama()->diagramasHijosEnd()) {
@@ -1516,8 +1522,8 @@ void VistaDiagrama::cargarVistaDiagramasHijos(const std::string& path, VistaDiag
 
 // GUARDAR
 
-void VistaDiagrama::obtenerNombresDiagramaCOMPYREP(const std::string& path, std::string& diagramaCOMP,
-	std::string& diagramaREP, const std::string& nombre) {
+void VistaDiagrama::obtenerNombresDiagramaCOMPYREP(const std::string& path,
+		std::string& diagramaCOMP, std::string& diagramaREP, const std::string& nombre) {
 
 	if (path.find("/", path.size() - 1, 1) == std::string::npos) {
 		diagramaCOMP = path + "/" + nombre + EXTENSION_COMP;
@@ -1555,7 +1561,8 @@ void VistaDiagrama::guardarDiagramasHijosXml(const std::string& path, VistaDiagr
 		std::string diagramaCOMP;
 		std::string diagramaREP;
 
-		obtenerNombresDiagramaCOMPYREP(path, diagramaCOMP, diagramaREP, (*it)->getDiagrama()->getNombre());
+		obtenerNombresDiagramaCOMPYREP(path, diagramaCOMP, diagramaREP,
+				(*it)->getDiagrama()->getNombre());
 
 		(*it)->getDiagrama()->guardarDiagramaXmlCOMP(diagramaCOMP);
 		(*it)->guardarDiagramaXmlREP(diagramaREP);
@@ -1707,6 +1714,6 @@ bool VistaDiagrama::existeEsteDiagrama(const std::string & nombre) {
 	return false;
 }
 
-void VistaDiagrama::setPanel(TreePanel * panel){
+void VistaDiagrama::setPanel(TreePanel * panel) {
 	this->panel = panel;
 }

@@ -40,15 +40,15 @@ public:
 	 *SI diagramaActual es NULL utilizara El diagrama actual del ide, sino deberia pasarsele el mismo diagrama donde se encuentra la ventidad
 	 *Si atrib es null se creara uno nuevo sino se utilizara el modelo pasado
 	 */
-	VistaAtributo * crearAtributoEnEntidad(VistaDiagrama *diagramaActual,
-			VistaEntidadNueva *ventidad, Atributo *atrib = NULL);
+	VistaAtributo * crearAtributoEnEntidad(VistaDiagrama *diagramaActual, VistaEntidadNueva *ventidad,
+			Atributo *atrib = NULL);
 	/*
 	 *vatribPadre no puede ser NULL
 	 *SI diagramaActual es NULL utilizara El diagrama actual del ide, sino deberia pasarsele el mismo diagrama donde se encuentra la atribPadre
 	 *Si atrib es null se creara uno nuevo sino se utilizara el modelo pasado
 	 */
-	VistaAtributo * crearAtributoEnAtributo(VistaDiagrama *diagramaActual,
-			VistaAtributo *atribPadre, Atributo *atrib = NULL);
+	VistaAtributo * crearAtributoEnAtributo(VistaDiagrama *diagramaActual, VistaAtributo *atribPadre,
+			Atributo *atrib = NULL);
 
 	/*
 	 *
@@ -61,12 +61,14 @@ public:
 
 	VistaAtributo * crearAtributoEnRelacion(VistaDiagrama *, VistaRelacion *, Atributo * = NULL);
 	VistaRelacion * crearRelacionEnDiagrama(VistaDiagrama *, Relacion * = NULL);
-	VistaUnionEntidadRelacion * crearUnionEntidadRelacion(VistaDiagrama *, VistaEntidad *,
-			VistaRelacion *, UnionEntidadRelacion * = NULL);
-	VistaIdentificador * crearIdentificadorEnEntidad(VistaDiagrama *, VistaEntidadNueva *,
-			Identificador* = NULL);
+	VistaUnionEntidadRelacion * crearUnionEntidadRelacion(VistaDiagrama *, VistaEntidad *, VistaRelacion *,
+			UnionEntidadRelacion * = NULL);
+	VistaIdentificador * crearIdentificadorEnEntidad(VistaDiagrama *, VistaEntidadNueva *, Identificador* =
+			NULL);
+	/*VistaEntidadGlobal * crearEntidadGlobalEnDiagrama(VistaDiagrama * diagramaActual,
+			const std::string & nombreEntidadNueva, EntidadGlobal * entidadGlobal = NULL);*/
 	VistaEntidadGlobal * crearEntidadGlobalEnDiagrama(VistaDiagrama * diagramaActual,
-			const std::string & nombreEntidadNueva, EntidadGlobal * entidadGlobal = NULL);
+			int codigoEntidadNueva, EntidadGlobal * entidadGlobal = NULL);
 	void agregarAtributoAIdentificador(VistaIdentificador *, VistaAtributo*);
 	void agregarEntidadFuerteAIdentificador(VistaIdentificador *, VistaUnionEntidadRelacion*);
 	void agregarJerarquiaHijaDeEntidad(VistaJerarquia *, VistaEntidad*);

@@ -38,10 +38,10 @@ void TreePanel::regenerarRecur(VistaDiagrama* diag, Gtk::TreeModel::Row *row) {
 	vector<VistaComponente*>::iterator itComp = diag->componentesBegin();
 	vector<VistaComponente*>::iterator compEnd = diag->componentesEnd();
 	while (itComp != compEnd) {
-		Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(row->children()));
 		nombre = (*itComp)->getNombre();
-		std::cout << nombre << std::endl;
-		if (nombre != "") {
+		//std::cout << nombre << std::endl;
+		if (nombre != "" && nombre != "Linea") {
+			Gtk::TreeModel::Row rowSec = *(this->refTreeModel->append(row->children()));
 			rowSec[this->m_Columnas.m_col_Nombre] = nombre;
 			rowSec[this->m_Columnas.m_col_vComp_Pointer] = *itComp;
 			rowSec[this->m_Columnas.m_col_esDiag] = false;

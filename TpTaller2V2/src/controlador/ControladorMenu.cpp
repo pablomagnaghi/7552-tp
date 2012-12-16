@@ -89,6 +89,7 @@ void ControladorMenu::on_menu_Archivo_Abrir_click() {
 
 	if (this->editor->abrir_proyecto()) {
 		this->botonArchivoGuardarComo->set_sensitive(true);
+		this->botonArchivoGuardar->set_sensitive(true);
 		this->botonArchivoImprimir->set_sensitive(true);
 		this->botonArchivoExportar->set_sensitive(true);
 		this->botonArchivoVistaPreviaImpresion->set_sensitive(true);
@@ -101,7 +102,7 @@ void ControladorMenu::on_menu_Archivo_Guardar_click() {
 #endif
 
 	if (this->editor->guardar_proyecto(false)) {
-		this->botonArchivoGuardar->set_sensitive(true);
+		//this->botonArchivoGuardar->set_sensitive(true);
 	}
 }
 
@@ -110,7 +111,7 @@ void ControladorMenu::on_menu_Archivo_GuardarComo_click() {
 	cout << "Menu Archivo Guardar Como" << endl;
 #endif
 	if (this->editor->guardar_proyecto(true)) {
-		this->botonArchivoGuardar->set_sensitive(false);
+		//this->botonArchivoGuardar->set_sensitive(false);
 	}
 }
 
