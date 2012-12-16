@@ -176,6 +176,7 @@ public:
 	void setDiagramaAncestro(VistaDiagrama *);
 	VistaDiagrama *getDiagramaAncestro();
 	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,std::string & nombreDiagramaAncestro);
+	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(int codigo_entidad,std::string & nombreDiagramaAncestro);
 
 	bool existeEsteDiagrama(const std::string & nombre);
 
@@ -207,6 +208,7 @@ public:
 	bool isOpenXmlREP() const;
 	// CARGAR
 	void abrirXml(const std::string& path);
+	void abrirXmlDiagramas(const std::string carpeta,const std::vector<std::string> & nombres);
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
 

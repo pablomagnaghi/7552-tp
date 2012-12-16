@@ -138,12 +138,14 @@ std::vector<std::string> Utils::getFiles(const std::string & folder) {
 	 exit(0);
 	 }*/
 	//cout << "Hay " << contar << " archivos.\n";
-	for (i = 0; i < contar; ++i) {
-		//cout << archivos[i]->d_name << "\n";
-		lista.push_back(archivos[i]->d_name);
-		free(archivos[i]);
+	if (contar > 0) {
+		for (i = 0; i < contar; ++i) {
+			//cout << archivos[i]->d_name << "\n";
+			lista.push_back(archivos[i]->d_name);
+			free(archivos[i]);
+		}
+		free(archivos);
 	}
-	free(archivos);
 	//cout << "\n"; /* flush buffer */
 
 	//system("ls");
