@@ -13,12 +13,10 @@
 // ejemplo de ruta /home/rodrigo/gastos.xml"
 Xml::Xml(const std::string& nombre) {
 	context = NULL;
-	std::cerr << "llego1111" << std::endl;
 	doc = xmlParseFile(nombre.c_str());
 
 	if ( !doc)
 		throw XmlArchivoInvalidoExc( nombre );
-	std::cerr << "llego1112" << std::endl;
 	this->nodoRaiz = xmlDocGetRootElement( doc );
 }
 
