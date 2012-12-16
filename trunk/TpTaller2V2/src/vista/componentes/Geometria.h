@@ -2,6 +2,11 @@
 #define GEOMETRIA_H_
 
 #define DEBUG
+#define DEBUG_GEOMETRIA 1
+
+#if DEBUG_GEOMETRIA==1
+#include <gtkmm/drawingarea.h>
+#endif
 
 class Geometria {
 private:
@@ -20,6 +25,10 @@ private:
 public:
 	static bool estaContenidoEnRectangulo(double x, double y, double x_inicial, double y_inicial,
 			double x_final, double y_final);
+	static bool estaEntreLineasParalelas(double x, double y, double x0_inicial, double y0_inicial,
+			double x0_final, double y0_final, double x1_inicial, double y1_inicial,
+			double x1_final, double y1_final);
+
 	static bool hayInterseccionDeLineas(double x0, double y0, double x1, double y1, double x2,
 			double y2, double x3, double y3, double & x, double & y);
 	static bool
@@ -40,8 +49,8 @@ public:
 	obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, double x1, double y1, double w,
 			double h, double & x, double & y);
 	static void calcularAjusteDiagrama(double offset_x, double offset_y, double ancho_diagrama,
-				double alto_diagrama, double & rotacion, double & zoom, double & traslacion_x,
-				double & traslacion_y, double ancho_contexto, double alto_contexto);
+			double alto_diagrama, double & rotacion, double & zoom, double & traslacion_x,
+			double & traslacion_y, double ancho_contexto, double alto_contexto);
 };
 
 #endif /* GEOMETRIA_H_ */

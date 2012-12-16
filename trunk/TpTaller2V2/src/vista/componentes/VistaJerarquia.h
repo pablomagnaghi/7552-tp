@@ -21,6 +21,8 @@ private:
 	VistaEntidad * padre;
 	std::vector<VistaEntidadNueva *> hijos;
 
+	void calcularLineaMedia(double ymin, double ymax);
+	void calcularMinMax(double & xmin, double & xmax, double & ymin, double & ymax);
 	void dibujarLineaMedia(Cairo::RefPtr<Cairo::Context> cr, double ymin, double ymax);
 
 	// METODO PARCHE A EVALUAR
@@ -53,7 +55,8 @@ public:
 
 	Jerarquia * getJerarquia();
 
-	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,
+			std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	virtual bool hayQueEliminarlo();
 };

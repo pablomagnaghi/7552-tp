@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+#define GAP_ESPACIO_LINEA 5
+
 VistaUnionEntidadRelacion::VistaUnionEntidadRelacion(UnionEntidadRelacion * unionModelo,
 		VistaEntidad * vEntidad, VistaRelacion * vRelacion) {
 
@@ -20,7 +22,7 @@ VistaUnionEntidadRelacion::~VistaUnionEntidadRelacion() {
 #if DEBUG_QUITAR==1
 	std::cout << "delete VistaUnion" << std::endl;
 #endif
-	if(eliminarModelo){
+	if (eliminarModelo) {
 		delete this->unionModelo;
 	}
 }
@@ -122,7 +124,10 @@ void VistaUnionEntidadRelacion::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 }
 
 bool VistaUnionEntidadRelacion::contieneAEstePunto(double x, double y) {
-	return false;
+	double x0, y0, x1, y1, x2, y2, x3, y3;
+	Geometria::obtenerLineasParalelas(this->pos_ini_x, this->pos_ini_y, this->pos_fin_x,
+			this->pos_fin_y, GAP_ESPACIO_LINEA, x0, y0, x1, y1, x2, y2, x3, y3);
+	return Geometria::estaEntreLineasParalelas(x, y, x0, y0, x1, y1, x2, y2, x3, y3);
 }
 
 void VistaUnionEntidadRelacion::calcularDimensionesAPartirDeTexto(
@@ -205,21 +210,21 @@ VistaEntidad * VistaUnionEntidadRelacion::getEntidad() {
 	return this->entidad;
 }
 
-VistaRelacion * VistaUnionEntidadRelacion::getRelacion(){
+VistaRelacion * VistaUnionEntidadRelacion::getRelacion() {
 	return this->relacion;
 }
 
-bool VistaUnionEntidadRelacion::hayQueEliminarlo(){
+bool VistaUnionEntidadRelacion::hayQueEliminarlo() {
 	return this->eliminando;
 }
 
-string VistaUnionEntidadRelacion::to_s(){
+string VistaUnionEntidadRelacion::to_s() {
 	string text;
-	text+="[";
-	text+=this->entidad->getNombre();
+	text += "[";
+	text += this->entidad->getNombre();
 	//text+=",";
 	//text+=this->relacion->getNombre();
-	text+="]";
+	text += "]";
 	return text;
 }
 

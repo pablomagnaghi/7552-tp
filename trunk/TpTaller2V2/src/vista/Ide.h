@@ -73,6 +73,8 @@ private:
 	//Devuelve true si hay un proyecto cargado
 	bool hayProyecto();
 
+	std::vector<std::string> obtener_nombres_diagramas_en_carpeta(const std::string & carpeta);
+
 public:
 	Ide(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder);
 	static Ide * getInstance();
