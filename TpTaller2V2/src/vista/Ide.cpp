@@ -119,8 +119,8 @@ bool Ide::abrir_proyecto() {
 	this->cerrarProyecto();
 
 	// Levantar los archivos guardados
-	//this->carpetaProyecto.append("/Principal");
-	diagrama_principal = this->carpetaProyecto + "/Principal";
+	this->carpetaProyecto.append("/Principal");
+	diagrama_principal = this->carpetaProyecto;
 
 	if (!Utils::file_exists(diagrama_principal + "-COMP.xml")
 			|| !Utils::file_exists(diagrama_principal + "-REP.xml")) {
@@ -136,8 +136,14 @@ bool Ide::abrir_proyecto() {
 
 	this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
 	std::cerr << "llego1" << std::endl;
+
+	std::cout << "carpeta proyecto: " << this->carpetaProyecto << std::endl;
+
 	this->diagramaActual->abrirXml(this->carpetaProyecto);
+
 	std::cerr << "llego2" << std::endl;
+	// todo
+	/*
 	nombres_diagramas = obtener_nombres_diagramas_en_carpeta(this->carpetaProyecto);
 
 	for (it_nombres_diagramas = nombres_diagramas.begin();
@@ -147,6 +153,7 @@ bool Ide::abrir_proyecto() {
 	}
 
 	this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
+*/
 	this->controladorPanelHerramientas.activarBotones();
 	this->treePanel.regenerar();
 
