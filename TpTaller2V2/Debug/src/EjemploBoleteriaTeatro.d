@@ -1,6 +1,6 @@
-src/EjemploBoleteriaTeatro.d src/EjemploBoleteriaTeatro.o: \
- ../src/EjemploBoleteriaTeatro.cpp ../src/modelo/HeadersModelo.h \
- ../src/modelo/Proyecto.h ../src/modelo/Diagrama.h \
+src/EjemploBoleteriaTeatro.d: ../src/EjemploBoleteriaTeatro.cpp \
+ ../src/modelo/HeadersModelo.h ../src/modelo/Proyecto.h \
+ ../src/modelo/Diagrama.h \
  ../src/modelo/./componentes/HeadersComponentes.h \
  ../src/modelo/./componentes/./Componente.h \
  ../src/modelo/./componentes/./../../excepciones/ArgumentoInvalido.h \

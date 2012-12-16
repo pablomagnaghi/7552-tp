@@ -1,4 +1,4 @@
-src/modelo/componentes/Jerarquia.d src/modelo/componentes/Jerarquia.o: \
+src/modelo/componentes/Jerarquia.d: \
  ../src/modelo/componentes/Jerarquia.cpp \
  ../src/modelo/componentes/Jerarquia.h \
  ../src/modelo/componentes/Entidad.h \

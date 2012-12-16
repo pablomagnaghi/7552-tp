@@ -15,7 +15,7 @@ class Identificador {
 private:
 	std::vector<int> codigoAtributos;
 	std::vector<int> codigoRelaciones;
-
+	int entidad;
 public:
 	Identificador();
 	virtual ~Identificador();
@@ -31,6 +31,9 @@ public:
 
 	std::vector<int>::iterator codigoRelacionesBegin();
 	std::vector<int>::iterator codigoRelacionesEnd();
+
+	void setCodigoEntidad(int codigo);
+	int getCodigoEntidad();
 
 	void accept(ModeloVisitor*);
 

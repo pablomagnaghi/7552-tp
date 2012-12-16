@@ -1,5 +1,4 @@
-src/modelo/componentes/Identificador.d \
- src/modelo/componentes/Identificador.o: \
+src/modelo/componentes/Identificador.d: \
  ../src/modelo/componentes/Identificador.cpp \
  ../src/modelo/componentes/Identificador.h \
  ../src/modelo/componentes/Relacion.h \

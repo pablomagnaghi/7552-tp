@@ -1,4 +1,4 @@
-src/EjemploCompleto.d src/EjemploCompleto.o: ../src/EjemploCompleto.cpp \
+src/EjemploCompleto.d: ../src/EjemploCompleto.cpp \
  ../src/modelo/HeadersModelo.h ../src/modelo/Proyecto.h \
  ../src/modelo/Diagrama.h \
  ../src/modelo/./componentes/HeadersComponentes.h \
