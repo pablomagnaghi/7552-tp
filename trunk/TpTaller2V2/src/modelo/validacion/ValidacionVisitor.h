@@ -14,7 +14,6 @@ class ValidacionVisitor : public ModeloVisitor {
 private:
 
 	void inicializar(Diagrama*);
-	void imprimirMensaje(std::string);
 	void invalidarDiagrama();
 
 public:
@@ -22,6 +21,7 @@ public:
 	ValidacionVisitor();
 	virtual ~ValidacionVisitor();
 
+	virtual void visit(Proyecto*);
 	virtual void visit(Diagrama*);
 	virtual void visit(EntidadNueva*);
 	virtual void visit(EntidadGlobal*);
@@ -31,6 +31,8 @@ public:
 	virtual void visit(Jerarquia*);
 	virtual void visit(UnionEntidadRelacion*);
 
+	virtual void postVisit(Proyecto*);
+	virtual void postVisit(Diagrama*);
 };
 
 #endif /* VALIDACIONVISITOR_H_ */

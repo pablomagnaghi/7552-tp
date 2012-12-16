@@ -1,4 +1,5 @@
 #include "Proyecto.h"
+#include "validacion/ModeloVisitor.h"
 
 Proyecto::Proyecto(Diagrama * diagrama) :
 	diagramaPrincipal (diagrama) {
@@ -54,4 +55,10 @@ bool Proyecto::existeEntidadGlobal(const std::string& nombre){
 	} else {
 		return false;
 	}
+}
+
+void Proyecto::accept(ModeloVisitor* modeloVisitor) {
+	modeloVisitor->visit(this);
+	this->diagramaPrincipal->accept(modeloVisitor);
+	modeloVisitor->postVisit(this);
 }

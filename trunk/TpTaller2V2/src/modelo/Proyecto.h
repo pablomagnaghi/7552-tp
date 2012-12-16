@@ -12,6 +12,9 @@
 #include <string>
 #include "Diagrama.h"
 
+// ModeloVisitor, no se hace include por referencia ciclica
+class ModeloVisitor;
+
 class Proyecto {
 
 protected:
@@ -38,6 +41,8 @@ public:
 	bool existeDiagrama(const std::string&);
 	bool existeEntidadNueva(const std::string&);
 	bool existeEntidadGlobal(const std::string&);
+
+	void accept(ModeloVisitor*);
 
 };
 

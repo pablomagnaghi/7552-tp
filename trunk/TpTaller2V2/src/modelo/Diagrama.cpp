@@ -420,10 +420,18 @@ bool Diagrama::existeEntidadGlobal(const std::string& nombre) {
 
 void Diagrama::accept(ModeloVisitor* modeloVisitor) {
 	modeloVisitor->visit(this);
-	std::vector<Componente*>::iterator it = this->componentesBegin();
-	while (it != this->componentesEnd()) {
-		(*it)->accept(modeloVisitor);
-		it++;
+	std::vector<Componente*>::iterator itComponentes = this->componentesBegin();
+	while (itComponentes != this->componentesEnd()) {
+		(*itComponentes)->accept(modeloVisitor);
+		itComponentes++;
+	}
+	modeloVisitor->postVisit(this);
+	if (modeloVisitor->validarTotalmente()){
+		std::vector<Diagrama*>::iterator itDiagramas = this->diagramasHijosBegin();
+		while (itDiagramas != this->diagramasHijosEnd()){
+			(*itDiagramas)->accept(modeloVisitor);
+			itDiagramas++;
+		}
 	}
 }
 

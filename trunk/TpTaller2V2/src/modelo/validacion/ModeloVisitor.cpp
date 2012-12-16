@@ -6,7 +6,8 @@
 
 #include "ModeloVisitor.h"
 
-ModeloVisitor::ModeloVisitor() {
+ModeloVisitor::ModeloVisitor() :
+		validacionTotal(false) {
 
 }
 
@@ -14,3 +15,10 @@ ModeloVisitor::~ModeloVisitor() {
 	this->archivo.close();
 }
 
+void ModeloVisitor::imprimirMensaje(std::string mensaje){
+	this->archivo << mensaje << std::endl;
+}
+
+bool ModeloVisitor::validarTotalmente(){
+	return this->validacionTotal;
+}

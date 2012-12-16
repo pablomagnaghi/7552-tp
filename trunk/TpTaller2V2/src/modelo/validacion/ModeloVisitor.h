@@ -15,14 +15,19 @@ class ModeloVisitor {
 
 protected:
 
+	Proyecto* proyecto;
 	Diagrama* diagrama;
 	std::fstream archivo;
+	bool validacionTotal;
+
+	void imprimirMensaje(std::string);
 
 public:
 
 	ModeloVisitor();
 	virtual ~ModeloVisitor();
 
+	virtual void visit(Proyecto*) = 0;
 	virtual void visit(Diagrama*) = 0;
 	virtual void visit(EntidadNueva*) = 0;
 	virtual void visit(EntidadGlobal*) = 0;
@@ -32,6 +37,10 @@ public:
 	virtual void visit(Jerarquia*) = 0;
 	virtual void visit(UnionEntidadRelacion*) = 0;
 
+	virtual void postVisit(Proyecto*) = 0;
+	virtual void postVisit(Diagrama*) = 0;
+
+	bool validarTotalmente();
 };
 
 #endif /* MODELOVISITOR_H_ */

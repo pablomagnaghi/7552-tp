@@ -27,6 +27,8 @@ public:
 	static std::string getDate();
 	static std::vector<std::string> getFiles(const std::string & folder);
 	static bool file_exists(const std::string & path);
+	static std::string intToString(int numero);
+	static std::string floatToString(float numero);
 };
 
 #endif /* UTILS_H_ */

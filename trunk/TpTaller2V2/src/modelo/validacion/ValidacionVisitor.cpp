@@ -15,6 +15,8 @@ ValidacionVisitor::~ValidacionVisitor() {
 }
 
 void ValidacionVisitor::inicializar(Diagrama* diagrama){
+	this->archivo.close();
+
 	std::string nombreArchivo = diagrama->getNombre() + "-" + Utils::getDate();
 	this->archivo.open(nombreArchivo.c_str(), std::fstream::out);
 
@@ -22,12 +24,13 @@ void ValidacionVisitor::inicializar(Diagrama* diagrama){
 	diagrama->setEstado(DIAGRAMA_VALIDADO);
 }
 
-void ValidacionVisitor::imprimirMensaje(std::string mensaje){
-	this->archivo << mensaje << std::endl;
-}
-
 void ValidacionVisitor::invalidarDiagrama(){
 	this->diagrama->setEstado(DIAGRAMA_VALIDADO_CON_OBSERVACIONES);
+}
+
+void ValidacionVisitor::visit(Proyecto* proyecto){
+	this->proyecto = proyecto;
+	this->validacionTotal = true;
 }
 
 void ValidacionVisitor::visit(Diagrama* diagrama){
@@ -217,24 +220,33 @@ void ValidacionVisitor::visit(UnionEntidadRelacion* unionEntidadRelacion){
 					+ "no tiene una entidad asociada.");
 			this->invalidarDiagrama();
 		}
-	}
 
-	// Cardinalidades
-	if (unionEntidadRelacion->getCardinalidadMinima().compare("") == 0){
-		this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre()
-				+ " no tiene asignada la cardinalidad mínima.");
-		this->invalidarDiagrama();
-	}
-	if (unionEntidadRelacion->getCardinalidadMaxima().compare("") == 0){
-		this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre()
-				+ " no tiene asignada la cardinalidad máxima.");
-		this->invalidarDiagrama();
-	}
+		// Cardinalidades
+		if (unionEntidadRelacion->getCardinalidadMinima().compare("") == 0){
+			this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre()
+					+ " no tiene asignada la cardinalidad mínima.");
+			this->invalidarDiagrama();
+		}
+		if (unionEntidadRelacion->getCardinalidadMaxima().compare("") == 0){
+			this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre()
+					+ " no tiene asignada la cardinalidad máxima.");
+			this->invalidarDiagrama();
+		}
 
-	// Rol
-	if (unionEntidadRelacion->getRol().compare("") == 0){
-		this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre() +
-				" no tiene asignado el rol.");
-		// No se invalida el diagrama porque el rol no es obligatorio.
+		// Rol
+		if (unionEntidadRelacion->getRol().compare("") == 0){
+			this->imprimirMensaje("Una de las uniones de la relación " + unionEntidadRelacion->getRelacion()->getNombre() +
+					" no tiene asignado el rol.");
+			// No se invalida el diagrama porque el rol no es obligatorio.
+		}
+
 	}
+}
+
+void ValidacionVisitor::postVisit(Proyecto* proyecto){
+
+}
+
+void ValidacionVisitor::postVisit(Diagrama* diagrama){
+
 }

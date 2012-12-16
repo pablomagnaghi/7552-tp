@@ -6,6 +6,7 @@
 
 #include "modelo/HeadersModelo.h"
 #include "modelo/validacion/ValidacionVisitor.h"
+#include "modelo/validacion/MetricasVisitor.h"
 #include <iostream>
 
 EntidadNueva* crearSeccionSala(){
@@ -327,17 +328,25 @@ int main348(int argc, char* argv[]){
 	Diagrama* diagramaPrincipal = crearDiagramaPrincipal();
 	proyecto->setDiagramaPrincipal(diagramaPrincipal);
 
+	Diagrama* apsdok = new Diagrama("Asd");
+	diagramaPrincipal->agregarDiagramaHijo(apsdok);
+
 	// prueba persistencia
 //	diagramaPrincipal->guardarDiagramaXmlCOMP("boleteria teatro.xml");
 //	std::cout << "Generacion del xml OK" << std::endl;
 
 	// prueba validacion
 	ValidacionVisitor* validacionVisitor = new ValidacionVisitor();
-	diagramaPrincipal->accept(validacionVisitor);
+	proyecto->accept(validacionVisitor);
 	std::cout << "Validación finalizada." << std::endl;
+
+	MetricasVisitor* metricasVisitor = new MetricasVisitor();
+	proyecto->accept(metricasVisitor);
+	std::cout << "Metricas finalizadas." << std::endl;
 
 	delete proyecto;
 	delete validacionVisitor;
+	delete metricasVisitor;
 
 	GeneradorCodigo::destruir();
 
