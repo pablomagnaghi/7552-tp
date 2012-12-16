@@ -444,13 +444,16 @@ void Diagrama::abrirXmlCOMP(const std::string& path) {
 		this->diagramaValidoCOMP = true;
 
 		XmlNodo* nodoRaiz = docXml.getNodoRaiz();
+		std::cerr << "llego111" << std::endl;
 		XmlNodo::verificarNombre(NOMBRE_DIAGRAMA, *nodoRaiz);
+		std::cerr << "llego112" << std::endl;
 		this->cargarXmlCOMP(nodoRaiz);
+		std::cerr << "llego113" << std::endl;
 	} catch (XmlArchivoInexistenteExc* ex) {
 		delete ex;
 		throw new DiagramaArchivoInexistenteExc(path);
-	} catch (XmlArchivoInvalidoExc* ex) {
-		delete ex;
+	} catch (XmlArchivoInvalidoExc & ex) {
+		std::cerr << "llegoex114" << std::endl;
 		throw new DiagramaInvalidoExc(path);
 	}
 }
