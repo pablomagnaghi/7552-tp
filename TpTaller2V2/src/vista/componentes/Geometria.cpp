@@ -7,7 +7,6 @@ using namespace std;
 #define MAX(X,Y) ((X) > (Y) ? (X):(Y))
 #define MIN(X,Y) ((X) < (Y) ? (X):(Y))
 
-#define DEBUG_GEOMETRIA 0
 
 Geometria::Geometria() {
 }
@@ -54,6 +53,46 @@ bool Geometria::estaContenidoEnRectangulo(double x, double y, double x_inicial, 
 	return false;
 }
 
+bool Geometria::estaEntreLineasParalelas(double x, double y, double x0_inicial, double y0_inicial,
+		double x0_final, double y0_final, double x1_inicial, double y1_inicial, double x1_final,
+		double y1_final) {
+
+	double y0, y1;
+	normalizarCoordenadas(x0_inicial, y0_inicial, x0_final, y0_final);
+	normalizarCoordenadas(x1_inicial, y1_inicial, x1_final, y1_final);
+
+	if ((x < x0_inicial && x < x1_inicial) || (x > x0_final && x > x1_final)) {
+		return false;
+	}
+	if (y < MIN(MIN(y0_inicial,y0_final),MIN(y1_inicial,y1_final))
+			|| y > MAX(MAX(y0_inicial,y0_final),MAX(y1_inicial,y1_final))) {
+		return false;
+	}
+
+
+	double m0 = NAN; // MACRO DE MATH NOT A NUMBER
+	double delta;
+	delta = 0.00001;
+
+	if (x0_inicial <= (x0_final - delta) || x0_inicial >= (x0_final + delta)) {
+		m0 = (y0_final - y0_inicial) / (x0_final - x0_inicial);
+	}
+
+	if (isnan(m0)
+			&& ((x0_inicial < x1_inicial && x > x0_inicial && x < x1_inicial)
+					|| (x1_inicial < x0_inicial && x < x0_inicial && x > x1_inicial))) {
+		return true;
+	} else {
+		y0 = y0_inicial + m0 * (x - x0_inicial);
+		y1 = y1_inicial + m0 * (x - x1_inicial);
+		if (((y0 < y1 && y > y0 && y < y1) || (y1 < y0 && y < y0 && y > y1))) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double y1, double x2,
 		double y2, double x3, double y3, double & x, double & y) {
 
@@ -77,13 +116,13 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 	cout << "Cota: (" << cotaInicialInterseccion.x << ";" << cotaInicialInterseccion.y << ") ("
 	<< cotaFinalInterseccion.x << ";" << cotaFinalInterseccion.y << ")" << std::endl;
 #endif
-	// ACOTO en X y busco los Y
+// ACOTO en X y busco los Y
 	acotarX(x0, x1, y0, y1, m0, posInicialLinea1, posFinalLinea1, cotaInicialInterseccion,
 			cotaFinalInterseccion);
 	acotarX(x2, x3, y2, y3, m1, posInicialLinea2, posFinalLinea2, cotaInicialInterseccion,
 			cotaFinalInterseccion);
 
-	// Verifico si no hay interseccion
+// Verifico si no hay interseccion
 	if (posInicialLinea1.y < cotaInicialInterseccion.y
 			&& posFinalLinea1.y < cotaInicialInterseccion.y) {
 		return false;
@@ -98,7 +137,7 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 		return false;
 	}
 
-	// CHEQUEO SI HAY COLISION
+// CHEQUEO SI HAY COLISION
 	if (posInicialLinea1.y <= posInicialLinea2.y && posFinalLinea1.y >= posFinalLinea2.y) {
 		if (isnan(m0)) {
 			x = x0;
@@ -144,7 +183,7 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 		return true;
 	}
 
-	// Verifico si las lineas están dentro de la cota
+// Verifico si las lineas están dentro de la cota
 	/*if (posInicialLinea1.y >= cotaInicialInterseccion.y && posFinalLinea1.y
 	 <= cotaFinalInterseccion.y && posInicialLinea2.y
 	 >= cotaInicialInterseccion.y && posFinalLinea2.y
@@ -153,9 +192,9 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 
 	 }*/
 
-	// Acoto en Y y busco los X
-	//if (posInicialLinea1.y < cotaInicialInterseccion.y) {
-	//}
+// Acoto en Y y busco los X
+//if (posInicialLinea1.y < cotaInicialInterseccion.y) {
+//}
 	return false;
 }
 
@@ -168,7 +207,7 @@ bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1
 	double delta;
 	delta = 0.00001;
 
-	// ACOTO en X y busco los Y
+// ACOTO en X y busco los Y
 	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
 		m = (y1 - y0) / (x1 - x0);
 	}
@@ -243,7 +282,7 @@ void Geometria::obtenerPuntosDeTriangulo(double x0, double y0, double x1, double
 		/*xc = x1 - delta_x;
 		 yc = y1 - delta_y;*/
 
-		// QUEDO COMO SI FUERA UN CIRCULO, PERO ES IMPORTANTE
+// QUEDO COMO SI FUERA UN CIRCULO, PERO ES IMPORTANTE
 		y2 = y1 - sin(angulo + angulo2) * altura;
 		y3 = y1 - sin(angulo - angulo2) * altura;
 		x2 = x1 - cos(angulo + angulo2) * altura;
@@ -309,7 +348,7 @@ bool Geometria::hayInterseccionDeLineaConElipse(double x0, double y0, double x1,
 	double delta;
 	delta = 0.00001;
 
-	// ACOTO en X y busco los Y
+// ACOTO en X y busco los Y
 	if (x0 <= (x1 - delta) || x0 >= (x1 + delta)) {
 		m = (y1 - y0) / (x1 - x0);
 	}
@@ -407,9 +446,9 @@ bool Geometria::obtenerPuntoDeDibujoDeTextoOpuestoALinea(double x0, double y0, d
 	} else {
 		angulo = atan2(y1 - y0, x1 - x0);
 		r = 1 / sqrt(pow(cos(angulo) / (w / 2 + 10), 2) + pow(sin(angulo) / (h / 2 + 11), 2));
-		//r = sqrt(pow(w * cos(angulo), 2) + pow((h + 8) * sin(angulo), 2))*0.75;
-		//cout << "r= " << r << " ang= " << angulo * 180 / M_PI << endl;
-		//angulo = angulo - M_PI / 2;
+//r = sqrt(pow(w * cos(angulo), 2) + pow((h + 8) * sin(angulo), 2))*0.75;
+//cout << "r= " << r << " ang= " << angulo * 180 / M_PI << endl;
+//angulo = angulo - M_PI / 2;
 		x = xc - r * cos(angulo);
 		y = yc - r * sin(angulo);
 	}

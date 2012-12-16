@@ -57,7 +57,32 @@ bool Ide::hayProyecto() {
 	return true;
 }
 
+std::vector<std::string> Ide::obtener_nombres_diagramas_en_carpeta(const std::string & carpeta) {
+	std::vector<std::string> nombres;
+	std::vector<std::string> archivos;
+	std::vector<std::string>::iterator it_archivos;
+	std::string nombre;
+	size_t pos2;
+	archivos = Utils::getFiles(carpeta);
+
+	for (it_archivos = archivos.begin(); it_archivos != archivos.end(); ++it_archivos) {
+		pos2 = (*it_archivos).rfind("-COMP.xml");
+		if (pos2 != std::string::npos) {
+			nombre = (*it_archivos).substr(0, pos2);
+			if (nombre != "Principal") {
+				nombres.push_back(nombre);
+			}
+		}
+	}
+	return nombres;
+}
+
 bool Ide::abrir_proyecto() {
+	std::string diagrama_principal;
+	std::vector<std::string>::iterator it_nombres_diagramas;
+	std::vector<std::string> nombres_diagramas;
+	VistaDiagrama * nuevo_diagrama;
+
 	// Pedir Carpeta donde se guarda el proyecto
 	Gtk::FileChooserDialog selector("Seleccione la carpeta del proyecto",
 			Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
@@ -94,11 +119,32 @@ bool Ide::abrir_proyecto() {
 	this->cerrarProyecto();
 
 	// Levantar los archivos guardados
-	this->carpetaProyecto.append("/Principal");
+	//this->carpetaProyecto.append("/Principal");
+	diagrama_principal = this->carpetaProyecto + "/Principal";
+
+	if (!Utils::file_exists(diagrama_principal + "-COMP.xml")
+			|| !Utils::file_exists(diagrama_principal + "-REP.xml")) {
+		Gtk::MessageDialog dialog(*Ide::getInstance(), "Error", false /* use_markup */,
+				Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK);
+		dialog.set_secondary_text("No existe el diagrama principal");
+		dialog.run();
+
+		return false;
+	}
 
 	this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Principal")));
+
 	this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
 	this->diagramaActual->abrirXml(this->carpetaProyecto);
+
+	nombres_diagramas = obtener_nombres_diagramas_en_carpeta(this->carpetaProyecto);
+
+	for (it_nombres_diagramas = nombres_diagramas.begin();
+			it_nombres_diagramas != nombres_diagramas.end(); ++it_nombres_diagramas) {
+		nuevo_diagrama = new VistaDiagrama(new Diagrama(*it_nombres_diagramas));
+		nuevo_diagrama->abrirXml(this->carpetaProyecto + "/" + (*it_nombres_diagramas));
+	}
+
 	this->cargarDiagrama(this->vproyecto->getDiagramaPrincipal());
 	this->controladorPanelHerramientas.activarBotones();
 	this->treePanel.regenerar();
