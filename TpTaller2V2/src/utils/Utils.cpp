@@ -167,3 +167,15 @@ bool Utils::file_exists(const std::string & path) {
 	return false;
 }
 
+std::string Utils::intToString(int numero){
+   std::stringstream ss;
+   ss << numero;
+   return ss.str();
+}
+
+std::string Utils::floatToString(float numero){
+   std::stringstream ss;
+   ss << numero;
+   return ss.str();
+}
+
