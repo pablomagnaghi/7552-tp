@@ -39,6 +39,8 @@ private:
 	std::vector<VistaIdentificador*> vIdentificador;
 	std::vector<VistaUnionEntidadRelacion*> vUnionEntidadRelacion;
 
+	std::vector<Componente*> componentesModelo;
+
 	// Para controlar el drag and drop
 	bool mouse_apretado;
 	gdouble x_button_press;
@@ -133,6 +135,12 @@ private:
 	void guardarDiagramaXmlREP(const std::string& path);
 	void agregarPropiedadesXmlREP(XmlNodo* nodo);
 	void guardarComponentesXmlREP(XmlNodo *nodo);
+
+	void ordenarByCodigo();
+	//bool perteneceAAtributoCompuesto(Atributo* atrib, int codigo);
+	//bool perteneceAlModelo(int codigo);
+	void agregarAtributoCompuesto(Atributo* atrib);
+	void obtenerComponentesModelo();
 	XmlNodo guardarXmlREP();
 
 	void eliminar();
