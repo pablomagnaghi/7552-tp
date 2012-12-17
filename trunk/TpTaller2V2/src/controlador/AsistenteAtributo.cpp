@@ -156,6 +156,7 @@ void AsistenteAtributo::on_botonEliminarAtributo_click() {
 		Gtk::TreeModel::Row row = *iter;
 		VistaAtributo *atrib = row[this->m_Columnas.m_col_Atrib_Pointer];
 		//TODO Borro el atributo Mediante El builder
+		this->diagramaActual->quitarComponente(atrib);
 		this->refTreeModel->erase(iter);
 	}
 }

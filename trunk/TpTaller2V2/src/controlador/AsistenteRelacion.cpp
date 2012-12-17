@@ -143,7 +143,8 @@ void AsistenteRelacion::on_botonAceptar_click() {
 					//Si no esta seleccionada tengo que ver que = no exista la union por que podia estar de antes
 					vuer = this->vrelacion->unidaConEntidad(ventidad);
 					if (vuer != NULL){
-						//TODO ELMINAR VistaunionEntidadRelacion
+						this->vdiagrama->quitarComponente(vuer);
+						//TODO echo ELMINAR VistaunionEntidadRelacion
 					}
 				}
 				iter++;
@@ -166,9 +167,7 @@ void AsistenteRelacion::on_botonAceptar_click() {
 }
 
 void AsistenteRelacion::on_botonCancelar_click() {
-	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
 	this->vrelacion->resetearLanzarProp();
-
 	this->hide();
 }
 
@@ -216,7 +215,7 @@ void AsistenteRelacion::on_botonEliminarAtributo_click() {
 	{
 		Gtk::TreeModel::Row row = *iter;
 		VistaAtributo *atrib = row[this->m_ColumnasAtrib.m_col_Atrib_Pointer];
-		//TODO Borro el atributo Mediante El builder
+		this->vdiagrama->quitarComponente(atrib);
 		this->refTreeModelAtrib->erase(iter);
 	}
 }
@@ -224,6 +223,7 @@ void AsistenteRelacion::on_botonEliminarAtributo_click() {
 void AsistenteRelacion::inicializarAsistente() {
 	this->entryNombreRelacion->set_text(this->vrelacion->getNombre());
 	this->inicializarListaEntidades();
+	this->iniicializarListaAtributos();
 }
 
 void AsistenteRelacion::inicializarListaEntidades(){
@@ -270,6 +270,17 @@ void AsistenteRelacion::llenarListaEntidades(){
 		row[this->m_ColumnasEntidades.m_col_Nombre] = (*it1)->getNombre();
 		row[this->m_ColumnasEntidades.m_col_selected] = false;
 		row[this->m_ColumnasEntidades.m_col_vEnt_Pointer] = *it1;
+		it1++;
+	}
+}
+
+void AsistenteRelacion::iniicializarListaAtributos(){
+	std::vector<VistaAtributo*>::iterator it1 = this->vrelacion->atributosBegin();
+	std::vector<VistaAtributo*>::iterator it2 = this->vrelacion->atributosEnd();
+	while (it1 != it2) {
+		Gtk::TreeModel::Row row = *(this->refTreeModelAtrib->append());
+		row[this->m_ColumnasAtrib.m_col_Nombre] = (*it1)->getNombre();
+		row[this->m_ColumnasAtrib.m_col_Atrib_Pointer] = *it1;
 		it1++;
 	}
 }

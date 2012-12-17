@@ -36,6 +36,8 @@ public:
 
 	void resetearLanzarProp();
 
+	void resetearLanzarIdent();
+
 	// Solo se puede agregar y sacar atributos a la entidad nueva
 	bool agregarAtributo(VistaAtributo* atrib);
 	virtual bool quitarAtributo(VistaAtributo* atrib);

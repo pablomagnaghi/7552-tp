@@ -6,6 +6,7 @@
  */
 
 #include "AsistenteJerarquia.h"
+#include "../vista/Ide.h"
 
 AsistenteJerarquia::AsistenteJerarquia(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) :
 	Gtk::Window(cobject), m_builder(builder) {
@@ -14,6 +15,7 @@ AsistenteJerarquia::AsistenteJerarquia(BaseObjectType* cobject, const Glib::RefP
 	this->show();
 	this->enlazarWidgets();
 	this->diagrama = NULL;
+	this->setDiagrama(Ide::getInstance()->getDiagActual());
 }
 
 AsistenteJerarquia::~AsistenteJerarquia() {
@@ -21,8 +23,6 @@ AsistenteJerarquia::~AsistenteJerarquia() {
 }
 
 void AsistenteJerarquia::setJerarquia(VistaJerarquia* jer) {
-
-	// TODO CARGAR DATOS DE ENTIDAD NUEVA
 	this->vjerarquia = jer;
 	this->inicializarAsistente();
 
@@ -79,7 +79,7 @@ void AsistenteJerarquia::enlazarWidgets() {
 	this->show_all();
 }
 
-void AsistenteJerarquia::llenarListaEntidades(VistaEntidadNueva * omitir){
+void AsistenteJerarquia::llenarListaEntidades(VistaEntidad * omitir){
 	this->limpiarLista();
 	std::vector<VistaEntidadNueva *>::iterator it1 =  this->diagrama->vEntidadesBegin();
 	std::vector<VistaEntidadNueva *>::iterator it2 =  this->diagrama->vEntidadesEnd();
@@ -99,11 +99,11 @@ void AsistenteJerarquia::llenarComboBox(){
 	std::vector<VistaEntidadNueva *>::iterator it2 =  this->diagrama->vEntidadesEnd();
 	while (it1 != it2){
 		//Veo que la entidad ya no tenga
-		if ((*it1)->getEntidad()->getJerarquiaHija()==NULL){
+		//if ((*it1)->getEntidad()->getJerarquiaHija()==NULL){
 			Gtk::TreeModel::Row row = *(this->refTreeModelCombo->append());
 			row[this->m_ColumnasCombo.m_col_Nombre] = (*it1)->getNombre();
 			row[this->m_ColumnasCombo.m_col_vEnt_Pointer] = *it1;
-		}
+		//}
 		it1++;
 	}
 }
@@ -121,6 +121,8 @@ void AsistenteJerarquia::on_ComboBox_click(){
 void AsistenteJerarquia::on_botonAceptar_click() {
 	VistaEntidadNueva* entidadPadre = NULL;
 	VistaEntidadNueva* entidad = NULL;
+	VistaEntidad * vep = NULL;
+	Gtk::RadioButton* radio = NULL;
 	bool musthide = false;
 	int countSelected=0;
 	Gtk::Entry *entryNombre = 0;
@@ -130,11 +132,30 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 		this->vjerarquia->setNombre(nom);
 		Gtk::TreeModel::iterator iter = this->comboBox.get_active();
 		if (iter) {
-			this->m_builder->get_widget("entryNombre", entryNombre);
+			//Si esta nodificando y ya tenia un padre
+			vep = this->vjerarquia->getEntidadPadre();
+			if (vep != NULL){
+				vep->getEntidad()->quitarJerarquiaHija();
+			}
 			Gtk::TreeModel::Row row = *iter;
 			entidadPadre = row[this->m_ColumnasCombo.m_col_vEnt_Pointer];
 			this->vjerarquia->setEntidadPadre(entidadPadre);
 			entidadPadre->getEntidad()->setJerarquiaHija(this->vjerarquia->getJerarquia());
+
+			//cobertura, interseccion
+			this->m_builder->get_widget("radioParcial", radio);
+			if (radio->get_active() == true){
+				this->vjerarquia->getJerarquia()->setCobertura(TIPO_COBERTURA_PARCIAL);
+			}else{
+				this->vjerarquia->getJerarquia()->setCobertura(TIPO_COBERTURA_TOTAL);
+			}
+			this->m_builder->get_widget("radioExclusiva", radio);
+			if (radio->get_active() == true){
+				this->vjerarquia->getJerarquia()->setInterseccion(TIPO_INTERSECCION_EXCLUSIVA);
+			}else{
+				this->vjerarquia->getJerarquia()->setInterseccion(TIPO_INTERSECCION_SUPERPUESTA);
+			}
+
 			//Ahora seteo las entidades hijas
 			typedef Gtk::TreeModel::Children type_children;
 			type_children children = this->refTreeModel->children();
@@ -142,16 +163,19 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 			type_children::iterator iter1 = children.end();
 			while (iter != iter1) {
 				Gtk::TreeModel::Row row = *iter;
-				// si esta seleccionada la agrego
+				// si esta seleccionada la agrego o actualizo
 				if (row[this->m_Columnas.m_col_selected] == true) {
 					countSelected++;
-					entidad = row[this->m_Columnas.m_col_vEnt_Pointer];
-					this->vjerarquia->agregarEntidadEspecializada(entidad);
-
-					// todo agreagado
-					this->vjerarquia->getJerarquia()->agregarEntidadEspecializada(entidad->getEntidadNueva());
-
-					entidad->getEntidadNueva()->agregarJerarquiaPadre(this->vjerarquia->getJerarquia());
+					if (this->vjerarquia->unidaConEntidad(row[this->m_Columnas.m_col_vEnt_Pointer]) == false){
+						entidad = row[this->m_Columnas.m_col_vEnt_Pointer];
+						this->vjerarquia->agregarEntidadEspecializada(entidad);
+						this->vjerarquia->getJerarquia()->agregarEntidadEspecializada(entidad->getEntidadNueva());
+						entidad->getEntidadNueva()->agregarJerarquiaPadre(this->vjerarquia->getJerarquia());
+					}
+				}else{
+					if (this->vjerarquia->unidaConEntidad(row[this->m_Columnas.m_col_vEnt_Pointer]) == true){
+						this->vjerarquia->removerEntidadEspecializada(row[this->m_Columnas.m_col_vEnt_Pointer]);
+					}
 				}
 				iter++;
 			}
@@ -187,7 +211,28 @@ void AsistenteJerarquia::on_botonCancelar_click() {
 
 
 void AsistenteJerarquia::inicializarAsistente() {
+	if (this->vjerarquia->getEntidadPadre() != NULL){
+		Gtk::Entry *entryNombre = 0;
+		Gtk::RadioButton* radio =NULL;
+		if (this->vjerarquia->getJerarquia()->getCobertura() == TIPO_COBERTURA_PARCIAL){
+			this->m_builder->get_widget("radioParcial", radio);
+			radio->set_active(true);
+		}else{
+			this->m_builder->get_widget("radioTotal", radio);
+			radio->set_active(true);
+		}
+		if (this->vjerarquia->getJerarquia()->getInterseccion() == TIPO_INTERSECCION_EXCLUSIVA){
+			this->m_builder->get_widget("radioExclusiva", radio);
+			radio->set_active(true);
+		}else{
+			this->m_builder->get_widget("radioSuperpuesta", radio);
+			radio->set_active(true);
+		}
 
+		this->m_builder->get_widget("entryNombre", entryNombre);
+		entryNombre->set_text(this->vjerarquia->getNombre());
+		this->inicializarListaEntidades();
+	}
 }
 
 void AsistenteJerarquia::on_about_hide()
@@ -199,3 +244,38 @@ void AsistenteJerarquia::limpiarLista() {
 	this->refTreeModel->clear();
 }
 
+void AsistenteJerarquia::inicializarListaEntidades(){
+	VistaEntidadNueva * ve = NULL;
+	VistaEntidad *vep = NULL;
+	Gtk::TreeModel::Row row;
+	bool unida = false;
+	typedef Gtk::TreeModel::Children type_children;
+	//primero el combo box luego actualizo la lista de entidades menos el padre y despues inicializo esa lista
+	vep = this->vjerarquia->getEntidadPadre();
+	type_children children = this->refTreeModelCombo->children();
+	type_children::iterator iter = children.begin();
+	type_children::iterator iter1 = children.end();
+	while ( iter != iter1){
+		row = *iter;
+		if (row[this->m_ColumnasCombo.m_col_vEnt_Pointer] == vep){
+			this->comboBox.set_active(iter);
+		}
+		iter++;
+	}
+
+	this->llenarListaEntidades(vep);
+
+	children = this->refTreeModel->children();
+	iter = children.begin();
+	iter1 = children.end();
+	while (iter != iter1) {
+		row = *iter;
+		ve = row[this->m_Columnas.m_col_vEnt_Pointer];
+		unida = this->vjerarquia->unidaConEntidad(ve);
+		if (unida == true){
+			row[this->m_Columnas.m_col_selected] = true;
+		}
+		unida = false;
+		iter++;
+	}
+}

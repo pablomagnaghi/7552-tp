@@ -364,6 +364,10 @@ void VistaEntidadNueva::resetearLanzarProp() {
 	this->prop_lanzada = false;
 }
 
+void VistaEntidadNueva::resetearLanzarIdent() {
+	this->ident_lanzada = false;
+}
+
 EntidadNueva * VistaEntidadNueva::getEntidadNueva() {
 	return this->entidad;
 }

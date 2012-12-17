@@ -216,7 +216,6 @@ bool VistaJerarquia::lanzarProp() {
 		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_JERAR);
 		nHbuilder->get_widget_derived("PropJerarquia", nuevaProp);
 		nuevaProp->setJerarquia(this);
-		nuevaProp->setDiagrama(Ide::getInstance()->getDiagActual());
 		this->prop_lanzada = true;
 		nuevaProp->show();
 		return true;
@@ -399,4 +398,18 @@ void VistaJerarquia::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 bool VistaJerarquia::hayQueEliminarlo() {
 	return this->eliminando;
+}
+
+bool VistaJerarquia::unidaConEntidad(VistaEntidad * ventidad){
+	std::vector<VistaEntidadNueva*>::iterator it = this->entidadesEspecializadasBegin();
+	std::vector<VistaEntidadNueva*>::iterator it1 = this->entidadesEspecializadasEnd();
+	VistaEntidad * ve = NULL;
+	while (it!=it1){
+		ve = *it;
+		if (ve == ventidad){
+			return true;
+		}
+		it++;
+	}
+	return false;
 }
