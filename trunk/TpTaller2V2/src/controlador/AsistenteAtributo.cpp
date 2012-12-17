@@ -107,6 +107,8 @@ void AsistenteAtributo::on_botonAceptar_click() {
 				Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
 		err_dialog.run();
 	}
+	Ide::getInstance()->getDiagActual()->queue_draw();
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void AsistenteAtributo::on_botonCancelar_click() {
@@ -114,6 +116,7 @@ void AsistenteAtributo::on_botonCancelar_click() {
 	this->vatributo->resetearLanzarProp();
 	// todo si esta creando
 	Ide::getInstance()->getDiagActual()->quitarComponente(this->vatributo);
+	Ide::getInstance()->regenerarTreePanel();
 	this->hide();
 }
 

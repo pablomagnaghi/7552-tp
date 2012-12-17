@@ -98,6 +98,7 @@ void AsistenteRelacion::on_botonAceptar_click() {
 
 	if ( nom != "") {
 		this->vrelacion->setNombre(nom);
+		this->vrelacion->setposini(50, 50);
 		this->vrelacion->ajustarTamanioAlTexto();
 		//Cuento mas de 2 entidades seleccionadas al menos
 		typedef Gtk::TreeModel::Children type_children;
@@ -167,6 +168,8 @@ void AsistenteRelacion::on_botonAceptar_click() {
 		this->vrelacion->resetearLanzarProp();
 		this->hide();
 	}
+	Ide::getInstance()->getDiagActual()->queue_draw();
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void AsistenteRelacion::on_botonCancelar_click() {
@@ -174,6 +177,7 @@ void AsistenteRelacion::on_botonCancelar_click() {
 	// todo if esta creando
 	this->vdiagrama->quitarComponente(this->vrelacion);
 	this->hide();
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void AsistenteRelacion::on_botonAgregarAtributo_click() {

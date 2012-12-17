@@ -115,8 +115,10 @@ void AsistenteEntGlobal::on_botonAceptar_click() {
 		//		this->vdiagrama, entidad->getNombre(), NULL);
 		VistaEntidadGlobal *v = ComponentsBuilder::getInstance()->crearEntidadGlobalEnDiagrama(
 				this->vdiagrama, entidad->getCodigoREP(), NULL);
+		v->setNombre(entidad->getNombre());
 		v->setposini(50, 50);
 		v->setposfin(100, 100);
+		v->ajustarTamanioAlTexto();
 		musthide = true;
 	} else {
 		Gtk::MessageDialog err_dialog(*this, "Debe seleccionar una entidad.", false, Gtk::MESSAGE_ERROR,
@@ -126,6 +128,7 @@ void AsistenteEntGlobal::on_botonAceptar_click() {
 	if (musthide == true) {
 		this->hide();
 	}
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void AsistenteEntGlobal::on_botonCancelar_click() {

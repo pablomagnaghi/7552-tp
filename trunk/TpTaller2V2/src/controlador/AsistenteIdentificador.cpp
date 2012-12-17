@@ -99,6 +99,7 @@ void AsistenteIdentificador::on_botonEliminarIdentificador_click() {
 		this->vdiagrama->quitarComponente(ident);
 		this->llenarListaIdentificadores();
 	}
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void AsistenteIdentificador::on_botonAgregarIdentificador_click() {
@@ -135,6 +136,7 @@ void AsistenteIdentificador::on_botonAgregarIdentificador_click() {
 		}
 	}
 	this->llenarListaIdentificadores();
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void AsistenteIdentificador::inicializarAsistente() {

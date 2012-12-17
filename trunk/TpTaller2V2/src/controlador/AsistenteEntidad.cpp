@@ -37,7 +37,7 @@ void AsistenteEntidad::enlazarWidgets() {
 	Gtk::Button* bCancelar = 0;
 	Gtk::Button *bAAtributo = 0, *bMAtributo = 0, *bEAtributo = 0;
 	Gtk::ScrolledWindow* scrollLista = 0;
-	Gtk::VBox *vbox= 0;
+	Gtk::VBox *vbox = 0;
 
 	this->m_builder->get_widget("bAceptar", bAceptar);
 	this->m_builder->get_widget("bCancelar", bCancelar);
@@ -46,7 +46,6 @@ void AsistenteEntidad::enlazarWidgets() {
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
 	this->m_builder->get_widget("entryNombreEntidad", entryNombreEntidad);
 	this->m_builder->get_widget("vbox4", vbox);
-
 
 	bAceptar->signal_clicked().connect(
 			sigc::mem_fun(*this, &AsistenteEntidad::on_botonAceptar_click));
@@ -62,7 +61,7 @@ void AsistenteEntidad::enlazarWidgets() {
 
 	//Combobox
 	vbox->pack_end(this->comboTipo);
-	this->comboTipo.set_size_request(100,60);
+	this->comboTipo.set_size_request(100, 60);
 
 	//Lista
 	this->m_builder->get_widget("scrollLista", scrollLista);
@@ -87,10 +86,12 @@ void AsistenteEntidad::on_botonAceptar_click() {
 		this->ventidad->setNombre(this->entryNombreEntidad->get_text());
 		tipo = this->comboTipo.get_active_text();
 		this->ventidad->getEntidadNueva()->setTipo(tipo);
-		//this->ventidad->setposini(20, 20);
+		this->ventidad->setposini(50, 50);
 		this->ventidad->ajustarTamanioAlTexto();
 		this->ventidad->resetearLanzarProp();
 		this->hide();
+		Ide::getInstance()->getDiagActual()->queue_draw();
+		Ide::getInstance()->regenerarTreePanel();
 	}
 }
 
@@ -100,6 +101,8 @@ void AsistenteEntidad::on_botonCancelar_click() {
 	this->ventidad->resetearLanzarProp();
 	// todo if esta creando
 	Ide::getInstance()->getDiagActual()->quitarComponente(this->ventidad);
+
+	Ide::getInstance()->regenerarTreePanel();
 	this->hide();
 }
 
@@ -166,19 +169,18 @@ void AsistenteEntidad::inicializarAsistente() {
 	this->comboTipo.append_text(TIPO_ENTIDAD_DOMINIO);
 	this->comboTipo.append_text(TIPO_ENTIDAD_HISTORICA);
 	this->comboTipo.append_text(TIPO_ENTIDAD_PROGRAMADA);
-	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_COSA){
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_COSA) {
 		this->comboTipo.set_active(0);
 	}
-	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_DOMINIO){
-			this->comboTipo.set_active(1);
-		}
-	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_HISTORICA){
-			this->comboTipo.set_active(2);
-		}
-	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_PROGRAMADA){
-			this->comboTipo.set_active(3);
-		}
-
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_DOMINIO) {
+		this->comboTipo.set_active(1);
+	}
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_HISTORICA) {
+		this->comboTipo.set_active(2);
+	}
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_PROGRAMADA) {
+		this->comboTipo.set_active(3);
+	}
 
 }
 
