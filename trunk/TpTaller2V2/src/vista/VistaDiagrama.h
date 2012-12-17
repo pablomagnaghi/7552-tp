@@ -219,7 +219,7 @@ public:
 	//*****     PERSISTENCIA REP     *****//
 	bool isOpenXmlREP() const;
 	// CARGAR
-	void abrirXml(const std::string& path, const std::string& carpeta);
+	void abrirXml(Diagrama* diagrama, const std::string& path, const std::string& carpeta);
 	void abrirXmlDiagramas(const std::string carpeta, const std::vector<std::string> & nombres);
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
