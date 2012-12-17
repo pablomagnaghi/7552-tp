@@ -27,6 +27,7 @@ private:
 	std::map<std::string, int> cantidadIdentificadoresEntidadesNuevas;
 	std::map<std::string, int> cantidadAtributosRelaciones;
 	std::map<std::string, int> cantidadAtributosIdentificadores;
+	std::map<std::string, int> cantidadEntidadesSinRelacion;
 
 	void inicializar(Proyecto*);
 	void inicializar(Diagrama*);

@@ -37,15 +37,16 @@ void MetricasVisitor::inicializar(Diagrama* diagrama){
 	this->cantidadIdentificadoresEntidadesNuevas[diagrama->getNombre()] = 0;
 	this->cantidadAtributosRelaciones[diagrama->getNombre()] = 0;
 	this->cantidadAtributosIdentificadores[diagrama->getNombre()] = 0;
+	this->cantidadEntidadesSinRelacion[diagrama->getNombre()] = 0;
 }
 
 void MetricasVisitor::imprimirMetricasProyecto(){
 	this->imprimirMensaje(" ");
 	this->imprimirMensaje("Métricas generales del proyecto " + this->proyecto->getNombre() + ":");
 	this->imprimirMensaje(" Cantidad de diagramas del proyecto: " + Utils::intToString(this->cantidadDiagramas));
-	this->imprimirMensaje(" Cantidad de componentes promedio por diagrama: " + Utils::floatToString(this->calcularComponentesPromedio()));
-	this->imprimirMensaje(" Cantidad de entidades nuevas promedio por diagrama: " + Utils::floatToString(this->calcularEntidadesNuevasPromedio()));
-	this->imprimirMensaje(" Cantidad de entidades globales promedio por diagrama: " + Utils::floatToString(this->calcularEntidadesGlobalesPromedio()));
+	this->imprimirMensaje(" Cantidad promedio de componentes por diagrama: " + Utils::floatToString(this->calcularComponentesPromedio()));
+	this->imprimirMensaje(" Cantidad promedio de entidades nuevas por diagrama: " + Utils::floatToString(this->calcularEntidadesNuevasPromedio()));
+	this->imprimirMensaje(" Cantidad promedio de entidades globales por diagrama: " + Utils::floatToString(this->calcularEntidadesGlobalesPromedio()));
 	if (this->cantidadDiagramas != 0){
 		this->imprimirMensaje(" Cantidad promedio de relaciones por diagrama: " + Utils::floatToString(this->calcularRelacionesPromedio()));
 		this->imprimirMensaje(" Cantidad promedio de jerarquias por diagrama: " + Utils::floatToString(this->calcularJerarquiasPromedio()));
@@ -90,6 +91,20 @@ void MetricasVisitor::imprimirMetricasDiagrama(Diagrama* diagrama){
 		this->imprimirMensaje(" Cantidad promedio de atributos por identificador: "
 			+ Utils::floatToString( (float) this->cantidadAtributosIdentificadores[diagrama->getNombre()] / this->cantidadIdentificadores[diagrama->getNombre()]));
 	}
+
+	if ( (this->cantidadEntidadesGlobales[diagrama->getNombre()] + this->cantidadEntidadesNuevas[diagrama->getNombre()]) != 0){
+		this->imprimirMensaje(" Cohesión: " );
+		this->imprimirMensaje("  Relación cantidad relaciones / cantidad entidades: "
+			+ Utils::floatToString( (float) this->cantidadRelaciones[diagrama->getNombre()] /
+			(this->cantidadEntidadesGlobales[diagrama->getNombre()] + this->cantidadEntidadesNuevas[diagrama->getNombre()])));
+		this->imprimirMensaje("  Cantidad entidades sin ninguna relación: " + Utils::intToString(this->cantidadEntidadesSinRelacion[diagrama->getNombre()]));
+	}
+
+	if (this->cantidadEntidadesNuevas[diagrama->getNombre()] != 0){
+		this->imprimirMensaje(" Acoplamiento: ");
+		this->imprimirMensaje("  Relación cantidad entidades globales / cantidad entidades nuevas: "
+			+ Utils::floatToString( (float) this->cantidadEntidadesGlobales[diagrama->getNombre()] / this->cantidadEntidadesNuevas[diagrama->getNombre()]));
+	}
 }
 
 void MetricasVisitor::visit(Proyecto* proyecto){
@@ -116,11 +131,19 @@ void MetricasVisitor::visit(EntidadNueva* entidadNueva){
 		this->cantidadIdentificadoresEntidadesNuevas[this->diagrama->getNombre()]++;
 		itIdentificadores++;
 	}
+
+	if (entidadNueva->unionesARelacionBegin() == entidadNueva->unionesARelacionEnd()){
+		this->cantidadEntidadesSinRelacion[this->diagrama->getNombre()]++;
+	}
 }
 
 void MetricasVisitor::visit(EntidadGlobal* entidadGlobal){
 	this->cantidadComponentes[this->diagrama->getNombre()]++;
 	this->cantidadEntidadesGlobales[this->diagrama->getNombre()]++;
+
+	if (entidadGlobal->unionesARelacionBegin() == entidadGlobal->unionesARelacionEnd()){
+		this->cantidadEntidadesSinRelacion[this->diagrama->getNombre()]++;
+	}
 }
 
 void MetricasVisitor::visit(Atributo* atributo){
