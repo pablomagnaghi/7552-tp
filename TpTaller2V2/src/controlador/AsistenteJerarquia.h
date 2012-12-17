@@ -65,11 +65,12 @@ private:
 		void on_botonCancelar_click();
 		void on_ComboBox_click();
 		void enlazarWidgets();
-		void llenarListaEntidades(VistaEntidadNueva * omitir);
+		void llenarListaEntidades(VistaEntidad * omitir);
 		void llenarComboBox();
 		void limpiarLista();
 
 		void inicializarAsistente();
+		void inicializarListaEntidades();
 protected:
 	virtual void on_about_hide();
 public:

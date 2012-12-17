@@ -151,7 +151,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="radioExlusiva">
+                      <object class="GtkRadioButton" id="radioExclusiva">
                         <property name="label" translatable="yes">Exclusiva</property>
                         <property name="width_request">100</property>
                         <property name="height_request">20</property>
@@ -186,7 +186,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="draw_indicator">True</property>
-                        <property name="group">radioExlusiva</property>
+                        <property name="group">radioExclusiva</property>
                       </object>
                       <packing>
                         <property name="x">94</property>

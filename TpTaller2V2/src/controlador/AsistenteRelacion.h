@@ -80,6 +80,7 @@ private:
 	void setDiagrama(VistaDiagrama * diag);
 	void llenarListaEntidades();
 	void inicializarListaEntidades();
+	void iniicializarListaAtributos();
 protected:
 	virtual void on_about_hide();
 

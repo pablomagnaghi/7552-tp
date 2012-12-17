@@ -32,14 +32,11 @@ void AsistenteIdentificador::enlazarWidgets() {
 	Gtk::ScrolledWindow *scrollRelaciones = 0, *scrollAtributos = 0, *scrollIdentificadores = 0;
 
 	this->m_builder->get_widget("bAceptar", bAceptar);
-	this->m_builder->get_widget("bCancelar", bCancelar);
 	this->m_builder->get_widget("bAIdentificador", bAIdentificador);
 	this->m_builder->get_widget("bEIdentificador", bEIdentificador);
 
 	bAceptar->signal_clicked().connect(
 			sigc::mem_fun(*this, &AsistenteIdentificador::on_botonAceptar_click));
-	bCancelar->signal_clicked().connect(
-			sigc::mem_fun(*this, &AsistenteIdentificador::on_botonCancelar_click));
 	bAIdentificador->signal_clicked().connect(
 			sigc::mem_fun(*this, &AsistenteIdentificador::on_botonAgregarIdentificador_click));
 	bEIdentificador->signal_clicked().connect(
@@ -82,93 +79,12 @@ void AsistenteIdentificador::enlazarWidgets() {
 }
 
 void AsistenteIdentificador::on_botonAceptar_click() {
-	/*VistaEntidadNueva* ventidad = NULL;
-	VistaUnionEntidadRelacion *vuer=NULL;
-	bool musthide = false;
-	int countSelected=0;
-	Gtk::Entry *entryNombre = 0;
-
-	this->m_builder->get_widget("entryNombreRelacion", entryNombre);
-	string nom =entryNombre->get_text();
-
-	if ( nom != "") {
-		this->vrelacion->setNombre(nom);
-		//Cuento mas de 2 entidades seleccionadas al menos
-		typedef Gtk::TreeModel::Children type_children;
-		type_children children = this->refTreeModelEntidades->children();
-		type_children::iterator iter = children.begin();
-		type_children::iterator iter1 = children.end();
-		while ((iter != iter1) && (countSelected<2)) {
-			Gtk::TreeModel::Row row = *iter;
-			// si esta seleccionada la agrego
-			if (row[this->m_ColumnasEntidades.m_col_selected] == true) {
-				countSelected++;
-			}
-			iter++;
-		}
-		if (countSelected >= 2){
-			//cargo las entidades a la relacion
-			children = this->refTreeModelEntidades->children();
-			iter = children.begin();
-			iter1 = children.end();
-			while (iter != iter1){
-				Gtk::TreeModel::Row row = *iter;
-				// si esta seleccionada la agrego
-				if (row[this->m_ColumnasEntidades.m_col_selected] == true) {
-					ventidad = row[this->m_ColumnasEntidades.m_col_vEnt_Pointer];
-					//Verifico si la union ya esta creada en cuyo caso actualizare
-					vuer = this->vrelacion->unidaConEntidad(ventidad);
-					if (vuer == NULL){
-						//Genero la union
-						vuer = ComponentsBuilder::getInstance()->crearUnionEntidadRelacion(this->vdiagrama,ventidad,this->vrelacion,NULL);
-						string cardMax = row[this->m_ColumnasEntidades.m_col_CMax];
-						string cardMin = row[this->m_ColumnasEntidades.m_col_CMin];
-						vuer->setCardinalidadMaxima(cardMax);
-						vuer->setCardinalidadMinima(cardMin);
-					}else{
-						//Actualizo
-						vuer->setCardinalidadMaxima(row[this->m_ColumnasEntidades.m_col_CMax]);
-						vuer->setCardinalidadMinima(row[this->m_ColumnasEntidades.m_col_CMin]);
-					}
-					double x,y;
-					this->vrelacion->getposini(x,y);
-					if (x==0 or y==0){
-						this->vrelacion->setposini(30, 30);
-						this->vrelacion->setposfin(80, 120);
-					}
-
-
-				}else{
-					//Si no esta seleccionada tengo que ver que = no exista la union por que podia estar de antes
-					vuer = this->vrelacion->unidaConEntidad(ventidad);
-					if (vuer != NULL){
-						//TODO ELMINAR VistaunionEntidadRelacion
-					}
-				}
-				iter++;
-			}
-			musthide = true;
-		}else{
-			Gtk::MessageDialog err_dialog(*this, "Seleccionar al menos 2 entidades", false,
-											Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-					err_dialog.run();
-		}
-	}else{
-		Gtk::MessageDialog err_dialog(*this, "No name", false,
-								Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-		err_dialog.run();
-	}
-	if (musthide==true){
-		this->vrelacion->resetearLanzarProp();
-		this->hide();
-	}*/
+	this->ventidad->resetearLanzarIdent();
+	this->hide();
 }
 
 void AsistenteIdentificador::on_botonCancelar_click() {
-	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
-	/*this->vrelacion->resetearLanzarProp();
 
-	this->hide();*/
 }
 
 void AsistenteIdentificador::on_botonEliminarIdentificador_click() {
@@ -179,12 +95,8 @@ void AsistenteIdentificador::on_botonEliminarIdentificador_click() {
 		Gtk::TreeModel::Row row = *iter;
 		VistaIdentificador *ident = row[this->m_ColumnasIdent.m_col_Ident_Pointer];
 
-		//TODO ELIMINAR IDENT
-		Gtk::MessageDialog err_dialog(*this, "No se como eliminar identificador", false,
-													Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-		err_dialog.run();
-
-
+		//TODO echo ELIMINAR IDENT
+		this->vdiagrama->quitarComponente(ident);
 	}
 }
 

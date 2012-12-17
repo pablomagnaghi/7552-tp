@@ -52,7 +52,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 		//test_3_builder();
 		//test_4_builder();
 		//test_5_builder_interfaz_grafica();
-		//test_5_builder_persistencia();
+		test_5_builder_persistencia();
 		//test_6_builder();
 	}
 }
@@ -491,6 +491,7 @@ void VistaDiagrama::test_6_builder() {
 	ve3->setposfin(270, 175);
 	ve3->setNombre("Entidad 3");
 	vj1 = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(this);
+	vj1->setNombre("Jerarquia");
 
 	ComponentsBuilder::getInstance()->agregarJerarquiaHijaDeEntidad(vj1, ve1);
 	ComponentsBuilder::getInstance()->agregarJerarquiaPadreDeEntidad(vj1, ve2);

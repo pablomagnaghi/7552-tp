@@ -59,6 +59,8 @@ public:
 			std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	virtual bool hayQueEliminarlo();
+
+	virtual bool unidaConEntidad(VistaEntidad * ventidad);
 };
 
 #endif /* VISTAJERARQUIA_H_ */
