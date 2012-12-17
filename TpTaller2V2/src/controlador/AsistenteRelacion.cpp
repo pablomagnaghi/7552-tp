@@ -89,7 +89,7 @@ void AsistenteRelacion::enlazarWidgets() {
 }
 
 void AsistenteRelacion::on_botonAceptar_click() {
-	VistaEntidadNueva* ventidad = NULL;
+	VistaEntidad* ventidad = NULL;
 	VistaUnionEntidadRelacion *vuer=NULL;
 	bool musthide = false;
 	int countSelected=0;
@@ -284,8 +284,8 @@ void AsistenteRelacion::setDiagrama(VistaDiagrama * diag){
 
 void AsistenteRelacion::llenarListaEntidades(){
 	this->limpiarListaEntidades();
-	std::vector<VistaEntidadNueva *>::iterator it1 =  this->vdiagrama->vEntidadesBegin();
-	std::vector<VistaEntidadNueva *>::iterator it2 =  this->vdiagrama->vEntidadesEnd();
+	std::vector<VistaEntidad *>::iterator it1 =  this->vdiagrama->vEntBegin();
+	std::vector<VistaEntidad *>::iterator it2 =  this->vdiagrama->vEntEnd();
 	while (it1 != it2){
 		Gtk::TreeModel::Row row = *(this->refTreeModelEntidades->append());
 		row[this->m_ColumnasEntidades.m_col_Nombre] = (*it1)->getNombre();
