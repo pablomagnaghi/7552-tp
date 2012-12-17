@@ -26,7 +26,7 @@ public:
 	void resetearLanzarProp();
 
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
-	virtual bool lanzarProp();
+	virtual bool lanzarProp(bool esNuevo=false);
 	virtual bool contieneAEstePunto(double x, double y);
 	virtual void calcularDimensionesAPartirDeTexto(Cairo::TextExtents * textExtents);
 	virtual bool esPuntoDeRedimension(double x, double y);

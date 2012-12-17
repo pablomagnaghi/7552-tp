@@ -115,7 +115,7 @@ void AsistenteAtributo::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
 	this->vatributo->resetearLanzarProp();
 	// todo si esta creando
-	Ide::getInstance()->getDiagActual()->quitarComponente(this->vatributo);
+	//Ide::getInstance()->getDiagActual()->quitarComponente(this->vatributo);
 	Ide::getInstance()->regenerarTreePanel();
 	this->hide();
 }
@@ -190,7 +190,7 @@ void AsistenteAtributo::inicializarAsistente() {
 	//Cargo el typo
 	string tipo = this->vatributo->getAtributo()->getTipo();
 
-	this->comboTipo->set_active(1);
+	this->comboTipo->set_active(0);
 	for (int i = 0; i < 3; i++) {
 		if (tipo != this->comboTipo->get_active_text()) {
 			this->comboTipo->set_active(i + 1);

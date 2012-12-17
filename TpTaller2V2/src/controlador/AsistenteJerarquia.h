@@ -27,6 +27,7 @@ private:
 		VistaJerarquia *vjerarquia;
 		VistaDiagrama * diagrama;
 		Glib::RefPtr<Gtk::Builder> m_builder;
+		bool esNuevo;
 
 		//Tree model columns:
 		class ModeloColumnas: public Gtk::TreeModel::ColumnRecord {
@@ -79,6 +80,7 @@ public:
 
 	void setJerarquia(VistaJerarquia* jer);
 	void setDiagrama(VistaDiagrama * diag);
+	void setEsNuevo();
 };
 
 #endif /* ASISTENTEJERARQUIA_H_ */

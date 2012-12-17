@@ -15,6 +15,7 @@ AsistenteJerarquia::AsistenteJerarquia(BaseObjectType* cobject, const Glib::RefP
 	this->show();
 	this->enlazarWidgets();
 	this->diagrama = NULL;
+	this->esNuevo = false;
 	this->setDiagrama(Ide::getInstance()->getDiagActual());
 }
 
@@ -207,7 +208,9 @@ void AsistenteJerarquia::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
 	this->vjerarquia->resetearLanzarProp();
 	// todo if esta creando
-	this->diagrama->quitarComponente(this->vjerarquia);
+	if (this->esNuevo == true){
+		this->diagrama->quitarComponente(this->vjerarquia);
+	}
 	this->hide();
 	Ide::getInstance()->regenerarTreePanel();
 }
@@ -282,4 +285,8 @@ void AsistenteJerarquia::inicializarListaEntidades(){
 		unida = false;
 		iter++;
 	}
+}
+
+void AsistenteJerarquia::setEsNuevo(){
+	this->esNuevo = true;
 }

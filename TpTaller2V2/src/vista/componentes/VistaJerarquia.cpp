@@ -210,12 +210,15 @@ void VistaJerarquia::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 }
 
 //Lanza el asistente de prpiedades del objeto en cuestion.
-bool VistaJerarquia::lanzarProp() {
+bool VistaJerarquia::lanzarProp(bool esNuevo) {
 	if (!this->prop_lanzada) {
 		AsistenteJerarquia* nuevaProp;
 		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_JERAR);
 		nHbuilder->get_widget_derived("PropJerarquia", nuevaProp);
 		nuevaProp->setJerarquia(this);
+		if (esNuevo==true){
+			nuevaProp->setEsNuevo();
+		}
 		this->prop_lanzada = true;
 		nuevaProp->show();
 		return true;

@@ -80,7 +80,7 @@ void VistaLinea::setComponenteHasta(VistaComponente *comp) {
 }
 
 //Lanza el asistente de prpiedades del objeto en cuestion.
-bool VistaLinea::lanzarProp() {
+bool VistaLinea::lanzarProp(bool esNuevo) {
 	return false;
 }
 

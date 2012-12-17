@@ -22,7 +22,7 @@ VistaIdentificador::~VistaIdentificador() {
 	// TODO Auto-generated destructor stub
 }
 
-bool VistaIdentificador::lanzarProp() {
+bool VistaIdentificador::lanzarProp(bool esNuevo) {
 	/*if (!this->prop_lanzada) {
 	 AsistenteAtributo* nuevaProp;
 	 Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_ATRIB);

@@ -18,7 +18,7 @@ VistaRelacion::~VistaRelacion() {
 	}
 }
 
-bool VistaRelacion::lanzarProp() {
+bool VistaRelacion::lanzarProp(bool esNuevo) {
 	if (!this->prop_lanzada) {
 		AsistenteRelacion* nuevaProp;
 		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_RELAC);

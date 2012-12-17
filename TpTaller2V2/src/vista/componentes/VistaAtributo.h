@@ -45,7 +45,7 @@ public:
 	void setPadre(InterfazRemoverAtributo * padre);
 
 	//Lanza el asistente de prpiedades del objeto en cuestion.
-	virtual bool lanzarProp();
+	virtual bool lanzarProp(bool esNuevo=false);
 
 	// Verifica si el punto cae dentro de este componente
 	virtual bool contieneAEstePunto(double x, double y);
