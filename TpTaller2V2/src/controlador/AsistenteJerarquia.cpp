@@ -199,6 +199,8 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 		this->vjerarquia->resetearLanzarProp();
 		this->hide();
 	}
+	Ide::getInstance()->getDiagActual()->queue_draw();
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 void AsistenteJerarquia::on_botonCancelar_click() {
@@ -207,6 +209,7 @@ void AsistenteJerarquia::on_botonCancelar_click() {
 	// todo if esta creando
 	this->diagrama->quitarComponente(this->vjerarquia);
 	this->hide();
+	Ide::getInstance()->regenerarTreePanel();
 }
 
 

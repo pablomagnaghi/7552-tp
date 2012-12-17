@@ -127,7 +127,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #endif
 	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(
 			NULL, NULL);
-	nuevaEntidad->setposini(30, 30);
+	nuevaEntidad->setposini(-300, -300);
 #ifdef DEBUG
 	cout << "Vuelve" << endl;
 #endif
@@ -146,7 +146,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
 	VistaRelacion * nuevaRelacion = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(
 			Ide::getInstance()->getDiagActual(), NULL);
 
-	nuevaRelacion->setposini(30, 30);
+	nuevaRelacion->setposini(-300, -300);
 	nuevaRelacion->ajustarTamanioAlTexto();
 	if (nuevaRelacion->lanzarProp()) {
 
