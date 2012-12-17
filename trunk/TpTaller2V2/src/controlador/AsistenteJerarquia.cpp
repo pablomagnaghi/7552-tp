@@ -205,6 +205,7 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 void AsistenteJerarquia::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
 	this->vjerarquia->resetearLanzarProp();
+	this->diagrama->quitarComponente(this->vjerarquia);
 	this->hide();
 }
 

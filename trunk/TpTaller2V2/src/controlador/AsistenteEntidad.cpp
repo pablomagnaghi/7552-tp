@@ -96,6 +96,7 @@ void AsistenteEntidad::on_botonAceptar_click() {
 
 void AsistenteEntidad::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
+	this->ventidad->ajustarTamanioAlTexto();
 	this->ventidad->resetearLanzarProp();
 
 	this->hide();

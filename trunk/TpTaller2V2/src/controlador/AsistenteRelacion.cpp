@@ -141,12 +141,7 @@ void AsistenteRelacion::on_botonAceptar_click() {
 					}
 					double x,y;
 					this->vrelacion->getposini(x,y);
-					if (x==0 or y==0){
-						this->vrelacion->setposini(30, 30);
-						this->vrelacion->setposfin(80, 120);
-					}
-
-
+					this->vrelacion->ajustarTamanioAlTexto();
 				}else{
 					//Si no esta seleccionada tengo que ver que = no exista la union por que podia estar de antes
 					vuer = this->vrelacion->unidaConEntidad(ventidad);
@@ -176,6 +171,7 @@ void AsistenteRelacion::on_botonAceptar_click() {
 
 void AsistenteRelacion::on_botonCancelar_click() {
 	this->vrelacion->resetearLanzarProp();
+	this->vdiagrama->quitarComponente(this->vrelacion);
 	this->hide();
 }
 
