@@ -37,6 +37,7 @@ void AsistenteEntidad::enlazarWidgets() {
 	Gtk::Button* bCancelar = 0;
 	Gtk::Button *bAAtributo = 0, *bMAtributo = 0, *bEAtributo = 0;
 	Gtk::ScrolledWindow* scrollLista = 0;
+	Gtk::VBox *vbox= 0;
 
 	this->m_builder->get_widget("bAceptar", bAceptar);
 	this->m_builder->get_widget("bCancelar", bCancelar);
@@ -44,6 +45,8 @@ void AsistenteEntidad::enlazarWidgets() {
 	this->m_builder->get_widget("bMAtributo", bMAtributo);
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
 	this->m_builder->get_widget("entryNombreEntidad", entryNombreEntidad);
+	this->m_builder->get_widget("vbox4", vbox);
+
 
 	bAceptar->signal_clicked().connect(
 			sigc::mem_fun(*this, &AsistenteEntidad::on_botonAceptar_click));
@@ -57,6 +60,10 @@ void AsistenteEntidad::enlazarWidgets() {
 			sigc::mem_fun(*this, &AsistenteEntidad::on_botonEliminarAtributo_click));
 	this->signal_hide().connect(sigc::mem_fun(*this, &AsistenteEntidad::on_about_hide));
 
+	//Combobox
+	vbox->pack_end(this->comboTipo);
+	this->comboTipo.set_size_request(100,60);
+
 	//Lista
 	this->m_builder->get_widget("scrollLista", scrollLista);
 	scrollLista->add(this->treeView);
@@ -66,16 +73,20 @@ void AsistenteEntidad::enlazarWidgets() {
 	this->treeView.set_model(this->refTreeModel);
 	this->treeView.append_column("Nombre", this->m_Columnas.m_col_Nombre);
 	this->treeView.show();
+	this->comboTipo.show();
 }
 
 void AsistenteEntidad::on_botonAceptar_click() {
 	string nombre = this->entryNombreEntidad->get_text();
+	string tipo;
 	if (nombre == "") {
 		Gtk::MessageDialog err_dialog(*this, "Entidad sin nombre", false, Gtk::MESSAGE_ERROR,
 				Gtk::BUTTONS_OK, true);
 		err_dialog.run();
 	} else {
 		this->ventidad->setNombre(this->entryNombreEntidad->get_text());
+		tipo = this->comboTipo.get_active_text();
+		this->ventidad->getEntidadNueva()->setTipo(tipo);
 		//this->ventidad->setposini(20, 20);
 		this->ventidad->ajustarTamanioAlTexto();
 		this->ventidad->resetearLanzarProp();
@@ -148,6 +159,25 @@ void AsistenteEntidad::inicializarAsistente() {
 		row[this->m_Columnas.m_col_Atrib_Pointer] = *it1;
 		it1++;
 	}
+
+	this->comboTipo.append_text(TIPO_ENTIDAD_COSA);
+	this->comboTipo.append_text(TIPO_ENTIDAD_DOMINIO);
+	this->comboTipo.append_text(TIPO_ENTIDAD_HISTORICA);
+	this->comboTipo.append_text(TIPO_ENTIDAD_PROGRAMADA);
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_COSA){
+		this->comboTipo.set_active(0);
+	}
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_DOMINIO){
+			this->comboTipo.set_active(1);
+		}
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_HISTORICA){
+			this->comboTipo.set_active(2);
+		}
+	if (this->ventidad->getEntidadNueva()->getTipo() == TIPO_ENTIDAD_PROGRAMADA){
+			this->comboTipo.set_active(3);
+		}
+
+
 }
 
 void AsistenteEntidad::limpiarLista() {

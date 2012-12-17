@@ -76,7 +76,7 @@ void AsistenteAtributo::enlazarWidgets() {
 	comboTipo->append_text("Caracterizacion");
 	comboTipo->append_text("Copiado");
 	comboTipo->append_text("Calculado");
-	comboTipo->set_active(1);
+	comboTipo->set_active(0);
 	comboTipo->show();
 	this->treeView.show();
 }

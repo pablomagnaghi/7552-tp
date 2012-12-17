@@ -27,6 +27,7 @@ private:
 	Glib::RefPtr<Gtk::Builder> m_builder;
 	Gtk::Entry * entryNombreRelacion;
 	VistaDiagrama *diagramaActual;
+	Gtk::ComboBoxText comboTipo;
 
 	static AsistenteRelacion * instancia;
 

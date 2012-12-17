@@ -32,6 +32,7 @@ void AsistenteRelacion::enlazarWidgets() {
 	Gtk::Button* bCancelar = 0;
 	Gtk::Button *bAAtributo = 0, *bMAtributo = 0, *bEAtributo = 0;
 	Gtk::ScrolledWindow *scrollEntidades = 0, *scrollAtributos = 0;
+	Gtk::VBox *vbox=0;
 
 	this->m_builder->get_widget("bAceptar", bAceptar);
 	this->m_builder->get_widget("bCancelar", bCancelar);
@@ -39,6 +40,7 @@ void AsistenteRelacion::enlazarWidgets() {
 	this->m_builder->get_widget("bMAtributo", bMAtributo);
 	this->m_builder->get_widget("bEAtributo", bEAtributo);
 	this->m_builder->get_widget("entryNombreRelacion", entryNombreRelacion);
+	this->m_builder->get_widget("vbox5", vbox);
 
 	bAceptar->signal_clicked().connect(
 			sigc::mem_fun(*this, &AsistenteRelacion::on_botonAceptar_click));
@@ -66,6 +68,9 @@ void AsistenteRelacion::enlazarWidgets() {
 					this->m_ColumnasEntidades.m_col_CMin);
 	this->treeViewEntidades.append_column_editable("Car Max",
 						this->m_ColumnasEntidades.m_col_CMax);
+
+	//Combobox
+	vbox->pack_end(this->comboTipo);
 
 	//ListaAtributos
 	this->m_builder->get_widget("scrollAtributos", scrollAtributos);
@@ -108,6 +113,9 @@ void AsistenteRelacion::on_botonAceptar_click() {
 			iter++;
 		}
 		if (countSelected >= 2){
+			//seteo tipo
+			string tipo = this->comboTipo.get_active_text();
+			this->vrelacion->getRelacion()->setTipo(tipo);
 			//cargo las entidades a la relacion
 			children = this->refTreeModelEntidades->children();
 			iter = children.begin();
@@ -224,6 +232,16 @@ void AsistenteRelacion::inicializarAsistente() {
 	this->entryNombreRelacion->set_text(this->vrelacion->getNombre());
 	this->inicializarListaEntidades();
 	this->iniicializarListaAtributos();
+
+	this->comboTipo.append_text(TIPO_RELACION_ASOCIACION);
+	this->comboTipo.append_text(TIPO_RELACION_COMPOSICION);
+	if (this->vrelacion->getRelacion()->getTipo() == TIPO_RELACION_ASOCIACION){
+		this->comboTipo.set_active(0);
+	}
+	if (this->vrelacion->getRelacion()->getTipo() == TIPO_RELACION_COMPOSICION){
+			this->comboTipo.set_active(1);
+		}
+
 }
 
 void AsistenteRelacion::inicializarListaEntidades(){
