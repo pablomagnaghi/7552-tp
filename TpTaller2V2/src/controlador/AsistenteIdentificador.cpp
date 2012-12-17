@@ -97,6 +97,7 @@ void AsistenteIdentificador::on_botonEliminarIdentificador_click() {
 
 		//TODO echo ELIMINAR IDENT
 		this->vdiagrama->quitarComponente(ident);
+		this->llenarListaIdentificadores();
 	}
 }
 
@@ -133,6 +134,7 @@ void AsistenteIdentificador::on_botonAgregarIdentificador_click() {
 			iter++;
 		}
 	}
+	this->llenarListaIdentificadores();
 }
 
 void AsistenteIdentificador::inicializarAsistente() {
@@ -187,25 +189,7 @@ void AsistenteIdentificador::llenarListaRelaciones() {
 }
 
 void AsistenteIdentificador::llenarListaIdentificadores(){
-	/*std::vector<VistaIdentificador*>::iterator it = this->vdiagrama->vIdentificadorBegin();
-	std::vector<VistaIdentificador*>::iterator it1 = this->vdiagrama->vIdentificadorEnd();
-	VistaIdentificador* ident  = NULL;
-	VistaAtributo* my_atrib  = NULL;
-	while(it !=it1){
-		std::vector<VistaAtributo*>::iterator it2 = this->ventidad->atributosBegin();
-		std::vector<VistaAtributo*>::iterator it3 = this->ventidad->atributosEnd();
-		ident = *it;
-		while(it2 != it3){
-			my_atrib = *it2;
-			if(ident->contieneAtrib(my_atrib)){
-				Gtk::TreeModel::Row row = *(this->refTreeModelIdent->append());
-				row[this->m_ColumnasIdent.m_col_Nombre] = ident->to_s();
-				row[this->m_ColumnasIdent.m_col_Ident_Pointer] = ident;
-			}
-			it2++;
-		}
-		it++;
-	}*/
+	this->refTreeModelIdent->clear();
 	VistaIdentificador* ident  = NULL;
 	std::vector<VistaIdentificador*>::iterator it = this->ventidad->identificadoresBegin();
 	std::vector<VistaIdentificador*>::iterator it1 = this->ventidad->identificadoresEnd();
@@ -224,7 +208,7 @@ void AsistenteIdentificador::limpiarListaAtributos() {
 }
 
 void AsistenteIdentificador::on_about_hide() {
-	//this->vrelacion->resetearLanzarProp();
+	this->ventidad->resetearLanzarIdent();
 }
 
 void AsistenteIdentificador::setDiagrama(VistaDiagrama * diag){
