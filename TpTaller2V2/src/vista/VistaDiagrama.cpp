@@ -1238,7 +1238,6 @@ bool VistaDiagrama::isOpenXmlREP() const {
 // Ejemplo: el nombre del diagrama es Principal
 // a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
 
-// todo
 void VistaDiagrama::abrirXml(const std::string& path, const std::string& carpeta) {
 // se creo el modelo con todos los diagramas
 	Diagrama *diagrama = new Diagrama(path);
@@ -1479,7 +1478,6 @@ VistaComponente* VistaDiagrama::obtenerComponente(int codigoREP) {
 	return NULL;
 }
 
-//todo
 void VistaDiagrama::cargarVistaDiagramasHijos(VistaDiagrama* vDiagrama, const std::string& carpeta) {
 // para cada diagrama hijo se setean los datos de las vistas
 
@@ -1581,11 +1579,126 @@ void VistaDiagrama::agregarPropiedadesXmlREP(XmlNodo* nodo) {
 	nodo->setPropiedad("estado", this->estado);
 }
 
-void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
-	std::vector<VistaComponente*>::iterator i;
+// todo
+/*
+bool VistaDiagrama::perteneceAAtributoCompuesto(Atributo* atrib, int codigo) {
 
-	for (i = this->componentes.begin(); i != this->componentes.end(); ++i)
-		nodo->agregarHijo((*i)->guardarXmlREP());
+	std::vector<Atributo*>::iterator itAtrib;
+	for (itAtrib = atrib->atributosBegin(); itAtrib != atrib->atributosEnd(); ++itAtrib) {
+		if (codigo == (*itAtrib)->getCodigo())
+			return true;
+		if (this->perteneceAAtributoCompuesto((*itAtrib),codigo))
+			return true;
+	}
+	return false;
+}
+
+bool VistaDiagrama::perteneceAlModelo(int codigo) {
+	std::vector<Componente*>::iterator it;
+
+	// compruebo si esta entidad nueva, entidad global, relacion y jerarquia
+	for (it = diagrama->componentesBegin(); it != diagrama->componentesEnd(); ++it) {
+		if (codigo == (*it)->getCodigo())
+			return true;
+	}
+
+	std::vector<EntidadNueva*>::iterator itEntNueva;
+	for (itEntNueva = diagrama->entidadesNuevasBegin(); itEntNueva != diagrama->entidadesNuevasEnd(); ++itEntNueva) {
+		std::vector<Atributo*>::iterator itAtrib;
+		for (itAtrib = (*itEntNueva)->atributosBegin(); itAtrib != (*itEntNueva)->atributosEnd(); ++itAtrib) {
+			if (codigo == (*itAtrib)->getCodigo())
+				return true;
+			if (this->perteneceAAtributoCompuesto((*itAtrib), codigo))
+				return true;
+		}
+	}
+
+	std::vector<Relacion*>::iterator itRel;
+	for (itRel = diagrama->relacionesBegin(); itRel != diagrama->relacionesEnd(); ++itRel) {
+		std::vector<Atributo*>::iterator itAtrib;
+		for (itAtrib = (*itRel)->atributosBegin(); itAtrib != (*itRel)->atributosEnd(); ++itAtrib) {
+			if (codigo == (*itAtrib)->getCodigo())
+				return true;
+
+			if (perteneceAAtributoCompuesto((*itAtrib), codigo))
+				return true;
+		}
+
+		std::vector<UnionEntidadRelacion*>::iterator itUER;
+		for (itUER = (*itRel)->unionesAEntidadBegin(); itUER != (*itRel)->unionesAEntidadEnd(); ++itUER)
+			if (codigo == (*itUER)->getCodigo())
+				return true;
+	}
+	return false;
+}*/
+
+void VistaDiagrama::agregarAtributoCompuesto(Atributo* atrib) {
+	std::vector<Atributo*>::iterator itAtrib;
+	for (itAtrib = atrib->atributosBegin(); itAtrib != atrib->atributosEnd(); ++itAtrib) {
+		this->componentesModelo.push_back((*itAtrib));
+		this->agregarAtributoCompuesto((*itAtrib));
+	}
+}
+
+void VistaDiagrama::obtenerComponentesModelo() {
+
+	std::vector<EntidadNueva*>::iterator itEntNueva;
+	for (itEntNueva = diagrama->entidadesNuevasBegin(); itEntNueva != diagrama->entidadesNuevasEnd(); ++itEntNueva) {
+		this->componentesModelo.push_back((*itEntNueva));
+		std::vector<Atributo*>::iterator itAtrib;
+		for (itAtrib = (*itEntNueva)->atributosBegin(); itAtrib != (*itEntNueva)->atributosEnd(); ++itAtrib) {
+			this->componentesModelo.push_back((*itAtrib));
+			this->agregarAtributoCompuesto((*itAtrib));
+		}
+	}
+
+	std::vector<Relacion*>::iterator itRel;
+	for (itRel = diagrama->relacionesBegin(); itRel != diagrama->relacionesEnd(); ++itRel) {
+		this->componentesModelo.push_back((*itRel));
+		std::vector<Atributo*>::iterator itAtrib;
+		for (itAtrib = (*itRel)->atributosBegin(); itAtrib != (*itRel)->atributosEnd(); ++itAtrib) {
+
+			this->componentesModelo.push_back((*itAtrib));
+			this->agregarAtributoCompuesto((*itAtrib));
+		}
+
+		std::vector<UnionEntidadRelacion*>::iterator itUER;
+		for (itUER = (*itRel)->unionesAEntidadBegin(); itUER != (*itRel)->unionesAEntidadEnd(); ++itUER)
+			this->componentesModelo.push_back((*itUER));
+	}
+
+	std::vector<Jerarquia*>::iterator itJer;
+	for (itJer = diagrama->jerarquiasBegin(); itJer != diagrama->jerarquiasEnd(); ++itJer)
+		this->componentesModelo.push_back((*itJer));
+
+	std::vector<EntidadGlobal*>::iterator itEntGlobal;
+	for (itEntGlobal = diagrama->entidadesGlobalesBegin(); itEntGlobal != diagrama->entidadesGlobalesEnd(); ++itEntGlobal)
+		this->componentesModelo.push_back((*itEntGlobal));
+
+}
+//todo
+
+void VistaDiagrama::ordenarByCodigo(){
+	int tam = this->componentesModelo.size();
+
+	for(int i = 0; i < tam; i++)
+		for(int j = i + 1; j < tam; j++){
+			if(this->componentesModelo[i]->getCodigo() > this->componentesModelo[j]->getCodigo()){
+				Componente* tmp = this->componentesModelo[i];
+				this->componentesModelo[i] = this->componentesModelo[j];
+				this->componentesModelo[j] = tmp;
+			}
+		}
+}
+
+void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
+	this->obtenerComponentesModelo();
+	this->ordenarByCodigo();
+
+	std::vector<Componente*>::iterator i;
+
+	for (i = this->componentesModelo.begin(); i != this->componentesModelo.end(); ++i)
+		nodo->agregarHijo(this->obtenerComponente((*i)->getCodigo())->guardarXmlREP());
 }
 
 void VistaDiagrama::restablecerZoom() {
