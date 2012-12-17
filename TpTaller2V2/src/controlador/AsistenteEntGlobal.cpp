@@ -129,6 +129,9 @@ void AsistenteEntGlobal::on_botonAceptar_click() {
 }
 
 void AsistenteEntGlobal::on_botonCancelar_click() {
+	// todo if esta creando
+	// Acá no se si va
+	// Ide::getInstance()->getDiagActual()->quitarComponente(this->ventidad);
 	this->hide();
 }
 

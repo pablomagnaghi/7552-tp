@@ -377,7 +377,9 @@ void VistaJerarquia::eliminarComponentesAdyacentes(Diagrama * diagrama,
 			this->jerarquia->quitarEntidadEspecializada((*it_entidades)->getEntidadNueva());
 			(*it_entidades)->getEntidadNueva()->quitarJerarquiaPadre(this->jerarquia);
 		}
-		this->jerarquia->getEntidadGeneral()->quitarJerarquiaHija();
+		if (this->jerarquia->getEntidadGeneral()) {
+			this->jerarquia->getEntidadGeneral()->quitarJerarquiaHija();
+		}
 		this->eliminarModelo = true;
 	} else {
 		it_entidades = find(this->hijos.begin(), this->hijos.end(),

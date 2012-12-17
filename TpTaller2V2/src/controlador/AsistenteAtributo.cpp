@@ -112,6 +112,8 @@ void AsistenteAtributo::on_botonAceptar_click() {
 void AsistenteAtributo::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
 	this->vatributo->resetearLanzarProp();
+	// todo si esta creando
+	Ide::getInstance()->getDiagActual()->quitarComponente(this->vatributo);
 	this->hide();
 }
 

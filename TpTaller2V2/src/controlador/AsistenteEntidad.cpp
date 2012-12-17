@@ -98,7 +98,8 @@ void AsistenteEntidad::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
 	this->ventidad->ajustarTamanioAlTexto();
 	this->ventidad->resetearLanzarProp();
-
+	// todo if esta creando
+	Ide::getInstance()->getDiagActual()->quitarComponente(this->ventidad);
 	this->hide();
 }
 
