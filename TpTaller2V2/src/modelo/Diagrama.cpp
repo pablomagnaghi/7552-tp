@@ -495,6 +495,7 @@ void Diagrama::cargarXmlCOMP(XmlNodo* nodoRaiz, const std::string& carpeta) {
 
 void Diagrama::obtenerPropiedadesXmlCOMP(XmlNodo* nodo) {
 	this->nombre = nodo->getPropiedad("nombre");
+	this->estado = nodo->getPropiedad("estado");
 }
 
 void Diagrama::obtenerComponentesXmlCOMP(XmlNodo* nodo) {
@@ -644,6 +645,7 @@ void Diagrama::agregarPropiedadesXmlCOMP(XmlNodo* nodo) {
 	nodo->setPropiedad(XMLNS, INSTANCE);
 	nodo->setPropiedad(XSI, COMPOSICION);
 	nodo->setPropiedad("nombre", this->nombre);
+	nodo->setPropiedad("estado", this->estado);
 }
 
 void Diagrama::agregarNodoDiagramaAncestroXmlCOMP(XmlNodo *nodo) {
