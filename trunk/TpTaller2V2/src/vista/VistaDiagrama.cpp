@@ -51,11 +51,11 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 
 	if (a == 0) {
 		//test_1_builder();
-		test_2_builder();
+		//test_2_builder();
 		//test_3_builder();
 		//test_4_builder();
 		//test_5_builder_interfaz_grafica();
-		test_5_builder_persistencia();
+		//test_5_builder_persistencia();
 		//test_6_builder();
 	}
 }
@@ -1858,10 +1858,12 @@ bool VistaDiagrama::validarDiagrama() {
 				std::cout << (*i)->getNombre() << " interseccion con " << (*j)->getNombre()
 						<< std::endl;
 #endif
+				this->estado = "sin_validar";
 				return false;
 			}
 		}
 	}
+	this->estado = "Valido";
 	return true;
 }
 
