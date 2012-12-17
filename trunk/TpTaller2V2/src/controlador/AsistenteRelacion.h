@@ -46,7 +46,7 @@ private:
 		Gtk::TreeModelColumn<string> m_col_CMin;
 		Gtk::TreeModelColumn<string> m_col_CMax;
 		Gtk::TreeModelColumn<bool> m_col_selected;
-		Gtk::TreeModelColumn<VistaEntidadNueva*> m_col_vEnt_Pointer;
+		Gtk::TreeModelColumn<VistaEntidad*> m_col_vEnt_Pointer;
 	};
 
 	ModeloColumnasEntidades m_ColumnasEntidades;
