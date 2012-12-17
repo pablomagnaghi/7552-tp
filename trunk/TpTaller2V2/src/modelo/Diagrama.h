@@ -132,6 +132,9 @@ public:
 	bool existeEntidadGlobal(const std::string&);
 
 	void accept(ModeloVisitor*);
+	bool es_valido();
+	void obtenerEstadoDiagramas(std::vector<std::string> & nombres,
+			std::vector<bool>& estado_modelo);
 
 	// PERSITENCIA COMP
 	bool isOpenXmlCOMP() const;

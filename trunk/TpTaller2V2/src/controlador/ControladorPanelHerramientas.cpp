@@ -5,6 +5,7 @@
 using namespace std;
 #endif
 #include "../vista/Ide.h"
+#include "ValidacionDiagramas.h"
 
 #define DEBUG_CREACION 1
 
@@ -22,13 +23,9 @@ ControladorPanelHerramientas::ControladorPanelHerramientas(
 
 	this->ventanaPrincipal = ventana;
 
-
 	this->enlazar_botones_de_menu(builder);
 
 	this->desactivarBotones();
-
-
-
 
 }
 
@@ -130,7 +127,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Entidad_click() {
 #endif
 	VistaEntidadNueva *nuevaEntidad = ComponentsBuilder::getInstance()->crearEntidadNuevaEnDiagrama(
 			NULL, NULL);
-	nuevaEntidad->setposini(30,30);
+	nuevaEntidad->setposini(30, 30);
 #ifdef DEBUG
 	cout << "Vuelve" << endl;
 #endif
@@ -149,7 +146,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Relacion_click() {
 	VistaRelacion * nuevaRelacion = ComponentsBuilder::getInstance()->crearRelacionEnDiagrama(
 			Ide::getInstance()->getDiagActual(), NULL);
 
-	nuevaRelacion->setposini(30,30);
+	nuevaRelacion->setposini(30, 30);
 	nuevaRelacion->ajustarTamanioAlTexto();
 	if (nuevaRelacion->lanzarProp()) {
 
@@ -169,7 +166,6 @@ void ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click() {
 	nuevaJerarquia->lanzarProp();
 }
 
-
 void ControladorPanelHerramientas::on_boton_Agregar_EntidadGlobal_click() {
 #ifdef DEBUG
 	cout << "Agregar EntidadGlobal" << endl;
@@ -178,6 +174,22 @@ void ControladorPanelHerramientas::on_boton_Agregar_EntidadGlobal_click() {
 	Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_ENTGLOB);
 	nHbuilder->get_widget_derived("PropEntGlob", nuevaProp);
 	nuevaProp->show();
+}
+
+void ControladorPanelHerramientas::on_boton_Validar_click() {
+	std::vector<std::string> nombres;
+	std::vector<bool> estado_modelo;
+	std::vector<bool> estado_vista;
+
+	Ide::getInstance()->getProyecto()->validarModelo();
+
+	// la vista se valida aca adentro
+	Ide::getInstance()->getProyecto()->obtenerEstadoDiagramas(nombres, estado_modelo, estado_vista);
+
+	ValidacionDiagramas * dialogo;
+	m_builder->get_widget_derived("DialogoValidacionDiagramas", dialogo);
+	dialogo->cargar_datos(nombres,estado_modelo,estado_vista);
+	dialogo->run();
 }
 
 void ControladorPanelHerramientas::on_boton_Aumentar_Zoom_click() {
@@ -213,6 +225,9 @@ void ControladorPanelHerramientas::enlazar_botones_de_menu(
 	botonAgregarEntidadGlobal->signal_clicked().connect(
 			sigc::mem_fun(*this,
 					&ControladorPanelHerramientas::on_boton_Agregar_EntidadGlobal_click));
+	builder->get_widget("TBValidar", botonValidar);
+	botonValidar->signal_clicked().connect(
+			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Validar_click));
 	builder->get_widget("TBZoom+", botonAumentarZoom);
 	botonAumentarZoom->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Aumentar_Zoom_click));
@@ -234,6 +249,7 @@ void ControladorPanelHerramientas::activarBotones() {
 	botonAumentarZoom->set_sensitive(true);
 	botonReducirZoom->set_sensitive(true);
 	botonRestablecerZoom->set_sensitive(true);
+	botonValidar->set_sensitive(true);
 }
 
 void ControladorPanelHerramientas::desactivarBotones() {
@@ -246,4 +262,5 @@ void ControladorPanelHerramientas::desactivarBotones() {
 	botonAumentarZoom->set_sensitive(false);
 	botonReducirZoom->set_sensitive(false);
 	botonRestablecerZoom->set_sensitive(false);
+	botonValidar->set_sensitive(false);
 }

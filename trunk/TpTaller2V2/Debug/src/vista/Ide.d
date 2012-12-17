@@ -1,41 +1,37 @@
-src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
+src/vista/Ide.d src/vista/Ide.o: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  ../src/vista/../controlador/ControladorPanelHerramientas.h \
  /usr/include/gtkmm-2.4/gtkmm.h /usr/include/glibmm-2.4/glibmm.h \
- /usr/lib/x86_64-linux-gnu/glibmm-2.4/include/glibmmconfig.h \
- /usr/include/glibmm-2.4/glibmm/thread.h /usr/include/glib-2.0/glib.h \
+ /usr/lib/glibmm-2.4/include/glibmmconfig.h \
+ /usr/include/glibmm-2.4/glibmm/arrayhandle.h \
+ /usr/include/glibmm-2.4/glibmm/containerhandle_shared.h \
+ /usr/include/glibmm-2.4/glibmm/refptr.h \
+ /usr/include/glibmm-2.4/glibmm/ustring.h \
+ /usr/include/glibmm-2.4/glibmm/unicode.h /usr/include/glib-2.0/glib.h \
  /usr/include/glib-2.0/glib/galloca.h /usr/include/glib-2.0/glib/gtypes.h \
- /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h \
- /usr/include/glib-2.0/glib/gmacros.h \
- /usr/include/glib-2.0/glib/gversionmacros.h \
- /usr/include/glib-2.0/glib/garray.h \
+ /usr/lib/glib-2.0/include/glibconfig.h \
+ /usr/include/glib-2.0/glib/gmacros.h /usr/include/glib-2.0/glib/garray.h \
  /usr/include/glib-2.0/glib/gasyncqueue.h \
- /usr/include/glib-2.0/glib/gthread.h \
- /usr/include/glib-2.0/glib/gatomic.h /usr/include/glib-2.0/glib/gerror.h \
- /usr/include/glib-2.0/glib/gquark.h \
+ /usr/include/glib-2.0/glib/gthread.h /usr/include/glib-2.0/glib/gerror.h \
+ /usr/include/glib-2.0/glib/gquark.h /usr/include/glib-2.0/glib/gutils.h \
+ /usr/include/glib-2.0/glib/gatomic.h \
  /usr/include/glib-2.0/glib/gbacktrace.h \
  /usr/include/glib-2.0/glib/gbase64.h \
  /usr/include/glib-2.0/glib/gbitlock.h \
  /usr/include/glib-2.0/glib/gbookmarkfile.h \
- /usr/include/glib-2.0/glib/gbytes.h \
- /usr/include/glib-2.0/glib/gcharset.h \
+ /usr/include/glib-2.0/glib/gcache.h /usr/include/glib-2.0/glib/glist.h \
+ /usr/include/glib-2.0/glib/gmem.h /usr/include/glib-2.0/glib/gslice.h \
  /usr/include/glib-2.0/glib/gchecksum.h \
+ /usr/include/glib-2.0/glib/gcompletion.h \
  /usr/include/glib-2.0/glib/gconvert.h \
  /usr/include/glib-2.0/glib/gdataset.h /usr/include/glib-2.0/glib/gdate.h \
- /usr/include/glib-2.0/glib/gdatetime.h \
- /usr/include/glib-2.0/glib/gtimezone.h /usr/include/glib-2.0/glib/gdir.h \
- /usr/include/glib-2.0/glib/genviron.h \
+ /usr/include/glib-2.0/glib/gdir.h \
  /usr/include/glib-2.0/glib/gfileutils.h \
- /usr/include/glib-2.0/glib/ggettext.h /usr/include/glib-2.0/glib/ghash.h \
- /usr/include/glib-2.0/glib/glist.h /usr/include/glib-2.0/glib/gmem.h \
- /usr/include/glib-2.0/glib/ghmac.h \
- /usr/include/glib-2.0/glib/gchecksum.h \
- /usr/include/glib-2.0/glib/ghook.h \
+ /usr/include/glib-2.0/glib/ghash.h /usr/include/glib-2.0/glib/ghook.h \
  /usr/include/glib-2.0/glib/ghostutils.h \
  /usr/include/glib-2.0/glib/giochannel.h \
  /usr/include/glib-2.0/glib/gmain.h /usr/include/glib-2.0/glib/gpoll.h \
  /usr/include/glib-2.0/glib/gslist.h /usr/include/glib-2.0/glib/gstring.h \
  /usr/include/glib-2.0/glib/gunicode.h \
- /usr/include/glib-2.0/glib/gutils.h \
  /usr/include/glib-2.0/glib/gkeyfile.h \
  /usr/include/glib-2.0/glib/gmappedfile.h \
  /usr/include/glib-2.0/glib/gmarkup.h \
@@ -44,37 +40,40 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/glib-2.0/glib/gpattern.h \
  /usr/include/glib-2.0/glib/gprimes.h /usr/include/glib-2.0/glib/gqsort.h \
  /usr/include/glib-2.0/glib/gqueue.h /usr/include/glib-2.0/glib/grand.h \
- /usr/include/glib-2.0/glib/gregex.h \
+ /usr/include/glib-2.0/glib/grel.h /usr/include/glib-2.0/glib/gregex.h \
  /usr/include/glib-2.0/glib/gscanner.h \
  /usr/include/glib-2.0/glib/gsequence.h \
- /usr/include/glib-2.0/glib/gshell.h /usr/include/glib-2.0/glib/gslice.h \
- /usr/include/glib-2.0/glib/gspawn.h \
+ /usr/include/glib-2.0/glib/gshell.h /usr/include/glib-2.0/glib/gspawn.h \
  /usr/include/glib-2.0/glib/gstrfuncs.h \
- /usr/include/glib-2.0/glib/gstringchunk.h \
  /usr/include/glib-2.0/glib/gtestutils.h \
  /usr/include/glib-2.0/glib/gthreadpool.h \
- /usr/include/glib-2.0/glib/gtimer.h \
- /usr/include/glib-2.0/glib/gtrashstack.h \
- /usr/include/glib-2.0/glib/gtree.h \
+ /usr/include/glib-2.0/glib/gtimer.h /usr/include/glib-2.0/glib/gtree.h \
  /usr/include/glib-2.0/glib/gurifuncs.h \
  /usr/include/glib-2.0/glib/gvarianttype.h \
  /usr/include/glib-2.0/glib/gvariant.h \
- /usr/include/glib-2.0/glib/gversion.h \
- /usr/include/glib-2.0/glib/deprecated/gallocator.h \
- /usr/include/glib-2.0/glib/deprecated/gcache.h \
- /usr/include/glib-2.0/glib/deprecated/gcompletion.h \
- /usr/include/glib-2.0/glib/deprecated/gmain.h \
- /usr/include/glib-2.0/glib/deprecated/grel.h \
- /usr/include/glib-2.0/glib/deprecated/gthread.h \
- /usr/include/glibmm-2.4/glibmm/error.h \
- /usr/include/glibmm-2.4/glibmm/exception.h \
- /usr/include/glibmm-2.4/glibmm/ustring.h \
- /usr/include/glibmm-2.4/glibmm/unicode.h \
- /usr/include/glibmm-2.4/glibmm/timeval.h \
+ /usr/include/glibmm-2.4/glibmm/wrap.h \
+ /usr/include/glib-2.0/glib-object.h \
+ /usr/include/glib-2.0/gobject/gboxed.h \
+ /usr/include/glib-2.0/gobject/gtype.h \
+ /usr/include/glib-2.0/gobject/genums.h \
+ /usr/include/glib-2.0/gobject/gobject.h \
+ /usr/include/glib-2.0/gobject/gvalue.h \
+ /usr/include/glib-2.0/gobject/gparam.h \
+ /usr/include/glib-2.0/gobject/gclosure.h \
+ /usr/include/glib-2.0/gobject/gsignal.h \
+ /usr/include/glib-2.0/gobject/gmarshal.h \
+ /usr/include/glib-2.0/gobject/gparamspecs.h \
+ /usr/include/glib-2.0/gobject/gsourceclosure.h \
+ /usr/include/glib-2.0/gobject/gtypemodule.h \
+ /usr/include/glib-2.0/gobject/gtypeplugin.h \
+ /usr/include/glib-2.0/gobject/gvaluearray.h \
+ /usr/include/glib-2.0/gobject/gvaluetypes.h \
+ /usr/include/glibmm-2.4/glibmm/objectbase.h \
+ /usr/include/glibmm-2.4/glibmm/signalproxy.h \
  /usr/include/sigc++-2.0/sigc++/sigc++.h \
  /usr/include/sigc++-2.0/sigc++/signal.h \
  /usr/include/sigc++-2.0/sigc++/signal_base.h \
- /usr/lib/x86_64-linux-gnu/sigc++-2.0/include/sigc++config.h \
+ /usr/lib/sigc++-2.0/include/sigc++config.h \
  /usr/include/sigc++-2.0/sigc++/type_traits.h \
  /usr/include/sigc++-2.0/sigc++/trackable.h \
  /usr/include/sigc++-2.0/sigc++/functors/slot.h \
@@ -103,31 +102,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/sigc++-2.0/sigc++/adaptors/lambda/operator.h \
  /usr/include/sigc++-2.0/sigc++/adaptors/lambda/group.h \
  /usr/include/sigc++-2.0/sigc++/functors/functors.h \
- /usr/include/glibmm-2.4/glibmm/threads.h \
- /usr/include/glibmm-2.4/glibmm/arrayhandle.h \
- /usr/include/glibmm-2.4/glibmm/containerhandle_shared.h \
- /usr/include/glibmm-2.4/glibmm/refptr.h \
- /usr/include/glibmm-2.4/glibmm/wrap.h \
- /usr/include/glib-2.0/glib-object.h \
- /usr/include/glib-2.0/gobject/gbinding.h \
- /usr/include/glib-2.0/gobject/gobject.h \
- /usr/include/glib-2.0/gobject/gtype.h \
- /usr/include/glib-2.0/gobject/gvalue.h \
- /usr/include/glib-2.0/gobject/gparam.h \
- /usr/include/glib-2.0/gobject/gclosure.h \
- /usr/include/glib-2.0/gobject/gsignal.h \
- /usr/include/glib-2.0/gobject/gmarshal.h \
- /usr/include/glib-2.0/gobject/gboxed.h \
- /usr/include/glib-2.0/gobject/glib-types.h \
- /usr/include/glib-2.0/gobject/genums.h \
- /usr/include/glib-2.0/gobject/gparamspecs.h \
- /usr/include/glib-2.0/gobject/gsourceclosure.h \
- /usr/include/glib-2.0/gobject/gtypemodule.h \
- /usr/include/glib-2.0/gobject/gtypeplugin.h \
- /usr/include/glib-2.0/gobject/gvaluearray.h \
- /usr/include/glib-2.0/gobject/gvaluetypes.h \
- /usr/include/glibmm-2.4/glibmm/objectbase.h \
- /usr/include/glibmm-2.4/glibmm/signalproxy.h \
  /usr/include/glibmm-2.4/glibmm/signalproxy_connectionnode.h \
  /usr/include/glibmm-2.4/glibmm/propertyproxy.h \
  /usr/include/glibmm-2.4/glibmm/propertyproxy_base.h \
@@ -137,14 +111,16 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/glibmm-2.4/glibmm/quark.h \
  /usr/include/glibmm-2.4/glibmm/debug.h \
  /usr/include/glibmm-2.4/glibmm/balancedtree.h \
+ /usr/include/glibmm-2.4/glibmm/error.h \
+ /usr/include/glibmm-2.4/glibmm/exception.h \
  /usr/include/glibmm-2.4/glibmm/checksum.h \
  /usr/include/glibmm-2.4/glibmm/class.h \
  /usr/include/glibmm-2.4/glibmm/convert.h \
  /usr/include/glibmm-2.4/glibmm/date.h \
  /usr/include/glibmm-2.4/glibmm/dispatcher.h \
  /usr/include/glibmm-2.4/glibmm/main.h \
+ /usr/include/glibmm-2.4/glibmm/timeval.h \
  /usr/include/glibmm-2.4/glibmm/priorities.h \
- /usr/include/glibmm-2.4/glibmm/iochannel.h \
  /usr/include/glibmm-2.4/glibmm/exceptionhandler.h \
  /usr/include/glibmm-2.4/glibmm/fileutils.h \
  /usr/include/glibmm-2.4/glibmm/helperlist.h \
@@ -153,6 +129,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/glibmm-2.4/glibmm/interface.h \
  /usr/include/glibmm-2.4/glibmm/object.h \
  /usr/include/glibmm-2.4/glibmm/utility.h \
+ /usr/include/glibmm-2.4/glibmm/iochannel.h \
  /usr/include/glibmm-2.4/glibmm/init.h \
  /usr/include/glibmm-2.4/glibmm/keyfile.h \
  /usr/include/glibmm-2.4/glibmm/streamiochannel.h \
@@ -164,7 +141,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/glibmm-2.4/glibmm/optioncontext.h \
  /usr/include/glibmm-2.4/glibmm/optionentry.h \
  /usr/include/glibmm-2.4/glibmm/optiongroup.h \
- /usr/include/sigc++-2.0/sigc++/slot.h \
  /usr/include/glibmm-2.4/glibmm/pattern.h \
  /usr/include/glibmm-2.4/glibmm/property.h \
  /usr/include/glibmm-2.4/glibmm/random.h \
@@ -173,38 +149,31 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/glibmm-2.4/glibmm/slisthandle.h \
  /usr/include/glibmm-2.4/glibmm/spawn.h \
  /usr/include/glibmm-2.4/glibmm/stringutils.h \
+ /usr/include/glibmm-2.4/glibmm/thread.h \
  /usr/include/glibmm-2.4/glibmm/threadpool.h \
  /usr/include/glibmm-2.4/glibmm/timer.h \
  /usr/include/glibmm-2.4/glibmm/uriutils.h \
  /usr/include/glibmm-2.4/glibmm/valuearray.h \
- /usr/include/glibmm-2.4/glibmm/variant.h \
- /usr/include/glibmm-2.4/glibmm/varianttype.h \
- /usr/include/glibmm-2.4/glibmm/variantiter.h \
- /usr/include/glibmm-2.4/glibmm/variant_basictypes.h \
- /usr/include/glibmm-2.4/glibmm/vectorutils.h \
- /usr/include/giomm-2.4/giomm.h /usr/include/giomm-2.4/giomm/action.h \
- /usr/include/giomm-2.4/giomm/actiongroup.h \
- /usr/include/giomm-2.4/giomm/appinfo.h \
- /usr/include/giomm-2.4/giomm/applaunchcontext.h \
+ /usr/include/giomm-2.4/giomm.h /usr/include/giomm-2.4/giomm/appinfo.h \
  /usr/include/giomm-2.4/giomm/icon.h \
- /usr/include/giomm-2.4/giomm/application.h \
- /usr/include/giomm-2.4/giomm/actionmap.h \
- /usr/include/giomm-2.4/giomm/applicationcommandline.h \
- /usr/include/giomm-2.4/giomm/file.h \
  /usr/include/giomm-2.4/giomm/asyncresult.h \
+ /usr/include/giomm-2.4/giomm/bufferedinputstream.h \
+ /usr/include/giomm-2.4/giomm/filterinputstream.h \
+ /usr/include/giomm-2.4/giomm/inputstream.h \
+ /usr/include/giomm-2.4/giomm/cancellable.h \
+ /usr/include/giomm-2.4/giomm/bufferedoutputstream.h \
+ /usr/include/giomm-2.4/giomm/filteroutputstream.h \
+ /usr/include/giomm-2.4/giomm/outputstream.h \
+ /usr/include/giomm-2.4/giomm/contenttype.h \
+ /usr/include/giomm-2.4/giomm/file.h \
  /usr/include/giomm-2.4/giomm/fileattributeinfolist.h \
  /usr/include/giomm-2.4/giomm/fileattributeinfo.h \
  /usr/include/glib-2.0/gio/gio.h /usr/include/glib-2.0/gio/giotypes.h \
- /usr/include/glib-2.0/gio/gioenums.h /usr/include/glib-2.0/gio/gaction.h \
- /usr/include/glib-2.0/gio/gactiongroup.h \
- /usr/include/glib-2.0/gio/gactiongroupexporter.h \
- /usr/include/glib-2.0/gio/gactionmap.h \
+ /usr/include/glib-2.0/gio/gioenums.h \
  /usr/include/glib-2.0/gio/gappinfo.h \
- /usr/include/glib-2.0/gio/gapplication.h \
- /usr/include/glib-2.0/gio/gapplicationcommandline.h \
+ /usr/include/glib-2.0/gio/gasyncresult.h \
  /usr/include/glib-2.0/gio/gasyncinitable.h \
  /usr/include/glib-2.0/gio/ginitable.h \
- /usr/include/glib-2.0/gio/gasyncresult.h \
  /usr/include/glib-2.0/gio/gbufferedinputstream.h \
  /usr/include/glib-2.0/gio/gfilterinputstream.h \
  /usr/include/glib-2.0/gio/ginputstream.h \
@@ -212,47 +181,34 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/glib-2.0/gio/gfilteroutputstream.h \
  /usr/include/glib-2.0/gio/goutputstream.h \
  /usr/include/glib-2.0/gio/gcancellable.h \
- /usr/include/glib-2.0/gio/gcharsetconverter.h \
- /usr/include/glib-2.0/gio/gconverter.h \
  /usr/include/glib-2.0/gio/gcontenttype.h \
+ /usr/include/glib-2.0/gio/gconverter.h \
  /usr/include/glib-2.0/gio/gconverterinputstream.h \
  /usr/include/glib-2.0/gio/gconverteroutputstream.h \
- /usr/include/glib-2.0/gio/gcredentials.h \
+ /usr/include/glib-2.0/gio/gcharsetconverter.h \
  /usr/include/glib-2.0/gio/gdatainputstream.h \
  /usr/include/glib-2.0/gio/gdataoutputstream.h \
- /usr/include/glib-2.0/gio/gdbusaddress.h \
- /usr/include/glib-2.0/gio/gdbusauthobserver.h \
- /usr/include/glib-2.0/gio/gdbusconnection.h \
- /usr/include/glib-2.0/gio/gdbuserror.h \
- /usr/include/glib-2.0/gio/gdbusintrospection.h \
- /usr/include/glib-2.0/gio/gdbusmessage.h \
- /usr/include/glib-2.0/gio/gdbusmethodinvocation.h \
- /usr/include/glib-2.0/gio/gdbusnameowning.h \
- /usr/include/glib-2.0/gio/gdbusnamewatching.h \
- /usr/include/glib-2.0/gio/gdbusproxy.h \
- /usr/include/glib-2.0/gio/gdbusserver.h \
- /usr/include/glib-2.0/gio/gdbusutils.h \
  /usr/include/glib-2.0/gio/gdrive.h \
  /usr/include/glib-2.0/gio/gemblemedicon.h \
  /usr/include/glib-2.0/gio/gicon.h /usr/include/glib-2.0/gio/gemblem.h \
+ /usr/include/glib-2.0/gio/gfile.h \
  /usr/include/glib-2.0/gio/gfileattribute.h \
  /usr/include/glib-2.0/gio/gfileenumerator.h \
- /usr/include/glib-2.0/gio/gfile.h /usr/include/glib-2.0/gio/gfileicon.h \
+ /usr/include/glib-2.0/gio/gfileicon.h \
  /usr/include/glib-2.0/gio/gfileinfo.h \
  /usr/include/glib-2.0/gio/gfileinputstream.h \
- /usr/include/glib-2.0/gio/gfileiostream.h \
- /usr/include/glib-2.0/gio/giostream.h \
- /usr/include/glib-2.0/gio/gioerror.h \
  /usr/include/glib-2.0/gio/gfilemonitor.h \
  /usr/include/glib-2.0/gio/gfilenamecompleter.h \
  /usr/include/glib-2.0/gio/gfileoutputstream.h \
  /usr/include/glib-2.0/gio/ginetaddress.h \
- /usr/include/glib-2.0/gio/ginetaddressmask.h \
  /usr/include/glib-2.0/gio/ginetsocketaddress.h \
  /usr/include/glib-2.0/gio/gsocketaddress.h \
  /usr/include/glib-2.0/gio/gioenumtypes.h \
+ /usr/include/glib-2.0/gio/gioerror.h \
  /usr/include/glib-2.0/gio/giomodule.h /usr/include/glib-2.0/gmodule.h \
  /usr/include/glib-2.0/gio/gioscheduler.h \
+ /usr/include/glib-2.0/gio/giostream.h \
+ /usr/include/glib-2.0/gio/gfileiostream.h \
  /usr/include/glib-2.0/gio/gloadableicon.h \
  /usr/include/glib-2.0/gio/gmemoryinputstream.h \
  /usr/include/glib-2.0/gio/gmemoryoutputstream.h \
@@ -261,109 +217,40 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/glib-2.0/gio/gnativevolumemonitor.h \
  /usr/include/glib-2.0/gio/gvolumemonitor.h \
  /usr/include/glib-2.0/gio/gnetworkaddress.h \
- /usr/include/glib-2.0/gio/gnetworkmonitor.h \
  /usr/include/glib-2.0/gio/gnetworkservice.h \
- /usr/include/glib-2.0/gio/gpermission.h \
- /usr/include/glib-2.0/gio/gpollableinputstream.h \
- /usr/include/glib-2.0/gio/gpollableoutputstream.h \
- /usr/include/glib-2.0/gio/gproxy.h \
- /usr/include/glib-2.0/gio/gproxyaddress.h \
- /usr/include/glib-2.0/gio/gproxyaddressenumerator.h \
- /usr/include/glib-2.0/gio/gsocketaddressenumerator.h \
- /usr/include/glib-2.0/gio/gproxyresolver.h \
  /usr/include/glib-2.0/gio/gresolver.h \
- /usr/include/glib-2.0/gio/gresource.h \
  /usr/include/glib-2.0/gio/gseekable.h \
- /usr/include/glib-2.0/gio/gsettingsschema.h \
- /usr/include/glib-2.0/gio/gsettings.h \
- /usr/include/glib-2.0/gio/gsimpleaction.h \
- /usr/include/glib-2.0/gio/gsimpleactiongroup.h \
- /usr/include/glib-2.0/gio/gactiongroup.h \
- /usr/include/glib-2.0/gio/gactionmap.h \
  /usr/include/glib-2.0/gio/gsimpleasyncresult.h \
- /usr/include/glib-2.0/gio/gsimplepermission.h \
+ /usr/include/glib-2.0/gio/gsocket.h \
+ /usr/include/glib-2.0/gio/gsocketaddressenumerator.h \
  /usr/include/glib-2.0/gio/gsocketclient.h \
  /usr/include/glib-2.0/gio/gsocketconnectable.h \
  /usr/include/glib-2.0/gio/gsocketconnection.h \
- /usr/include/glib-2.0/gio/gsocket.h \
  /usr/include/glib-2.0/gio/gsocketcontrolmessage.h \
  /usr/include/glib-2.0/gio/gsocketlistener.h \
  /usr/include/glib-2.0/gio/gsocketservice.h \
- /usr/include/glib-2.0/gio/gsrvtarget.h \
  /usr/include/glib-2.0/gio/gtcpconnection.h \
- /usr/include/glib-2.0/gio/gtcpwrapperconnection.h \
- /usr/include/glib-2.0/gio/gthemedicon.h \
  /usr/include/glib-2.0/gio/gthreadedsocketservice.h \
- /usr/include/glib-2.0/gio/gtlsbackend.h \
- /usr/include/glib-2.0/gio/gtlscertificate.h \
- /usr/include/glib-2.0/gio/gtlsclientconnection.h \
- /usr/include/glib-2.0/gio/gtlsconnection.h \
- /usr/include/glib-2.0/gio/gtlsdatabase.h \
- /usr/include/glib-2.0/gio/gtlsfiledatabase.h \
- /usr/include/glib-2.0/gio/gtlsinteraction.h \
- /usr/include/glib-2.0/gio/gtlsserverconnection.h \
- /usr/include/glib-2.0/gio/gtlspassword.h \
- /usr/include/glib-2.0/gio/gvfs.h /usr/include/glib-2.0/gio/gvolume.h \
+ /usr/include/glib-2.0/gio/gsrvtarget.h \
+ /usr/include/glib-2.0/gio/gthemedicon.h /usr/include/glib-2.0/gio/gvfs.h \
+ /usr/include/glib-2.0/gio/gvolume.h \
  /usr/include/glib-2.0/gio/gzlibcompressor.h \
  /usr/include/glib-2.0/gio/gzlibdecompressor.h \
- /usr/include/glib-2.0/gio/gdbusinterface.h \
- /usr/include/glib-2.0/gio/gdbusinterfaceskeleton.h \
- /usr/include/glib-2.0/gio/gdbusobject.h \
- /usr/include/glib-2.0/gio/gdbusobjectskeleton.h \
- /usr/include/glib-2.0/gio/gdbusobjectproxy.h \
- /usr/include/glib-2.0/gio/gdbusobjectmanager.h \
- /usr/include/glib-2.0/gio/gdbusobjectmanagerclient.h \
- /usr/include/glib-2.0/gio/gdbusobjectmanagerserver.h \
- /usr/include/glib-2.0/gio/gdbusactiongroup.h \
- /usr/include/glib-2.0/gio/giotypes.h \
- /usr/include/glib-2.0/gio/gremoteactiongroup.h \
- /usr/include/glib-2.0/gio/gmenumodel.h /usr/include/glib-2.0/gio/gmenu.h \
- /usr/include/glib-2.0/gio/gmenuexporter.h \
- /usr/include/glib-2.0/gio/gdbusmenumodel.h \
  /usr/include/giomm-2.4/giomm/fileenumerator.h \
- /usr/include/giomm-2.4/giomm/cancellable.h \
  /usr/include/giomm-2.4/giomm/fileinfo.h \
  /usr/include/giomm-2.4/giomm/fileinputstream.h \
- /usr/include/giomm-2.4/giomm/inputstream.h \
  /usr/include/giomm-2.4/giomm/seekable.h \
  /usr/include/giomm-2.4/giomm/fileiostream.h \
  /usr/include/giomm-2.4/giomm/iostream.h \
- /usr/include/giomm-2.4/giomm/outputstream.h \
  /usr/include/giomm-2.4/giomm/filemonitor.h \
  /usr/include/giomm-2.4/giomm/fileoutputstream.h \
  /usr/include/giomm-2.4/giomm/mountoperation.h \
  /usr/include/giomm-2.4/giomm/drive.h \
  /usr/include/giomm-2.4/giomm/mount.h \
  /usr/include/giomm-2.4/giomm/error.h \
- /usr/include/giomm-2.4/giomm/bufferedinputstream.h \
- /usr/include/giomm-2.4/giomm/filterinputstream.h \
- /usr/include/giomm-2.4/giomm/bufferedoutputstream.h \
- /usr/include/giomm-2.4/giomm/filteroutputstream.h \
- /usr/include/giomm-2.4/giomm/contenttype.h \
  /usr/include/giomm-2.4/giomm/datainputstream.h \
  /usr/include/giomm-2.4/giomm/enums.h \
  /usr/include/giomm-2.4/giomm/dataoutputstream.h \
- /usr/include/giomm-2.4/giomm/dbusaddress.h \
- /usr/include/giomm-2.4/giomm/dbusconnection.h \
- /usr/include/giomm-2.4/giomm/initable.h \
- /usr/include/giomm-2.4/giomm/asyncinitable.h \
- /usr/include/giomm-2.4/giomm/dbusauthobserver.h \
- /usr/include/giomm-2.4/giomm/credentials.h \
- /usr/include/giomm-2.4/giomm/dbusmethodinvocation.h \
- /usr/include/giomm-2.4/giomm/dbusmessage.h \
- /usr/include/giomm-2.4/giomm/unixfdlist.h \
- /usr/include/giomm-2.4/giomm/dbusintrospection.h \
- /usr/include/giomm-2.4/giomm/dbussubtreevtable.h \
- /usr/include/giomm-2.4/giomm/dbusinterfacevtable.h \
- /usr/include/giomm-2.4/giomm/dbuserror.h \
- /usr/include/giomm-2.4/giomm/dbuserrorutils.h \
- /usr/include/giomm-2.4/giomm/dbusmenumodel.h \
- /usr/include/giomm-2.4/giomm/menumodel.h \
- /usr/include/giomm-2.4/giomm/dbusownname.h \
- /usr/include/giomm-2.4/giomm/dbusproxy.h \
- /usr/include/giomm-2.4/giomm/dbusserver.h \
- /usr/include/giomm-2.4/giomm/dbusutils.h \
- /usr/include/giomm-2.4/giomm/dbuswatchname.h \
  /usr/include/giomm-2.4/giomm/desktopappinfo.h \
  /usr/include/giomm-2.4/giomm/emblemedicon.h \
  /usr/include/giomm-2.4/giomm/emblem.h \
@@ -377,36 +264,25 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/giomm-2.4/giomm/socketaddressenumerator.h \
  /usr/include/giomm-2.4/giomm/init.h \
  /usr/include/giomm-2.4/giomm/wrap_init.h \
- /usr/include/giomm-2.4/giomm/menu.h \
- /usr/include/giomm-2.4/giomm/menuitem.h \
+ /usr/include/giomm-2.4/giomm/initable.h \
  /usr/include/giomm-2.4/giomm/memoryinputstream.h \
  /usr/include/giomm-2.4/giomm/memoryoutputstream.h \
  /usr/include/giomm-2.4/giomm/networkaddress.h \
  /usr/include/giomm-2.4/giomm/networkservice.h \
- /usr/include/giomm-2.4/giomm/proxy.h \
- /usr/include/giomm-2.4/giomm/proxyaddress.h \
- /usr/include/giomm-2.4/giomm/proxyresolver.h \
  /usr/include/giomm-2.4/giomm/resolver.h \
  /usr/include/giomm-2.4/giomm/srvtarget.h \
- /usr/include/giomm-2.4/giomm/settings.h \
- /usr/include/giomm-2.4/giomm/simpleaction.h \
- /usr/include/giomm-2.4/giomm/simpleactiongroup.h \
  /usr/include/giomm-2.4/giomm/socket.h \
  /usr/include/giomm-2.4/giomm/socketclient.h \
  /usr/include/giomm-2.4/giomm/socketconnection.h \
- /usr/include/giomm-2.4/giomm/socketcontrolmessage.h \
  /usr/include/giomm-2.4/giomm/tcpconnection.h \
  /usr/include/giomm-2.4/giomm/themedicon.h \
  /usr/include/giomm-2.4/giomm/unixconnection.h \
- /usr/include/giomm-2.4/giomm/unixcredentialsmessage.h \
- /usr/include/giomm-2.4/giomm/unixfdmessage.h \
  /usr/include/giomm-2.4/giomm/unixinputstream.h \
  /usr/include/giomm-2.4/giomm/unixoutputstream.h \
- /usr/include/giomm-2.4/giomm/unixsocketaddress.h \
  /usr/include/giomm-2.4/giomm/volume.h \
  /usr/include/giomm-2.4/giomm/volumemonitor.h \
- /usr/include/gdkmm-2.4/gdkmm.h /usr/include/gdkmm-2.4/gdkmm/screen.h \
- /usr/include/gdkmm-2.4/gdkmm/region.h /usr/include/gtk-2.0/gdk/gdk.h \
+ /usr/include/gdkmm-2.4/gdkmm.h /usr/include/gdkmm-2.4/gdkmm/types.h \
+ /usr/include/gtk-2.0/gdk/gdk.h \
  /usr/include/gtk-2.0/gdk/gdkapplaunchcontext.h \
  /usr/include/gtk-2.0/gdk/gdkscreen.h /usr/include/cairo/cairo.h \
  /usr/include/cairo/cairo-version.h /usr/include/cairo/cairo-features.h \
@@ -435,21 +311,21 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/pango-1.0/pango/pango-tabs.h \
  /usr/include/pango-1.0/pango/pango-renderer.h \
  /usr/include/pango-1.0/pango/pango-utils.h \
- /usr/lib/x86_64-linux-gnu/gtk-2.0/include/gdkconfig.h \
+ /usr/lib/gtk-2.0/include/gdkconfig.h \
  /usr/include/gtk-2.0/gdk/gdkdisplay.h \
  /usr/include/gtk-2.0/gdk/gdkevents.h /usr/include/gtk-2.0/gdk/gdkcolor.h \
  /usr/include/gtk-2.0/gdk/gdkdnd.h /usr/include/gtk-2.0/gdk/gdkinput.h \
  /usr/include/gtk-2.0/gdk/gdkcairo.h /usr/include/gtk-2.0/gdk/gdkpixbuf.h \
  /usr/include/gtk-2.0/gdk/gdkrgb.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-features.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-core.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-transform.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-animation.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-simple-anim.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-io.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-loader.h \
- /usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-enum-types.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-features.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-core.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-transform.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-animation.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-simple-anim.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-io.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-loader.h \
+ /usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-enum-types.h \
  /usr/include/pango-1.0/pango/pangocairo.h \
  /usr/include/gtk-2.0/gdk/gdkcursor.h \
  /usr/include/gtk-2.0/gdk/gdkdisplaymanager.h \
@@ -465,9 +341,10 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/gtk-2.0/gdk/gdktestutils.h \
  /usr/include/gtk-2.0/gdk/gdkwindow.h \
  /usr/include/gtk-2.0/gdk/gdkvisual.h \
- /usr/include/gdkmm-2.4/gdkmm/types.h \
- /usr/lib/x86_64-linux-gnu/gdkmm-2.4/include/gdkmmconfig.h \
- /usr/lib/x86_64-linux-gnu/pangomm-1.4/include/pangommconfig.h \
+ /usr/lib/gdkmm-2.4/include/gdkmmconfig.h \
+ /usr/lib/pangomm-1.4/include/pangommconfig.h \
+ /usr/include/gdkmm-2.4/gdkmm/visual.h \
+ /usr/include/gdkmm-2.4/gdkmm/screen.h \
  /usr/include/gdkmm-2.4/gdkmm/rectangle.h \
  /usr/include/cairomm-1.0/cairomm/fontoptions.h \
  /usr/include/cairomm-1.0/cairomm/enums.h /usr/include/cairo/cairo-ft.h \
@@ -481,7 +358,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/freetype2/freetype/fttypes.h \
  /usr/include/freetype2/freetype/ftsystem.h \
  /usr/include/freetype2/freetype/ftimage.h \
- /usr/include/gdkmm-2.4/gdkmm/visual.h /usr/include/gdkmm-2.4/gdkmm/gc.h \
+ /usr/include/gdkmm-2.4/gdkmm/gc.h \
  /usr/include/gdkmm-2.4/gdkmm/drawable.h \
  /usr/include/pangomm-1.4/pangomm/font.h \
  /usr/include/pangomm-1.4/pangomm/rectangle.h \
@@ -504,12 +381,12 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/pangomm-1.4/pangomm/types.h \
  /usr/include/cairomm-1.0/cairomm/context.h \
  /usr/include/cairomm-1.0/cairomm/surface.h \
+ /usr/include/sigc++-2.0/sigc++/slot.h \
  /usr/include/cairomm-1.0/cairomm/exception.h \
- /usr/include/cairomm-1.0/cairomm/device.h \
- /usr/include/cairomm-1.0/cairomm/types.h \
  /usr/include/cairomm-1.0/cairomm/refptr.h /usr/include/cairo/cairo-pdf.h \
  /usr/include/cairo/cairo-ps.h /usr/include/cairo/cairo-svg.h \
  /usr/include/cairomm-1.0/cairomm/fontface.h \
+ /usr/include/cairomm-1.0/cairomm/types.h \
  /usr/include/cairomm-1.0/cairomm/matrix.h \
  /usr/include/cairomm-1.0/cairomm/pattern.h \
  /usr/include/cairomm-1.0/cairomm/path.h \
@@ -522,11 +399,11 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/gdkmm-2.4/gdkmm/image.h \
  /usr/include/gdkmm-2.4/gdkmm/colormap.h \
  /usr/include/gdkmm-2.4/gdkmm/color.h \
+ /usr/include/gdkmm-2.4/gdkmm/region.h \
  /usr/include/gdkmm-2.4/gdkmm/rgbcmap.h \
  /usr/include/gdkmm-2.4/gdkmm/window.h \
  /usr/include/gdkmm-2.4/gdkmm/bitmap.h \
  /usr/include/gdkmm-2.4/gdkmm/pixmap.h \
- /usr/include/gdkmm-2.4/gdkmm/dragcontext.h \
  /usr/include/gdkmm-2.4/gdkmm/pixbuf.h \
  /usr/include/gdkmm-2.4/gdkmm/pixbufformat.h \
  /usr/include/gdkmm-2.4/gdkmm/pixbufanimation.h \
@@ -538,7 +415,22 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/gdkmm-2.4/gdkmm/event.h \
  /usr/include/gdkmm-2.4/gdkmm/displaymanager.h \
  /usr/include/gdkmm-2.4/gdkmm/general.h \
- /usr/include/gdkmm-2.4/gdkmm/rgb.h /usr/include/gtkmm-2.4/gtkmm/box.h \
+ /usr/include/gdkmm-2.4/gdkmm/rgb.h /usr/include/gtkmm-2.4/gtkmm/object.h \
+ /usr/include/gtkmm-2.4/gtkmm/base.h \
+ /usr/lib/gtkmm-2.4/include/gtkmmconfig.h \
+ /usr/include/gtkmm-2.4/gtkmm/aboutdialog.h \
+ /usr/include/gtkmm-2.4/gtkmm/dialog.h \
+ /usr/include/gtkmm-2.4/gtkmm/window.h /usr/include/gtkmm-2.4/gtkmm/bin.h \
+ /usr/include/gtkmm-2.4/gtkmm/container.h \
+ /usr/include/gtkmm-2.4/gtkmm/widget.h \
+ /usr/include/atkmm-1.6/atkmm/object.h \
+ /usr/include/atkmm-1.6/atkmm/component.h \
+ /usr/include/atkmm-1.6/atkmm/relation.h \
+ /usr/include/atkmm-1.6/atkmm/implementor.h \
+ /usr/include/gdkmm-2.4/gdkmm/dragcontext.h \
+ /usr/include/gtkmm-2.4/gtkmm/enums.h \
+ /usr/include/gtkmm-2.4/gtkmm/targetlist.h \
+ /usr/include/gtkmm-2.4/gtkmm/targetentry.h \
  /usr/include/gtk-2.0/gtk/gtk.h /usr/include/gtk-2.0/gtk/gtkaboutdialog.h \
  /usr/include/gtk-2.0/gtk/gtkdialog.h \
  /usr/include/gtk-2.0/gtk/gtkwindow.h \
@@ -580,7 +472,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/atk-1.0/atk/atkstateset.h \
  /usr/include/atk-1.0/atk/atkstreamablecontent.h \
  /usr/include/atk-1.0/atk/atktable.h /usr/include/atk-1.0/atk/atkmisc.h \
- /usr/include/atk-1.0/atk/atkvalue.h /usr/include/atk-1.0/atk/atkwindow.h \
+ /usr/include/atk-1.0/atk/atkvalue.h \
  /usr/include/gtk-2.0/gtk/gtkaccellabel.h \
  /usr/include/gtk-2.0/gtk/gtklabel.h /usr/include/gtk-2.0/gtk/gtkmisc.h \
  /usr/include/gtk-2.0/gtk/gtkmenu.h \
@@ -623,8 +515,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/gtk-2.0/gtk/gtkcheckmenuitem.h \
  /usr/include/gtk-2.0/gtk/gtkmenuitem.h \
  /usr/include/gtk-2.0/gtk/gtkitem.h \
- /usr/include/gtk-2.0/gtk/ubuntumenuproxy.h \
- /usr/include/gtk-2.0/gtk/ubuntumenuproxymodule.h \
  /usr/include/gtk-2.0/gtk/gtkclipboard.h \
  /usr/include/gtk-2.0/gtk/gtkselection.h \
  /usr/include/gtk-2.0/gtk/gtktextiter.h \
@@ -644,7 +534,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/gtk-2.0/gtk/gtkliststore.h \
  /usr/include/gtk-2.0/gtk/gtktreemodelfilter.h \
  /usr/include/gtk-2.0/gtk/gtkcomboboxentry.h \
- /usr/include/gtk-2.0/gtk/gtkcomboboxtext.h \
  /usr/include/gtk-2.0/gtk/gtkdrawingarea.h \
  /usr/include/gtk-2.0/gtk/gtkeventbox.h \
  /usr/include/gtk-2.0/gtk/gtkexpander.h \
@@ -762,32 +651,16 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/gtk-2.0/gtk/gtkoptionmenu.h \
  /usr/include/gtk-2.0/gtk/gtkpreview.h \
  /usr/include/gtk-2.0/gtk/gtktipsquery.h \
- /usr/include/gtkmm-2.4/gtkmm/container.h \
- /usr/include/gtkmm-2.4/gtkmm/widget.h \
- /usr/lib/x86_64-linux-gnu/gtkmm-2.4/include/gtkmmconfig.h \
- /usr/include/atkmm-1.6/atkmm/object.h \
- /usr/include/atkmm-1.6/atkmm/component.h \
- /usr/include/atkmm-1.6/atkmm/relation.h \
- /usr/include/atkmm-1.6/atkmm/implementor.h \
- /usr/include/gtkmm-2.4/gtkmm/enums.h \
- /usr/include/gtkmm-2.4/gtkmm/targetlist.h \
- /usr/include/gtkmm-2.4/gtkmm/targetentry.h \
  /usr/include/gtkmm-2.4/gtkmm/rc.h /usr/include/gtkmm-2.4/gtkmm/style.h \
- /usr/include/gtkmm-2.4/gtkmm/object.h \
- /usr/include/gtkmm-2.4/gtkmm/base.h \
  /usr/include/gtkmm-2.4/gtkmm/iconsource.h \
  /usr/include/gtkmm-2.4/gtkmm/iconset.h \
  /usr/include/gtkmm-2.4/gtkmm/stockid.h \
  /usr/include/gtkmm-2.4/gtkmm/clipboard.h \
  /usr/include/gtkmm-2.4/gtkmm/selectiondata.h \
- /usr/include/gtkmm-2.4/gtkmm/dialog.h \
- /usr/include/gtkmm-2.4/gtkmm/window.h /usr/include/gtkmm-2.4/gtkmm/bin.h \
- /usr/include/gtkmm-2.4/gtkmm/button.h \
+ /usr/include/gtkmm-2.4/gtkmm/box.h /usr/include/gtkmm-2.4/gtkmm/button.h \
  /usr/include/gtkmm-2.4/gtkmm/buttonbox.h \
- /usr/include/gtkmm-2.4/gtkmm/aboutdialog.h \
  /usr/include/gtkmm-2.4/gtkmm/accelkey.h \
  /usr/include/gtk-2.0/gdk/gdkkeysyms.h \
- /usr/include/gtk-2.0/gdk/gdkkeysyms-compat.h \
  /usr/include/gtkmm-2.4/gtkmm/accelgroup.h \
  /usr/include/gtkmm-2.4/gtkmm/adjustment.h \
  /usr/include/gtkmm-2.4/gtkmm/alignment.h \
@@ -871,8 +744,8 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  /usr/include/gtkmm-2.4/gtkmm/invisible.h \
  /usr/include/gtkmm-2.4/gtkmm/layout.h \
  /usr/include/gtkmm-2.4/gtkmm/liststore.h \
- /usr/include/gtkmm-2.4/gtkmm/treedragdest.h \
  /usr/include/gtkmm-2.4/gtkmm/treesortable.h \
+ /usr/include/gtkmm-2.4/gtkmm/treedragdest.h \
  /usr/include/gtkmm-2.4/gtkmm/treedragsource.h \
  /usr/include/gtkmm-2.4/gtkmm/listviewtext.h \
  /usr/include/gtkmm-2.4/gtkmm/linkbutton.h \
@@ -982,8 +855,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
  ../src/vista/../controlador/../vista/./componentes/VistasDeComponentes.h \
  ../src/vista/../controlador/../vista/./componentes/VistaComponente.h \
  /usr/include/cairomm-1.0/cairomm/cairomm.h \
- /usr/lib/x86_64-linux-gnu/cairomm-1.0/include/cairommconfig.h \
- /usr/include/cairomm-1.0/cairomm/region.h \
+ /usr/lib/cairomm-1.0/include/cairommconfig.h \
  ../src/vista/../controlador/../vista/./componentes/../VistaConstantes.h \
  ../src/vista/../controlador/../vista/./componentes/../../modelo/componentes/Componente.h \
  ../src/vista/../controlador/../vista/./componentes/Geometria.h \
@@ -1060,9 +932,17 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glibmm-2.4/glibmm.h:
 
-/usr/lib/x86_64-linux-gnu/glibmm-2.4/include/glibmmconfig.h:
+/usr/lib/glibmm-2.4/include/glibmmconfig.h:
 
-/usr/include/glibmm-2.4/glibmm/thread.h:
+/usr/include/glibmm-2.4/glibmm/arrayhandle.h:
+
+/usr/include/glibmm-2.4/glibmm/containerhandle_shared.h:
+
+/usr/include/glibmm-2.4/glibmm/refptr.h:
+
+/usr/include/glibmm-2.4/glibmm/ustring.h:
+
+/usr/include/glibmm-2.4/glibmm/unicode.h:
 
 /usr/include/glib-2.0/glib.h:
 
@@ -1070,11 +950,9 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/glib/gtypes.h:
 
-/usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h:
+/usr/lib/glib-2.0/include/glibconfig.h:
 
 /usr/include/glib-2.0/glib/gmacros.h:
-
-/usr/include/glib-2.0/glib/gversionmacros.h:
 
 /usr/include/glib-2.0/glib/garray.h:
 
@@ -1082,11 +960,13 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/glib/gthread.h:
 
-/usr/include/glib-2.0/glib/gatomic.h:
-
 /usr/include/glib-2.0/glib/gerror.h:
 
 /usr/include/glib-2.0/glib/gquark.h:
+
+/usr/include/glib-2.0/glib/gutils.h:
+
+/usr/include/glib-2.0/glib/gatomic.h:
 
 /usr/include/glib-2.0/glib/gbacktrace.h:
 
@@ -1096,11 +976,17 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/glib/gbookmarkfile.h:
 
-/usr/include/glib-2.0/glib/gbytes.h:
+/usr/include/glib-2.0/glib/gcache.h:
 
-/usr/include/glib-2.0/glib/gcharset.h:
+/usr/include/glib-2.0/glib/glist.h:
+
+/usr/include/glib-2.0/glib/gmem.h:
+
+/usr/include/glib-2.0/glib/gslice.h:
 
 /usr/include/glib-2.0/glib/gchecksum.h:
+
+/usr/include/glib-2.0/glib/gcompletion.h:
 
 /usr/include/glib-2.0/glib/gconvert.h:
 
@@ -1108,27 +994,11 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/glib/gdate.h:
 
-/usr/include/glib-2.0/glib/gdatetime.h:
-
-/usr/include/glib-2.0/glib/gtimezone.h:
-
 /usr/include/glib-2.0/glib/gdir.h:
-
-/usr/include/glib-2.0/glib/genviron.h:
 
 /usr/include/glib-2.0/glib/gfileutils.h:
 
-/usr/include/glib-2.0/glib/ggettext.h:
-
 /usr/include/glib-2.0/glib/ghash.h:
-
-/usr/include/glib-2.0/glib/glist.h:
-
-/usr/include/glib-2.0/glib/gmem.h:
-
-/usr/include/glib-2.0/glib/ghmac.h:
-
-/usr/include/glib-2.0/glib/gchecksum.h:
 
 /usr/include/glib-2.0/glib/ghook.h:
 
@@ -1145,8 +1015,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 /usr/include/glib-2.0/glib/gstring.h:
 
 /usr/include/glib-2.0/glib/gunicode.h:
-
-/usr/include/glib-2.0/glib/gutils.h:
 
 /usr/include/glib-2.0/glib/gkeyfile.h:
 
@@ -1170,6 +1038,8 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/glib/grand.h:
 
+/usr/include/glib-2.0/glib/grel.h:
+
 /usr/include/glib-2.0/glib/gregex.h:
 
 /usr/include/glib-2.0/glib/gscanner.h:
@@ -1178,21 +1048,15 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/glib/gshell.h:
 
-/usr/include/glib-2.0/glib/gslice.h:
-
 /usr/include/glib-2.0/glib/gspawn.h:
 
 /usr/include/glib-2.0/glib/gstrfuncs.h:
-
-/usr/include/glib-2.0/glib/gstringchunk.h:
 
 /usr/include/glib-2.0/glib/gtestutils.h:
 
 /usr/include/glib-2.0/glib/gthreadpool.h:
 
 /usr/include/glib-2.0/glib/gtimer.h:
-
-/usr/include/glib-2.0/glib/gtrashstack.h:
 
 /usr/include/glib-2.0/glib/gtree.h:
 
@@ -1202,29 +1066,43 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/glib/gvariant.h:
 
-/usr/include/glib-2.0/glib/gversion.h:
+/usr/include/glibmm-2.4/glibmm/wrap.h:
 
-/usr/include/glib-2.0/glib/deprecated/gallocator.h:
+/usr/include/glib-2.0/glib-object.h:
 
-/usr/include/glib-2.0/glib/deprecated/gcache.h:
+/usr/include/glib-2.0/gobject/gboxed.h:
 
-/usr/include/glib-2.0/glib/deprecated/gcompletion.h:
+/usr/include/glib-2.0/gobject/gtype.h:
 
-/usr/include/glib-2.0/glib/deprecated/gmain.h:
+/usr/include/glib-2.0/gobject/genums.h:
 
-/usr/include/glib-2.0/glib/deprecated/grel.h:
+/usr/include/glib-2.0/gobject/gobject.h:
 
-/usr/include/glib-2.0/glib/deprecated/gthread.h:
+/usr/include/glib-2.0/gobject/gvalue.h:
 
-/usr/include/glibmm-2.4/glibmm/error.h:
+/usr/include/glib-2.0/gobject/gparam.h:
 
-/usr/include/glibmm-2.4/glibmm/exception.h:
+/usr/include/glib-2.0/gobject/gclosure.h:
 
-/usr/include/glibmm-2.4/glibmm/ustring.h:
+/usr/include/glib-2.0/gobject/gsignal.h:
 
-/usr/include/glibmm-2.4/glibmm/unicode.h:
+/usr/include/glib-2.0/gobject/gmarshal.h:
 
-/usr/include/glibmm-2.4/glibmm/timeval.h:
+/usr/include/glib-2.0/gobject/gparamspecs.h:
+
+/usr/include/glib-2.0/gobject/gsourceclosure.h:
+
+/usr/include/glib-2.0/gobject/gtypemodule.h:
+
+/usr/include/glib-2.0/gobject/gtypeplugin.h:
+
+/usr/include/glib-2.0/gobject/gvaluearray.h:
+
+/usr/include/glib-2.0/gobject/gvaluetypes.h:
+
+/usr/include/glibmm-2.4/glibmm/objectbase.h:
+
+/usr/include/glibmm-2.4/glibmm/signalproxy.h:
 
 /usr/include/sigc++-2.0/sigc++/sigc++.h:
 
@@ -1232,7 +1110,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/sigc++-2.0/sigc++/signal_base.h:
 
-/usr/lib/x86_64-linux-gnu/sigc++-2.0/include/sigc++config.h:
+/usr/lib/sigc++-2.0/include/sigc++config.h:
 
 /usr/include/sigc++-2.0/sigc++/type_traits.h:
 
@@ -1290,56 +1168,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/sigc++-2.0/sigc++/functors/functors.h:
 
-/usr/include/glibmm-2.4/glibmm/threads.h:
-
-/usr/include/glibmm-2.4/glibmm/arrayhandle.h:
-
-/usr/include/glibmm-2.4/glibmm/containerhandle_shared.h:
-
-/usr/include/glibmm-2.4/glibmm/refptr.h:
-
-/usr/include/glibmm-2.4/glibmm/wrap.h:
-
-/usr/include/glib-2.0/glib-object.h:
-
-/usr/include/glib-2.0/gobject/gbinding.h:
-
-/usr/include/glib-2.0/gobject/gobject.h:
-
-/usr/include/glib-2.0/gobject/gtype.h:
-
-/usr/include/glib-2.0/gobject/gvalue.h:
-
-/usr/include/glib-2.0/gobject/gparam.h:
-
-/usr/include/glib-2.0/gobject/gclosure.h:
-
-/usr/include/glib-2.0/gobject/gsignal.h:
-
-/usr/include/glib-2.0/gobject/gmarshal.h:
-
-/usr/include/glib-2.0/gobject/gboxed.h:
-
-/usr/include/glib-2.0/gobject/glib-types.h:
-
-/usr/include/glib-2.0/gobject/genums.h:
-
-/usr/include/glib-2.0/gobject/gparamspecs.h:
-
-/usr/include/glib-2.0/gobject/gsourceclosure.h:
-
-/usr/include/glib-2.0/gobject/gtypemodule.h:
-
-/usr/include/glib-2.0/gobject/gtypeplugin.h:
-
-/usr/include/glib-2.0/gobject/gvaluearray.h:
-
-/usr/include/glib-2.0/gobject/gvaluetypes.h:
-
-/usr/include/glibmm-2.4/glibmm/objectbase.h:
-
-/usr/include/glibmm-2.4/glibmm/signalproxy.h:
-
 /usr/include/glibmm-2.4/glibmm/signalproxy_connectionnode.h:
 
 /usr/include/glibmm-2.4/glibmm/propertyproxy.h:
@@ -1358,6 +1186,10 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glibmm-2.4/glibmm/balancedtree.h:
 
+/usr/include/glibmm-2.4/glibmm/error.h:
+
+/usr/include/glibmm-2.4/glibmm/exception.h:
+
 /usr/include/glibmm-2.4/glibmm/checksum.h:
 
 /usr/include/glibmm-2.4/glibmm/class.h:
@@ -1370,9 +1202,9 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glibmm-2.4/glibmm/main.h:
 
-/usr/include/glibmm-2.4/glibmm/priorities.h:
+/usr/include/glibmm-2.4/glibmm/timeval.h:
 
-/usr/include/glibmm-2.4/glibmm/iochannel.h:
+/usr/include/glibmm-2.4/glibmm/priorities.h:
 
 /usr/include/glibmm-2.4/glibmm/exceptionhandler.h:
 
@@ -1389,6 +1221,8 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 /usr/include/glibmm-2.4/glibmm/object.h:
 
 /usr/include/glibmm-2.4/glibmm/utility.h:
+
+/usr/include/glibmm-2.4/glibmm/iochannel.h:
 
 /usr/include/glibmm-2.4/glibmm/init.h:
 
@@ -1412,8 +1246,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glibmm-2.4/glibmm/optiongroup.h:
 
-/usr/include/sigc++-2.0/sigc++/slot.h:
-
 /usr/include/glibmm-2.4/glibmm/pattern.h:
 
 /usr/include/glibmm-2.4/glibmm/property.h:
@@ -1430,6 +1262,8 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glibmm-2.4/glibmm/stringutils.h:
 
+/usr/include/glibmm-2.4/glibmm/thread.h:
+
 /usr/include/glibmm-2.4/glibmm/threadpool.h:
 
 /usr/include/glibmm-2.4/glibmm/timer.h:
@@ -1438,37 +1272,31 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glibmm-2.4/glibmm/valuearray.h:
 
-/usr/include/glibmm-2.4/glibmm/variant.h:
-
-/usr/include/glibmm-2.4/glibmm/varianttype.h:
-
-/usr/include/glibmm-2.4/glibmm/variantiter.h:
-
-/usr/include/glibmm-2.4/glibmm/variant_basictypes.h:
-
-/usr/include/glibmm-2.4/glibmm/vectorutils.h:
-
 /usr/include/giomm-2.4/giomm.h:
-
-/usr/include/giomm-2.4/giomm/action.h:
-
-/usr/include/giomm-2.4/giomm/actiongroup.h:
 
 /usr/include/giomm-2.4/giomm/appinfo.h:
 
-/usr/include/giomm-2.4/giomm/applaunchcontext.h:
-
 /usr/include/giomm-2.4/giomm/icon.h:
 
-/usr/include/giomm-2.4/giomm/application.h:
+/usr/include/giomm-2.4/giomm/asyncresult.h:
 
-/usr/include/giomm-2.4/giomm/actionmap.h:
+/usr/include/giomm-2.4/giomm/bufferedinputstream.h:
 
-/usr/include/giomm-2.4/giomm/applicationcommandline.h:
+/usr/include/giomm-2.4/giomm/filterinputstream.h:
+
+/usr/include/giomm-2.4/giomm/inputstream.h:
+
+/usr/include/giomm-2.4/giomm/cancellable.h:
+
+/usr/include/giomm-2.4/giomm/bufferedoutputstream.h:
+
+/usr/include/giomm-2.4/giomm/filteroutputstream.h:
+
+/usr/include/giomm-2.4/giomm/outputstream.h:
+
+/usr/include/giomm-2.4/giomm/contenttype.h:
 
 /usr/include/giomm-2.4/giomm/file.h:
-
-/usr/include/giomm-2.4/giomm/asyncresult.h:
 
 /usr/include/giomm-2.4/giomm/fileattributeinfolist.h:
 
@@ -1480,25 +1308,13 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/gio/gioenums.h:
 
-/usr/include/glib-2.0/gio/gaction.h:
-
-/usr/include/glib-2.0/gio/gactiongroup.h:
-
-/usr/include/glib-2.0/gio/gactiongroupexporter.h:
-
-/usr/include/glib-2.0/gio/gactionmap.h:
-
 /usr/include/glib-2.0/gio/gappinfo.h:
 
-/usr/include/glib-2.0/gio/gapplication.h:
-
-/usr/include/glib-2.0/gio/gapplicationcommandline.h:
+/usr/include/glib-2.0/gio/gasyncresult.h:
 
 /usr/include/glib-2.0/gio/gasyncinitable.h:
 
 /usr/include/glib-2.0/gio/ginitable.h:
-
-/usr/include/glib-2.0/gio/gasyncresult.h:
 
 /usr/include/glib-2.0/gio/gbufferedinputstream.h:
 
@@ -1514,45 +1330,19 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/gio/gcancellable.h:
 
-/usr/include/glib-2.0/gio/gcharsetconverter.h:
+/usr/include/glib-2.0/gio/gcontenttype.h:
 
 /usr/include/glib-2.0/gio/gconverter.h:
-
-/usr/include/glib-2.0/gio/gcontenttype.h:
 
 /usr/include/glib-2.0/gio/gconverterinputstream.h:
 
 /usr/include/glib-2.0/gio/gconverteroutputstream.h:
 
-/usr/include/glib-2.0/gio/gcredentials.h:
+/usr/include/glib-2.0/gio/gcharsetconverter.h:
 
 /usr/include/glib-2.0/gio/gdatainputstream.h:
 
 /usr/include/glib-2.0/gio/gdataoutputstream.h:
-
-/usr/include/glib-2.0/gio/gdbusaddress.h:
-
-/usr/include/glib-2.0/gio/gdbusauthobserver.h:
-
-/usr/include/glib-2.0/gio/gdbusconnection.h:
-
-/usr/include/glib-2.0/gio/gdbuserror.h:
-
-/usr/include/glib-2.0/gio/gdbusintrospection.h:
-
-/usr/include/glib-2.0/gio/gdbusmessage.h:
-
-/usr/include/glib-2.0/gio/gdbusmethodinvocation.h:
-
-/usr/include/glib-2.0/gio/gdbusnameowning.h:
-
-/usr/include/glib-2.0/gio/gdbusnamewatching.h:
-
-/usr/include/glib-2.0/gio/gdbusproxy.h:
-
-/usr/include/glib-2.0/gio/gdbusserver.h:
-
-/usr/include/glib-2.0/gio/gdbusutils.h:
 
 /usr/include/glib-2.0/gio/gdrive.h:
 
@@ -1562,23 +1352,17 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/gio/gemblem.h:
 
+/usr/include/glib-2.0/gio/gfile.h:
+
 /usr/include/glib-2.0/gio/gfileattribute.h:
 
 /usr/include/glib-2.0/gio/gfileenumerator.h:
-
-/usr/include/glib-2.0/gio/gfile.h:
 
 /usr/include/glib-2.0/gio/gfileicon.h:
 
 /usr/include/glib-2.0/gio/gfileinfo.h:
 
 /usr/include/glib-2.0/gio/gfileinputstream.h:
-
-/usr/include/glib-2.0/gio/gfileiostream.h:
-
-/usr/include/glib-2.0/gio/giostream.h:
-
-/usr/include/glib-2.0/gio/gioerror.h:
 
 /usr/include/glib-2.0/gio/gfilemonitor.h:
 
@@ -1588,19 +1372,23 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/gio/ginetaddress.h:
 
-/usr/include/glib-2.0/gio/ginetaddressmask.h:
-
 /usr/include/glib-2.0/gio/ginetsocketaddress.h:
 
 /usr/include/glib-2.0/gio/gsocketaddress.h:
 
 /usr/include/glib-2.0/gio/gioenumtypes.h:
 
+/usr/include/glib-2.0/gio/gioerror.h:
+
 /usr/include/glib-2.0/gio/giomodule.h:
 
 /usr/include/glib-2.0/gmodule.h:
 
 /usr/include/glib-2.0/gio/gioscheduler.h:
+
+/usr/include/glib-2.0/gio/giostream.h:
+
+/usr/include/glib-2.0/gio/gfileiostream.h:
 
 /usr/include/glib-2.0/gio/gloadableicon.h:
 
@@ -1618,47 +1406,17 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/gio/gnetworkaddress.h:
 
-/usr/include/glib-2.0/gio/gnetworkmonitor.h:
-
 /usr/include/glib-2.0/gio/gnetworkservice.h:
-
-/usr/include/glib-2.0/gio/gpermission.h:
-
-/usr/include/glib-2.0/gio/gpollableinputstream.h:
-
-/usr/include/glib-2.0/gio/gpollableoutputstream.h:
-
-/usr/include/glib-2.0/gio/gproxy.h:
-
-/usr/include/glib-2.0/gio/gproxyaddress.h:
-
-/usr/include/glib-2.0/gio/gproxyaddressenumerator.h:
-
-/usr/include/glib-2.0/gio/gsocketaddressenumerator.h:
-
-/usr/include/glib-2.0/gio/gproxyresolver.h:
 
 /usr/include/glib-2.0/gio/gresolver.h:
 
-/usr/include/glib-2.0/gio/gresource.h:
-
 /usr/include/glib-2.0/gio/gseekable.h:
-
-/usr/include/glib-2.0/gio/gsettingsschema.h:
-
-/usr/include/glib-2.0/gio/gsettings.h:
-
-/usr/include/glib-2.0/gio/gsimpleaction.h:
-
-/usr/include/glib-2.0/gio/gsimpleactiongroup.h:
-
-/usr/include/glib-2.0/gio/gactiongroup.h:
-
-/usr/include/glib-2.0/gio/gactionmap.h:
 
 /usr/include/glib-2.0/gio/gsimpleasyncresult.h:
 
-/usr/include/glib-2.0/gio/gsimplepermission.h:
+/usr/include/glib-2.0/gio/gsocket.h:
+
+/usr/include/glib-2.0/gio/gsocketaddressenumerator.h:
 
 /usr/include/glib-2.0/gio/gsocketclient.h:
 
@@ -1666,41 +1424,19 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/gio/gsocketconnection.h:
 
-/usr/include/glib-2.0/gio/gsocket.h:
-
 /usr/include/glib-2.0/gio/gsocketcontrolmessage.h:
 
 /usr/include/glib-2.0/gio/gsocketlistener.h:
 
 /usr/include/glib-2.0/gio/gsocketservice.h:
 
-/usr/include/glib-2.0/gio/gsrvtarget.h:
-
 /usr/include/glib-2.0/gio/gtcpconnection.h:
-
-/usr/include/glib-2.0/gio/gtcpwrapperconnection.h:
-
-/usr/include/glib-2.0/gio/gthemedicon.h:
 
 /usr/include/glib-2.0/gio/gthreadedsocketservice.h:
 
-/usr/include/glib-2.0/gio/gtlsbackend.h:
+/usr/include/glib-2.0/gio/gsrvtarget.h:
 
-/usr/include/glib-2.0/gio/gtlscertificate.h:
-
-/usr/include/glib-2.0/gio/gtlsclientconnection.h:
-
-/usr/include/glib-2.0/gio/gtlsconnection.h:
-
-/usr/include/glib-2.0/gio/gtlsdatabase.h:
-
-/usr/include/glib-2.0/gio/gtlsfiledatabase.h:
-
-/usr/include/glib-2.0/gio/gtlsinteraction.h:
-
-/usr/include/glib-2.0/gio/gtlsserverconnection.h:
-
-/usr/include/glib-2.0/gio/gtlspassword.h:
+/usr/include/glib-2.0/gio/gthemedicon.h:
 
 /usr/include/glib-2.0/gio/gvfs.h:
 
@@ -1710,53 +1446,17 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/glib-2.0/gio/gzlibdecompressor.h:
 
-/usr/include/glib-2.0/gio/gdbusinterface.h:
-
-/usr/include/glib-2.0/gio/gdbusinterfaceskeleton.h:
-
-/usr/include/glib-2.0/gio/gdbusobject.h:
-
-/usr/include/glib-2.0/gio/gdbusobjectskeleton.h:
-
-/usr/include/glib-2.0/gio/gdbusobjectproxy.h:
-
-/usr/include/glib-2.0/gio/gdbusobjectmanager.h:
-
-/usr/include/glib-2.0/gio/gdbusobjectmanagerclient.h:
-
-/usr/include/glib-2.0/gio/gdbusobjectmanagerserver.h:
-
-/usr/include/glib-2.0/gio/gdbusactiongroup.h:
-
-/usr/include/glib-2.0/gio/giotypes.h:
-
-/usr/include/glib-2.0/gio/gremoteactiongroup.h:
-
-/usr/include/glib-2.0/gio/gmenumodel.h:
-
-/usr/include/glib-2.0/gio/gmenu.h:
-
-/usr/include/glib-2.0/gio/gmenuexporter.h:
-
-/usr/include/glib-2.0/gio/gdbusmenumodel.h:
-
 /usr/include/giomm-2.4/giomm/fileenumerator.h:
-
-/usr/include/giomm-2.4/giomm/cancellable.h:
 
 /usr/include/giomm-2.4/giomm/fileinfo.h:
 
 /usr/include/giomm-2.4/giomm/fileinputstream.h:
-
-/usr/include/giomm-2.4/giomm/inputstream.h:
 
 /usr/include/giomm-2.4/giomm/seekable.h:
 
 /usr/include/giomm-2.4/giomm/fileiostream.h:
 
 /usr/include/giomm-2.4/giomm/iostream.h:
-
-/usr/include/giomm-2.4/giomm/outputstream.h:
 
 /usr/include/giomm-2.4/giomm/filemonitor.h:
 
@@ -1770,63 +1470,11 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/giomm-2.4/giomm/error.h:
 
-/usr/include/giomm-2.4/giomm/bufferedinputstream.h:
-
-/usr/include/giomm-2.4/giomm/filterinputstream.h:
-
-/usr/include/giomm-2.4/giomm/bufferedoutputstream.h:
-
-/usr/include/giomm-2.4/giomm/filteroutputstream.h:
-
-/usr/include/giomm-2.4/giomm/contenttype.h:
-
 /usr/include/giomm-2.4/giomm/datainputstream.h:
 
 /usr/include/giomm-2.4/giomm/enums.h:
 
 /usr/include/giomm-2.4/giomm/dataoutputstream.h:
-
-/usr/include/giomm-2.4/giomm/dbusaddress.h:
-
-/usr/include/giomm-2.4/giomm/dbusconnection.h:
-
-/usr/include/giomm-2.4/giomm/initable.h:
-
-/usr/include/giomm-2.4/giomm/asyncinitable.h:
-
-/usr/include/giomm-2.4/giomm/dbusauthobserver.h:
-
-/usr/include/giomm-2.4/giomm/credentials.h:
-
-/usr/include/giomm-2.4/giomm/dbusmethodinvocation.h:
-
-/usr/include/giomm-2.4/giomm/dbusmessage.h:
-
-/usr/include/giomm-2.4/giomm/unixfdlist.h:
-
-/usr/include/giomm-2.4/giomm/dbusintrospection.h:
-
-/usr/include/giomm-2.4/giomm/dbussubtreevtable.h:
-
-/usr/include/giomm-2.4/giomm/dbusinterfacevtable.h:
-
-/usr/include/giomm-2.4/giomm/dbuserror.h:
-
-/usr/include/giomm-2.4/giomm/dbuserrorutils.h:
-
-/usr/include/giomm-2.4/giomm/dbusmenumodel.h:
-
-/usr/include/giomm-2.4/giomm/menumodel.h:
-
-/usr/include/giomm-2.4/giomm/dbusownname.h:
-
-/usr/include/giomm-2.4/giomm/dbusproxy.h:
-
-/usr/include/giomm-2.4/giomm/dbusserver.h:
-
-/usr/include/giomm-2.4/giomm/dbusutils.h:
-
-/usr/include/giomm-2.4/giomm/dbuswatchname.h:
 
 /usr/include/giomm-2.4/giomm/desktopappinfo.h:
 
@@ -1854,9 +1502,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/giomm-2.4/giomm/wrap_init.h:
 
-/usr/include/giomm-2.4/giomm/menu.h:
-
-/usr/include/giomm-2.4/giomm/menuitem.h:
+/usr/include/giomm-2.4/giomm/initable.h:
 
 /usr/include/giomm-2.4/giomm/memoryinputstream.h:
 
@@ -1866,21 +1512,9 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/giomm-2.4/giomm/networkservice.h:
 
-/usr/include/giomm-2.4/giomm/proxy.h:
-
-/usr/include/giomm-2.4/giomm/proxyaddress.h:
-
-/usr/include/giomm-2.4/giomm/proxyresolver.h:
-
 /usr/include/giomm-2.4/giomm/resolver.h:
 
 /usr/include/giomm-2.4/giomm/srvtarget.h:
-
-/usr/include/giomm-2.4/giomm/settings.h:
-
-/usr/include/giomm-2.4/giomm/simpleaction.h:
-
-/usr/include/giomm-2.4/giomm/simpleactiongroup.h:
 
 /usr/include/giomm-2.4/giomm/socket.h:
 
@@ -1888,23 +1522,15 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/giomm-2.4/giomm/socketconnection.h:
 
-/usr/include/giomm-2.4/giomm/socketcontrolmessage.h:
-
 /usr/include/giomm-2.4/giomm/tcpconnection.h:
 
 /usr/include/giomm-2.4/giomm/themedicon.h:
 
 /usr/include/giomm-2.4/giomm/unixconnection.h:
 
-/usr/include/giomm-2.4/giomm/unixcredentialsmessage.h:
-
-/usr/include/giomm-2.4/giomm/unixfdmessage.h:
-
 /usr/include/giomm-2.4/giomm/unixinputstream.h:
 
 /usr/include/giomm-2.4/giomm/unixoutputstream.h:
-
-/usr/include/giomm-2.4/giomm/unixsocketaddress.h:
 
 /usr/include/giomm-2.4/giomm/volume.h:
 
@@ -1912,9 +1538,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gdkmm-2.4/gdkmm.h:
 
-/usr/include/gdkmm-2.4/gdkmm/screen.h:
-
-/usr/include/gdkmm-2.4/gdkmm/region.h:
+/usr/include/gdkmm-2.4/gdkmm/types.h:
 
 /usr/include/gtk-2.0/gdk/gdk.h:
 
@@ -1980,7 +1604,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/pango-1.0/pango/pango-utils.h:
 
-/usr/lib/x86_64-linux-gnu/gtk-2.0/include/gdkconfig.h:
+/usr/lib/gtk-2.0/include/gdkconfig.h:
 
 /usr/include/gtk-2.0/gdk/gdkdisplay.h:
 
@@ -1998,23 +1622,23 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gtk-2.0/gdk/gdkrgb.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-features.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-features.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-core.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-core.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-transform.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-transform.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-animation.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-animation.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-simple-anim.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-simple-anim.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-io.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-io.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-loader.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-loader.h:
 
-/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-enum-types.h:
+/usr/include/gtk-2.0/gdk-pixbuf/gdk-pixbuf-enum-types.h:
 
 /usr/include/pango-1.0/pango/pangocairo.h:
 
@@ -2052,11 +1676,13 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gtk-2.0/gdk/gdkvisual.h:
 
-/usr/include/gdkmm-2.4/gdkmm/types.h:
+/usr/lib/gdkmm-2.4/include/gdkmmconfig.h:
 
-/usr/lib/x86_64-linux-gnu/gdkmm-2.4/include/gdkmmconfig.h:
+/usr/lib/pangomm-1.4/include/pangommconfig.h:
 
-/usr/lib/x86_64-linux-gnu/pangomm-1.4/include/pangommconfig.h:
+/usr/include/gdkmm-2.4/gdkmm/visual.h:
+
+/usr/include/gdkmm-2.4/gdkmm/screen.h:
 
 /usr/include/gdkmm-2.4/gdkmm/rectangle.h:
 
@@ -2087,8 +1713,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 /usr/include/freetype2/freetype/ftsystem.h:
 
 /usr/include/freetype2/freetype/ftimage.h:
-
-/usr/include/gdkmm-2.4/gdkmm/visual.h:
 
 /usr/include/gdkmm-2.4/gdkmm/gc.h:
 
@@ -2136,11 +1760,9 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/cairomm-1.0/cairomm/surface.h:
 
+/usr/include/sigc++-2.0/sigc++/slot.h:
+
 /usr/include/cairomm-1.0/cairomm/exception.h:
-
-/usr/include/cairomm-1.0/cairomm/device.h:
-
-/usr/include/cairomm-1.0/cairomm/types.h:
 
 /usr/include/cairomm-1.0/cairomm/refptr.h:
 
@@ -2151,6 +1773,8 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 /usr/include/cairo/cairo-svg.h:
 
 /usr/include/cairomm-1.0/cairomm/fontface.h:
+
+/usr/include/cairomm-1.0/cairomm/types.h:
 
 /usr/include/cairomm-1.0/cairomm/matrix.h:
 
@@ -2176,6 +1800,8 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gdkmm-2.4/gdkmm/color.h:
 
+/usr/include/gdkmm-2.4/gdkmm/region.h:
+
 /usr/include/gdkmm-2.4/gdkmm/rgbcmap.h:
 
 /usr/include/gdkmm-2.4/gdkmm/window.h:
@@ -2183,8 +1809,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 /usr/include/gdkmm-2.4/gdkmm/bitmap.h:
 
 /usr/include/gdkmm-2.4/gdkmm/pixmap.h:
-
-/usr/include/gdkmm-2.4/gdkmm/dragcontext.h:
 
 /usr/include/gdkmm-2.4/gdkmm/pixbuf.h:
 
@@ -2210,7 +1834,39 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gdkmm-2.4/gdkmm/rgb.h:
 
-/usr/include/gtkmm-2.4/gtkmm/box.h:
+/usr/include/gtkmm-2.4/gtkmm/object.h:
+
+/usr/include/gtkmm-2.4/gtkmm/base.h:
+
+/usr/lib/gtkmm-2.4/include/gtkmmconfig.h:
+
+/usr/include/gtkmm-2.4/gtkmm/aboutdialog.h:
+
+/usr/include/gtkmm-2.4/gtkmm/dialog.h:
+
+/usr/include/gtkmm-2.4/gtkmm/window.h:
+
+/usr/include/gtkmm-2.4/gtkmm/bin.h:
+
+/usr/include/gtkmm-2.4/gtkmm/container.h:
+
+/usr/include/gtkmm-2.4/gtkmm/widget.h:
+
+/usr/include/atkmm-1.6/atkmm/object.h:
+
+/usr/include/atkmm-1.6/atkmm/component.h:
+
+/usr/include/atkmm-1.6/atkmm/relation.h:
+
+/usr/include/atkmm-1.6/atkmm/implementor.h:
+
+/usr/include/gdkmm-2.4/gdkmm/dragcontext.h:
+
+/usr/include/gtkmm-2.4/gtkmm/enums.h:
+
+/usr/include/gtkmm-2.4/gtkmm/targetlist.h:
+
+/usr/include/gtkmm-2.4/gtkmm/targetentry.h:
 
 /usr/include/gtk-2.0/gtk/gtk.h:
 
@@ -2306,8 +1962,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/atk-1.0/atk/atkvalue.h:
 
-/usr/include/atk-1.0/atk/atkwindow.h:
-
 /usr/include/gtk-2.0/gtk/gtkaccellabel.h:
 
 /usr/include/gtk-2.0/gtk/gtklabel.h:
@@ -2398,10 +2052,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gtk-2.0/gtk/gtkitem.h:
 
-/usr/include/gtk-2.0/gtk/ubuntumenuproxy.h:
-
-/usr/include/gtk-2.0/gtk/ubuntumenuproxymodule.h:
-
 /usr/include/gtk-2.0/gtk/gtkclipboard.h:
 
 /usr/include/gtk-2.0/gtk/gtkselection.h:
@@ -2441,8 +2091,6 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 /usr/include/gtk-2.0/gtk/gtktreemodelfilter.h:
 
 /usr/include/gtk-2.0/gtk/gtkcomboboxentry.h:
-
-/usr/include/gtk-2.0/gtk/gtkcomboboxtext.h:
 
 /usr/include/gtk-2.0/gtk/gtkdrawingarea.h:
 
@@ -2700,33 +2348,9 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gtk-2.0/gtk/gtktipsquery.h:
 
-/usr/include/gtkmm-2.4/gtkmm/container.h:
-
-/usr/include/gtkmm-2.4/gtkmm/widget.h:
-
-/usr/lib/x86_64-linux-gnu/gtkmm-2.4/include/gtkmmconfig.h:
-
-/usr/include/atkmm-1.6/atkmm/object.h:
-
-/usr/include/atkmm-1.6/atkmm/component.h:
-
-/usr/include/atkmm-1.6/atkmm/relation.h:
-
-/usr/include/atkmm-1.6/atkmm/implementor.h:
-
-/usr/include/gtkmm-2.4/gtkmm/enums.h:
-
-/usr/include/gtkmm-2.4/gtkmm/targetlist.h:
-
-/usr/include/gtkmm-2.4/gtkmm/targetentry.h:
-
 /usr/include/gtkmm-2.4/gtkmm/rc.h:
 
 /usr/include/gtkmm-2.4/gtkmm/style.h:
-
-/usr/include/gtkmm-2.4/gtkmm/object.h:
-
-/usr/include/gtkmm-2.4/gtkmm/base.h:
 
 /usr/include/gtkmm-2.4/gtkmm/iconsource.h:
 
@@ -2738,23 +2362,15 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gtkmm-2.4/gtkmm/selectiondata.h:
 
-/usr/include/gtkmm-2.4/gtkmm/dialog.h:
-
-/usr/include/gtkmm-2.4/gtkmm/window.h:
-
-/usr/include/gtkmm-2.4/gtkmm/bin.h:
+/usr/include/gtkmm-2.4/gtkmm/box.h:
 
 /usr/include/gtkmm-2.4/gtkmm/button.h:
 
 /usr/include/gtkmm-2.4/gtkmm/buttonbox.h:
 
-/usr/include/gtkmm-2.4/gtkmm/aboutdialog.h:
-
 /usr/include/gtkmm-2.4/gtkmm/accelkey.h:
 
 /usr/include/gtk-2.0/gdk/gdkkeysyms.h:
-
-/usr/include/gtk-2.0/gdk/gdkkeysyms-compat.h:
 
 /usr/include/gtkmm-2.4/gtkmm/accelgroup.h:
 
@@ -2924,9 +2540,9 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/gtkmm-2.4/gtkmm/liststore.h:
 
-/usr/include/gtkmm-2.4/gtkmm/treedragdest.h:
-
 /usr/include/gtkmm-2.4/gtkmm/treesortable.h:
+
+/usr/include/gtkmm-2.4/gtkmm/treedragdest.h:
 
 /usr/include/gtkmm-2.4/gtkmm/treedragsource.h:
 
@@ -3146,9 +2762,7 @@ src/vista/Ide.d: ../src/vista/Ide.cpp ../src/vista/Ide.h \
 
 /usr/include/cairomm-1.0/cairomm/cairomm.h:
 
-/usr/lib/x86_64-linux-gnu/cairomm-1.0/include/cairommconfig.h:
-
-/usr/include/cairomm-1.0/cairomm/region.h:
+/usr/lib/cairomm-1.0/include/cairommconfig.h:
 
 ../src/vista/../controlador/../vista/./componentes/../VistaConstantes.h:
 

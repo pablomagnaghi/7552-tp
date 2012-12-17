@@ -34,7 +34,7 @@ public:
 	virtual void redimensionar(double x, double y);
 	virtual std::string getNombre() const;
 	virtual void setNombre(const std::string &);
-	virtual bool contieneEsteComponente(VistaComponente *);
+	virtual bool esContenidoPorEsteComponente(VistaComponente *);
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
 
@@ -54,6 +54,7 @@ public:
 	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	virtual bool hayQueEliminarlo();
+
 };
 
 #endif /* VISTARELACION_H_ */

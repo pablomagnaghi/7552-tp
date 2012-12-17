@@ -115,16 +115,21 @@ public:
 
 	virtual void on_popup_boton_Identificadores();
 
-	virtual bool contieneEsteComponente(VistaComponente *)=0;
+	virtual bool esContenidoPorEsteComponente(VistaComponente *)=0;
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y)=0;
+
+	virtual bool hayInterseccion(VistaComponente *);
+
+	virtual bool probarInterseccionConRectangulo(double x0, double y0, double x1, double y1);
 
 	bool estaSeleccionado();
 
 	virtual void eliminarComponentesAdyacentes(Diagrama * diagrama,
 			std::vector<VistaComponente *> & componentes_a_eliminar,
 			VistaComponente * componenteEliminado) = 0;
+	virtual void removerComponenteAEliminar(VistaComponente * componente);
 	virtual bool hayQueEliminarlo()=0;
 
 	// PERSISTENCIA REP

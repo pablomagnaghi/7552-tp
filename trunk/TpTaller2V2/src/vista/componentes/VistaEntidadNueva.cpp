@@ -286,7 +286,7 @@ std::string VistaEntidadNueva::getNombre() const {
 	return this->entidad->getNombre();
 }
 
-bool VistaEntidadNueva::contieneEsteComponente(VistaComponente * c) {
+bool VistaEntidadNueva::esContenidoPorEsteComponente(VistaComponente * c) {
 	return false;
 }
 
@@ -317,11 +317,10 @@ bool VistaEntidadNueva::quitarAtributo(VistaAtributo* atributo) {
 		vistaAtributos.erase(it_atributo);
 	}
 	this->entidad->quitarAtributo(atributo->getAtributo());
-	// TODO VERIFICAR RETORNO DE remove()
 	return true;
 }
 
-bool VistaEntidadNueva::agregarIdentificador(VistaIdentificador* ident){
+bool VistaEntidadNueva::agregarIdentificador(VistaIdentificador* ident) {
 	if (ident == NULL) {
 		return false;
 	}
@@ -329,7 +328,7 @@ bool VistaEntidadNueva::agregarIdentificador(VistaIdentificador* ident){
 	return true;
 }
 
-bool VistaEntidadNueva::quitarIdentificador(VistaIdentificador* ident){
+bool VistaEntidadNueva::quitarIdentificador(VistaIdentificador* ident) {
 	if (ident == NULL || this->eliminando) {
 		return false;
 	}
@@ -340,7 +339,6 @@ bool VistaEntidadNueva::quitarIdentificador(VistaIdentificador* ident){
 		vistaIdentificadores.erase(it_ident);
 	}
 	this->entidad->quitarIdentificador(ident->getIdentificador());
-	// TODO VERIFICAR RETORNO DE remove()
 	return true;
 }
 
@@ -382,7 +380,7 @@ void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 	this->eliminando = true;
 	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
-		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes,componenteEliminado);
+		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes, componenteEliminado);
 
 #if DEBUG_QUITAR==1
 		std::cout << "EntidadNueva: Agrego Atributo " << (*it_atributo)->getNombre()
@@ -400,16 +398,16 @@ void VistaEntidadNueva::eliminarComponentesAdyacentes(Diagrama * diagrama,
 	this->eliminarModelo = true;
 }
 
-bool VistaEntidadNueva::hayQueEliminarlo(){
+bool VistaEntidadNueva::hayQueEliminarlo() {
 	return this->eliminando;
 }
 
-bool VistaEntidadNueva::identificador_en_popup(){
+bool VistaEntidadNueva::identificador_en_popup() {
 	return true;
 }
 
-void VistaEntidadNueva::on_popup_boton_Identificadores(){
-	cout<<"Solo hago algo para entidad nueva"<<endl;
+void VistaEntidadNueva::on_popup_boton_Identificadores() {
+	cout << "Solo hago algo para entidad nueva" << endl;
 	if (!this->ident_lanzada) {
 		AsistenteIdentificador* nuevaProp;
 		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_IDENT);
@@ -419,3 +417,8 @@ void VistaEntidadNueva::on_popup_boton_Identificadores(){
 		nuevaProp->show();
 	}
 }
+
+void VistaEntidadNueva::removerComponenteAEliminar(VistaComponente * componente){
+	this->quitarIdentificador(static_cast<VistaIdentificador *>(componente));
+}
+

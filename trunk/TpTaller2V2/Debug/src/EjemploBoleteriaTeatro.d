@@ -1,6 +1,6 @@
-src/EjemploBoleteriaTeatro.d: ../src/EjemploBoleteriaTeatro.cpp \
- ../src/modelo/HeadersModelo.h ../src/modelo/Proyecto.h \
- ../src/modelo/Diagrama.h \
+src/EjemploBoleteriaTeatro.d src/EjemploBoleteriaTeatro.o: \
+ ../src/EjemploBoleteriaTeatro.cpp ../src/modelo/HeadersModelo.h \
+ ../src/modelo/Proyecto.h ../src/modelo/Diagrama.h \
  ../src/modelo/./componentes/HeadersComponentes.h \
  ../src/modelo/./componentes/./Componente.h \
  ../src/modelo/./componentes/./../../excepciones/ArgumentoInvalido.h \
@@ -35,7 +35,8 @@ src/EjemploBoleteriaTeatro.d: ../src/EjemploBoleteriaTeatro.cpp \
  ../src/modelo/validacion/ValidacionVisitor.h \
  ../src/modelo/validacion/ModeloVisitor.h \
  ../src/modelo/validacion/../../utils/Utils.h \
- ../src/modelo/validacion/../HeadersModelo.h
+ ../src/modelo/validacion/../HeadersModelo.h \
+ ../src/modelo/validacion/MetricasVisitor.h
 
 ../src/modelo/HeadersModelo.h:
 
@@ -114,3 +115,5 @@ src/EjemploBoleteriaTeatro.d: ../src/EjemploBoleteriaTeatro.cpp \
 ../src/modelo/validacion/../../utils/Utils.h:
 
 ../src/modelo/validacion/../HeadersModelo.h:
+
+../src/modelo/validacion/MetricasVisitor.h:

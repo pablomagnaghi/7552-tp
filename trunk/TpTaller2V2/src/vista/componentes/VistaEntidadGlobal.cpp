@@ -23,7 +23,7 @@ void VistaEntidadGlobal::setPadre(VistaEntidad * p) {
 	this->padre = p;
 }
 
-bool VistaEntidadGlobal::contieneEsteComponente(VistaComponente * c) {
+bool VistaEntidadGlobal::esContenidoPorEsteComponente(VistaComponente * c) {
 	if (static_cast<VistaComponente *>(this->padre) == c) {
 		return true;
 	}
@@ -268,3 +268,4 @@ void VistaEntidadGlobal::eliminarComponentesAdyacentes(Diagrama * diagrama,
 bool VistaEntidadGlobal::hayQueEliminarlo() {
 	return this->eliminando;
 }
+

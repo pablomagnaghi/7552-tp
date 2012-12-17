@@ -1,12 +1,13 @@
 #include "VistaProyecto.h"
 
+#include "../modelo/validacion/ValidacionVisitor.h"
+
 VistaProyecto::VistaProyecto(Proyecto * proyectoModelo) {
 	//Prueba
 	this->proyecto = proyectoModelo;
 	this->diagramaPrincipal = new VistaDiagrama(proyectoModelo->getDiagramaPrincipal());
 
 }
-
 
 VistaProyecto::~VistaProyecto() {
 	// TODO Auto-generated destructor stub
@@ -32,7 +33,7 @@ void VistaProyecto::testCargarDiagramas() {
 
 }
 
-void VistaProyecto::eliminarModelo(){
+void VistaProyecto::eliminarModelo() {
 	delete this->proyecto;
 	this->proyecto = NULL;
 }
@@ -45,20 +46,37 @@ void VistaProyecto::setNombre(const std::string & nombre) {
 	this->proyecto->setNombre(nombre);
 }
 
-void VistaProyecto::get_diagramas(list<VistaDiagrama*> & lista){
+void VistaProyecto::get_diagramas(list<VistaDiagrama*> & lista) {
 	diagramas_recur(this->diagramaPrincipal, lista);
 }
 
-void VistaProyecto::diagramas_recur(VistaDiagrama* diag, list<VistaDiagrama*> & lista){
+void VistaProyecto::diagramas_recur(VistaDiagrama* diag, list<VistaDiagrama*> & lista) {
 	lista.push_back(diag);
 	std::vector<VistaDiagrama*>::iterator it = diag->vdiagramasBegin();
 	std::vector<VistaDiagrama*>::iterator it1 = diag->vdiagramasEnd();
-	while (it != it1){
-		diagramas_recur(*it,lista);
+	while (it != it1) {
+		diagramas_recur(*it, lista);
 		it++;
 	}
 }
 
-std::string VistaProyecto::getNombre(){
+std::string VistaProyecto::getNombre() {
 	return this->proyecto->getNombre();
+}
+
+void VistaProyecto::validarModelo() {
+	ValidacionVisitor validador;
+	this->proyecto->accept(&validador);
+
+}
+
+
+void VistaProyecto::obtenerEstadoDiagramas(std::vector<std::string> & nombres,
+		std::vector<bool>& estado_modelo, std::vector<bool>& estado_vista) {
+	size_t i;
+	this->proyecto->obtenerEstadoDiagramas(nombres, estado_modelo);
+	for(i=0;i<estado_modelo.size();i++){
+		estado_vista.push_back(false);
+	}
+	this->diagramaPrincipal->obtenerEstadoDiagramas(nombres, estado_vista);
 }

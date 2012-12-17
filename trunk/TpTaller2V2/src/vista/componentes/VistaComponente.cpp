@@ -279,11 +279,24 @@ void VistaComponente::agregarPropiedadesXmlREP(XmlNodo* nodo) {
 	nodo->setPropiedad("codigo", this->codigoREP);
 }
 
-bool VistaComponente::identificador_en_popup(){
+bool VistaComponente::identificador_en_popup() {
 	return false;
 }
 
+void VistaComponente::on_popup_boton_Identificadores() {
+	cout << "Solo hago algo para entidad nueva" << endl;
+}
 
-void VistaComponente::on_popup_boton_Identificadores(){
-	cout<<"Solo hago algo para entidad nueva"<<endl;
+bool VistaComponente::hayInterseccion(VistaComponente * componente) {
+	return componente->probarInterseccionConRectangulo(this->pos_ini_x, this->pos_ini_y,
+			this->pos_fin_x, this->pos_fin_y);
+}
+
+bool VistaComponente::probarInterseccionConRectangulo(double x0, double y0, double x1, double y1) {
+	return Geometria::haySuperposicionDeRectangulos(this->pos_ini_x, this->pos_ini_y,
+			this->pos_fin_x, this->pos_fin_y, x0, y0, x1, y1);
+}
+
+void VistaComponente::removerComponenteAEliminar(VistaComponente * componente){
+
 }

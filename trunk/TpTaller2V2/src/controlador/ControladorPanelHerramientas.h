@@ -20,6 +20,9 @@ private:
 	Gtk::ToolButton * botonAgregarJerarquia;
 	Gtk::ToolButton * botonAgregarEntidadGlobal;
 
+
+	Gtk::ToolButton * botonValidar;
+
 	Gtk::ToolButton * botonAumentarZoom;
 	Gtk::ToolButton * botonReducirZoom;
 	Gtk::ToolButton * botonRestablecerZoom;
@@ -35,6 +38,8 @@ private:
 	void on_boton_Agregar_Union_click();
 	void on_boton_Agregar_EntidadGlobal_click();
 	void on_boton_Agregar_Comentario_click();
+
+	void on_boton_Validar_click();
 
 	void on_boton_Aumentar_Zoom_click();
 	void on_boton_Reducir_Zoom_click();

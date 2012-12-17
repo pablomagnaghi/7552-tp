@@ -1,4 +1,5 @@
-src/modelo/componentes/EntidadGlobal.d: \
+src/modelo/componentes/EntidadGlobal.d \
+ src/modelo/componentes/EntidadGlobal.o: \
  ../src/modelo/componentes/EntidadGlobal.cpp \
  ../src/modelo/componentes/EntidadGlobal.h \
  ../src/modelo/componentes/Entidad.h \

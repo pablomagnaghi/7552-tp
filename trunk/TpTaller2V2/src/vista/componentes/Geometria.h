@@ -23,17 +23,22 @@ private:
 			punto_t & posInicial, punto_t & posFinal, const punto_t & cotaInicial,
 			const punto_t & cotaFinal);
 public:
+	static bool haySuperposicionDeRectangulos(double x0, double y0, double x1, double y1, double x2,
+			double y2, double x3, double y3);
 	static bool estaContenidoEnRectangulo(double x, double y, double x_inicial, double y_inicial,
 			double x_final, double y_final);
 	static bool estaEntreLineasParalelas(double x, double y, double x0_inicial, double y0_inicial,
-			double x0_final, double y0_final, double x1_inicial, double y1_inicial,
-			double x1_final, double y1_final);
+			double x0_final, double y0_final, double x1_inicial, double y1_inicial, double x1_final,
+			double y1_final);
 
 	static bool hayInterseccionDeLineas(double x0, double y0, double x1, double y1, double x2,
 			double y2, double x3, double y3, double & x, double & y);
 	static bool
-	hayInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1, double xc,
+	obtenerInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1, double xc,
 			double yc, double r, double & x, double & y);
+	static bool
+	hayInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1, double xc,
+			double yc, double r);
 	static void obtenerPuntosDeTriangulo(double x0, double y0, double x1, double y1, double altura,
 			double base, double & x2, double & y2, double & x3, double & y3);
 	static void obtenerLineasParalelas(double x0, double y0, double x1, double y1, double distancia,
@@ -41,6 +46,9 @@ public:
 			double & x5, double & y5);
 	static bool
 	hayInterseccionDeLineaConElipse(double x0, double y0, double x1, double y1, double xc,
+			double yc, double rx, double ry);
+	static bool
+	obtenerInterseccionDeLineaConElipse(double x0, double y0, double x1, double y1, double xc,
 			double yc, double rx, double ry, double & x, double & y);
 	static bool
 	obtenerPuntoDeDibujoDeTextoCentradoEnLinea(double x0, double y0, double x1, double y1, double w,

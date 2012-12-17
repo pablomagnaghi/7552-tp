@@ -37,6 +37,11 @@ public:
 
 	void setNombre(const std::string & nombre);
 	std::string getNombre();
+
+	void validarModelo();
+
+	void obtenerEstadoDiagramas(std::vector<std::string> & nombres,
+			std::vector<bool>& estado_modelo, std::vector<bool> & estado_vista);
 };
 
 #endif /* VISTAPROYECTO_H_ */

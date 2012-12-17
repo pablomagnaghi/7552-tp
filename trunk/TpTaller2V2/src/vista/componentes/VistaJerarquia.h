@@ -41,7 +41,7 @@ public:
 	virtual void redimensionar(double x, double y);
 	virtual std::string getNombre() const;
 	virtual void setNombre(const std::string &);
-	virtual bool contieneEsteComponente(VistaComponente *);
+	virtual bool esContenidoPorEsteComponente(VistaComponente *);
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
 
@@ -60,7 +60,12 @@ public:
 
 	virtual bool hayQueEliminarlo();
 
+	virtual bool hayInterseccion(VistaComponente *);
+
+	virtual bool probarInterseccionConRectangulo(double x0, double y0, double x1, double y1);
+
 	virtual bool unidaConEntidad(VistaEntidad * ventidad);
+
 };
 
 #endif /* VISTAJERARQUIA_H_ */

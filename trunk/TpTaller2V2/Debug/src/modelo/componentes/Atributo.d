@@ -1,4 +1,5 @@
-src/modelo/componentes/Atributo.d: ../src/modelo/componentes/Atributo.cpp \
+src/modelo/componentes/Atributo.d src/modelo/componentes/Atributo.o: \
+ ../src/modelo/componentes/Atributo.cpp \
  ../src/modelo/componentes/Atributo.h \
  ../src/modelo/componentes/Componente.h \
  ../src/modelo/componentes/../../excepciones/ArgumentoInvalido.h \
