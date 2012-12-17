@@ -10,7 +10,7 @@
 #endif
 
 Relacion::Relacion() {
-
+	this->setNombre("Relacion");
 }
 
 Relacion::~Relacion() {

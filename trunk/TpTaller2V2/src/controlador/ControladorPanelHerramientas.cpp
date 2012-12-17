@@ -163,7 +163,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_Jerarquia_click() {
 	VistaJerarquia *nuevaJerarquia = ComponentsBuilder::getInstance()->crearJerarquiaEnDiagrama(
 			NULL, NULL);
 	Ide::getInstance()->regenerarTreePanel();
-	nuevaJerarquia->lanzarProp();
+	nuevaJerarquia->lanzarProp(true);
 }
 
 void ControladorPanelHerramientas::on_boton_Agregar_EntidadGlobal_click() {

@@ -79,7 +79,7 @@ public:
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr) = 0;
 
 	// Lanza el asistente de prpiedades del objeto en cuestion.
-	virtual bool lanzarProp() = 0;
+	virtual bool lanzarProp(bool esNuevo=false) = 0;
 
 	// lanza el menú al hacer click derecho
 	virtual void lanzarMenuPopUp(GdkEventButton* event);

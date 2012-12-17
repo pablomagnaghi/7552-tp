@@ -71,6 +71,7 @@ void AsistenteRelacion::enlazarWidgets() {
 
 	//Combobox
 	vbox->pack_end(this->comboTipo);
+	this->comboTipo.set_size_request(100,20);
 
 	//ListaAtributos
 	this->m_builder->get_widget("scrollAtributos", scrollAtributos);
@@ -81,9 +82,10 @@ void AsistenteRelacion::enlazarWidgets() {
 	this->treeViewAtrib.set_model(this->refTreeModelAtrib);
 	this->treeViewAtrib.append_column("Nombre", this->m_ColumnasAtrib.m_col_Nombre);
 
+
 	this->treeViewEntidades.show();
 	this->treeViewAtrib.show();
-
+	this->show_all();
 }
 
 void AsistenteRelacion::on_botonAceptar_click() {

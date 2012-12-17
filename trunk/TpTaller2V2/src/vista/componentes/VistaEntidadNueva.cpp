@@ -32,7 +32,7 @@ VistaEntidadNueva::~VistaEntidadNueva() {
 	}
 }
 
-bool VistaEntidadNueva::lanzarProp() {
+bool VistaEntidadNueva::lanzarProp(bool esNuevo) {
 	if (!this->prop_lanzada) {
 		AsistenteEntidad* nuevaProp;
 		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_IDE);

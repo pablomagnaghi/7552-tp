@@ -45,7 +45,7 @@ std::string VistaUnionEntidadRelacion::getNombre() const {
 			+ ":" + this->unionModelo->getRelacion()->getNombre() + ")");
 }
 
-bool VistaUnionEntidadRelacion::lanzarProp() {
+bool VistaUnionEntidadRelacion::lanzarProp(bool esNuevo) {
 	return false;
 }
 

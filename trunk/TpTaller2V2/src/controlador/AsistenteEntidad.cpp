@@ -100,7 +100,7 @@ void AsistenteEntidad::on_botonCancelar_click() {
 	this->ventidad->ajustarTamanioAlTexto();
 	this->ventidad->resetearLanzarProp();
 	// todo if esta creando
-	Ide::getInstance()->getDiagActual()->quitarComponente(this->ventidad);
+	//Ide::getInstance()->getDiagActual()->quitarComponente(this->ventidad);
 
 	Ide::getInstance()->regenerarTreePanel();
 	this->hide();

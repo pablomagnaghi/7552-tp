@@ -24,7 +24,7 @@ VistaAtributo::~VistaAtributo() {
 	}
 }
 
-bool VistaAtributo::lanzarProp() {
+bool VistaAtributo::lanzarProp(bool esNuevo) {
 	if (!this->prop_lanzada) {
 		AsistenteAtributo* nuevaProp;
 		Glib::RefPtr<Gtk::Builder> nHbuilder = Gtk::Builder::create_from_file(ARCH_GLADE_ATRIB);

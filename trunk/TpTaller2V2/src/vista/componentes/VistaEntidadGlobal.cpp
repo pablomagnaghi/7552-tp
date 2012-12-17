@@ -30,7 +30,7 @@ bool VistaEntidadGlobal::esContenidoPorEsteComponente(VistaComponente * c) {
 	return false;
 }
 
-bool VistaEntidadGlobal::lanzarProp() {
+bool VistaEntidadGlobal::lanzarProp(bool esNuevo) {
 	return false;
 }
 
