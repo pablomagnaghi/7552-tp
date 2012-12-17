@@ -38,7 +38,6 @@ public:
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
 
-
 	//Lanza el asistente de prpiedades del objeto en cuestion.
 	virtual bool lanzarProp();
 
@@ -54,7 +53,7 @@ public:
 
 	virtual void redimensionar(double x, double y);
 
-	virtual bool contieneEsteComponente(VistaComponente *);
+	virtual bool esContenidoPorEsteComponente(VistaComponente *);
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
@@ -64,13 +63,17 @@ public:
 
 	Identificador * getIdentificador();
 
-	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,
+			std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	virtual bool hayQueEliminarlo();
 
 	bool contieneAtrib(VistaAtributo * atrib);
 
 	std::string to_s();
+
+	virtual bool hayInterseccion(VistaComponente *);
+	virtual bool probarInterseccionConRectangulo(double x0, double y0, double x1, double y1);
 };
 
 #endif /* VISTAIDENTIFICADOR_H_ */

@@ -1,4 +1,4 @@
-src/modelo/Proyecto.d: ../src/modelo/Proyecto.cpp \
+src/modelo/Proyecto.d src/modelo/Proyecto.o: ../src/modelo/Proyecto.cpp \
  ../src/modelo/Proyecto.h ../src/modelo/Diagrama.h \
  ../src/modelo/./componentes/HeadersComponentes.h \
  ../src/modelo/./componentes/./Componente.h \
@@ -29,7 +29,15 @@ src/modelo/Proyecto.d: ../src/modelo/Proyecto.cpp \
  ../src/modelo/./componentes/./Atributo.h \
  ../src/modelo/./componentes/./Identificador.h \
  ../src/modelo/./componentes/./UnionEntidadRelacion.h \
- ../src/modelo/persistencia/Persistencia.h
+ ../src/modelo/persistencia/Persistencia.h \
+ ../src/modelo/validacion/ModeloVisitor.h \
+ ../src/modelo/validacion/../../utils/Utils.h \
+ ../src/modelo/validacion/../HeadersModelo.h \
+ ../src/modelo/validacion/../Proyecto.h \
+ ../src/modelo/validacion/../Diagrama.h \
+ ../src/modelo/validacion/../GeneradorCodigo.h \
+ ../src/modelo/validacion/../ConstantesModelo.h \
+ ../src/modelo/validacion/.././componentes/HeadersComponentes.h
 
 ../src/modelo/Proyecto.h:
 
@@ -94,3 +102,19 @@ src/modelo/Proyecto.d: ../src/modelo/Proyecto.cpp \
 ../src/modelo/./componentes/./UnionEntidadRelacion.h:
 
 ../src/modelo/persistencia/Persistencia.h:
+
+../src/modelo/validacion/ModeloVisitor.h:
+
+../src/modelo/validacion/../../utils/Utils.h:
+
+../src/modelo/validacion/../HeadersModelo.h:
+
+../src/modelo/validacion/../Proyecto.h:
+
+../src/modelo/validacion/../Diagrama.h:
+
+../src/modelo/validacion/../GeneradorCodigo.h:
+
+../src/modelo/validacion/../ConstantesModelo.h:
+
+../src/modelo/validacion/.././componentes/HeadersComponentes.h:

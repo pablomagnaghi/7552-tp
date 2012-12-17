@@ -70,10 +70,12 @@ void Diagrama::quitarDiagramaHijo(Diagrama* diagramaHijo) {
 
 void Diagrama::agregarComponente(Componente* componente) {
 	this->componentes.push_back(componente);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::agregarEntidad(Entidad* entidad) {
 	this->entidades.push_back(entidad);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::quitarEntidad(Entidad* entidad) {
@@ -82,12 +84,14 @@ void Diagrama::quitarEntidad(Entidad* entidad) {
 	if (*e == entidad) {
 		this->entidades.erase(e);
 	}
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::agregarEntidadNueva(EntidadNueva* entidadNueva) {
 	this->entidadesNuevas.push_back(entidadNueva);
 	this->agregarComponente(entidadNueva);
 	this->agregarEntidad(entidadNueva);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::quitarEntidadNueva(EntidadNueva* entidadNueva) {
@@ -98,12 +102,14 @@ void Diagrama::quitarEntidadNueva(EntidadNueva* entidadNueva) {
 	}
 	this->quitarComponente(entidadNueva);
 	this->quitarEntidad(entidadNueva);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::agregarEntidadGlobal(EntidadGlobal* entidadGlobal) {
 	this->entidadesGlobales.push_back(entidadGlobal);
 	this->agregarComponente(entidadGlobal);
 	this->agregarEntidad(entidadGlobal);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::quitarEntidadGlobal(EntidadGlobal* entidadGlobal) {
@@ -114,11 +120,13 @@ void Diagrama::quitarEntidadGlobal(EntidadGlobal* entidadGlobal) {
 	}
 	this->quitarComponente(entidadGlobal);
 	this->quitarEntidad(entidadGlobal);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::agregarRelacion(Relacion* relacion) {
 	this->relaciones.push_back(relacion);
 	this->agregarComponente(relacion);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::quitarRelacion(Relacion* relacion) {
@@ -128,11 +136,13 @@ void Diagrama::quitarRelacion(Relacion* relacion) {
 		this->relaciones.erase(e);
 	}
 	this->quitarComponente(relacion);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::agregarJerarquia(Jerarquia* jerarquia) {
 	this->jerarquias.push_back(jerarquia);
 	this->agregarComponente(jerarquia);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::quitarJerarquia(Jerarquia* jerarquia) {
@@ -142,6 +152,7 @@ void Diagrama::quitarJerarquia(Jerarquia* jerarquia) {
 		this->jerarquias.erase(e);
 	}
 	this->quitarComponente(jerarquia);
+	this->diagramaValidoCOMP = false;
 }
 
 void Diagrama::quitarComponente(Componente * componente) {
@@ -186,6 +197,7 @@ void Diagrama::quitarComponente(Componente * componente) {
 		if (it_jerarquias != jerarquias.end()) {
 			jerarquias.erase(it_jerarquias);
 		}
+		this->diagramaValidoCOMP = false;
 	}
 }
 
@@ -426,9 +438,9 @@ void Diagrama::accept(ModeloVisitor* modeloVisitor) {
 		itComponentes++;
 	}
 	modeloVisitor->postVisit(this);
-	if (modeloVisitor->validarTotalmente()){
+	if (modeloVisitor->validarTotalmente()) {
 		std::vector<Diagrama*>::iterator itDiagramas = this->diagramasHijosBegin();
-		while (itDiagramas != this->diagramasHijosEnd()){
+		while (itDiagramas != this->diagramasHijosEnd()) {
 			(*itDiagramas)->accept(modeloVisitor);
 			itDiagramas++;
 		}
@@ -677,4 +689,18 @@ void Diagrama::guardarJerarquiasXmlCOMP(XmlNodo *nodo) {
 
 	for (i = this->jerarquias.begin(); i != this->jerarquias.end(); ++i)
 		nodo->agregarHijo((*i)->guardarXmlCOMP());
+}
+
+bool Diagrama::es_valido() {
+	return this->diagramaValidoCOMP;
+}
+
+void Diagrama::obtenerEstadoDiagramas(std::vector<std::string> & nombres,
+		std::vector<bool>& estado_modelo) {
+	nombres.push_back(this->nombre);
+	estado_modelo.push_back(this->diagramaValidoCOMP);
+	std::vector<Diagrama*>::iterator i;
+	for( i = this->diagramasHijos.begin(); i != this->diagramasHijos.end(); ++i){
+		(*i)->obtenerEstadoDiagramas(nombres,estado_modelo);
+	}
 }

@@ -110,7 +110,7 @@ std::string VistaLinea::getNombre() const {
 	return "Linea";
 }
 
-bool VistaLinea::contieneEsteComponente(VistaComponente *) {
+bool VistaLinea::esContenidoPorEsteComponente(VistaComponente *) {
 	return false;
 }
 
@@ -136,4 +136,12 @@ this->eliminando = true;
 
 bool VistaLinea::hayQueEliminarlo(){
 	return this->eliminando;
+}
+
+bool VistaLinea::hayInterseccion(VistaComponente * componente) {
+	return false;
+}
+
+bool VistaLinea::probarInterseccionConRectangulo(double x0, double y0, double x1, double y1) {
+	return false;
 }

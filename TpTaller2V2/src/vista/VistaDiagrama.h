@@ -148,6 +148,7 @@ private:
 	void lanzarMenuPopup(VistaComponente * vistaComponente, GdkEventButton* event);
 
 	void quitarComponenteDeVectores(VistaComponente * componente);
+	bool validarDiagrama();
 public:
 
 	VistaDiagrama(Diagrama * diagramaModelo, int a = 0);
@@ -184,9 +185,12 @@ public:
 	void setDiagramaAncestro(VistaDiagrama *);
 	VistaDiagrama *getDiagramaAncestro();
 	//VistaEntidadNueva * buscarEntidadNuevaEnAncestro(const std::string & nombreEntidadNueva,std::string & nombreDiagramaAncestro);
-	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(int codigo_entidad,std::string & nombreDiagramaAncestro);
+	VistaEntidadNueva * buscarEntidadNuevaEnAncestro(int codigo_entidad,
+			std::string & nombreDiagramaAncestro);
 
 	bool existeEsteDiagrama(const std::string & nombre);
+
+	void obtenerEstadoDiagramas(std::vector<std::string> & nombres, std::vector<bool> & estado_vista);
 
 	//*****     GRAFICOS     *****//
 	void dibujarComponentes(Cairo::RefPtr<Cairo::Context> & context, bool dibujarSeleccionado);
@@ -216,7 +220,7 @@ public:
 	bool isOpenXmlREP() const;
 	// CARGAR
 	void abrirXml(const std::string& path, const std::string& carpeta);
-	void abrirXmlDiagramas(const std::string carpeta,const std::vector<std::string> & nombres);
+	void abrirXmlDiagramas(const std::string carpeta, const std::vector<std::string> & nombres);
 	// GUARDAR
 	void guardarDiagramaXml(const std::string& path);
 

@@ -286,7 +286,7 @@ std::string VistaJerarquia::getNombre() const {
 	return this->jerarquia->getNombre();
 }
 
-bool VistaJerarquia::contieneEsteComponente(VistaComponente * comp) {
+bool VistaJerarquia::esContenidoPorEsteComponente(VistaComponente * comp) {
 	if (static_cast<VistaComponente*>(this->padre) == comp) {
 		return true;
 	}
@@ -368,7 +368,8 @@ Jerarquia * VistaJerarquia::getJerarquia() {
 void VistaJerarquia::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado) {
 	std::vector<VistaEntidadNueva *>::iterator it_entidades;
-	if (static_cast<VistaComponente*>(this->padre) == componenteEliminado || this == componenteEliminado) {
+	if (static_cast<VistaComponente*>(this->padre) == componenteEliminado
+			|| this == componenteEliminado) {
 		this->eliminando = true;
 		diagrama->quitarComponente(this->jerarquia);
 		for (it_entidades = this->hijos.begin(); it_entidades != this->hijos.end();
@@ -400,13 +401,21 @@ bool VistaJerarquia::hayQueEliminarlo() {
 	return this->eliminando;
 }
 
-bool VistaJerarquia::unidaConEntidad(VistaEntidad * ventidad){
+bool VistaJerarquia::hayInterseccion(VistaComponente * componente) {
+	return false;
+}
+
+bool VistaJerarquia::probarInterseccionConRectangulo(double x0, double y0, double x1, double y1) {
+	return false;
+}
+
+bool VistaJerarquia::unidaConEntidad(VistaEntidad * ventidad) {
 	std::vector<VistaEntidadNueva*>::iterator it = this->entidadesEspecializadasBegin();
 	std::vector<VistaEntidadNueva*>::iterator it1 = this->entidadesEspecializadasEnd();
 	VistaEntidad * ve = NULL;
-	while (it!=it1){
+	while (it != it1) {
 		ve = *it;
-		if (ve == ventidad){
+		if (ve == ventidad) {
 			return true;
 		}
 		it++;

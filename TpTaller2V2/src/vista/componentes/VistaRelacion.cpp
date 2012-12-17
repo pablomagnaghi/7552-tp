@@ -1,6 +1,5 @@
 #include "VistaRelacion.h"
 
-
 #include <iostream>
 using namespace std;
 
@@ -14,7 +13,7 @@ VistaRelacion::VistaRelacion(Relacion * relacionModelo) {
 
 VistaRelacion::~VistaRelacion() {
 	// TODO Auto-generated destructor stub
-	if(this->eliminarModelo){
+	if (this->eliminarModelo) {
 		delete this->relacion;
 	}
 }
@@ -201,17 +200,17 @@ void VistaRelacion::setMouseArriba(double x, double y) {
 
 	if (this->seleccionado) {
 		cout << "Dimensiones: (" << this->pos_fin_x - this->pos_ini_x << ";"
-				<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
+		<< this->pos_fin_y - this->pos_ini_y << ")" << endl;
 		cout << "Posicion: inicial=(" << this->pos_ini_x << ";" << this->pos_ini_y << ")  final=("
-				<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
+		<< this->pos_fin_x << ";" << this->pos_fin_y << ")" << endl;
 		cout << "Circulo arriba izq: (" << limiteX1 << ";" << limiteY1 << ") (" << limiteX2 << ";"
-				<< limiteY2 << ")" << endl;
+		<< limiteY2 << ")" << endl;
 		cout << "Circulo abajo izq: (" << limiteX1 << ";" << limiteY3 << ") (" << limiteX2 << ";"
-				<< limiteY4 << ")" << endl;
+		<< limiteY4 << ")" << endl;
 		cout << "Circulo arriba der: (" << limiteX3 << ";" << limiteY1 << ") (" << limiteX4 << ";"
-				<< limiteY2 << ")" << endl;
+		<< limiteY2 << ")" << endl;
 		cout << "Circulo abajo der: (" << limiteX3 << ";" << limiteY3 << ") (" << limiteX4 << ";"
-				<< limiteY4 << ")" << endl;
+		<< limiteY4 << ")" << endl;
 	}
 #endif
 }
@@ -269,7 +268,7 @@ std::vector<UnionEntidadRelacion *> VistaRelacion::getUniones() {
 	return uniones;
 }
 
-bool VistaRelacion::contieneEsteComponente(VistaComponente * c) {
+bool VistaRelacion::esContenidoPorEsteComponente(VistaComponente * c) {
 	return false;
 }
 
@@ -317,8 +316,8 @@ bool VistaRelacion::agregarAtributo(VistaAtributo* atributo) {
 	return true;
 }
 
-bool VistaRelacion::agregarUnion(VistaUnionEntidadRelacion* vuer){
-	if (vuer == NULL){
+bool VistaRelacion::agregarUnion(VistaUnionEntidadRelacion* vuer) {
+	if (vuer == NULL) {
 		return false;
 	}
 	this->vistaUniones.push_back(vuer);
@@ -358,7 +357,7 @@ void VistaRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
 	std::vector<VistaAtributo *>::iterator it_atributo;
 	this->eliminando = true;
 	for (it_atributo = vistaAtributos.begin(); it_atributo != vistaAtributos.end(); ++it_atributo) {
-		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes,componenteEliminado);
+		(*it_atributo)->eliminarComponentesAdyacentes(diagrama, componentes, componenteEliminado);
 		componentes.push_back((*it_atributo));
 		this->relacion->quitarAtributo((*it_atributo)->getAtributo());
 		//delete (*it_atributo);
@@ -367,7 +366,7 @@ void VistaRelacion::eliminarComponentesAdyacentes(Diagrama * diagrama,
 	this->eliminarModelo = true;
 }
 
-bool VistaRelacion::hayQueEliminarlo(){
+bool VistaRelacion::hayQueEliminarlo() {
 	return this->eliminando;
 }
 
@@ -375,18 +374,19 @@ void VistaRelacion::resetearLanzarProp() {
 	this->prop_lanzada = false;
 }
 
-VistaUnionEntidadRelacion* VistaRelacion::unidaConEntidad(VistaEntidad *ve){
+VistaUnionEntidadRelacion* VistaRelacion::unidaConEntidad(VistaEntidad *ve) {
 	//Verifico en cada union si alguna tiene esa entidad
 	std::vector<VistaUnionEntidadRelacion*>::iterator it1 = this->unionesBegin();
 	std::vector<VistaUnionEntidadRelacion*>::iterator it2 = this->unionesEnd();
 	VistaUnionEntidadRelacion * v = NULL;
-	while(it1 != it2){
+	while (it1 != it2) {
 		v = *it1;
-		if (v->getEntidad() == ve){
+		if (v->getEntidad() == ve) {
 			return v;
 		}
 		it1++;
 	}
 	return NULL;
 }
+
 

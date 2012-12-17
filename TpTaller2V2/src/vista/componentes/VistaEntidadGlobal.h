@@ -17,7 +17,7 @@ public:
 	VistaEntidadGlobal(EntidadGlobal *);
 	virtual ~VistaEntidadGlobal();
 
-	virtual bool contieneEsteComponente(VistaComponente *);
+	virtual bool esContenidoPorEsteComponente(VistaComponente *);
 
 	//Dibuja el objeto en el contexto cairo pasado como parametro.
 	virtual void dibujar(Cairo::RefPtr<Cairo::Context> cr);
@@ -47,6 +47,7 @@ public:
 	virtual bool hayQueEliminarlo();
 
 	void setPadre(VistaEntidad *);
+
 };
 
 #endif /* VISTAENTIDADGLOBAL_H_ */

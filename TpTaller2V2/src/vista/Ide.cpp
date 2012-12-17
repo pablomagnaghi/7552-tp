@@ -158,6 +158,7 @@ bool Ide::abrir_proyecto() {
 
 	this->controladorPanelHerramientas.activarBotones();
 	this->treePanel.regenerar();
+	GeneradorCodigo::getInstance()->setCodigo(0);
 
 	return true;
 }
@@ -224,6 +225,7 @@ bool Ide::crearNuevoProyecto() {
 		this->treePanel.regenerar();
 		this->set_title("*Nuevo Proyecto");
 		this->vproyecto->setNombre("*Nuevo Proyecto");
+		GeneradorCodigo::getInstance()->setCodigo(0);
 	} else {
 		Gtk::MessageDialog mensaje(*this, "Error", false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK);
 		mensaje.set_secondary_text("Ya existe un proyecto");

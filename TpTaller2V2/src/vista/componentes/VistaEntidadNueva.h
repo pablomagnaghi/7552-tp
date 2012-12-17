@@ -66,7 +66,7 @@ public:
 	virtual void setNombre(const std::string & nombre);
 	virtual  std::string getNombre() const;
 
-	virtual bool contieneEsteComponente(VistaComponente *);
+	virtual bool esContenidoPorEsteComponente(VistaComponente *);
 
 	void setEsDebil(bool);
 
@@ -82,6 +82,8 @@ public:
 	virtual bool identificador_en_popup();
 
 	virtual void on_popup_boton_Identificadores();
+
+	virtual void removerComponenteAEliminar(VistaComponente * componente);
 };
 
 #endif /* VISTAENTIDADNUEVA_H_ */

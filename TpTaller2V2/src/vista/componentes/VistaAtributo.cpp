@@ -64,7 +64,6 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 	cr->set_line_width(1);
 	Cairo::TextExtents textExtents;
 
-
 	std::string texto(this->atributo->getNombre());
 	if (this->dibujar_cardinalidad) {
 		texto.append("(");
@@ -133,18 +132,18 @@ void VistaAtributo::dibujar(Cairo::RefPtr<Cairo::Context> cr) {
 		delta_y = centro_y - this->pos_ini_y;
 
 		cr->save();
-		cerr<<"llego5"<<endl;
+		cerr << "llego5" << endl;
 		cr->set_line_width(2 / MAX(delta_x, delta_y)); // make (centro_x, centro_y) == (0, 0)
-		cerr<<"llego6"<<endl;
+		cerr << "llego6" << endl;
 		cr->translate(centro_x, centro_y);
-		cerr<<"llego7"<<endl;
-		cerr << "delta (" << delta_x << ":" << delta_y  << ")"<< endl;
-		if(delta_x == 0 || delta_y == 0){
+		cerr << "llego7" << endl;
+		cerr << "delta (" << delta_x << ":" << delta_y << ")" << endl;
+		if (delta_x == 0 || delta_y == 0) {
 			delta_x = 2;
 			delta_y = 1;
 		}
 		cr->scale(delta_x, delta_y);
-		cerr<<"llego8"<<endl;
+		cerr << "llego8" << endl;
 		cr->arc(0.0, 0.0, 1.0, 0.0, 2 * M_PI);
 		if (this->esIdentificador) {
 			cr->fill();
@@ -287,7 +286,7 @@ std::string VistaAtributo::getNombre() const {
 	return this->atributo->getNombre();
 }
 
-bool VistaAtributo::contieneEsteComponente(VistaComponente * c) {
+bool VistaAtributo::esContenidoPorEsteComponente(VistaComponente * c) {
 	if (static_cast<VistaEntidadNueva *>(this->padre) == static_cast<VistaEntidadNueva *>(c)) {
 		return true;
 	}
@@ -306,7 +305,7 @@ bool VistaAtributo::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 
 		radio = this->pos_fin_x - centro_x;
 
-		if (Geometria::hayInterseccionDeLineaConCirculo(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
+		if (Geometria::obtenerInterseccionDeLineaConCirculo(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
 				centro_x, centro_y, radio, xInterseccion, yInterseccion)) {
 			x = xInterseccion;
 			y = yInterseccion;
@@ -318,7 +317,12 @@ bool VistaAtributo::obtenerInterseccionConLinea(double pos_ini_x, double pos_ini
 		delta_x = centro_x - this->pos_ini_x;
 		delta_y = centro_y - this->pos_ini_y;
 
-		if (Geometria::hayInterseccionDeLineaConElipse(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
+		if(!Geometria::hayInterseccionDeLineaConElipse(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
+				centro_x, centro_y, delta_x, delta_y)){
+			return false;
+		}
+
+		if (Geometria::obtenerInterseccionDeLineaConElipse(pos_ini_x, pos_ini_y, pos_fin_x, pos_fin_y,
 				centro_x, centro_y, delta_x, delta_y, xInterseccion, yInterseccion)) {
 			x = xInterseccion;
 			y = yInterseccion;
@@ -457,7 +461,7 @@ void VistaAtributo::eliminarComponentesAdyacentes(Diagrama * diagrama,
 #endif
 
 		componentes.push_back((*i));
-		(*i)->eliminarComponentesAdyacentes(diagrama, componentes,componenteEliminado);
+		(*i)->eliminarComponentesAdyacentes(diagrama, componentes, componenteEliminado);
 		this->atributo->quitarAtributo((*i)->getAtributo());
 		//delete (*i);
 	}
@@ -472,6 +476,8 @@ void VistaAtributo::eliminarComponentesAdyacentes(Diagrama * diagrama,
 	this->padre->quitarAtributo(this);
 }
 
-bool VistaAtributo::hayQueEliminarlo(){
+bool VistaAtributo::hayQueEliminarlo() {
 	return this->eliminando;
 }
+
+

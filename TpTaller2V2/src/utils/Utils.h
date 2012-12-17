@@ -29,6 +29,7 @@ public:
 	static bool file_exists(const std::string & path);
 	static std::string intToString(int numero);
 	static std::string floatToString(float numero);
+	static void delete_files(const std::string & folder);
 };
 
 #endif /* UTILS_H_ */

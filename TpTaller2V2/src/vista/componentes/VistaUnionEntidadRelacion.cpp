@@ -42,7 +42,7 @@ void VistaUnionEntidadRelacion::actualizar_coordenadas() {
 
 std::string VistaUnionEntidadRelacion::getNombre() const {
 	return (this->unionModelo->getNombre() + "(" + this->unionModelo->getEntidad()->getNombre()
-			+ ":" +this->unionModelo->getRelacion()->getNombre()+ ")");
+			+ ":" + this->unionModelo->getRelacion()->getNombre() + ")");
 }
 
 bool VistaUnionEntidadRelacion::lanzarProp() {
@@ -148,7 +148,7 @@ void VistaUnionEntidadRelacion::redimensionar(double x, double y) {
 
 }
 
-bool VistaUnionEntidadRelacion::contieneEsteComponente(VistaComponente * comp) {
+bool VistaUnionEntidadRelacion::esContenidoPorEsteComponente(VistaComponente * comp) {
 	if (static_cast<VistaComponente *>(this->relacion) == comp
 			|| static_cast<VistaComponente *>(this->entidad) == comp) {
 		return true;
@@ -229,3 +229,10 @@ string VistaUnionEntidadRelacion::to_s() {
 	return text;
 }
 
+bool VistaUnionEntidadRelacion::hayInterseccion(VistaComponente * componente) {
+	return false;
+}
+
+bool VistaUnionEntidadRelacion::probarInterseccionConRectangulo(double x0, double y0, double x1, double y1) {
+	return false;
+}

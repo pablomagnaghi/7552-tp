@@ -43,7 +43,7 @@ public:
 	virtual void setNombre(const std::string & nombre);
 	virtual std::string getNombre() const;
 
-	virtual bool contieneEsteComponente(VistaComponente *);
+	virtual bool esContenidoPorEsteComponente(VistaComponente *);
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
@@ -54,6 +54,11 @@ public:
 	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	virtual bool hayQueEliminarlo();
+
+	virtual bool hayInterseccion(VistaComponente *);
+
+	virtual bool probarInterseccionConRectangulo(double x0, double y0, double x1, double y1);
+
 };
 
 #endif /* VISTALINEA_H_ */

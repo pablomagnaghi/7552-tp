@@ -38,7 +38,7 @@ public:
 
 	virtual void setMouseArriba(double x, double y);
 
-	virtual bool contieneEsteComponente(VistaComponente *);
+	virtual bool esContenidoPorEsteComponente(VistaComponente *);
 
 	virtual bool obtenerInterseccionConLinea(double pos_ini_x, double pos_ini_y, double pos_fin_x,
 			double pos_fin_y, double & x, double & y);
@@ -51,7 +51,8 @@ public:
 
 	UnionEntidadRelacion * getUnion();
 
-	void eliminarComponentesAdyacentes(Diagrama * diagrama,std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
+	void eliminarComponentesAdyacentes(Diagrama * diagrama,
+			std::vector<VistaComponente *> & componentes, VistaComponente * componenteEliminado);
 
 	const std::string getCardinalidadMinima() const;
 	void setCardinalidadMinima(const std::string &);
@@ -66,6 +67,9 @@ public:
 	virtual bool hayQueEliminarlo();
 
 	string to_s();
-};
 
+	virtual bool hayInterseccion(VistaComponente *);
+	virtual bool probarInterseccionConRectangulo(double x0, double y0, double x1, double y1);
+
+};
 #endif /* VISTAUNIONENTIDADRELACION_H_ */

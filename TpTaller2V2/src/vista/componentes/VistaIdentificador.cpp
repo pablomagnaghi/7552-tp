@@ -190,7 +190,7 @@ std::string VistaIdentificador::getNombre() const {
 	return nombre;
 }
 
-bool VistaIdentificador::contieneEsteComponente(VistaComponente * c) {
+bool VistaIdentificador::esContenidoPorEsteComponente(VistaComponente * c) {
 	std::vector<VistaUnionEntidadRelacion *>::iterator it_uniones;
 	std::vector<VistaAtributo *>::iterator it_atributos;
 	if (find(vistasAtributo.begin(), vistasAtributo.end(), static_cast<VistaAtributo *>(c))
@@ -203,13 +203,13 @@ bool VistaIdentificador::contieneEsteComponente(VistaComponente * c) {
 	}
 	for (it_atributos = vistasAtributo.begin(); it_atributos != vistasAtributo.end();
 			++it_atributos) {
-		if ((*it_atributos)->contieneEsteComponente(c)) {
+		if ((*it_atributos)->esContenidoPorEsteComponente(c)) {
 			return true;
 		}
 	}
 	for (it_uniones = vistasEntidadesFuertes.begin(); it_uniones != vistasEntidadesFuertes.end();
 			++it_uniones) {
-		if ((*it_uniones)->contieneEsteComponente(c)) {
+		if ((*it_uniones)->esContenidoPorEsteComponente(c)) {
 			return true;
 		}
 	}
@@ -252,7 +252,6 @@ void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
 	}
 	this->eliminando = true;
 
-
 #if DEBUG_QUITAR==1
 	std::cout << "VistaIdentificador: marcado para eliminar" << std::endl;
 #endif
@@ -261,17 +260,17 @@ void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
 
 }
 
-bool VistaIdentificador::hayQueEliminarlo(){
+bool VistaIdentificador::hayQueEliminarlo() {
 	return this->eliminando;
 }
 
-bool VistaIdentificador::contieneAtrib(VistaAtributo * atrib){
+bool VistaIdentificador::contieneAtrib(VistaAtributo * atrib) {
 	std::vector<VistaAtributo*>::iterator it = this->atributosBegin();
 	std::vector<VistaAtributo*>::iterator it1 = this->atributosEnd();
-	VistaAtributo *ident_atrib= NULL;
-	while (it != it1){
+	VistaAtributo *ident_atrib = NULL;
+	while (it != it1) {
 		ident_atrib = *it;
-		if (ident_atrib == atrib){
+		if (ident_atrib == atrib) {
 			return true;
 		}
 		it++;
@@ -279,28 +278,36 @@ bool VistaIdentificador::contieneAtrib(VistaAtributo * atrib){
 	return false;
 }
 
-std::string VistaIdentificador::to_s(){
+std::string VistaIdentificador::to_s() {
 	std::vector<VistaAtributo*>::iterator it = this->atributosBegin();
 	std::vector<VistaAtributo*>::iterator it1 = this->atributosEnd();
 	std::vector<VistaUnionEntidadRelacion*>::iterator it2 = this->vistasEntidadesFuertes.begin();
 	std::vector<VistaUnionEntidadRelacion*>::iterator it3 = this->vistasEntidadesFuertes.end();
-	VistaAtributo *ident_atrib= NULL;
+	VistaAtributo *ident_atrib = NULL;
 	VistaUnionEntidadRelacion *vuer = NULL;
 	string text;
 	text = "(";
-	while (it != it1){
+	while (it != it1) {
 		ident_atrib = *it;
-		text+=ident_atrib->getNombre();
-		text+=",";
+		text += ident_atrib->getNombre();
+		text += ",";
 		it++;
 	}
-	while (it2!= it3){
+	while (it2 != it3) {
 		vuer = *it2;
-		text+= vuer->to_s();
-		text+=",";
+		text += vuer->to_s();
+		text += ",";
 		it2++;
 	}
 
-	text+=")";
+	text += ")";
 	return text;
+}
+
+bool VistaIdentificador::hayInterseccion(VistaComponente * componente) {
+	return false;
+}
+
+bool VistaIdentificador::probarInterseccionConRectangulo(double x0, double y0, double x1, double y1) {
+	return false;
 }

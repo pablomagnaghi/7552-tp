@@ -1,4 +1,5 @@
-src/modelo/componentes/EntidadNueva.d: \
+src/modelo/componentes/EntidadNueva.d \
+ src/modelo/componentes/EntidadNueva.o: \
  ../src/modelo/componentes/EntidadNueva.cpp \
  ../src/modelo/componentes/EntidadNueva.h \
  ../src/modelo/componentes/Entidad.h \

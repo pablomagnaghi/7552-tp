@@ -7,7 +7,6 @@ using namespace std;
 #define MAX(X,Y) ((X) > (Y) ? (X):(Y))
 #define MIN(X,Y) ((X) < (Y) ? (X):(Y))
 
-
 Geometria::Geometria() {
 }
 
@@ -69,7 +68,6 @@ bool Geometria::estaEntreLineasParalelas(double x, double y, double x0_inicial, 
 		return false;
 	}
 
-
 	double m0 = NAN; // MACRO DE MATH NOT A NUMBER
 	double delta;
 	delta = 0.00001;
@@ -114,7 +112,7 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 	cotaFinalInterseccion.y = MIN(MAX(y0, y1), MAX(y2, y3));
 #if DEBUG_GEOMETRIA==1
 	cout << "Cota: (" << cotaInicialInterseccion.x << ";" << cotaInicialInterseccion.y << ") ("
-	<< cotaFinalInterseccion.x << ";" << cotaFinalInterseccion.y << ")" << std::endl;
+			<< cotaFinalInterseccion.x << ";" << cotaFinalInterseccion.y << ")" << std::endl;
 #endif
 // ACOTO en X y busco los Y
 	acotarX(x0, x1, y0, y1, m0, posInicialLinea1, posFinalLinea1, cotaInicialInterseccion,
@@ -198,7 +196,7 @@ bool Geometria::hayInterseccionDeLineas(double x0, double y0, double x1, double 
 	return false;
 }
 
-bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1,
+bool Geometria::obtenerInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1,
 		double xc, double yc, double r, double & x, double & y) {
 	double m = NAN; // MACRO DE MATH NOT A NUMBER
 	double angulo;
@@ -259,6 +257,28 @@ bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1
 	cout << "m= " << m << endl;
 #endif
 	return true;
+}
+
+bool Geometria::hayInterseccionDeLineaConCirculo(double x0, double y0, double x1, double y1,
+		double xc, double yc, double r) {
+	double rsq;
+	double d0, d1, d2, d3;
+	d0 = x0 - xc;
+	d1 = y0 - yc;
+	d2 = x1 - xc;
+	d3 = y1 - yc;
+	rsq = r * r;
+	d0 = d0 * d0;
+	d1 = d1 * d1;
+	d2 = d2 * d2;
+	d3 = d3 * d3;
+
+	if (d0 + d1 < rsq && d2 + d3 > rsq) {
+		return true;
+	} else if (d0 + d1 > rsq && d2 + d3 < rsq) {
+		return true;
+	}
+	return false;
 }
 
 void Geometria::obtenerPuntosDeTriangulo(double x0, double y0, double x1, double y1, double altura,
@@ -339,6 +359,26 @@ void Geometria::obtenerLineasParalelas(double x0, double y0, double x1, double y
 }
 
 bool Geometria::hayInterseccionDeLineaConElipse(double x0, double y0, double x1, double y1,
+		double xc, double yc, double rx, double ry) {
+	double d0, d1, d2, d3;
+	d0 = (x0 - xc) / rx;
+	d1 = (y0 - yc) / ry;
+	d2 = (x1 - xc) / rx;
+	d3 = (y1 - yc) / ry;
+	d0 = d0 * d0;
+	d1 = d1 * d1;
+	d2 = d2 * d2;
+	d3 = d3 * d3;
+
+	if (d0 + d1 < 1 && d2 + d3 > 1) {
+		return true;
+	} else if (d0 + d1 > 1 && d2 + d3 < 1) {
+		return true;
+	}
+	return false;
+}
+
+bool Geometria::obtenerInterseccionDeLineaConElipse(double x0, double y0, double x1, double y1,
 		double xc, double yc, double rx, double ry, double & x, double & y) {
 	double m = NAN; // MACRO DE MATH NOT A NUMBER
 	double angulo;
@@ -509,4 +549,13 @@ void Geometria::calcularAjusteDiagrama(double offset_x, double offset_y, double 
 	std::cout << " Zoom= " << zoom;
 	std::cout << " Traslacion= (" << traslacion_x << ":" << traslacion_y << ")" << std::endl;
 #endif
+}
+
+bool Geometria::haySuperposicionDeRectangulos(double x0, double y0, double x1, double y1, double x2,
+		double y2, double x3, double y3) {
+
+	if(x0 < x3 && x1 > x2 && y0 < y3 && y1 > y2){
+		return true;
+	}
+	return false;
 }

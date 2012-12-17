@@ -179,3 +179,15 @@ std::string Utils::floatToString(float numero){
    return ss.str();
 }
 
+void Utils::delete_files(const std::string & folder){
+	std::string path;
+	size_t i;
+	std::vector<std::string> archivos;
+
+	archivos = Utils::getFiles(folder);
+
+	for(i=0;i<archivos.size();++i){
+		path = folder + "/" + archivos[i];
+		remove(path.c_str());
+	}
+}
