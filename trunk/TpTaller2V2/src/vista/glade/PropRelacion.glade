@@ -111,16 +111,13 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkVButtonBox" id="vbuttonbox2">
+                  <object class="GtkVBox" id="vbox4">
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="layout_style">spread</property>
                     <child>
-                      <object class="GtkButton" id="bAAtributo">
-                        <property name="label" translatable="yes">Agregar Atributo</property>
+                      <object class="GtkLabel" id="label4">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
+                        <property name="label" translatable="yes">Tipo</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -129,34 +126,68 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="bMAtributo">
-                        <property name="label" translatable="yes">Modificar Atributo</property>
+                      <object class="GtkVBox" id="vbox5">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <placeholder/>
+                        </child>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="bEAtributo">
-                        <property name="label" translatable="yes">Quitar Atributo</property>
+                      <object class="GtkVButtonBox" id="vbuttonbox2">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="layout_style">spread</property>
+                        <child>
+                          <object class="GtkButton" id="bAAtributo">
+                            <property name="label" translatable="yes">Agregar Atributo</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="bMAtributo">
+                            <property name="label" translatable="yes">Modificar Atributo</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="bEAtributo">
+                            <property name="label" translatable="yes">Quitar Atributo</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
