@@ -171,6 +171,7 @@ void AsistenteRelacion::on_botonAceptar_click() {
 
 void AsistenteRelacion::on_botonCancelar_click() {
 	this->vrelacion->resetearLanzarProp();
+	// todo if esta creando
 	this->vdiagrama->quitarComponente(this->vrelacion);
 	this->hide();
 }

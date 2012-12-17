@@ -251,7 +251,9 @@ void VistaIdentificador::eliminarComponentesAdyacentes(Diagrama * diagrama,
 		return;
 	}
 	this->eliminando = true;
-
+	if(this->vistasAtributo.size()==1){
+		this->vistasAtributo[0]->setEsIdentificador(false);
+	}
 #if DEBUG_QUITAR==1
 	std::cout << "VistaIdentificador: marcado para eliminar" << std::endl;
 #endif

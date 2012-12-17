@@ -25,7 +25,6 @@ AsistenteJerarquia::~AsistenteJerarquia() {
 void AsistenteJerarquia::setJerarquia(VistaJerarquia* jer) {
 	this->vjerarquia = jer;
 	this->inicializarAsistente();
-
 }
 
 
@@ -205,6 +204,7 @@ void AsistenteJerarquia::on_botonAceptar_click() {
 void AsistenteJerarquia::on_botonCancelar_click() {
 	// TODO BORRAR LOS DATOS CONTENIDOS EN LA LISTA Y EN EL ENTRY
 	this->vjerarquia->resetearLanzarProp();
+	// todo if esta creando
 	this->diagrama->quitarComponente(this->vjerarquia);
 	this->hide();
 }
