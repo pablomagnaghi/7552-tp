@@ -52,7 +52,7 @@ VistaDiagrama::VistaDiagrama(Diagrama * diagramaModelo, int a) {
 		//test_3_builder();
 		//test_4_builder();
 		//test_5_builder_interfaz_grafica();
-		test_5_builder_persistencia();
+		//test_5_builder_persistencia();
 		//test_6_builder();
 	}
 }
@@ -1693,6 +1693,7 @@ void VistaDiagrama::ordenarByCodigo(){
 }
 
 void VistaDiagrama::guardarComponentesXmlREP(XmlNodo *nodo) {
+	this->componentesModelo.clear();
 	this->obtenerComponentesModelo();
 	this->ordenarByCodigo();
 
