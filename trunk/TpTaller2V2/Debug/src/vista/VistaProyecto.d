@@ -918,7 +918,8 @@ src/vista/VistaProyecto.d src/vista/VistaProyecto.o: \
  ../src/vista/../modelo/validacion/../Diagrama.h \
  ../src/vista/../modelo/validacion/../GeneradorCodigo.h \
  ../src/vista/../modelo/validacion/../ConstantesModelo.h \
- ../src/vista/../modelo/validacion/.././componentes/HeadersComponentes.h
+ ../src/vista/../modelo/validacion/.././componentes/HeadersComponentes.h \
+ ../src/vista/../modelo/validacion/MetricasVisitor.h
 
 ../src/vista/VistaProyecto.h:
 
@@ -2889,3 +2890,5 @@ src/vista/VistaProyecto.d src/vista/VistaProyecto.o: \
 ../src/vista/../modelo/validacion/../ConstantesModelo.h:
 
 ../src/vista/../modelo/validacion/.././componentes/HeadersComponentes.h:
+
+../src/vista/../modelo/validacion/MetricasVisitor.h:

@@ -134,7 +134,7 @@ public:
 	void accept(ModeloVisitor*);
 	bool es_valido();
 	void obtenerEstadoDiagramas(std::vector<std::string> & nombres,
-			std::vector<bool>& estado_modelo);
+			std::vector<std::string>& estado_modelo);
 
 	// PERSITENCIA COMP
 	bool isOpenXmlCOMP() const;

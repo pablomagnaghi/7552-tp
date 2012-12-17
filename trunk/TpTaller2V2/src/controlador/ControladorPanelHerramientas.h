@@ -22,6 +22,7 @@ private:
 
 
 	Gtk::ToolButton * botonValidar;
+	Gtk::ToolButton * botonMetricas;
 
 	Gtk::ToolButton * botonAumentarZoom;
 	Gtk::ToolButton * botonReducirZoom;
@@ -40,6 +41,7 @@ private:
 	void on_boton_Agregar_Comentario_click();
 
 	void on_boton_Validar_click();
+	void on_boton_Metricas_click();
 
 	void on_boton_Aumentar_Zoom_click();
 	void on_boton_Reducir_Zoom_click();

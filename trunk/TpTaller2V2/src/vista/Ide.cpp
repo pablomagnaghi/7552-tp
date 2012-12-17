@@ -438,3 +438,4 @@ void Ide::on_panel_horizontal_size_request(Gtk::Requisition* const & requisition
 #endif
 }
 
+

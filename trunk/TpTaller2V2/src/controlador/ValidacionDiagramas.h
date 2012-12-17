@@ -37,7 +37,7 @@ public:
 			const Glib::RefPtr<Gtk::Builder>& builder);
 	virtual ~ValidacionDiagramas();
 
-	void cargar_datos(std::vector<std::string> & nombres, std::vector<bool>& estado_modelo,
+	void cargar_datos(std::vector<std::string> & nombres, std::vector<std::string>& estado_modelo,
 			std::vector<bool> & estado_vista);
 };
 

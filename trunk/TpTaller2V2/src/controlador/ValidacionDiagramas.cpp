@@ -32,14 +32,14 @@ ValidacionDiagramas::~ValidacionDiagramas() {
 }
 
 void ValidacionDiagramas::cargar_datos(std::vector<std::string> & nombres,
-		std::vector<bool>& estado_modelo, std::vector<bool> & estado_vista) {
+		std::vector<std::string>& estado_modelo, std::vector<bool> & estado_vista) {
 	size_t i;
 
 	this->refTreeModel->clear();
 	for (i = 0; i < nombres.size(); ++i) {
 		Gtk::TreeModel::Row row = *(this->refTreeModel->append());
 		row[this->m_Columnas.m_col_Nombre] = nombres[i];
-		row[this->m_Columnas.m_col_modeloValido] = estado_modelo[i] ? "Valido" : "Invalido";
+		row[this->m_Columnas.m_col_modeloValido] = estado_modelo[i];
 		row[this->m_Columnas.m_col_vistaValida] = estado_vista[i] ? "Valida" : "Invalida";
 	}
 }

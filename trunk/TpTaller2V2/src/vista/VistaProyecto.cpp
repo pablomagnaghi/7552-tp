@@ -1,6 +1,7 @@
 #include "VistaProyecto.h"
 
 #include "../modelo/validacion/ValidacionVisitor.h"
+#include "../modelo/validacion/MetricasVisitor.h"
 
 VistaProyecto::VistaProyecto(Proyecto * proyectoModelo) {
 	//Prueba
@@ -72,11 +73,17 @@ void VistaProyecto::validarModelo() {
 
 
 void VistaProyecto::obtenerEstadoDiagramas(std::vector<std::string> & nombres,
-		std::vector<bool>& estado_modelo, std::vector<bool>& estado_vista) {
+		std::vector<std::string>& estado_modelo, std::vector<bool>& estado_vista) {
 	size_t i;
 	this->proyecto->obtenerEstadoDiagramas(nombres, estado_modelo);
 	for(i=0;i<estado_modelo.size();i++){
 		estado_vista.push_back(false);
 	}
 	this->diagramaPrincipal->obtenerEstadoDiagramas(nombres, estado_vista);
+}
+
+void VistaProyecto::obtenerMetricas(){
+	MetricasVisitor visitor;
+
+	this->proyecto->accept(&visitor);
 }

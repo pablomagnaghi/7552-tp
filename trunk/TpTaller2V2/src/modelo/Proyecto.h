@@ -44,7 +44,7 @@ public:
 
 	void accept(ModeloVisitor*);
 	bool es_valido();
-	void obtenerEstadoDiagramas(std::vector<std::string> & nombres, std::vector<bool> & estado_modelo);
+	void obtenerEstadoDiagramas(std::vector<std::string> & nombres, std::vector<std::string> & estado_modelo);
 };
 
 #endif /* PROYECTO_H_ */
