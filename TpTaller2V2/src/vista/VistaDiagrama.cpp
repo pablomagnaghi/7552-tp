@@ -1256,9 +1256,8 @@ bool VistaDiagrama::isOpenXmlREP() const {
 // Ejemplo: el nombre del diagrama es Principal
 // a partir de Principal-Rep y Principal-COMP se carga la vista y el modelo
 
-void VistaDiagrama::abrirXml(const std::string& path, const std::string& carpeta) {
+void VistaDiagrama::abrirXml(Diagrama* diagrama, const std::string& path, const std::string& carpeta) {
 // se creo el modelo con todos los diagramas
-	Diagrama *diagrama = new Diagrama(path);
 	this->diagrama = diagrama;
 	std::string diagramaCOMP = path + EXTENSION_COMP;
 	this->diagrama->abrirXmlCOMP(diagramaCOMP, carpeta);

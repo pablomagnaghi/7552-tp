@@ -132,7 +132,8 @@ bool Ide::abrir_proyecto() {
 		return false;
 	}
 
-	this->vproyecto = new VistaProyecto(new Proyecto(new Diagrama("Principal")));
+	Diagrama* diagramaPrincipal = new Diagrama(diagrama_principal);
+	this->vproyecto = new VistaProyecto(new Proyecto(diagramaPrincipal));
 
 	this->diagramaActual = this->vproyecto->getDiagramaPrincipal();
 
@@ -141,7 +142,7 @@ bool Ide::abrir_proyecto() {
 	//nombres_diagramas = obtener_nombres_diagramas_en_carpeta(this->carpetaProyecto);
 
 	//this->diagramaActual->abrirXmlDiagramas(this->carpetaProyecto, nombres_diagramas);
-	this->diagramaActual->abrirXml(diagrama_principal, this->carpetaProyecto);
+	this->diagramaActual->abrirXml(diagramaPrincipal, diagrama_principal, this->carpetaProyecto);
 
 	// todo (Pablo)
 
