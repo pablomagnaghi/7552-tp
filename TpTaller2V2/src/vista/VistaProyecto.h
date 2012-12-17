@@ -41,7 +41,10 @@ public:
 	void validarModelo();
 
 	void obtenerEstadoDiagramas(std::vector<std::string> & nombres,
-			std::vector<bool>& estado_modelo, std::vector<bool> & estado_vista);
+			std::vector<std::string>& estado_modelo, std::vector<bool> & estado_vista);
+
+
+	void obtenerMetricas();
 };
 
 #endif /* VISTAPROYECTO_H_ */

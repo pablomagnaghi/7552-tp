@@ -178,7 +178,7 @@ void ControladorPanelHerramientas::on_boton_Agregar_EntidadGlobal_click() {
 
 void ControladorPanelHerramientas::on_boton_Validar_click() {
 	std::vector<std::string> nombres;
-	std::vector<bool> estado_modelo;
+	std::vector<std::string> estado_modelo;
 	std::vector<bool> estado_vista;
 
 	Ide::getInstance()->getProyecto()->validarModelo();
@@ -190,6 +190,11 @@ void ControladorPanelHerramientas::on_boton_Validar_click() {
 	m_builder->get_widget_derived("DialogoValidacionDiagramas", dialogo);
 	dialogo->cargar_datos(nombres,estado_modelo,estado_vista);
 	dialogo->run();
+}
+
+
+void ControladorPanelHerramientas::on_boton_Metricas_click(){
+	Ide::getInstance()->getProyecto()->obtenerMetricas();
 }
 
 void ControladorPanelHerramientas::on_boton_Aumentar_Zoom_click() {
@@ -228,6 +233,10 @@ void ControladorPanelHerramientas::enlazar_botones_de_menu(
 	builder->get_widget("TBValidar", botonValidar);
 	botonValidar->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Validar_click));
+
+	builder->get_widget("TBMetricas", botonMetricas);
+	botonMetricas->signal_clicked().connect(
+				sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Metricas_click));
 	builder->get_widget("TBZoom+", botonAumentarZoom);
 	botonAumentarZoom->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorPanelHerramientas::on_boton_Aumentar_Zoom_click));
@@ -250,6 +259,7 @@ void ControladorPanelHerramientas::activarBotones() {
 	botonReducirZoom->set_sensitive(true);
 	botonRestablecerZoom->set_sensitive(true);
 	botonValidar->set_sensitive(true);
+	botonMetricas->set_sensitive(true);
 }
 
 void ControladorPanelHerramientas::desactivarBotones() {
@@ -263,4 +273,5 @@ void ControladorPanelHerramientas::desactivarBotones() {
 	botonReducirZoom->set_sensitive(false);
 	botonRestablecerZoom->set_sensitive(false);
 	botonValidar->set_sensitive(false);
+	botonMetricas->set_sensitive(false);
 }

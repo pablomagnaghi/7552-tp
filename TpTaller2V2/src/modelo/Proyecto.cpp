@@ -63,7 +63,7 @@ void Proyecto::accept(ModeloVisitor* modeloVisitor) {
 	modeloVisitor->postVisit(this);
 }
 
-void Proyecto::obtenerEstadoDiagramas(std::vector<std::string> & nombres, std::vector<bool> &estado_modelo){
+void Proyecto::obtenerEstadoDiagramas(std::vector<std::string> & nombres, std::vector<std::string> &estado_modelo){
 	this->diagramaPrincipal->obtenerEstadoDiagramas(nombres,estado_modelo);
 }
 

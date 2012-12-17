@@ -269,6 +269,19 @@
               </packing>
             </child>
             <child>
+              <object class="GtkToolButton" id="TBMetricas">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">M&#xE9;tricas</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-index</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToolItem" id="toolbutton2">
                 <property name="visible">True</property>
                 <child>
@@ -717,7 +730,7 @@
     </action-widgets>
   </object>
   <object class="GtkDialog" id="DialogoValidacionDiagramas">
-    <property name="width_request">280</property>
+    <property name="width_request">400</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Validaci&#xF3;n</property>
     <property name="modal">True</property>
