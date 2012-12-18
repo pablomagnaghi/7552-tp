@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="composicion.xsd" nombre="Principal"><diagrama_hijo>hijo1</diagrama_hijo><diagrama_hijo>hijo2</diagrama_hijo><diagrama_hijo>hijo3</diagrama_hijo></diagrama>

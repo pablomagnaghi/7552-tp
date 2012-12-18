@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+	<xsd:element name="diagrama" type="tipo_diagrama" />
+
+	<xsd:complexType name="tipo_diagrama">
+		<xsd:sequence>
+			<xsd:element name="diagrama_ancestro" type="xsd:string" minOccurs="0" />
+			<xsd:element name="diagrama_hijo" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="entidad_nueva" type="tipo_entidad_nueva" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="entidad_global" type="tipo_entidad_global" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="relacion" type="tipo_relacion" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="jerarquia" type="tipo_jerarquia" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="nombre" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="tipo_componente" abstract="true">
+		<xsd:attribute name="codigo" type="xsd:integer" use="required" />
+		<xsd:attribute name="nombre" type="xsd:string" />
+	</xsd:complexType> 
+
+	<xsd:complexType name="tipo_entidad_nueva">
+		<xsd:complexContent>
+			<xsd:extension base="tipo_componente">
+				<xsd:sequence>
+					<xsd:element name="atributo" type="tipo_atributo" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element name="identificador" type="tipo_identificador" minOccurs="1" maxOccurs="unbounded" />
+				</xsd:sequence>
+				<xsd:attribute name="tipo" type="tipo_tipo_entidad" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="tipo_entidad_global">
+		<xsd:complexContent>
+			<xsd:extension base="tipo_componente">
+				<xsd:attribute name="diagrama_ancestro" type="xsd:string" use="required" />
+				<xsd:attribute name="codigo_entidad_nueva" type="xsd:integer" use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="tipo_tipo_entidad">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="cosa" />
+			<xsd:enumeration value="dominio" />
+			<xsd:enumeration value="historica" />
+			<xsd:enumeration value="programada" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="tipo_atributo">
+		<xsd:complexContent>
+			<xsd:extension base="tipo_componente">
+				<xsd:sequence>
+					<xsd:element name="atributo" type="tipo_atributo" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+				<xsd:attribute name="tipo" type="tipo_tipo_atributo" use="required" /> 
+				<xsd:attribute name="cardinalidad_minima" type="xsd:string" />
+				<xsd:attribute name="cardinalidad_maxima" type="xsd:string" />
+				<xsd:attribute name="expresion" type="xsd:string" />
+			</xsd:extension>
+		</xsd:complexContent>					
+	</xsd:complexType>
+	
+	<xsd:simpleType name="tipo_tipo_atributo">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="caracterizacion" />
+			<xsd:enumeration value="copiado" />
+			<xsd:enumeration value="calculado" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="tipo_identificador">
+		<xsd:sequence>
+			<xsd:element name="atributo" type="xsd:integer" minOccurs="1" maxOccurs="unbounded" />
+			<xsd:element name="relacion" type="xsd:integer" minOccurs="0" maxOccurs="unbounded" /> 
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="tipo_relacion">
+		<xsd:complexContent>
+			<xsd:extension base="tipo_componente">
+				<xsd:sequence>
+					<xsd:element name="union_entidad_relacion" type="tipo_union_entidad_relacion" minOccurs="2" maxOccurs="unbounded" />
+					<xsd:element name="atributo" type="tipo_atributo" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+				<xsd:attribute name="tipo" type="tipo_tipo_relacion" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="tipo_union_entidad_relacion">
+		<xsd:complexContent>
+			<xsd:extension base="tipo_componente">
+				<xsd:attribute name="entidad" type="xsd:integer" use="required" />
+				<xsd:attribute name="cardinalidad_minima" type="xsd:string" />
+				<xsd:attribute name="cardinalidad_maxima" type="xsd:string" />
+				<xsd:attribute name="rol" type="xsd:string" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="tipo_tipo_relacion">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="asociacion" />
+			<xsd:enumeration value="composicion" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="tipo_jerarquia">
+		<xsd:complexContent>
+			<xsd:extension base="tipo_componente">
+				<xsd:sequence>
+					<xsd:element name="entidad_general" type="xsd:integer" />
+					<xsd:element name="entidad_especializada" type="xsd:integer" maxOccurs="unbounded" />
+				</xsd:sequence>
+				<xsd:attribute name="cobertura" type="tipo_cobertura" />
+				<xsd:attribute name="interseccion" type="tipo_interseccion" />
+			</xsd:extension>
+		</xsd:complexContent>	
+	</xsd:complexType>
+	
+	<xsd:simpleType name="tipo_cobertura">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="total" />
+			<xsd:enumeration value="parcial" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="tipo_interseccion">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="exclusiva" />
+			<xsd:enumeration value="superpuesta" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+</xsd:schema>
