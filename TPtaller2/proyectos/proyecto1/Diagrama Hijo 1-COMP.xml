@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="composicion.xsd" nombre="Diagrama Hijo 1"><diagrama_ancestro>Principal</diagrama_ancestro><entidad_global codigo="2" nombre="Entidad Global 1" diagrama_ancestro="Principal" codigo_entidad_nueva="1"/></diagrama>
