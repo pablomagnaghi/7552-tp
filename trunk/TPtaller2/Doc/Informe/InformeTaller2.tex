@@ -1,0 +1,274 @@
+
+%Codificación Europeo occidental (ISO 8859-1)
+
+%Se define el tamaño de la letra principal
+\documentclass[11pt]{article}
+
+\title{Trabajo Práctico de Taller de programación II}
+
+%------------Paquetes------------
+
+%Define el tamaño de la pagina y sus margenes
+\usepackage[a4paper,headheight=15pt,scale={0.8,0.8}]{geometry}
+
+%Fuente
+%\usepackage[T1]{fontenc} % Para que se puedan copiar los acentos. Tiene que estar el paquete cm-super instalado, sino se ve mal.
+
+%Idioma
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+%Para las imagenes
+\usepackage{float}
+\usepackage[pdftex]{graphicx}	
+
+%Para encabezados y pie de pagina personalizados
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{75.52 - Taller de programación II}
+\chead{}
+\rhead{Albarracín, Ferrero, Guagnini, Magnaghi}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+
+%------------------------ Documento -------------------------
+
+\begin{document}
+
+%------------------------ Caratula --------------------------
+
+\begin{titlepage}
+% Para que no tenga encabezado ni pie de pagina
+\thispagestyle{empty}
+
+
+% Titulo
+\begin{center}
+  \vspace{.5cm}
+  \Large{Trabajo práctico}\\
+  \vspace{.5cm}
+  \Large{75.52 - Taller de programación II}\\
+  \hrulefill \\
+  \vspace{2cm}
+  \large{Módulo para herramienta de desarrollo conducido por modelos para el diseño de diagramas de entidades 
+    y relaciones basado en una ontología de sistemas de gestión.}
+\end{center}
+
+\vfill
+
+Integrantes: \ \ \ 
+\begin{tabular}{ | l l l }
+Albarracín, Luis & 86901 & luisalbarracin@gmail.com  \\
+Ferrero, Gonzalo & 89657 & ferrerogonzalo@gmail.com \\
+Guagnini, Enzo & 88325 & enzoguagnini@gmail.com \\
+Magnaghi, Pablo & 88126 & pablomagnaghi@gmail.com 
+\end{tabular}
+
+\vspace{.3cm}
+
+Tutor: \ \ \ \ \ \ \ \ \ \
+\begin{tabular}{ | l l l }
+Patricia Calvo
+\end{tabular}
+
+\vspace{.5cm}
+
+% Fecha de entrega
+\center{21 de Diciembre de 2012}
+
+\end{titlepage}
+
+%------------------------ Indice ----------------------------
+
+\newpage
+\setcounter{tocdepth}{4}
+\tableofcontents
+\newpage
+
+%---------------------Comienzo del Informe-------------------
+
+\section{Resumen}
+  El siguiente trabajo consiste en el desarrollo de una aplicación que permite realizar diagramas de entidades y relaciones para modelar datos.
+  
+  La aplicación cuenta con una interfaz de escritorio, persistencia de los datos, generación de reportes de validación y métricas, y exportación 
+  o impresión de los diagramas.
+   
+\section{Herramientas utilizadas}
+  Para el desarrollo de la aplicación se utilizaron:
+  \begin{itemize}
+  \item El sistema operativo Ubuntu Linux 10.04.
+  \item El lenguaje de programación  C++, haciendo uso de la programación orientada a objetos.
+  \item Las bibliotecas gtkmm 2.4 para la vista y libxml 2.0 para la persistencia.
+  \end{itemize}
+
+\section{Desarrollo}
+  El desarrollo se dividió en 2 etapas:
+
+  \subsection{Diseño del modelo y esquemas de persistencia}
+    En el inicio del proyecto se analizaron los requerimientos de la aplicación y se diseñó un modelo que permitiera resolver el problema planteado.
+    Luego de eso, utilizando XMLSchema, se especificaron los esquemas de persistencia separando en dos archivos distintos los componentes del diagrama
+    y su representación.
+  
+  \subsection{Desarrollo de los componentes del modelo, vista, controlador y persistencia}
+    Haciendo uso de la arquitectura MVC, se desarrolló la aplicación en 3 módulos distintos (modelo, vista y controlador, y persistencia)
+    permitiendo así la paralelización de tareas entre los integrantes.
+  
+\section{Descripción del programa}
+
+  A continuación se describe la interfaz de la aplicación
+  
+  \subsection{Interfaz de usuario}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/principal.png}
+    \caption{Vista general de la aplicación.}
+  \end{figure}
+
+  En la parte superior se observan los botones con las funcionalidades principales del programa. En la parte derecha se observa el diagrama abierto actualmente.
+  Y en la parte izquierda se observa el árbol con los componentes del diagrama y sus diagramas hijos. 
+
+  \subsection{Funcionalidades}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/opciones.png}
+    \caption{Opciones principales de la interfaz.}
+  \end{figure}
+  
+\newpage
+
+  \subsubsection{Crear diagrama}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/nuevoDiagrama.png}
+    \caption{Creación de un nuevo diagrama.}
+  \end{figure}
+   
+  Haciendo click en el botón ``Agregar diagrama hijo'', se abre una ventana que permite el ingreso del nombre del nuevo diagrama.
+  Luego de aceptar, se agrega el diagrama al final de la lista de componentes del diagrama actual. Para abrirlo y comenzar a agregarle componentes es necesario
+  hacer doble click en su nombre.
+  
+  \subsubsection{Eliminar diagrama}
+  
+  Haciendo click en el botón ``Eliminar diagrama'' se elimina el diagrama que está abierto actualmente. El diagrama principal de un proyecto
+  no puede ser borrado.
+  
+  \subsubsection{Crear entidad nueva}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/entidadNueva.png}
+    \caption{Creación de una entidad nueva.}
+  \end{figure}
+  
+  Haciendo click en el botón ``Entidad'', se abre una ventana para ingresar los datos de la entidad nueva. En ella se pueden ingresar los atributos, el tipo
+  y el nombre.
+
+  \subsubsection{Crear relación}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/relacion.png}
+    \caption{Creación de una relación.}
+  \end{figure}
+
+  Haciendo click en el botón ``Relación'', se abre una ventana para ingresar los datos de una nueva relación. En la parte izquierda se eligen las entidades
+  que formaran parte, junto con sus cardinalidades. En la parte superior se ingresa el nombre de la entidad. Y en la sección derecha se ingresan el tipo
+  y los atributos de la relación.
+  
+  \subsubsection{Crear jerarquía}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/jerarquia.png}
+    \caption{Creación de una jerarquía.}
+  \end{figure}
+  
+  Haciendo click en el botón ``Jerarquía'' se abre una ventana que permite el ingreso del nombre de la jerarquía, la entidad general o padre, y las entidades
+  especializadas o hijas. En la sección derecha se elige la cobertura y la intersección de la jerarquía.
+  
+  \subsubsection{Crear entidad global}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/entidadGlobal.png}
+    \caption{Creación de una entidad global.}
+  \end{figure}
+  
+  Haciendo click en el botón ``Entidad Global'' se abre una ventana que muestra los diagramas ancestros del diagrama actual. Eligiendo un diagrama, se observan
+  en la sección derecha, sus entidades nuevas. Eligiendo una de las entidades, se agregará al diagrama actual en forma de entidad global.
+  
+  \subsubsection{Validación}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/validacion.png}
+    \caption{Validación de diagramas.}
+  \end{figure}
+  
+  Haciendo click en el botón ``Validar'' se abre una ventana con los resultados de la validación del modelo y de la vista para todos los diagramas del proyecto.
+  Además, se genera un reporte para cada diagrama con los detalles de la validación del modelo.
+  
+  \subsubsection{Métricas}
+  
+  Haciendo click en el botón ``Métricas'' se genera un reporte para todo el proyecto con métricas de los diagramas, indicando su cohesión y acoplamiento
+  entre otras.
+
+  \subsubsection{Zoom}
+  
+  Con los tres botones indicados se puede aumentar, achicar y reestablecer el tamaño en pantalla del diagrama.
+  
+  
+  \subsubsection{Crear atributo}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{imagenes/atributo.png}
+    \caption{Creación de un nuevo atributo}
+  \end{figure}
+  
+  Haciendo click en el botón ``Nuevo atributo'' de las figuras 4 y 5, se abre una ventana que permite el ingreso de atributos de una entidad nueva o una 
+  relación. 
+  Se debe ingresar el nombre, el tipo, las cardinalidades, y en caso de ser calculado, se debe ingresar también la expresión de cálculo.
+  Haciendo click en el botón ``Nuevo atributo'' se permite ingresar atributos secundarios o hijos del atributo actual.
+  
+  \subsubsection{Modificar componentes}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{imagenes/botonDerecho.png}
+    \caption{Menú de un componente.}
+  \end{figure}
+  
+  Haciendo click derecho sobre un componente se tiene acceso a las opciones para eliminar o modificar un componente.
+  En caso de que el componente sea una entidad nueva, figurará entre las opciones la posibilidad de crear identificadores.
+  
+  \subsubsection{Crear identificador}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/identificador.png}
+    \caption{Creación de identificadores.}
+  \end{figure}
+
+  Para crear un identificador en una entidad nueva, se debe seleccionar al menos un atributo de la lista. En caso de ser una entidad débil,
+  se debe seleccionar también la entidad fuerte de la cual depende.
+  
+  \subsubsection{Menú}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{imagenes/menu.png}
+    \caption{Menu de la aplicación.}
+  \end{figure}
+  
+  El menú de la aplicación contiene las siguientes opciones:
+  \begin{itemize}
+   \item \textbf{Nuevo:} Abre un proyecto nuevo con un diagrama principal en blanco.
+   \item \textbf{Abrir:} Abre un proyecto previamente guardado.
+   \item \textbf{Guardar:} Guarda el proyecto actual.
+   \item \textbf{Guardar como:} Permite el ingreso de la ubicación y guarda el proyecto actual.
+   \item \textbf{Configuración de la página:} Permite configurar el tamaño y la orientación de la página para realizar la impresión.
+   \item \textbf{Vista previa de impresión:} Muestra una vista de como quedará la impresión.
+   \item \textbf{Imprimir:} Realiza la impresión del diagrama actual.
+   \item \textbf{Exportar:} Exporta el diagrama actual en formato png o jpg.
+   \item \textbf{Cerrar:} Cierra el proyecto actual.
+   \item \textbf{Salir:} Sale de la aplicación.
+  \end{itemize}
+
+  
+\end{document}
+
+
