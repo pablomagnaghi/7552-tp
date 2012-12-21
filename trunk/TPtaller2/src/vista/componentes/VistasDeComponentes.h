@@ -19,5 +19,6 @@ class VistaJerarquia;
 class VistaIdentificador;
 class VistaRelacion;
 class VistaUnionEntidadRelacion;
+class VistaAtributo;
 
 #endif /* VISTASDECOMPONENTES_H_ */
