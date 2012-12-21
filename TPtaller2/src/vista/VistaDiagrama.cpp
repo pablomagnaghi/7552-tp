@@ -1011,6 +1011,19 @@ void VistaDiagrama::crearVistasDelModelo() {
 	this->agregarEntidadFuerteAlIdentificador();
 }
 
+void VistaDiagrama::cargarAtributoCompuesto(VistaAtributo * vAtribPadre) {
+	std::vector<Atributo*>::iterator itAtribCompuesto =
+			vAtribPadre->getAtributo()->atributosBegin();
+	VistaAtributo * atributoHijo;
+	while (itAtribCompuesto != vAtribPadre->getAtributo()->atributosEnd()) {
+		// La VistaAtributo* que devuelve no la utilizo en este caso
+		atributoHijo = ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, vAtribPadre,
+				(*itAtribCompuesto));
+		this->cargarAtributoCompuesto(atributoHijo);
+		itAtribCompuesto++;
+	}
+}
+
 void VistaDiagrama::crearVistasEntidadNueva() {
 	std::vector<EntidadNueva*>::iterator itEnt = this->getDiagrama()->entidadesNuevasBegin();
 	while (itEnt != this->getDiagrama()->entidadesNuevasEnd()) {
@@ -1022,14 +1035,17 @@ void VistaDiagrama::crearVistasEntidadNueva() {
 		while (itAtrib != (*itEnt)->atributosEnd()) {
 			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnEntidad(this,
 					vEntNueva, (*itAtrib));
+
+			cargarAtributoCompuesto(vAtrib);
 			// el builder crea las vistas de los atributos compuestos
-			std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
-			while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
-				// La VistaAtributo* que devuelve no la utilizo en este caso
-				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, vAtrib,
-						(*itAtribCompuesto));
-				itAtribCompuesto++;
-			}
+			/*std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
+			 while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
+			 // La VistaAtributo* que devuelve no la utilizo en este caso
+			 ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, vAtrib,
+			 (*itAtribCompuesto));
+			 itAtribCompuesto++;
+			 }*/
+
 			itAtrib++;
 		}
 
@@ -1105,13 +1121,14 @@ void VistaDiagrama::crearVistasRelacion() {
 			VistaAtributo *vAtrib = ComponentsBuilder::getInstance()->crearAtributoEnRelacion(this,
 					vRel, (*itAtrib));
 			// el builder crea las vistas de los atributos compuestos
-			std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
+			cargarAtributoCompuesto(vAtrib);
+			/*std::vector<Atributo*>::iterator itAtribCompuesto = (*itAtrib)->atributosBegin();
 			while (itAtribCompuesto != (*itAtrib)->atributosEnd()) {
 				// La VistaAtributo* que devuelve no la utilizo en este caso
 				ComponentsBuilder::getInstance()->crearAtributoEnAtributo(this, vAtrib,
 						(*itAtribCompuesto));
 				itAtribCompuesto++;
-			}
+			}*/
 			itAtrib++;
 		}
 		itRel++;

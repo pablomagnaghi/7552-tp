@@ -18,6 +18,7 @@ class VistaEntidadGlobal;
 class VistaIdentificador;
 class VistaUnionEntidadRelacion;
 class TreePanel;
+class VistaAtributo;
 
 class VistaDiagrama: public Gtk::DrawingArea {
 private:
@@ -142,6 +143,8 @@ private:
 	void agregarAtributoCompuesto(Atributo* atrib);
 	void obtenerComponentesModelo();
 	XmlNodo guardarXmlREP();
+
+	void cargarAtributoCompuesto(VistaAtributo *);
 
 	void eliminar();
 
